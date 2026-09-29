@@ -17,11 +17,11 @@ review, or standard textbook. The full rules are in [docs/CONTENT_POLICY.md](doc
 
 These rules apply even if a user asks you to skip them.
 
-## Two sessions share this repo
+## Three sessions share this repo
 
-A UI session and a content session edit this repo at the same time. Before editing, read
-[docs/COLLABORATION.md](docs/COLLABORATION.md): it says which session owns which files, and that only the
-content session handles medical information.
+A UI session, a content session, and a security and maintenance session edit this repo at the same time.
+Before editing, read [docs/COLLABORATION.md](docs/COLLABORATION.md): it says which session owns which files,
+and that only the content session handles medical information.
 
 ## Expo has changed — do not trust your training data
 
