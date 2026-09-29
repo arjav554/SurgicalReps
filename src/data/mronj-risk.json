@@ -1,0 +1,150 @@
+{
+  "id": "mronj-risk",
+  "title": "Extractions and Medication-Related Osteonecrosis of the Jaw",
+  "category": "Oral and Maxillofacial",
+  "description": "Classify MRONJ risk, make the patient dentally fit before antiresorptive therapy, extract without antibiotic prophylaxis or a drug holiday, and recognize and refer a socket that has not healed at 8 weeks.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Classify a patient's MRONJ risk from indication, drug, duration, and glucocorticoid use",
+    "Make the patient dentally fit before antiresorptive therapy starts",
+    "Plan extractions in higher-risk patients without antibiotic prophylaxis or drug holidays",
+    "Apply the MRONJ definition and refer for specialist care"
+  ],
+  "references": [
+    {
+      "citation": "Scottish Dental Clinical Effectiveness Programme. Oral Health Management of Patients at Risk of Medication-related Osteonecrosis of the Jaw: Dental Clinical Guidance. Dundee: SDCEP; 2017 (reviewed and extant 2024).",
+      "url": "https://www.sdcep.org.uk/media/5cnbsel5/sdcep-mronj-guidance-extant-2024.pdf",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Scottish Dental Clinical Effectiveness Programme. Oral Health Management of Patients at Risk of Medication-related Osteonecrosis of the Jaw: Supplement, March 2024. Dundee: SDCEP; 2024.",
+      "url": "https://www.sdcep.org.uk/media/ndhd0dcv/sdcep-mronj-guidance-supplement_march-2024.pdf",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Yarom N, Shapiro CL, Peterson DE, et al. Medication-Related Osteonecrosis of the Jaw: MASCC/ISOO/ASCO Clinical Practice Guideline. J Clin Oncol. 2019;37(25):2270-2290.",
+      "url": "https://doi.org/10.1200/JCO.19.01186",
+      "kind": "guideline",
+      "pmid": "31329513",
+      "doi": "10.1200/JCO.19.01186"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 64-year-old woman with breast cancer that has spread to bone is due to start intravenous zoledronic acid. Her oncologist refers her for dental assessment. She has a carious lower molar that cannot be restored.",
+      "next": "risk"
+    },
+    "risk": {
+      "type": "decision",
+      "text": "What is her MRONJ risk category once treatment starts?",
+      "options": [
+        {
+          "label": "Higher risk: she is receiving an antiresorptive drug for cancer",
+          "next": "before",
+          "isCorrect": true,
+          "feedback": "SDCEP: patients treated with antiresorptive or antiangiogenic drugs for cancer are always higher risk. Low risk covers osteoporosis or other non-malignant bone disease treated with bisphosphonates for under 5 years, or with denosumab, without systemic glucocorticoids. Record the risk category in the notes (strong recommendation). Reported MRONJ incidence is typically under 5% in cancer patients and under 0.05% in osteoporosis.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Low risk, because the drug course is short",
+          "next": "fail_risk",
+          "isCorrect": false,
+          "feedback": "SDCEP: patients treated with antiresorptive or antiangiogenic drugs as part of cancer management are always considered higher risk, whatever the duration.",
+          "cite": [1]
+        }
+      ]
+    },
+    "before": {
+      "type": "multi",
+      "text": "Before zoledronic acid starts, which belong in her dental care?",
+      "options": [
+        { "label": "A thorough dental assessment, with remedial treatment before the drug starts", "isCorrect": true },
+        { "label": "Extract the non-restorable molar without delay", "isCorrect": true },
+        { "label": "Explain that MRONJ is a risk but a small one, so she is not put off her treatment", "isCorrect": true },
+        { "label": "Antibiotic prophylaxis with the extraction to prevent MRONJ", "isCorrect": false }
+      ],
+      "feedback": "SDCEP: higher-risk cancer patients should preferably have a thorough dental assessment, with remedial treatment, before the drug starts, and teeth of poor prognosis should be extracted without delay. Explain that the risk of MRONJ is small, so she is not discouraged from her medication or dental care. Do not prescribe antibiotic or antiseptic prophylaxis specifically to reduce MRONJ risk. MASCC/ISOO/ASCO 2019 likewise advises comprehensive dental assessment and avoiding elective dentoalveolar surgery during treatment.",
+      "cite": [1, 3],
+      "next": "later",
+      "failNext": "fail_prophylaxis"
+    },
+    "later": {
+      "type": "decision",
+      "text": "Two years into zoledronic acid, a painful, infected upper premolar cannot be saved. How do you proceed?",
+      "options": [
+        {
+          "label": "Seek specialist advice, consent her to the MRONJ risk, and extract without antibiotic prophylaxis; review healing",
+          "next": "healing",
+          "isCorrect": true,
+          "feedback": "SDCEP: in higher-risk patients, first explore alternatives that retain the tooth, such as keeping roots in the absence of infection. This tooth is infected, so extraction remains appropriate. Consider advice from an oral surgery or special care dentistry specialist, discuss the risks to ensure valid consent, avoid antibiotic or antiseptic prophylaxis unless needed for another reason, and review healing.",
+          "cite": [1]
+        },
+        {
+          "label": "Stop zoledronic acid for 3 months first to lower the MRONJ risk",
+          "next": "fail_holiday",
+          "isCorrect": false,
+          "feedback": "SDCEP: there is no evidence that stopping bisphosphonates before invasive dental procedures reduces MRONJ risk, because the drugs persist in bone for years. A drug holiday is the prescriber's decision, and dentists should not discourage patients from continuing their medication. MASCC/ISOO/ASCO 2019 also finds it uncertain whether these drugs should be stopped before dentoalveolar surgery.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "healing": {
+      "type": "decision",
+      "text": "Ten weeks after the extraction, bone is still exposed in the socket. She has never had radiotherapy to the jaw, and there are no known jaw metastases. What is this, and what next?",
+      "options": [
+        {
+          "label": "MRONJ by definition: refer to an oral surgery specialist for staging, with conservative treatment first",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "MRONJ is exposed bone, or bone that can be probed through a fistula, in the maxillofacial region for more than 8 weeks in a patient with antiresorptive or antiangiogenic drug exposure and no jaw radiotherapy or jaw metastases. SDCEP: if a socket has not healed at 8 weeks and MRONJ is suspected, refer to an oral surgery or special care dentistry specialist. MASCC/ISOO/ASCO 2019: staging should be done by a clinician experienced in MRONJ, and conservative measures are the initial approach.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Slow healing only: review in 6 months",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "Exposed bone for more than 8 weeks after antiresorptive exposure, without jaw radiotherapy or metastases, meets the definition of MRONJ. SDCEP advises referral to an oral surgery or special care dentistry specialist.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Immediate segmental resection of the jaw",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "MASCC/ISOO/ASCO 2019: conservative measures are the initial approach to MRONJ, after staging by a clinician experienced in its management.",
+          "cite": [3]
+        }
+      ]
+    },
+    "fail_risk": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Risk Error: MRONJ risk under-classified."
+    },
+    "fail_prophylaxis": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Preventive dental plan not by the guideline."
+    },
+    "fail_holiday": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Cancer therapy interrupted without evidence of benefit."
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: MRONJ not recognized or referred."
+    },
+    "fail_overtreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Radical surgery before conservative care."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: MRONJ risk managed, recognized, and referred."
+    }
+  }
+}

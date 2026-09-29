@@ -18,6 +18,7 @@ import centralLineIj from './central-line-ij.json';
 import cutaneousMelanoma from './cutaneous-melanoma.json';
 import earlyCervicalCancer from './early-cervical-cancer.json';
 import earlyEndometrialCancer from './early-endometrial-cancer.json';
+import earlyOralCavityCancer from './early-oral-cavity-cancer.json';
 import ectopicPregnancy from './ectopic-pregnancy.json';
 import epistaxis from './epistaxis.json';
 import fulminantCDifficile from './fulminant-c-difficile.json';
@@ -27,6 +28,8 @@ import intussusception from './intussusception.json';
 import lapChole from './lap-chole.json';
 import lapCholeMeta from './lap-chole.meta.json';
 import majorBurn from './major-burn.json';
+import mandibularThirdMolar from './mandibular-third-molar.json';
+import mronjRisk from './mronj-risk.json';
 import necrotizingSoftTissueInfection from './necrotizing-soft-tissue-infection.json';
 import obstructingInfectedStone from './obstructing-infected-stone.json';
 import openGlobeInjury from './open-globe-injury.json';
@@ -122,6 +125,9 @@ export const procedures: Procedure[] = [
     cutaneousMelanoma,
     majorBurn,
     necrotizingSoftTissueInfection,
+    earlyOralCavityCancer,
+    mronjRisk,
+    mandibularThirdMolar,
   ].map(parseProcedure),
 ];
 

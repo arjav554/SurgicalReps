@@ -637,6 +637,39 @@ The graph is kept verbatim from the product spec; only citations and metadata ar
 | Remove non-viable tissue to healthy tissue; spare perfused skin, preserve questionable skin for reassessment (1C); multiple incisions preserve perforators; wound open; amputation for late/extreme cases; re-explore within 12–24 h until free of necrosis (1C) | WSES/SIS-E 2018 | FT |
 | NPWT after necrosis removed (1C); multidisciplinary team mandatory, reconstruction and rehabilitation (1C) | WSES/SIS-E 2018 | FT |
 
+<a id="early-oral-cavity-cancer"></a>
+### Early Oral Cavity Cancer: Managing the N0 Neck (`early-oral-cavity-cancer.json`)
+| Teaching point | Source | Level |
+|---|---|---|
+| Inform about smoking's effect on side effects, recurrence, second primaries; offer cessation help | NICE NG36 1.1.2–1.1.3 | FT |
+| Assess enteral nutrition need at diagnosis incl. prophylactic tube | NICE NG36 1.8.1 | FT |
+| Systemic staging for all except T1N0/T2N0 | NICE NG36 1.2.8 | FT |
+| Surgical management of the neck for all T1–T2 N0 oral cavity SCC; SLNB instead of END unless cervical access needed (e.g., free flap) | NICE NG36 1.3.4–1.3.5 | FT |
+| END vs watchful waiting (500 patients): 3-year OS 80.0% vs 67.5% (HR 0.64); DFS 69.5% vs 45.9% | D'Cruz 2015 | AB |
+| SLNB-navigated vs elective ND (271 patients): 3-year OS 87.9% vs 86.6%, noninferior; better neck function; positive SLN → ND | Hasegawa 2021 | AB |
+
+<a id="mronj-risk"></a>
+### Extractions and Medication-Related Osteonecrosis of the Jaw (`mronj-risk.json`)
+| Teaching point | Source | Level |
+|---|---|---|
+| MRONJ definition: exposed/probeable bone >8 weeks, antiresorptive/antiangiogenic exposure, no jaw radiotherapy or metastases | SDCEP 2017 §2.1; MASCC/ISOO/ASCO 2019 | FT / AB |
+| Risk categories: cancer patients always higher risk; low risk = osteoporosis/non-malignant bone disease on bisphosphonates <5 years or denosumab without systemic glucocorticoids; record category (strong, low quality) | SDCEP 2017 §3, Table 3.1 | FT |
+| Incidence typically <5% in cancer, <0.05% in osteoporosis; 2017 guidance remains extant | SDCEP Supplement 2024 | FT |
+| Dental fitness before therapy; higher-risk cancer patients: thorough assessment and remedial treatment before starting; extract poor-prognosis teeth without delay; explain small risk | SDCEP 2017 §4 | FT |
+| No antibiotic or antiseptic prophylaxis specifically for MRONJ; higher risk: explore alternatives (retain roots if no infection), consider specialist advice, consent, review healing; refer if socket unhealed at 8 weeks | SDCEP 2017 key recommendations | FT |
+| No evidence drug holidays reduce risk (bisphosphonates persist); holiday is prescriber's decision | SDCEP 2017 §3 (Drug Holidays) | FT |
+| Comprehensive dental assessment; avoid elective dentoalveolar surgery on BMAs; uncertain whether to discontinue; staging by experienced clinician; conservative measures first | MASCC/ISOO/ASCO 2019 | AB |
+
+<a id="mandibular-third-molar"></a>
+### Mandibular Third Molar Surgery (`mandibular-third-molar.json`)
+| Teaching point | Source | Level |
+|---|---|---|
+| Discontinue prophylactic removal of pathology-free impacted third molars; remove only with pathology (caries, pulpal/periapical disease, cellulitis, abscess, osteomyelitis, resorption, fracture, follicular cyst/tumour, surgical field); plaque not an indication; first pericoronitis episode (unless severe) not an indication, second or subsequent is | NICE TA1 1.1–1.4 | FT |
+| Therapeutic indications incl. single severe acute or recurrent subacute pericoronitis; no disease/low risk → clinical review | RCS England FDS 2020 (Executive summary; decision table) | FT |
+| Insufficient evidence to remove or retain asymptomatic disease-free impacted wisdom teeth; very low certainty link with second-molar periodontitis | Ghaeminia 2020 (Cochrane) | FT |
+| Plain-film signs of IAN proximity: canal diversion, root darkening, white-line interruption; CBCT not routine, selected cases only, no reduction in neurosensory disturbance; coronectomy minimises IAN injury with strict selection; risks infection, pain, later root removal | RCS England FDS 2020 | FT |
+| Ibuprofen plus paracetamol optimal; preoperative parenteral steroid reduces pain, trismus, swelling; limited evidence for antibiotics (treat 12 to prevent 1 infection) | RCS England FDS 2020 | FT |
+
 ## Open items for faculty review
 
 1. **WHO checklist** full text (iris.who.int) blocks automated access. Allergy, airway, blood-loss, antibiotic-timing,

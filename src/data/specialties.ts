@@ -112,6 +112,9 @@ export const PROCEDURE_SPECIALTIES: Record<string, Tag[]> = {
   'cutaneous-melanoma': ['plastics', 'general'],
   'major-burn': ['plastics', 'general', 'emergency'],
   'necrotizing-soft-tissue-infection': ['plastics', 'general', 'emergency'],
+  'early-oral-cavity-cancer': ['omfs', 'ent'],
+  'mronj-risk': ['omfs'],
+  'mandibular-third-molar': ['omfs'],
 };
 
 /** Fundamentals for anyone who operates or works in the OR, whatever their specialty. */

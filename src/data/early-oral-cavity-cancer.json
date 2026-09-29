@@ -1,0 +1,148 @@
+{
+  "id": "early-oral-cavity-cancer",
+  "title": "Early Oral Cavity Cancer: Managing the N0 Neck",
+  "category": "Oral and Maxillofacial",
+  "description": "Skip systemic staging for T1–T2 N0 disease, always manage the clinically negative neck surgically, prefer sentinel node biopsy unless the neck must be opened for a free flap, and complete the neck dissection when the sentinel node is positive.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Address smoking and nutrition from the point of diagnosis",
+    "Avoid systemic staging for T1–T2 N0 upper aerodigestive tract cancer",
+    "Treat the N0 neck surgically rather than by watchful waiting",
+    "Choose sentinel node biopsy or elective neck dissection by the need for neck access"
+  ],
+  "references": [
+    {
+      "citation": "National Institute for Health and Care Excellence. Cancer of the upper aerodigestive tract: assessment and management in people aged 16 and over (NICE guideline NG36). London: NICE; 2016, updated 2018.",
+      "url": "https://www.nice.org.uk/guidance/ng36",
+      "kind": "guideline"
+    },
+    {
+      "citation": "D'Cruz AK, Vaish R, Kapre N, et al. Elective versus Therapeutic Neck Dissection in Node-Negative Oral Cancer. N Engl J Med. 2015;373(6):521-529.",
+      "url": "https://doi.org/10.1056/NEJMoa1506007",
+      "kind": "trial",
+      "pmid": "26027881",
+      "doi": "10.1056/NEJMoa1506007"
+    },
+    {
+      "citation": "Hasegawa Y, Tsukahara K, Yoshimoto S, et al. Neck Dissections Based on Sentinel Lymph Node Navigation Versus Elective Neck Dissections in Early Oral Cancers: A Randomized, Multicenter, and Noninferiority Trial. J Clin Oncol. 2021;39(18):2025-2036.",
+      "url": "https://doi.org/10.1200/JCO.20.03637",
+      "kind": "trial",
+      "pmid": "33877855",
+      "doi": "10.1200/JCO.20.03637"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 61-year-old man who smokes has a 2.5 cm ulcerated lesion on the lateral border of his tongue. Biopsy shows squamous cell carcinoma. There are no palpable neck nodes, and his staging MRI shows no nodal disease. The multidisciplinary team stages it as cT2 N0.",
+      "next": "workup"
+    },
+    "workup": {
+      "type": "multi",
+      "text": "Which belong in his care now?",
+      "options": [
+        { "label": "Explain how continuing to smoke worsens his outcomes, and offer help to stop", "isCorrect": true },
+        { "label": "Assess his need for enteral nutrition support now, including a prophylactic tube", "isCorrect": true },
+        { "label": "PET-CT or chest CT for systemic staging", "isCorrect": false }
+      ],
+      "feedback": "NICE NG36: at diagnosis, explain how continuing to smoke adversely affects treatment side effects, recurrence, and second primary cancers, and offer help to stop. Assess the need for enteral nutrition at diagnosis, including prophylactic tube placement. Offer systemic staging to everyone with upper aerodigestive tract cancer except those with T1 N0 or T2 N0 disease.",
+      "cite": [1],
+      "next": "reconstruction",
+      "failNext": "fail_staging"
+    },
+    "reconstruction": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "neck_transoral", "weight": 1 },
+        { "next": "neck_flap", "weight": 1 }
+      ]
+    },
+    "neck_transoral": {
+      "type": "decision",
+      "text": "The tumor can be excised through the mouth and closed without a free flap, so the neck will not otherwise be opened. How do you manage his N0 neck?",
+      "options": [
+        {
+          "label": "Sentinel lymph node biopsy",
+          "next": "sentinel_positive",
+          "isCorrect": true,
+          "feedback": "NICE NG36: offer surgical management of the neck to everyone with T1–T2 N0 oral cavity cancer, and offer sentinel node biopsy instead of elective neck dissection unless the neck must be opened anyway, for example for free-flap reconstruction. In a randomized trial of 271 patients, sentinel node-navigated surgery was noninferior to elective neck dissection for 3-year overall survival (87.9% vs 86.6%) and gave better neck function.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Watchful waiting, with neck dissection only if nodes appear",
+          "next": "fail_neck",
+          "isCorrect": false,
+          "feedback": "NICE NG36: offer surgical management of the neck to everyone with T1–T2 N0 oral cavity cancer. In a randomized trial of 500 patients, elective neck dissection improved 3-year overall survival over watchful waiting with dissection at relapse (80.0% vs 67.5%, HR 0.64) and disease-free survival (69.5% vs 45.9%).",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Elective neck dissection, although the neck is not otherwise being opened",
+          "next": "fail_morbidity",
+          "isCorrect": false,
+          "feedback": "NICE NG36: offer sentinel node biopsy instead of elective neck dissection unless the neck must be opened anyway, such as for free-flap reconstruction. Sentinel node-navigated surgery was noninferior for survival and gave better neck function.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "sentinel_positive": {
+      "type": "decision",
+      "text": "The sentinel node contains metastatic carcinoma. Next for the neck?",
+      "options": [
+        {
+          "label": "Neck dissection",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "In the sentinel node trial, patients with a positive sentinel node went on to neck dissection, at the same operation or a second one, and survival was noninferior to elective dissection. NICE NG36 requires surgical management of the neck in early oral cavity cancer, and waiting for nodal relapse lowered survival in a randomized trial (3-year overall survival 67.5% vs 80.0%).",
+          "cite": [1, 2, 3]
+        },
+        {
+          "label": "Observation, with dissection only if nodes become palpable",
+          "next": "fail_neck",
+          "isCorrect": false,
+          "feedback": "In the sentinel node trial, a positive sentinel node led to neck dissection. In early oral cancer, dissection only at nodal relapse gave worse survival than elective dissection (3-year overall survival 67.5% vs 80.0%).",
+          "cite": [2, 3]
+        }
+      ]
+    },
+    "neck_flap": {
+      "type": "decision",
+      "text": "The resection will need a free-flap reconstruction, so the neck vessels must be exposed anyway. How do you manage his N0 neck?",
+      "options": [
+        {
+          "label": "Elective neck dissection at the same operation",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "NICE NG36: sentinel node biopsy replaces elective neck dissection unless the person needs cervical access at the same time, for example for free-flap reconstruction. In a randomized trial, elective neck dissection improved 3-year overall survival over watchful waiting (80.0% vs 67.5%).",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Watchful waiting, with neck dissection only if nodes appear",
+          "next": "fail_neck",
+          "isCorrect": false,
+          "feedback": "NICE NG36: offer surgical management of the neck to everyone with T1–T2 N0 oral cavity cancer. Waiting for nodal relapse lowered 3-year overall survival in a randomized trial (67.5% vs 80.0%).",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "fail_staging": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Workup not matched to early-stage disease."
+    },
+    "fail_neck": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Untreated occult neck disease."
+    },
+    "fail_morbidity": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Neck dissection where sentinel node biopsy was indicated."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: N0 neck managed by the evidence."
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "id": "mandibular-third-molar",
+  "title": "Mandibular Third Molar Surgery",
+  "category": "Oral and Maxillofacial",
+  "description": "Remove wisdom teeth for disease rather than prophylaxis, recognize radiographic signs of nerve proximity, offer coronectomy where it fits, and use analgesia and steroid rather than routine antibiotics.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Distinguish therapeutic indications for third molar removal from prophylactic removal",
+    "Recognize radiographic signs of a close relationship to the inferior alveolar canal",
+    "Use CBCT selectively and discuss coronectomy",
+    "Choose perioperative measures with evidence behind them"
+  ],
+  "references": [
+    {
+      "citation": "National Institute for Health and Care Excellence. Guidance on the extraction of wisdom teeth (Technology appraisal guidance TA1). London: NICE; 2000.",
+      "url": "https://www.nice.org.uk/guidance/ta1",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Faculty of Dental Surgery, The Royal College of Surgeons of England. Parameters of care for patients undergoing mandibular third molar surgery. London: RCS England; 2020 (edited May 2021).",
+      "url": "https://www.rcseng.ac.uk/-/media/Files/RCS/FDS/Guidelines/3rd-molar-guidelines--April-2021-v4.pdf",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Ghaeminia H, Nienhuijs ME, Toedtling V, et al. Surgical removal versus retention for the management of asymptomatic disease-free impacted wisdom teeth. Cochrane Database Syst Rev. 2020;5(5):CD003879.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7199383/",
+      "kind": "systematic-review",
+      "pmid": "32368796",
+      "doi": "10.1002/14651858.CD003879.pub5"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A healthy 23-year-old woman has had a second episode of pericoronitis in 6 months around a partially erupted, mesioangular lower right third molar. The infection has now settled. Her other three wisdom teeth are unerupted and show no disease on examination or radiograph. She asks whether all four should come out.",
+      "next": "indications"
+    },
+    "indications": {
+      "type": "multi",
+      "text": "Which are indications for removing a mandibular third molar?",
+      "options": [
+        { "label": "Recurrent pericoronitis", "isCorrect": true },
+        { "label": "Unrestorable caries in the third molar", "isCorrect": true },
+        { "label": "A cyst associated with the tooth", "isCorrect": true },
+        { "label": "Plaque around the tooth, on its own", "isCorrect": false },
+        { "label": "Impaction with no disease or symptoms", "isCorrect": false }
+      ],
+      "feedback": "NICE TA1 limits surgical removal of impacted third molars to evidence of pathology, including unrestorable caries, pulpal or periapical disease, cellulitis, abscess, osteomyelitis, resorption, fracture, and follicular disease such as cyst or tumor. A first episode of pericoronitis, unless severe, is not an indication, but second or subsequent episodes are. Plaque is a risk factor, not an indication. Prophylactic removal of pathology-free impacted third molars should be discontinued. RCS England 2020 lists single severe acute or recurrent subacute pericoronitis, unrestorable caries, periodontal disease, resorption, fracture, periapical infection, and cysts or tumors as therapeutic indications.",
+      "cite": [1, 2],
+      "next": "which",
+      "failNext": "fail_indication"
+    },
+    "which": {
+      "type": "decision",
+      "text": "Which teeth do you plan to remove?",
+      "options": [
+        {
+          "label": "The symptomatic lower right third molar only; keep the disease-free teeth under clinical review",
+          "next": "nerve",
+          "isCorrect": true,
+          "feedback": "NICE TA1: remove impacted third molars only when there is pathology, and a second episode of pericoronitis is an appropriate indication. RCS England 2020: with no disease or a low risk of disease, clinical review is required. A Cochrane review found insufficient evidence to decide whether asymptomatic, disease-free impacted wisdom teeth should be removed or retained.",
+          "cite": [1, 2, 3]
+        },
+        {
+          "label": "All four, because removing disease-free wisdom teeth is proven to prevent later problems",
+          "next": "fail_prophylactic",
+          "isCorrect": false,
+          "feedback": "A Cochrane review found insufficient evidence to determine whether asymptomatic, disease-free impacted wisdom teeth should be removed or retained; a possible link between retention and later periodontitis of the adjacent second molar rests on very low-certainty evidence. NICE TA1 advises against prophylactic removal of pathology-free impacted third molars.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "nerve": {
+      "type": "decision",
+      "text": "Her panoramic radiograph shows darkening of the roots and interruption of the canal's white line where the roots cross the inferior alveolar canal. How do you plan the surgery?",
+      "options": [
+        {
+          "label": "Recognize a close relationship to the nerve, consider CBCT if it would change management, and discuss coronectomy as well as full removal",
+          "next": "periop",
+          "isCorrect": true,
+          "feedback": "RCS England 2020: the three most significant plain-film signs of a close relationship to the inferior alveolar canal are diversion of the canal, darkening of the root, and interruption of the cortical white line. CBCT may be considered in carefully selected cases where it would change management, but it should not be used routinely and has not been shown to reduce nerve disturbance. Coronectomy is an alternative for teeth close to the canal and is effective in minimizing inferior alveolar nerve injury, within strict selection criteria. Its risks include infection, pain, and later root removal.",
+          "cite": [2]
+        },
+        {
+          "label": "Order CBCT for every third molar before any surgery",
+          "next": "fail_imaging",
+          "isCorrect": false,
+          "feedback": "RCS England 2020: CBCT should not be used routinely to assess mandibular third molars; its radiation dose and cost are higher, and it has not been shown to reduce inferior alveolar nerve disturbance. It may be considered in carefully selected cases where it would change management.",
+          "cite": [2]
+        }
+      ]
+    },
+    "periop": {
+      "type": "decision",
+      "text": "She chooses surgery. Which perioperative measures do you plan?",
+      "options": [
+        {
+          "label": "Ibuprofen with paracetamol for pain, a preoperative parenteral steroid, and no routine antibiotics",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "RCS England 2020: combined ibuprofen and paracetamol gives optimal postoperative analgesia, and parenteral steroid given preoperatively reduces pain, trismus, and swelling. Evidence that antibiotics prevent complications after third molar removal is limited; clinicians should consider whether treating 12 healthy patients to prevent one infection does more harm than good.",
+          "cite": [2]
+        },
+        {
+          "label": "Routine antibiotics for every patient, as they clearly prevent complications",
+          "next": "fail_antibiotics",
+          "isCorrect": false,
+          "feedback": "RCS England 2020: there is limited evidence that commonly used antibiotics prevent complications after third molar removal, and treating 12 healthy patients to prevent one infection may do more harm than good.",
+          "cite": [2]
+        }
+      ]
+    },
+    "fail_indication": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Indications for removal misjudged."
+    },
+    "fail_prophylactic": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Disease-free teeth removed on a false premise."
+    },
+    "fail_imaging": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Routine CBCT without an indication."
+    },
+    "fail_antibiotics": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Routine antibiotics without clear benefit."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Third molar removed for disease, with the nerve in mind."
+    }
+  }
+}

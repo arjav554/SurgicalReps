@@ -41,6 +41,8 @@ const SOURCE_HOSTS = new Set([
   'www.entnet.org',
   'www.sign.ac.uk',
   'www.euroburn.org',
+  'www.sdcep.org.uk',
+  'www.rcseng.ac.uk',
 ]);
 
 /** Primary research must be indexed: it carries a PubMed ID or DOI. */
