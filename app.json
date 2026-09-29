@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "mental-reps",
+    "name": "Mental Reps",
     "slug": "mental-reps",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "ios": {
       "supportsTablet": true
     },
@@ -19,7 +19,15 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-audio",
+      "expo-font"
+    ],
+    "scheme": "mentalreps",
+    "backgroundColor": "#07090B"
   }
 }

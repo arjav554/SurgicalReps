@@ -1,0 +1,267 @@
+{
+  "id": "adhesive-sbo",
+  "title": "Adhesive Small Bowel Obstruction",
+  "category": "Emergency General Surgery",
+  "description": "Separate the patient who needs the OR now from the one who needs a tube and time, run the water-soluble contrast challenge, and know when to stop waiting.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Use CT to identify strangulation, closed loops, and ischemia",
+    "Run non-operative management correctly when there is no peritonitis, strangulation, or ischemia",
+    "Interpret the 24-hour water-soluble contrast film",
+    "Respect the 72-hour limit on a failing non-operative trial",
+    "Reassess bowel viability before resecting, using fluorescence angiography where available"
+  ],
+  "references": [
+    {
+      "citation": "Ten Broek RPG, Krielen P, Di Saverio S, et al. Bologna guidelines for diagnosis and management of adhesive small bowel obstruction (ASBO): 2017 update of the evidence-based guidelines from the World Society of Emergency Surgery ASBO working group. World J Emerg Surg. 2018;13:24.",
+      "url": "https://doi.org/10.1186/s13017-018-0185-2",
+      "kind": "guideline",
+      "pmid": "29946347",
+      "doi": "10.1186/s13017-018-0185-2"
+    },
+    {
+      "citation": "Branco BC, Barmparas G, Schnüriger B, Inaba K, Chan LS, Demetriades D. Systematic review and meta-analysis of the diagnostic and therapeutic role of water-soluble contrast agent in adhesive small bowel obstruction. Br J Surg. 2010;97(4):470-478.",
+      "url": "https://doi.org/10.1002/bjs.7019",
+      "kind": "systematic-review",
+      "pmid": "20205228",
+      "doi": "10.1002/bjs.7019"
+    },
+    {
+      "citation": "De Simone B, Abu-Zidan FM, Boni L, et al. Indocyanine green fluorescence-guided surgery in the emergency setting: the WSES international consensus position paper. World J Emerg Surg. 2025;20(1):13.",
+      "url": "https://doi.org/10.1186/s13017-025-00575-w",
+      "kind": "consensus",
+      "pmid": "39948641",
+      "doi": "10.1186/s13017-025-00575-w"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 64-year-old woman with a prior open hysterectomy has 24 hours of colicky abdominal pain, bilious vomiting, distension, and no flatus. The abdomen is distended and diffusely tender without guarding or rebound.",
+      "vitals": [
+        { "label": "HR", "value": "96", "unit": "bpm" },
+        { "label": "BP", "value": "128/76", "unit": "mmHg" },
+        { "label": "Temp", "value": "37.2", "unit": "°C" },
+        { "label": "WBC", "value": "11.0", "unit": "×10³/µL" },
+        { "label": "Lactate", "value": "1.4", "unit": "mmol/L" },
+        { "label": "K", "value": "3.3", "unit": "mmol/L", "status": "warning" }
+      ],
+      "next": "imaging"
+    },
+    "imaging": {
+      "type": "decision",
+      "text": "What imaging do you order?",
+      "options": [
+        {
+          "label": "Plain abdominal films only; the exam will tell you if the bowel is strangulated",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "Bologna 2017: the sensitivity of physical examination for strangulation is only 48%, even in experienced hands. Plain X-rays do not detect the early signs of peritonitis or strangulation and give no anatomical information about the cause.",
+          "cite": [1]
+        },
+        {
+          "label": "CT abdomen and pelvis with IV contrast",
+          "next": "ct",
+          "isCorrect": true,
+          "feedback": "Bologna 2017: CT is the preferred imaging when there is doubt about the diagnosis and to assess the need for urgent surgery. Current helical CT has about 90% accuracy in predicting strangulation and the need for urgent surgery.",
+          "cite": [1]
+        }
+      ]
+    },
+    "ct": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "ct_simple", "weight": 3 },
+        { "next": "ct_strangulation", "weight": 2 }
+      ]
+    },
+    "ct_strangulation": {
+      "type": "decision",
+      "text": "CT: a closed-loop configuration with mesenteric swirl, reduced wall enhancement in a pelvic loop, and free fluid. Repeat exam: localized guarding.",
+      "vitals": [
+        { "label": "HR", "value": "118", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "112/68", "unit": "mmHg" },
+        { "label": "Temp", "value": "38.3", "unit": "°C", "status": "warning" },
+        { "label": "WBC", "value": "16.8", "unit": "×10³/µL", "status": "warning" },
+        { "label": "Lactate", "value": "3.1", "unit": "mmol/L", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Trial of nasogastric decompression and water-soluble contrast first",
+          "next": "fail_ischemic",
+          "isCorrect": false,
+          "feedback": "Bologna 2017: non-operative management is contraindicated with peritonitis, strangulation, or ischemia. A closed loop, ischemia, and free fluid on CT suggest the need for surgery without delay.",
+          "cite": [1]
+        },
+        {
+          "label": "Resuscitate and take her to the operating room now",
+          "next": "viability",
+          "isCorrect": true,
+          "feedback": "Bologna 2017: signs of a closed loop, bowel ischemia, and free fluid suggest the need for surgery without delay. Strangulation and ischemia are contraindications to non-operative management.",
+          "cite": [1]
+        }
+      ]
+    },
+    "ct_simple": {
+      "type": "info",
+      "text": "CT: dilated proximal small bowel with a single transition point in the pelvis and collapsed distal bowel. No closed loop, normal wall enhancement, no mesenteric swirl, no free fluid, no pneumatosis.",
+      "next": "initial"
+    },
+    "initial": {
+      "type": "decision",
+      "text": "No peritonitis, strangulation, or ischemia on exam or CT. What is the initial management?",
+      "options": [
+        {
+          "label": "Urgent laparotomy and adhesiolysis",
+          "next": "fail_laparotomy",
+          "isCorrect": false,
+          "feedback": "Bologna 2017: non-operative management should always be tried in adhesive SBO unless there are signs of peritonitis, strangulation, or bowel ischemia. Morbidity from emergency exploration is high, with a considerable risk of bowel injury.",
+          "cite": [1]
+        },
+        {
+          "label": "Non-operative: nil by mouth, nasogastric decompression, IV fluids, and electrolyte correction",
+          "next": "contrast",
+          "isCorrect": true,
+          "feedback": "Bologna 2017: non-operative management succeeds in about 70–90% of patients with ASBO. Its cornerstone is nil by mouth with nasogastric or long-tube decompression, plus fluid resuscitation and correction of electrolytes; low potassium is common and needs correcting.",
+          "cite": [1]
+        }
+      ]
+    },
+    "contrast": {
+      "type": "decision",
+      "text": "She is decompressed and resuscitated. Which adjunct predicts resolution and shortens hospital stay?",
+      "options": [
+        {
+          "label": "Serial plain abdominal X-rays every 12 hours to follow the air-fluid levels",
+          "next": "fail_contrast",
+          "isCorrect": false,
+          "feedback": "Plain X-rays have a sensitivity of only about 70% for small bowel obstruction and do not detect the early signs of strangulation. The adjunct with evidence behind it is a water-soluble contrast study with a film at 24 hours.",
+          "cite": [1]
+        },
+        {
+          "label": "Water-soluble contrast (Gastrografin) via the NG tube, with an abdominal X-ray at 24 hours",
+          "next": "contrast_result",
+          "isCorrect": true,
+          "feedback": "Bologna 2017: water-soluble contrast accurately predicts the need for surgery and reduces hospital stay; contrast not reaching the colon on the 24-hour film is highly indicative of non-operative failure. In a meta-analysis, contrast in the colon within 4–24 hours predicted resolution with 96% sensitivity and 98% specificity.",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "contrast_result": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "contrast_passed", "weight": 3 },
+        { "next": "contrast_failed", "weight": 2 }
+      ]
+    },
+    "contrast_passed": {
+      "type": "decision",
+      "text": "On the 24-hour film the contrast has reached the colon. She is passing flatus, NG output has fallen, and her abdomen is softer. What next?",
+      "vitals": [
+        { "label": "HR", "value": "84", "unit": "bpm" },
+        { "label": "Temp", "value": "36.9", "unit": "°C" },
+        { "label": "K", "value": "3.9", "unit": "mmol/L" }
+      ],
+      "options": [
+        {
+          "label": "Remove the NG tube and start oral intake, watching for resolution",
+          "next": "success_nonoperative",
+          "isCorrect": true,
+          "feedback": "Contrast reaching the colon within 4–24 hours predicts resolution of the obstruction (sensitivity 96%, specificity 98% in a meta-analysis), so non-operative management continues to success.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Operate anyway to divide the adhesions and prevent recurrence",
+          "next": "fail_laparotomy",
+          "isCorrect": false,
+          "feedback": "Bologna 2017: the slightly lower recurrence rate after operative treatment is not a reason to choose surgery, because emergency exploration carries high morbidity and a considerable risk of bowel injury.",
+          "cite": [1]
+        }
+      ]
+    },
+    "contrast_failed": {
+      "type": "decision",
+      "text": "At 24 hours the contrast is still in dilated small bowel and has not reached the colon. NG output remains high and there is no flatus. Vitals are stable and the exam is unchanged. What now?",
+      "options": [
+        {
+          "label": "Operate: the failed contrast challenge predicts non-operative failure",
+          "next": "viability",
+          "isCorrect": true,
+          "feedback": "Bologna 2017: contrast not reaching the colon on the 24-hour film is highly indicative of non-operative failure, and delays in surgery increase morbidity and mortality. The meta-analysis found contrast progression highly accurate in predicting the need for surgery.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Continue non-operative management for another week; most obstructions eventually resolve",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "Bologna 2017: most authors and the panel consider 72 hours a safe and appropriate limit for a non-operative trial, and delays in surgery increase morbidity and mortality. A failed 24-hour contrast film already signals failure.",
+          "cite": [1]
+        }
+      ]
+    },
+    "viability": {
+      "type": "decision",
+      "text": "At surgery you divide a single adhesive band. The 20 cm segment that was trapped is dusky but has a sheen and faint peristalsis. What next?",
+      "options": [
+        {
+          "label": "Resect the dusky segment and all the dilated bowel proximal to the band",
+          "next": "fail_resection",
+          "isCorrect": false,
+          "feedback": "Resection is required for necrosis and irreversible ischemia. When viability is doubtful, the decision to resect and how much should rest on reassessment of the affected segment, ideally with ICG fluorescence angiography, because the surgeon's eye alone often misjudges viable bowel as non-viable.",
+          "cite": [3]
+        },
+        {
+          "label": "Reassess the released segment before deciding: color, peristalsis, and mesenteric pulsation, with ICG fluorescence angiography if available",
+          "next": "success_operative",
+          "isCorrect": true,
+          "feedback": "Clinical signs of viability (color, peristalsis, temperature, mesenteric pulsation) are subjective: in one experimental study they judged only 36% of histologically viable segments to be viable. The WSES consensus supports ICG fluorescence angiography to assess perfusion before deciding to resect, which can avoid unnecessary resection.",
+          "cite": [3]
+        }
+      ]
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Missed strangulation and delayed bowel resection."
+    },
+    "fail_ischemic": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Bowel necrosis after delaying surgery for strangulation.",
+      "vitals": [
+        { "label": "HR", "value": "132", "unit": "bpm", "status": "critical" },
+        { "label": "Lactate", "value": "5.6", "unit": "mmol/L", "status": "critical" }
+      ]
+    },
+    "fail_laparotomy": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Management Error: Avoidable laparotomy in uncomplicated adhesive SBO."
+    },
+    "fail_contrast": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Serial plain films in place of a water-soluble contrast challenge."
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Delayed operation after a failed non-operative trial."
+    },
+    "fail_resection": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Unnecessary resection of viable small bowel."
+    },
+    "success_nonoperative": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Resolved Non-operatively: Adhesive SBO settled without surgery."
+    },
+    "success_operative": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Procedure Complete: Band divided, bowel viable, no resection."
+    }
+  }
+}

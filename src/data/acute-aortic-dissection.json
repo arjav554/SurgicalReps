@@ -1,0 +1,310 @@
+{
+  "id": "acute-aortic-dissection",
+  "title": "Acute Aortic Dissection",
+  "category": "Aortic Disease",
+  "description": "Recognize a high-risk presentation, image with CT, start anti-impulse therapy, send type A to immediate surgery, treat type B by complications, and plan lifelong surveillance.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Use the aortic dissection detection risk score to choose imaging over D-dimer rule-out",
+    "Start anti-impulse therapy to the guideline heart rate and blood pressure targets",
+    "Send acute type A dissection to immediate surgery, including with malperfusion",
+    "Choose the recommended operative strategy for a type A repair",
+    "Treat uncomplicated type B medically and complicated type B with endovascular repair",
+    "Set up long-term medical therapy, imaging surveillance, and family screening"
+  ],
+  "references": [
+    {
+      "citation": "Isselbacher EM, Preventza O, Hamilton Black J 3rd, et al. 2022 ACC/AHA Guideline for the Diagnosis and Management of Aortic Disease: A Report of the American Heart Association/American College of Cardiology Joint Committee on Clinical Practice Guidelines. Circulation. 2022;146(24):e334-e482.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9876736/",
+      "kind": "guideline",
+      "pmid": "36322642",
+      "doi": "10.1161/CIR.0000000000001106"
+    },
+    {
+      "citation": "Nazerian P, Mueller C, Soeiro AM, et al. Diagnostic Accuracy of the Aortic Dissection Detection Risk Score Plus D-Dimer for Acute Aortic Syndromes: The ADvISED Prospective Multicenter Study. Circulation. 2018;137(3):250-258.",
+      "url": "https://doi.org/10.1161/CIRCULATIONAHA.117.029457",
+      "kind": "cohort",
+      "pmid": "29030346",
+      "doi": "10.1161/CIRCULATIONAHA.117.029457"
+    },
+    {
+      "citation": "Hagan PG, Nienaber CA, Isselbacher EM, et al. The International Registry of Acute Aortic Dissection (IRAD): new insights into an old disease. JAMA. 2000;283(7):897-903.",
+      "url": "https://doi.org/10.1001/jama.283.7.897",
+      "kind": "cohort",
+      "pmid": "10685714",
+      "doi": "10.1001/jama.283.7.897"
+    },
+    {
+      "citation": "Evangelista A, Isselbacher EM, Bossone E, et al. Insights From the International Registry of Acute Aortic Dissection: A 20-Year Experience of Collaborative Clinical Research. Circulation. 2018;137(17):1846-1860.",
+      "url": "https://doi.org/10.1161/CIRCULATIONAHA.117.031264",
+      "kind": "review",
+      "pmid": "29685932",
+      "doi": "10.1161/CIRCULATIONAHA.117.031264"
+    },
+    {
+      "citation": "Nienaber CA, Kische S, Rousseau H, et al. Endovascular repair of type B aortic dissection: long-term results of the randomized investigation of stent grafts in aortic dissection trial. Circ Cardiovasc Interv. 2013;6(4):407-416.",
+      "url": "https://doi.org/10.1161/CIRCINTERVENTIONS.113.000463",
+      "kind": "trial",
+      "pmid": "23922146",
+      "doi": "10.1161/CIRCINTERVENTIONS.113.000463"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 58-year-old man with poorly controlled hypertension has had sudden, severe, sharp chest pain radiating to his back for 40 minutes, worst at onset. Right-arm BP is 178/96; left-arm BP is 142/84. ECG shows sinus tachycardia without ST elevation.",
+      "vitals": [
+        { "label": "HR", "value": "104", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "178/96", "unit": "mmHg", "status": "warning" },
+        { "label": "RR", "value": "20", "unit": "/min" },
+        { "label": "SpO2", "value": "97", "unit": "%" }
+      ],
+      "next": "workup"
+    },
+    "workup": {
+      "type": "decision",
+      "text": "What next?",
+      "options": [
+        {
+          "label": "D-dimer first; image only if it is raised",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "His aortic dissection detection risk score (ADD-RS) is 2: high-risk pain plus a blood pressure difference between arms. That makes him high risk. D-dimer rule-out was validated only for ADD-RS of 1 or less with D-dimer below 500 ng/mL (ADvISED: failure rate 0.3%). ACC/AHA 2022 supports pairing a low risk score with a low D-dimer to exclude the diagnosis, not using D-dimer alone at high risk.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "CT angiography of the chest, abdomen, and pelvis now",
+          "next": "anti_impulse",
+          "isCorrect": true,
+          "feedback": "ACC/AHA 2022 (COR 1): CT is recommended for initial imaging in suspected acute aortic syndrome. It is widely available, fast, and accurate, and it shows the extent of the dissection, branch vessel involvement, and malperfusion. His ADD-RS of 2 (high-risk pain plus an arm pressure difference) puts him at high risk.",
+          "cite": [1]
+        },
+        {
+          "label": "Chest X-ray: a normal mediastinum makes dissection unlikely",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "ACC/AHA 2022: a chest X-ray is neither sensitive nor specific enough to diagnose an acute aortic syndrome. In IRAD, 12.4% of initial chest films showed no abnormality, and a pulse deficit was present in only 15.1% of patients.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "anti_impulse": {
+      "type": "multi",
+      "text": "While CT is arranged, which belong in your initial management?",
+      "options": [
+        { "label": "Arterial line and ICU-level monitoring", "isCorrect": true },
+        { "label": "IV beta-blocker first, to a heart rate of 60–80 bpm", "isCorrect": true },
+        { "label": "Systolic BP below 120 mm Hg, or the lowest that keeps organs perfused", "isCorrect": true },
+        { "label": "IV opioid analgesia", "isCorrect": true },
+        { "label": "A vasodilator infusion alone, before any beta-blocker", "isCorrect": false },
+        { "label": "IV ketorolac for the pain", "isCorrect": false }
+      ],
+      "feedback": "ACC/AHA 2022: start anti-impulse therapy promptly, with invasive arterial monitoring in an ICU (COR 1). Target systolic BP below 120 mm Hg, or the lowest pressure that keeps end organs perfused, and heart rate 60–80 bpm (COR 1). Start with an IV beta-blocker unless contraindicated (COR 1). Add a vasodilator only if BP stays high, because a vasodilator alone can cause compensatory tachycardia. IV opioids treat the pain well; IV NSAIDs such as ketorolac may raise BP and harm the kidneys.",
+      "cite": [1],
+      "next": "ct_result",
+      "failNext": "fail_impulse"
+    },
+    "ct_result": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "type_a", "weight": 4 },
+        { "next": "type_a_malperfusion", "weight": 2 },
+        { "next": "type_b_uncomplicated", "weight": 3 },
+        { "next": "type_b_complicated", "weight": 2 }
+      ]
+    },
+    "type_a": {
+      "type": "decision",
+      "text": "CT: a dissection flap from the aortic root through the arch into the descending aorta, with a small pericardial effusion. He is hemodynamically stable, and your center has an aortic surgical team on site. Plan?",
+      "options": [
+        {
+          "label": "ICU, medical therapy, and repeat CT tomorrow; operate if it extends",
+          "next": "fail_type_a_delay",
+          "isCorrect": false,
+          "feedback": "ACC/AHA 2022: medical management alone carries 2–3 times the mortality of surgery for type A dissection, and unoperated type A dissection kills about 1% of patients per hour. In the first IRAD report, in-hospital mortality was 58% without surgery vs 26% with it.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Emergency surgical repair now",
+          "next": "op_plan",
+          "isCorrect": true,
+          "feedback": "ACC/AHA 2022 (COR 1): emergency surgical evaluation and immediate surgery for acute type A dissection, given the risk of rupture with tamponade, acute aortic regurgitation, coronary compromise, and malperfusion. Unoperated mortality is about 1% per hour. In IRAD, surgical mortality fell from 25% to 18% between 1995 and 2013, while medical mortality stayed at 57%.",
+          "cite": [1, 4]
+        },
+        {
+          "label": "Thoracic endovascular repair (TEVAR) of the descending aorta",
+          "next": "fail_type_a_delay",
+          "isCorrect": false,
+          "feedback": "Endovascular stent grafting is the intervention for complicated type B dissection. Type A dissection involves the ascending aorta and needs immediate open surgical repair (ACC/AHA 2022, COR 1).",
+          "cite": [1]
+        }
+      ]
+    },
+    "type_a_malperfusion": {
+      "type": "decision",
+      "text": "CT: type A dissection extending into the left renal and left iliac arteries. His left leg is cold and pulseless, and his urine output is falling. Plan?",
+      "vitals": [
+        { "label": "HR", "value": "112", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "118/70", "unit": "mmHg" },
+        { "label": "Cr", "value": "1.9", "unit": "mg/dL", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "Immediate ascending aortic repair, then reassess for residual malperfusion",
+          "next": "op_plan",
+          "isCorrect": true,
+          "feedback": "ACC/AHA 2022 (COR 1): with renal, mesenteric, or lower-extremity malperfusion, proceed to immediate repair of the ascending aorta, then treat any residual malperfusion secondarily. Malperfusion syndrome carried 30.5% mortality vs 6.2% without it. The exception is clinically significant mesenteric malperfusion, where reperfusing the gut first is also reasonable in experienced hands (COR 2a).",
+          "cite": [1]
+        },
+        {
+          "label": "Femoral-femoral bypass for the leg first, then aortic repair",
+          "next": "fail_malperfusion",
+          "isCorrect": false,
+          "feedback": "ACC/AHA 2022 (COR 1): renal or lower-extremity malperfusion in type A dissection calls for immediate ascending aortic repair. Central repair removes the rupture risk, corrects coronary malperfusion and aortic regurgitation, and often restores branch flow. Residual malperfusion is assessed afterward.",
+          "cite": [1]
+        }
+      ]
+    },
+    "op_plan": {
+      "type": "multi",
+      "text": "In theatre, TEE shows a partially dissected root with normal valve leaflets and no root aneurysm. There is no intimal tear in the arch. Which belong in the operative plan?",
+      "options": [
+        { "label": "Axillary arterial cannulation, if feasible", "isCorrect": true },
+        { "label": "Cerebral perfusion during circulatory arrest", "isCorrect": true },
+        { "label": "Resuspend the aortic valve rather than replace it", "isCorrect": true },
+        { "label": "Open distal anastomosis with hemiarch replacement", "isCorrect": true },
+        { "label": "Total arch replacement with a frozen elephant trunk", "isCorrect": false },
+        { "label": "Cross-clamp and sew a closed distal anastomosis", "isCorrect": false }
+      ],
+      "feedback": "ACC/AHA 2022: with a partially dissected root and normal leaflets, resuspend the valve rather than replace it (COR 1). An open distal anastomosis improves survival and false-lumen thrombosis (COR 1). Without an arch tear or arch aneurysm, choose hemiarch over more extensive arch replacement (COR 1); in an STS database study, operative mortality was 16% vs 27%. Prefer axillary over femoral cannulation when feasible, to reduce stroke and retrograde malperfusion (COR 2a). Use cerebral perfusion during circulatory arrest (COR 2a).",
+      "cite": [1],
+      "next": "long_term",
+      "failNext": "fail_operation"
+    },
+    "type_b_uncomplicated": {
+      "type": "decision",
+      "text": "CT: dissection starting beyond the left subclavian artery and extending to the iliac bifurcation. No rupture and no malperfusion; maximum aortic diameter 36 mm. His pain has settled and BP is at target on IV therapy. Plan?",
+      "vitals": [
+        { "label": "HR", "value": "68", "unit": "bpm" },
+        { "label": "BP", "value": "116/70", "unit": "mmHg" }
+      ],
+      "options": [
+        {
+          "label": "Continue medical therapy in the ICU, with serial imaging",
+          "next": "long_term",
+          "isCorrect": true,
+          "feedback": "ACC/AHA 2022 (COR 1): medical therapy is the initial strategy for uncomplicated acute type B dissection. TEVAR may be considered only with high-risk features, such as a maximum diameter above 40 mm, a false lumen wider than 20–22 mm, or an entry tear larger than 10 mm (COR 2b). In INSTEAD-XL, pre-emptive TEVAR in stable patients lowered 5-year aorta-specific mortality (6.9% vs 19.3%); the best timing for TEVAR is still unknown.",
+          "cite": [1, 5]
+        },
+        {
+          "label": "Emergency open repair of the descending aorta",
+          "next": "fail_type_b_overtreat",
+          "isCorrect": false,
+          "feedback": "ACC/AHA 2022 (COR 1): uncomplicated type B dissection is treated medically first. In IRAD, in-hospital mortality was highest with open repair (32.1%), vs 9.6% with medical management and 6.5% with percutaneous intervention.",
+          "cite": [1]
+        }
+      ]
+    },
+    "type_b_complicated": {
+      "type": "decision",
+      "text": "CT: type B dissection; the left renal artery arises from a compressed true lumen. Creatinine is rising and pain persists despite maximal IV therapy. The anatomy suits endovascular repair. Plan?",
+      "vitals": [
+        { "label": "HR", "value": "96", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "162/92", "unit": "mmHg", "status": "warning" },
+        { "label": "Cr", "value": "2.1", "unit": "mg/dL", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "Keep medical therapy going; intervene only if it ruptures",
+          "next": "fail_type_b_untreated",
+          "isCorrect": false,
+          "feedback": "ACC/AHA 2022 (COR 1): intervene for acute type B dissection with rupture or other complications. Complications include branch malperfusion, extension, aortic enlargement, intractable pain, and uncontrolled hypertension; he has malperfusion and refractory pain.",
+          "cite": [1]
+        },
+        {
+          "label": "TEVAR to cover the entry tear",
+          "next": "long_term",
+          "isCorrect": true,
+          "feedback": "ACC/AHA 2022: intervene for complicated type B dissection (COR 1). With suitable anatomy, endovascular repair is recommended over open surgery for rupture and is reasonable for other complications, with lower morbidity and mortality. Fenestration or branch stenting may be needed if TEVAR alone does not relieve malperfusion.",
+          "cite": [1]
+        },
+        {
+          "label": "Open thoracoabdominal aortic replacement",
+          "next": "fail_open_first",
+          "isCorrect": false,
+          "feedback": "ACC/AHA 2022: endovascular therapy has largely replaced open repair for complicated type B dissection. In emergencies, TEVAR has significantly lower morbidity and in-hospital mortality than open repair, with the greatest advantage in older patients.",
+          "cite": [1]
+        }
+      ]
+    },
+    "long_term": {
+      "type": "multi",
+      "text": "He recovers. Which belong in his long-term plan?",
+      "options": [
+        { "label": "Lifelong beta-blocker, adding an ARB or ACE inhibitor as needed", "isCorrect": true },
+        { "label": "CT or MRI at 1, 6, and 12 months, then yearly if stable", "isCorrect": true },
+        { "label": "Screening aortic imaging for his first-degree relatives", "isCorrect": true },
+        { "label": "Repeat aortic imaging only if symptoms return", "isCorrect": false },
+        { "label": "Stop the beta-blocker once his blood pressure is normal", "isCorrect": false }
+      ],
+      "feedback": "ACC/AHA 2022: continue beta-blockers long term unless contraindicated, adding ARBs or ACE inhibitors as needed, to reduce late aortic events (COR 1). Image with CT or MRI at 1, 6, and 12 months, then yearly if stable, whether he was repaired or treated medically (COR 1). Delayed aortic expansion occurs in 20–50% of medically managed type B patients over 4 years. Screen first-degree relatives with aortic imaging (COR 1).",
+      "cite": [1],
+      "next": "success",
+      "failNext": "fail_follow_up"
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Acute aortic dissection missed."
+    },
+    "fail_impulse": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Anti-impulse therapy not delivered as recommended."
+    },
+    "fail_type_a_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Aortic rupture with tamponade before repair.",
+      "vitals": [
+        { "label": "HR", "value": "138", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "72/40", "unit": "mmHg", "status": "critical" }
+      ]
+    },
+    "fail_malperfusion": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Central aortic repair delayed for a peripheral procedure."
+    },
+    "fail_operation": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Operative strategy against repair recommendations."
+    },
+    "fail_type_b_overtreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Emergency open repair for uncomplicated type B dissection."
+    },
+    "fail_type_b_untreated": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Progressive renal malperfusion without intervention."
+    },
+    "fail_open_first": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Open repair chosen over suitable endovascular therapy."
+    },
+    "fail_follow_up": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Incomplete long-term surveillance plan."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Dissection treated by type, with lifelong surveillance in place."
+    }
+  }
+}

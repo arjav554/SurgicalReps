@@ -1,0 +1,132 @@
+{
+  "id": "obstructing-infected-stone",
+  "title": "Obstructing Ureteric Stone with Sepsis",
+  "category": "Urology",
+  "description": "Image the febrile colic patient at once, start antibiotics and cultures, decompress the infected obstructed kidney urgently by stent or nephrostomy, and delay stone removal until the sepsis has cleared.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Image immediately when colic comes with fever",
+    "Recognize an infected obstructed kidney as a urological emergency",
+    "Decompress with a ureteral stent or nephrostomy, whichever is available fastest",
+    "Take cultures and start antibiotics immediately",
+    "Delay definitive stone treatment until the sepsis resolves"
+  ],
+  "references": [
+    {
+      "citation": "European Association of Urology. EAU Guidelines on Urolithiasis. Edn. presented at the EAU Annual Congress London 2026. Arnhem: EAU Guidelines Office; 2026.",
+      "url": "https://uroweb.org/guidelines/urolithiasis",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Pearle MS, Pierce HL, Miller GL, et al. Optimal method of urgent decompression of the collecting system for obstruction and infection due to ureteral calculi. J Urol. 1998;160(4):1260-1264.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/9751331/",
+      "kind": "trial",
+      "pmid": "9751331"
+    },
+    {
+      "citation": "Borofsky MS, Walter D, Shah O, et al. Surgical decompression is associated with decreased mortality in patients with sepsis and ureteral calculi. J Urol. 2013;189(3):946-951.",
+      "url": "https://doi.org/10.1016/j.juro.2012.09.088",
+      "kind": "cohort",
+      "pmid": "23017519",
+      "doi": "10.1016/j.juro.2012.09.088"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 46-year-old woman has 2 days of right colicky flank pain and now rigors. She is flushed and tender over the right loin.",
+      "vitals": [
+        { "label": "Temp", "value": "39.2", "unit": "°C", "status": "critical" },
+        { "label": "HR", "value": "118", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "98/60", "unit": "mmHg", "status": "warning" },
+        { "label": "WBC", "value": "18.6", "unit": "×10³/µL", "status": "warning" },
+        { "label": "Cr", "value": "1.6", "unit": "mg/dL", "status": "warning" }
+      ],
+      "next": "first"
+    },
+    "first": {
+      "type": "multi",
+      "text": "Which belong in your first steps?",
+      "options": [
+        { "label": "Immediate imaging, with non-contrast CT to confirm a stone", "isCorrect": true },
+        { "label": "Blood and urine cultures, then antibiotics immediately", "isCorrect": true },
+        { "label": "Outpatient review with oral antibiotics and analgesia", "isCorrect": false },
+        { "label": "Delay antibiotics until the culture results are back", "isCorrect": false }
+      ],
+      "feedback": "EAU 2026: imaging is immediate when a stone is suspected with fever, a solitary kidney, or diagnostic uncertainty, and non-contrast CT confirms the stone after initial ultrasound (strong). With an obstructed, infected kidney, send urine and blood for culture and start antibiotics immediately (strong). For colic, NSAIDs are the first-choice analgesic depending on cardiovascular risk and side effects (strong), but they can worsen renal function when it is already reduced, as hers is.",
+      "cite": [1],
+      "next": "ct",
+      "failNext": "fail_sepsis"
+    },
+    "ct": {
+      "type": "decision",
+      "text": "CT shows a 7 mm stone in the right proximal ureter with hydronephrosis. Despite antibiotics and fluids she remains febrile and hypotensive. Next?",
+      "vitals": [
+        { "label": "BP", "value": "88/54", "unit": "mmHg", "status": "critical" },
+        { "label": "Lactate", "value": "3.2", "unit": "mmol/L", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Continue IV antibiotics and review in the morning",
+          "next": "fail_sepsis",
+          "isCorrect": false,
+          "feedback": "EAU 2026: an obstructed kidney with signs of infection is a urological emergency; urgently decompress the collecting system (strong). In a national database study, mortality was 19.2% without decompression vs 8.8% with it (adjusted OR 2.6).",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Ureteroscopy now to remove the stone",
+          "next": "fail_definitive",
+          "isCorrect": false,
+          "feedback": "EAU 2026: delay definitive treatment of the stone until sepsis has resolved (strong). Urgent decompression by stent or nephrostomy comes first.",
+          "cite": [1]
+        },
+        {
+          "label": "Urgent decompression by ureteral stent or percutaneous nephrostomy, whichever is available sooner",
+          "next": "after",
+          "isCorrect": true,
+          "feedback": "EAU 2026: urgently decompress the collecting system in sepsis with an obstructing stone, by percutaneous drainage or ureteral stenting (strong); both are equally effective (LE 1b). In Pearle's RCT, time to normal temperature was similar (2.3 vs 2.6 days), and the choice can rest on logistics and stone factors. Mortality was 19.2% without decompression vs 8.8% with it (Borofsky 2013).",
+          "cite": [1, 2, 3]
+        }
+      ]
+    },
+    "after": {
+      "type": "decision",
+      "text": "She is stented and improves over 48 hours. What next?",
+      "options": [
+        {
+          "label": "Repeat urine culture after decompression, tailor antibiotics, and remove the stone once the infection has cleared",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "EAU 2026: collect urine again for culture after decompression, re-evaluate antibiotics on the results, and delay definitive stone treatment until sepsis has resolved after a complete antibiotic course (all strong). Stents affect quality of life more than nephrostomies, mainly through stent symptoms.",
+          "cite": [1]
+        },
+        {
+          "label": "Leave the stent indefinitely; the stone will pass",
+          "next": "fail_definitive",
+          "isCorrect": false,
+          "feedback": "EAU 2026: decompression is a bridge. Definitive stone removal follows once the infection has cleared after a complete course of antibiotics, and stents carry a quality-of-life burden from stent symptoms.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_sepsis": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Worsening urosepsis behind an obstructing stone.",
+      "vitals": [
+        { "label": "BP", "value": "76/42", "unit": "mmHg", "status": "critical" },
+        { "label": "Lactate", "value": "5.4", "unit": "mmol/L", "status": "critical" }
+      ]
+    },
+    "fail_definitive": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Definitive stone treatment timed against the evidence."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Infected obstructed kidney decompressed, then treated."
+    }
+  }
+}

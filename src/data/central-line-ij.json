@@ -1,0 +1,276 @@
+{
+  "id": "central-line-ij",
+  "title": "Ultrasound-Guided Internal Jugular Central Line",
+  "category": "Bedside Procedures",
+  "description": "Place a right internal jugular central line by ASA standards: maximal barrier, real-time ultrasound, objective venous confirmation before dilation, wire control, and confirmation before use.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Choose the insertion site to reduce infection and thrombosis",
+    "Apply maximal sterile barrier precautions and chlorhexidine skin preparation",
+    "Use real-time ultrasound for internal jugular access",
+    "Confirm venous placement objectively before any dilator or large-bore catheter",
+    "Manage arterial puncture and arterial cannulation correctly",
+    "Control and account for the guidewire; confirm the catheter before use"
+  ],
+  "references": [
+    {
+      "citation": "American Society of Anesthesiologists Task Force on Central Venous Access. Practice guidelines for central venous access 2020: an updated report by the American Society of Anesthesiologists Task Force on Central Venous Access. Anesthesiology. 2020;132(1):8-43.",
+      "url": "https://doi.org/10.1097/ALN.0000000000002864",
+      "kind": "guideline",
+      "pmid": "31821240",
+      "doi": "10.1097/ALN.0000000000002864"
+    },
+    {
+      "citation": "Brass P, Hellmich M, Kolodziej L, Schick G, Smith AF. Ultrasound guidance versus anatomical landmarks for internal jugular vein catheterization. Cochrane Database Syst Rev. 2015;1:CD006962.",
+      "url": "https://doi.org/10.1002/14651858.CD006962.pub2",
+      "kind": "systematic-review",
+      "pmid": "25575244",
+      "doi": "10.1002/14651858.CD006962.pub2"
+    },
+    {
+      "citation": "Guilbert MC, Elkouri S, Bracco D, et al. Arterial trauma during central venous catheter insertion: case series, review and proposed algorithm. J Vasc Surg. 2008;48(4):918-925.",
+      "url": "https://doi.org/10.1016/j.jvs.2008.04.046",
+      "kind": "cohort",
+      "pmid": "18703308",
+      "doi": "10.1016/j.jvs.2008.04.046"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "ICU. A 67-year-old man in septic shock on peripheral norepinephrine needs central venous access. Platelets 180,000/mm³, INR 1.2. No neck surgery, infection, or burns. You have an ultrasound with a sterile probe cover and a triple-lumen catheter kit.",
+      "vitals": [
+        { "label": "HR", "value": "112", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "92/54", "unit": "mmHg", "status": "warning" },
+        { "label": "MAP", "value": "66", "unit": "mmHg" },
+        { "label": "SpO2", "value": "95", "unit": "%" },
+        { "label": "Temp", "value": "38.7", "unit": "°C", "status": "warning" },
+        { "label": "Lactate", "value": "3.4", "unit": "mmol/L", "status": "critical" }
+      ],
+      "next": "site"
+    },
+    "site": {
+      "type": "decision",
+      "text": "Which site and technique?",
+      "options": [
+        {
+          "label": "Right internal jugular vein under real-time ultrasound",
+          "next": "prep",
+          "isCorrect": true,
+          "feedback": "ASA 2020: in adults, select an upper-body site when possible to minimize infection and, relative to the femoral site, thrombotic complications; use real-time ultrasound when the internal jugular vein is selected. Cochrane 2015: ultrasound cut inadvertent arterial puncture by 72% and raised first-attempt success by 57% vs landmarks.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Femoral vein by landmarks: it is fastest",
+          "next": "fail_site",
+          "isCorrect": false,
+          "feedback": "ASA 2020: in adults, select an upper-body insertion site when possible to minimize infection and thrombotic risk relative to the femoral site. Ultrasound should guide venipuncture, not landmarks alone.",
+          "cite": [1]
+        }
+      ]
+    },
+    "prep": {
+      "type": "multi",
+      "text": "Which precautions are required before you puncture the skin?",
+      "options": [
+        { "label": "Hand hygiene, sterile gown, and sterile gloves", "isCorrect": true },
+        { "label": "Cap, and a mask covering both mouth and nose", "isCorrect": true },
+        { "label": "Full-body sterile drape", "isCorrect": true },
+        { "label": "Chlorhexidine-containing skin preparation", "isCorrect": true },
+        { "label": "Sterile gloves with a small fenestrated drape are enough for a bedside line", "isCorrect": false },
+        { "label": "Povidone-iodine as first-line skin prep despite no chlorhexidine allergy", "isCorrect": false }
+      ],
+      "feedback": "ASA 2020: use aseptic technique (e.g., hand washing) and maximal barrier precautions (sterile gowns, sterile gloves, caps, masks covering both mouth and nose, and full-body drapes). Use a chlorhexidine-containing skin preparation in adults; povidone-iodine or alcohol only if chlorhexidine is contraindicated.",
+      "cite": [1],
+      "next": "position",
+      "failNext": "fail_infection"
+    },
+    "position": {
+      "type": "decision",
+      "text": "How do you position him?",
+      "options": [
+        {
+          "label": "Head up (reverse Trendelenburg) for comfort",
+          "next": "fail_air",
+          "isCorrect": false,
+          "feedback": "ASA 2020: when clinically appropriate and feasible, perform neck or chest central access in the Trendelenburg position, which distends the vein and lowers the risk of air entry.",
+          "cite": [1]
+        },
+        {
+          "label": "Trendelenburg, if he tolerates it",
+          "next": "puncture",
+          "isCorrect": true,
+          "feedback": "ASA 2020: when clinically appropriate and feasible, perform central venous access in the neck or chest with the patient in the Trendelenburg position.",
+          "cite": [1]
+        }
+      ]
+    },
+    "puncture": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "needle_in_vein", "weight": 7 },
+        { "next": "needle_in_artery", "weight": 3 }
+      ]
+    },
+    "needle_in_artery": {
+      "type": "decision",
+      "text": "Blood flashes into the syringe. You connect sterile manometry tubing: the blood column rises well above the patient and pulses with each heartbeat.",
+      "options": [
+        {
+          "label": "This is arterial: withdraw the needle before anything is passed through it, then re-attempt the vein under real-time ultrasound",
+          "next": "needle_in_vein",
+          "isCorrect": true,
+          "feedback": "Manometry can detect arterial punctures that blood flow and color miss (ASA 2020), and here it has: a pulsatile column rising above the patient is arterial. An arterial needle puncture is often without consequence; devastating complications follow when it goes unrecognized and a large-bore dilator or catheter is inserted.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Proceed with wire and dilator; the high column is just raised venous pressure",
+          "next": "fail_arterial_dilation",
+          "isCorrect": false,
+          "feedback": "A pulsatile column rising well above the patient is arterial. ASA 2020 requires venous confirmation before a dilator or large-bore catheter is threaded. Unrecognized arterial puncture followed by a large-bore dilator is exactly what causes devastating complications.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "needle_in_vein": {
+      "type": "decision",
+      "text": "Real-time short-axis ultrasound: the needle tip tents and then enters the compressible internal jugular vein lateral to the carotid. Dark blood aspirates freely. How do you confirm it is venous before any dilation?",
+      "options": [
+        {
+          "label": "Dark, non-pulsatile blood is enough confirmation",
+          "next": "fail_arterial_dilation",
+          "isCorrect": false,
+          "feedback": "ASA 2020: do not rely on blood color or the presence or absence of pulsatile flow to confirm venous placement. Manometry has detected arterial punctures that blood flow and color did not identify.",
+          "cite": [1]
+        },
+        {
+          "label": "Objective confirmation: manometry, pressure transduction, or ultrasound visualization",
+          "next": "wire",
+          "isCorrect": true,
+          "feedback": "ASA 2020: confirm venous placement of the access needle or catheter by manometry, pressure waveform, or ultrasound. Do not rely on blood color or the absence of pulsatile flow.",
+          "cite": [1]
+        }
+      ]
+    },
+    "wire": {
+      "type": "decision",
+      "text": "Venous access is confirmed by manometry. The wire passes, but with a moment of resistance. What before dilation?",
+      "options": [
+        {
+          "label": "Confirm on ultrasound that the wire lies in the internal jugular vein (not the carotid) before dilating",
+          "next": "wire_control",
+          "isCorrect": true,
+          "feedback": "ASA 2020: if there is any uncertainty that the catheter or wire is in the vein, confirm venous residence of the wire after it is threaded, e.g., by ultrasound, TEE, continuous ECG, or fluoroscopy, before a dilator or large-bore catheter is passed.",
+          "cite": [1]
+        },
+        {
+          "label": "Dilate straight away; the wire passed, so it must be in the vein",
+          "next": "fail_arterial_dilation",
+          "isCorrect": false,
+          "feedback": "Resistance is uncertainty. ASA 2020: if there is any doubt that the wire is in the vein, confirm it (ultrasound shows the wire in the vein) before dilating.",
+          "cite": [1]
+        }
+      ]
+    },
+    "wire_control": {
+      "type": "decision",
+      "text": "The dilator is passed and removed, and you thread the catheter over the wire. What must happen to the wire?",
+      "options": [
+        {
+          "label": "Let go of the wire while you flush the lumens, then remove it",
+          "next": "fail_retained_wire",
+          "isCorrect": false,
+          "feedback": "ASA 2020: verify at the end of the procedure that the removed wire is complete in the procedural field, and if it is not, order chest radiography to look for a retained wire. Unrecognized retained guidewires have caused embolization and fragmentation, infection, arrhythmia, cardiac perforation, and stroke.",
+          "cite": [1]
+        },
+        {
+          "label": "Keep hold of the wire at all times, withdraw it through the catheter, and confirm it is complete",
+          "next": "before_use",
+          "isCorrect": true,
+          "feedback": "ASA 2020: verify that the wire has not been retained by confirming the removed wire in the procedural field; if the complete guidewire is not found, order chest radiography to determine whether it has been retained in the vascular system.",
+          "cite": [1]
+        }
+      ]
+    },
+    "before_use": {
+      "type": "decision",
+      "text": "The catheter is sutured and dressed; all lumens aspirate blood and flush. Before starting norepinephrine through it?",
+      "options": [
+        {
+          "label": "Start the norepinephrine now; the line aspirates and flushes",
+          "next": "fail_unconfirmed",
+          "isCorrect": false,
+          "feedback": "ASA 2020: confirm residence of the final catheter in the venous system before use, and confirm the final tip position as soon as clinically appropriate. Blood return does not settle it: manometry has caught arterial punctures that blood flow and color missed.",
+          "cite": [1]
+        },
+        {
+          "label": "Confirm the final catheter is venous (transduce it) and confirm the tip position on imaging",
+          "next": "consult",
+          "isCorrect": true,
+          "feedback": "ASA 2020: confirm the final catheter in the venous system before use (manometry, transducer, or contrast-enhanced ultrasound). ASA 2020 also calls for confirming the final catheter tip position as soon as clinically appropriate.",
+          "cite": [1]
+        }
+      ]
+    },
+    "consult": {
+      "type": "decision",
+      "text": "Later that night a co-intern pages you: the 7 Fr femoral catheter they just placed is transducing an arterial waveform. What do you advise?",
+      "options": [
+        {
+          "label": "Leave the catheter in place and immediately consult vascular surgery, general surgery, or interventional radiology about removal",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ASA 2020: when a dilator or large-bore catheter unintentionally cannulates an artery, leave it in place and immediately consult a general surgeon, vascular surgeon, or interventional radiologist about surgical or non-surgical removal (adults).",
+          "cite": [1]
+        },
+        {
+          "label": "Pull it out and hold firm pressure for 20 minutes",
+          "next": "fail_arterial_bleed",
+          "isCorrect": false,
+          "feedback": "ASA 2020: do not pull a large-bore catheter out of an artery. Leave it in place and immediately consult a general surgeon, vascular surgeon, or interventional radiologist about removal. In case reports, immediate removal led to cerebral infarction, arteriovenous fistula, and hemothorax; in a case series and review, pull-and-pressure caused major complications in 47% of patients vs none with immediate surgical repair.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "fail_site": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Avoidable femoral landmark line."
+    },
+    "fail_infection": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Central line–associated bloodstream infection."
+    },
+    "fail_air": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Venous air embolism during neck access."
+    },
+    "fail_arterial_dilation": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Carotid artery dilated and cannulated with a large-bore catheter."
+    },
+    "fail_retained_wire": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Never Event: Retained guidewire."
+    },
+    "fail_unconfirmed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication Risk: Vasopressor started through an unconfirmed catheter."
+    },
+    "fail_arterial_bleed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Arterial hemorrhage after pulling a large-bore arterial catheter."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Procedure Complete: Confirmed venous line in the right internal jugular, ready for vasopressors."
+    }
+  }
+}

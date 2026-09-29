@@ -1,0 +1,295 @@
+{
+  "id": "ectopic-pregnancy",
+  "title": "Tubal Ectopic Pregnancy",
+  "category": "Gynecology",
+  "description": "Refer and scan early, use hCG thresholds to choose expectant, medical, or surgical care, operate at once when she is unstable, and prefer salpingectomy when the other tube is healthy.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Exclude ectopic pregnancy even without risk factors, and never locate a pregnancy by hCG alone",
+    "Match expectant management, methotrexate, or surgery to pain, mass size, heartbeat, and hCG",
+    "Monitor hCG correctly after expectant or medical management",
+    "Take the unstable patient straight to surgery",
+    "Choose salpingectomy over salpingotomy when the other tube is healthy, and give correct aftercare"
+  ],
+  "references": [
+    {
+      "citation": "National Institute for Health and Care Excellence. Ectopic pregnancy and miscarriage: diagnosis and initial management. NICE guideline NG126. London: NICE; 2019 (updated 2026).",
+      "url": "https://www.nice.org.uk/guidance/ng126",
+      "kind": "guideline"
+    },
+    {
+      "citation": "American College of Obstetricians and Gynecologists' Committee on Practice Bulletins—Gynecology. ACOG Practice Bulletin No. 193: Tubal Ectopic Pregnancy. Obstet Gynecol. 2018;131(3):e91-e103.",
+      "url": "https://doi.org/10.1097/AOG.0000000000002560",
+      "kind": "guideline",
+      "pmid": "29470343",
+      "doi": "10.1097/AOG.0000000000002560"
+    },
+    {
+      "citation": "Mol F, van Mello NM, Strandell A, et al. Salpingotomy versus salpingectomy in women with tubal pregnancy (ESEP study): an open-label, multicentre, randomised controlled trial. Lancet. 2014;383(9927):1483-1489.",
+      "url": "https://doi.org/10.1016/S0140-6736(14)60123-9",
+      "kind": "trial",
+      "pmid": "24499812",
+      "doi": "10.1016/S0140-6736(14)60123-9"
+    },
+    {
+      "citation": "Fernandez H, Capmas P, Lucot JP, et al. Fertility after ectopic pregnancy: the DEMETER randomized trial. Hum Reprod. 2013;28(5):1247-1253.",
+      "url": "https://doi.org/10.1093/humrep/det037",
+      "kind": "trial",
+      "pmid": "23482340",
+      "doi": "10.1093/humrep/det037"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 29-year-old woman whose last period was 7 weeks ago has a positive urine pregnancy test, left lower abdominal pain, and light vaginal bleeding. She has left iliac fossa tenderness. She has no previous ectopic pregnancy and no known risk factors.",
+      "vitals": [
+        { "label": "HR", "value": "88", "unit": "bpm" },
+        { "label": "BP", "value": "118/74", "unit": "mmHg" },
+        { "label": "Temp", "value": "36.8", "unit": "°C" }
+      ],
+      "next": "refer"
+    },
+    "refer": {
+      "type": "decision",
+      "text": "What next?",
+      "options": [
+        {
+          "label": "Reassure her; with no risk factors, repeat a urine pregnancy test in 7–10 days",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "NICE NG126: exclude ectopic pregnancy even without risk factors, because about a third of women with an ectopic pregnancy have none. Expectant care with a repeat test is only for pregnancies under 6 weeks with bleeding but no pain. A positive test with pain and abdominal tenderness needs immediate referral to an early pregnancy assessment service.",
+          "cite": [1]
+        },
+        {
+          "label": "Serum hCG now: above 1,500 IU/L with an empty uterus confirms ectopic pregnancy",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "NICE NG126: do not use serum hCG to determine where the pregnancy is. hCG helps assess trophoblastic activity and guide management; location comes from transvaginal ultrasound.",
+          "cite": [1]
+        },
+        {
+          "label": "Immediate referral to the early pregnancy assessment service for transvaginal ultrasound",
+          "next": "scan",
+          "isCorrect": true,
+          "feedback": "NICE NG126: refer immediately when a positive pregnancy test comes with pain and abdominal tenderness, pelvic tenderness, or cervical motion tenderness. Offer a transvaginal scan to locate the pregnancy. About a third of women with an ectopic pregnancy have no known risk factors.",
+          "cite": [1]
+        }
+      ]
+    },
+    "scan": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "small", "weight": 5 },
+        { "next": "middle", "weight": 3 },
+        { "next": "surgical", "weight": 3 },
+        { "next": "ruptured", "weight": 2 }
+      ]
+    },
+    "small": {
+      "type": "multi",
+      "text": "Transvaginal scan: an empty uterus and a 22 mm left adnexal mass, moving separately from the ovary, containing a gestational sac with a yolk sac and no heartbeat. No free fluid. hCG is 820 IU/L. Her pain has settled, she is stable, and she can return for follow-up. Which options can you offer?",
+      "options": [
+        { "label": "Expectant management with serial hCG", "isCorrect": true },
+        { "label": "Systemic methotrexate", "isCorrect": true },
+        { "label": "Laparoscopic salpingectomy as the only safe option", "isCorrect": false },
+        { "label": "Expectant management without hCG follow-up", "isCorrect": false }
+      ],
+      "feedback": "NICE NG126: offer expectant management to women who are stable and pain free, with a tubal ectopic pregnancy under 35 mm, no heartbeat, hCG of 1,000 IU/L or less, and able to return. Offer methotrexate when hCG is below 1,500 IU/L with no significant pain, an unruptured mass under 35 mm, no heartbeat, and no intrauterine pregnancy. Expectant management needs hCG checks on days 2, 4, and 7. Limited evidence shows no difference between expectant and medical care in resolution, tubal rupture, or need for further treatment.",
+      "cite": [1],
+      "next": "expectant_follow",
+      "failNext": "fail_overtreat"
+    },
+    "expectant_follow": {
+      "type": "decision",
+      "text": "She chooses expectant management. hCG falls from 820 to 690 IU/L on day 2, 560 on day 4, and 390 on day 7. Next?",
+      "options": [
+        {
+          "label": "Give methotrexate, because hCG is still positive",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "NICE NG126: when hCG falls by 15% or more from the previous value on days 2, 4, and 7, continue weekly hCG until it is negative (below 20 IU/L). Treatment is reconsidered only if levels plateau, rise, or fall by less than 15%.",
+          "cite": [1]
+        },
+        {
+          "label": "Weekly hCG until it is below 20 IU/L",
+          "next": "aftercare",
+          "isCorrect": true,
+          "feedback": "NICE NG126: in expectant management, check hCG on days 2, 4, and 7. If it falls by 15% or more each time, repeat weekly until negative (below 20 IU/L). If it falls less, plateaus, or rises, review her and seek senior advice.",
+          "cite": [1]
+        },
+        {
+          "label": "Stop follow-up now that hCG is clearly falling",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "NICE NG126: after falls of 15% or more on days 2, 4, and 7, continue weekly hCG until a negative result (below 20 IU/L); stopping early can miss a persisting ectopic pregnancy.",
+          "cite": [1]
+        }
+      ]
+    },
+    "middle": {
+      "type": "decision",
+      "text": "Scan: an unruptured 25 mm left tubal ectopic pregnancy with no heartbeat and no intrauterine pregnancy. hCG is 2,800 IU/L. She has no significant pain and can return for follow-up. What do you offer?",
+      "options": [
+        {
+          "label": "Expectant management with serial hCG",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "NICE NG126: expectant management is for hCG of 1,000 IU/L or less (offer) or 1,000–1,500 IU/L (consider). At 2,800 IU/L, offer a choice of methotrexate or surgery.",
+          "cite": [1]
+        },
+        {
+          "label": "A choice of methotrexate or laparoscopic surgery, explaining that methotrexate makes further treatment more likely",
+          "next": "mtx_follow",
+          "isCorrect": true,
+          "feedback": "NICE NG126: with hCG of 1,500 to under 5,000 IU/L, no significant pain, an unruptured mass under 35 mm, no heartbeat, and no intrauterine pregnancy, offer a choice of methotrexate or surgery. Warn that methotrexate increases the chance of further intervention and possible urgent admission. In DEMETER, 2-year fertility did not differ between methotrexate and conservative surgery.",
+          "cite": [1, 4]
+        }
+      ]
+    },
+    "mtx_follow": {
+      "type": "decision",
+      "text": "She chooses methotrexate. How do you monitor her?",
+      "options": [
+        {
+          "label": "hCG on days 4 and 7, then weekly until negative; reassess if it plateaus or rises",
+          "next": "aftercare",
+          "isCorrect": true,
+          "feedback": "NICE NG126: after methotrexate, take 2 hCG measurements in the first week (days 4 and 7), then 1 a week until negative. If levels plateau or rise, reassess her for further treatment.",
+          "cite": [1]
+        },
+        {
+          "label": "A single hCG at 4 weeks",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "NICE NG126: after methotrexate, measure hCG on days 4 and 7, then weekly until negative, reassessing if levels plateau or rise. A single check at 4 weeks could miss a failing treatment.",
+          "cite": [1]
+        }
+      ]
+    },
+    "surgical": {
+      "type": "decision",
+      "text": "Scan: a 38 mm left adnexal mass with a visible fetal heartbeat. hCG is 9,400 IU/L. She is stable but has ongoing pain. Plan?",
+      "options": [
+        {
+          "label": "Methotrexate, then repeat the scan",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "NICE NG126: offer surgery first line for significant pain, a mass of 35 mm or larger, a visible fetal heartbeat, or hCG of 5,000 IU/L or more. She has all four.",
+          "cite": [1]
+        },
+        {
+          "label": "Laparoscopic surgery",
+          "next": "tube",
+          "isCorrect": true,
+          "feedback": "NICE NG126: offer surgery first line for significant pain, a mass of 35 mm or larger, a visible heartbeat, or hCG of 5,000 IU/L or more. Operate laparoscopically whenever possible, taking into account her condition and the complexity of the procedure.",
+          "cite": [1]
+        }
+      ]
+    },
+    "ruptured": {
+      "type": "decision",
+      "text": "While waiting for the scan she collapses. She is pale and peritonitic, and a bedside scan shows free fluid in the hepatorenal pouch. Plan?",
+      "vitals": [
+        { "label": "HR", "value": "128", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "82/50", "unit": "mmHg", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "CT of the abdomen and pelvis to confirm the source",
+          "next": "fail_rupture",
+          "isCorrect": false,
+          "feedback": "ACOG 2018: tubal ectopic pregnancy in an unstable patient is an emergency that needs prompt surgical intervention. Imaging delays control of the bleeding.",
+          "cite": [2]
+        },
+        {
+          "label": "Resuscitate and take her straight to theatre",
+          "next": "tube",
+          "isCorrect": true,
+          "feedback": "ACOG 2018: tubal ectopic pregnancy in an unstable patient is a medical emergency that requires prompt surgery. NICE NG126 sends unstable women straight to the emergency department and recommends laparoscopy whenever possible, taking into account her condition.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Intramuscular methotrexate",
+          "next": "fail_rupture",
+          "isCorrect": false,
+          "feedback": "Methotrexate is for stable women with an unruptured ectopic pregnancy and no significant pain (NICE NG126). An unstable patient with suspected rupture needs prompt surgery (ACOG 2018).",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "tube": {
+      "type": "decision",
+      "text": "At surgery the ectopic pregnancy is in the left tube; the right tube looks healthy. She has no other risk factors for infertility. What do you do?",
+      "options": [
+        {
+          "label": "Salpingectomy",
+          "next": "aftercare",
+          "isCorrect": true,
+          "feedback": "NICE NG126: offer salpingectomy unless there are other risk factors for infertility. In ESEP, with a healthy contralateral tube, cumulative ongoing pregnancy was 60.7% after salpingotomy vs 56.2% after salpingectomy (no significant difference). Persistent trophoblast was more common after salpingotomy (7% vs under 1%). After salpingectomy, advise a urine pregnancy test at 3 weeks.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Salpingotomy to preserve her fertility",
+          "next": "fail_salpingotomy",
+          "isCorrect": false,
+          "feedback": "ESEP: with a healthy contralateral tube, salpingotomy did not improve fertility (ongoing pregnancy 60.7% vs 56.2%), but persistent trophoblast was more frequent (7% vs under 1%), and 20% were converted to salpingectomy for bleeding. NICE NG126 reserves salpingotomy for women with infertility risk factors, such as a damaged contralateral tube.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "aftercare": {
+      "type": "multi",
+      "text": "Her blood group is RhD-negative, and she is 7 weeks pregnant by ultrasound. Which belong in her aftercare?",
+      "options": [
+        { "label": "Oral and written information, including how to get emergency help", "isCorrect": true },
+        { "label": "She can self-refer to the early pregnancy service in future pregnancies", "isCorrect": true },
+        { "label": "Anti-D immunoglobulin, because she is RhD-negative", "isCorrect": false },
+        { "label": "A Kleihauer test to quantify fetomaternal hemorrhage", "isCorrect": false }
+      ],
+      "feedback": "NICE NG126: give oral and written information on treatment, follow-up contacts, and where to get emergency help. Tell her she can self-refer to an early pregnancy assessment service in future pregnancies. Since the 2026 update, anti-D prophylaxis is not offered for ectopic pregnancy up to 11+6 weeks, dated by ultrasound; it is offered at 12+0 to 12+6 weeks with medical or surgical management. Do not use a Kleihauer test.",
+      "cite": [1],
+      "next": "success",
+      "failNext": "fail_aftercare"
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Ectopic pregnancy missed or lost to follow-up."
+    },
+    "fail_overtreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Treatment beyond what her findings require."
+    },
+    "fail_undertreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Management below what her hCG and scan findings require."
+    },
+    "fail_rupture": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Ongoing hemorrhage from a ruptured ectopic pregnancy.",
+      "vitals": [
+        { "label": "HR", "value": "146", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "68/38", "unit": "mmHg", "status": "critical" }
+      ]
+    },
+    "fail_salpingotomy": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Salpingotomy with a healthy contralateral tube."
+    },
+    "fail_aftercare": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Aftercare not in line with current guidance."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Ectopic pregnancy managed to her findings, with safe follow-up."
+    }
+  }
+}

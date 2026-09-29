@@ -1,0 +1,199 @@
+{
+  "id": "pediatric-spleen-injury",
+  "title": "Pediatric Blunt Splenic Injury",
+  "category": "Pediatric Surgery",
+  "description": "Image the child who is not very low risk, manage by physiology rather than injury grade, transfuse only below 7 g/dL, reserve embolization for ongoing bleeding, and recognize failure of nonoperative care.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Use the PECARN rule to decide who needs abdominal CT",
+    "Manage solid organ injury by hemodynamic status, not grade",
+    "Apply the 7 g/dL transfusion threshold and avoid prophylactic embolization",
+    "Recognize failure of nonoperative management by blood product use",
+    "Set activity restriction and follow-up imaging by the evidence"
+  ],
+  "references": [
+    {
+      "citation": "Notrica DM, Eubanks JW 3rd, Tuggle DW, et al. Nonoperative management of blunt liver and spleen injury in children: Evaluation of the ATOMAC guideline using GRADE. J Trauma Acute Care Surg. 2015;79(4):683-693.",
+      "url": "https://doi.org/10.1097/TA.0000000000000808",
+      "kind": "guideline",
+      "pmid": "26402546",
+      "doi": "10.1097/TA.0000000000000808"
+    },
+    {
+      "citation": "Gates RL, Price M, Cameron DB, et al. Non-operative management of solid organ injuries in children: An American Pediatric Surgical Association Outcomes and Evidence Based Practice Committee systematic review. J Pediatr Surg. 2019;54(8):1519-1526.",
+      "url": "https://doi.org/10.1016/j.jpedsurg.2019.01.012",
+      "kind": "systematic-review",
+      "pmid": "30773395",
+      "doi": "10.1016/j.jpedsurg.2019.01.012"
+    },
+    {
+      "citation": "Holmes JF, Lillis K, Monroe D, et al. Identifying children at very low risk of clinically important blunt abdominal injuries. Ann Emerg Med. 2013;62(2):107-116.e2.",
+      "url": "https://doi.org/10.1016/j.annemergmed.2012.11.009",
+      "kind": "cohort",
+      "pmid": "23375510",
+      "doi": "10.1016/j.annemergmed.2012.11.009"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 9-year-old boy went over his bicycle handlebars. He has left upper quadrant pain and tenderness, with a handlebar-shaped bruise on the abdominal wall. GCS 15, no vomiting.",
+      "vitals": [
+        { "label": "HR", "value": "128", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "102/64", "unit": "mmHg" },
+        { "label": "GCS", "value": "15" }
+      ],
+      "next": "imaging"
+    },
+    "imaging": {
+      "type": "decision",
+      "text": "Does he need abdominal CT?",
+      "options": [
+        {
+          "label": "Yes: contrast CT of the abdomen",
+          "next": "grade",
+          "isCorrect": true,
+          "feedback": "The PECARN rule identifies children at very low risk of intra-abdominal injury needing intervention only when all 7 findings are absent: no abdominal wall trauma or seat belt sign, GCS above 13, no abdominal tenderness, no thoracic wall trauma, no abdominal pain, no decreased breath sounds, and no vomiting. He has abdominal wall trauma, tenderness, and pain. In derivation, the rule was 97% sensitive, with a 99.9% negative predictive value.",
+          "cite": [3]
+        },
+        {
+          "label": "No: observe, as his GCS is normal",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "The PECARN rule classes a child as very low risk only when all 7 findings are absent. His abdominal wall bruising, tenderness, and pain mean he is not very low risk.",
+          "cite": [3]
+        }
+      ]
+    },
+    "grade": {
+      "type": "decision",
+      "text": "CT shows a grade IV splenic laceration with a small contrast blush and hemoperitoneum. After one 20 mL/kg fluid bolus he is stable. Plan?",
+      "vitals": [
+        { "label": "HR", "value": "114", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "108/66", "unit": "mmHg" }
+      ],
+      "options": [
+        {
+          "label": "Nonoperative management with monitoring, guided by his physiology",
+          "next": "hemoglobin",
+          "isCorrect": true,
+          "feedback": "ATOMAC (1A): base management on hemodynamic status rather than injury grade; nonoperative management should succeed in over 95% of children. APSA 2019: prophylactic embolization of a stable child with arterial extravasation is not indicated and should be reserved for ongoing bleeding.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Angioembolization of the blush now",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "APSA 2019: prophylactic embolization in stable patients with image-confirmed arterial extravasation is not indicated; reserve it for evidence of ongoing bleeding.",
+          "cite": [2]
+        },
+        {
+          "label": "Splenectomy, because the injury is grade IV",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "ATOMAC (1A): manage by hemodynamic status rather than injury grade. Nonoperative management should succeed in more than 95% of children with liver or spleen injury.",
+          "cite": [1]
+        }
+      ]
+    },
+    "hemoglobin": {
+      "type": "decision",
+      "text": "Six hours later he remains stable, and his hemoglobin is 7.4 g/dL. Transfuse?",
+      "vitals": [
+        { "label": "Hb", "value": "7.4", "unit": "g/dL", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "No: transfuse below 7.0 g/dL or for instability",
+          "next": "course",
+          "isCorrect": true,
+          "feedback": "ATOMAC (1A): a transfusion threshold of 7.0 g/dL is supported in children managed nonoperatively. He is stable and above it.",
+          "cite": [1]
+        },
+        {
+          "label": "Yes: transfuse to a hemoglobin of 10 g/dL",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "ATOMAC (1A): the supported transfusion threshold is 7.0 g/dL. A stable child at 7.4 g/dL does not need blood.",
+          "cite": [1]
+        }
+      ]
+    },
+    "course": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "stable_course", "weight": 5 },
+        { "next": "failing", "weight": 1 }
+      ]
+    },
+    "failing": {
+      "type": "decision",
+      "text": "Overnight he becomes tachycardic again and has now needed 45 mL/kg of blood products. Next?",
+      "vitals": [
+        { "label": "HR", "value": "152", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "86/48", "unit": "mmHg", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Nonoperative management has failed: intervene by operation or embolization, depending on local resources",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ATOMAC: use more than 40 mL/kg (or 4 units) of blood to define the end point of nonoperative management (1B). Account for local resources and concurrent injuries in children who fail to stabilize (1A). APSA 2019: embolization is reserved for evidence of ongoing bleeding.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Keep transfusing on the ward; most children settle",
+          "next": "fail_bleeding",
+          "isCorrect": false,
+          "feedback": "ATOMAC (1B): more than 40 mL/kg or 4 units of blood marks the end point of nonoperative management. He has received 45 mL/kg and is unstable, so he needs intervention.",
+          "cite": [1]
+        }
+      ]
+    },
+    "stable_course": {
+      "type": "decision",
+      "text": "He stays stable, is eating, and his hemoglobin is steady. What do you advise at discharge?",
+      "options": [
+        {
+          "label": "Restrict activity for injury grade plus 2 weeks (6 weeks here)",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "APSA 2019: length of stay should follow physiology, not grade. Restricting activity for the injury grade plus 2 weeks is safe, though shorter periods have not been adequately studied. Routine follow-up imaging is not warranted for asymptomatic low-grade injuries, and data for high-grade injuries are limited. ATOMAC supports an abbreviated period of bed rest (1A).",
+          "cite": [1, 2]
+        },
+        {
+          "label": "No restrictions: he can return to contact sports now",
+          "next": "fail_activity",
+          "isCorrect": false,
+          "feedback": "APSA 2019: restricting activity to injury grade plus 2 weeks is safe; shorter periods have not been adequately studied.",
+          "cite": [2]
+        }
+      ]
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Splenic injury missed without imaging."
+    },
+    "fail_overtreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Intervention or transfusion without indication."
+    },
+    "fail_bleeding": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Ongoing hemorrhage after failed nonoperative management."
+    },
+    "fail_activity": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Safety Risk: Unrestricted activity after a high-grade splenic injury."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Splenic injury managed by physiology."
+    }
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "id": "tonsillectomy",
+  "title": "Pediatric Tonsillectomy",
+  "category": "Otolaryngology",
+  "description": "Separate infection-driven from sleep-driven indications, know who needs polysomnography, and run the perioperative plan: dexamethasone, no antibiotics, no codeine, and overnight monitoring for high-risk children.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Apply the recurrent throat infection thresholds for tonsillectomy",
+    "Know which children need polysomnography before tonsillectomy",
+    "Recommend tonsillectomy for documented obstructive sleep apnea and counsel on persistence",
+    "Give dexamethasone and safe analgesia, and avoid antibiotics and codeine",
+    "Admit high-risk children overnight and document post-tonsillectomy bleeding"
+  ],
+  "references": [
+    {
+      "citation": "Mitchell RB, Archer SM, Ishman SL, et al. Clinical Practice Guideline: Tonsillectomy in Children (Update). Otolaryngol Head Neck Surg. 2019;160(1_suppl):S1-S42.",
+      "url": "https://doi.org/10.1177/0194599818801757",
+      "kind": "guideline",
+      "pmid": "30798778",
+      "doi": "10.1177/0194599818801757"
+    },
+    {
+      "citation": "Marcus CL, Moore RH, Rosen CL, et al. A randomized trial of adenotonsillectomy for childhood sleep apnea. N Engl J Med. 2013;368(25):2366-2376.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3756808/",
+      "kind": "trial",
+      "pmid": "23692173",
+      "doi": "10.1056/NEJMoa1215881"
+    },
+    {
+      "citation": "Paradise JL, Bluestone CD, Bachman RZ, et al. Efficacy of tonsillectomy for recurrent throat infection in severely affected children. Results of parallel randomized and nonrandomized clinical trials. N Engl J Med. 1984;310(11):674-683.",
+      "url": "https://doi.org/10.1056/NEJM198403153101102",
+      "kind": "trial",
+      "pmid": "6700642",
+      "doi": "10.1056/NEJM198403153101102"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 6-year-old boy snores loudly every night with pauses in breathing his parents have watched. His teachers report behavior problems. He has also had 4 sore throats this year.",
+      "next": "infections"
+    },
+    "infections": {
+      "type": "decision",
+      "text": "His parents ask whether the sore throats alone justify removing his tonsils. What do you say?",
+      "options": [
+        {
+          "label": "Yes: four episodes a year is enough",
+          "next": "fail_indication",
+          "isCorrect": false,
+          "feedback": "AAO-HNS 2019 (strong): recommend watchful waiting for recurrent throat infection with fewer than 7 episodes in the past year, 5 a year for 2 years, or 3 a year for 3 years. Tonsillectomy is an option above those thresholds, when each episode is documented with fever over 38.3 °C, cervical adenopathy, exudate, or a positive strep test.",
+          "cite": [1]
+        },
+        {
+          "label": "No: four episodes is below the threshold, so watchful waiting for infections; his sleep symptoms are a separate indication",
+          "next": "risk",
+          "isCorrect": true,
+          "feedback": "AAO-HNS 2019 (strong): watchful waiting for fewer than 7 documented episodes in 1 year, 5 a year for 2 years, or 3 a year for 3 years. In Paradise's trials of children above these thresholds, surgery reduced infections for 2 years, but many unoperated children had few, mild episodes. His snoring with apneas and behavior problems are the stronger reason to assess.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "risk": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "high_risk", "weight": 1 },
+        { "next": "standard", "weight": 1 }
+      ]
+    },
+    "high_risk": {
+      "type": "decision",
+      "text": "His tonsils are large and nearly meet in the midline, and his BMI is above the 95th centile for his age. Before any surgery, what does he need?",
+      "options": [
+        {
+          "label": "Polysomnography",
+          "next": "psg",
+          "isCorrect": true,
+          "feedback": "AAO-HNS 2019: before tonsillectomy, refer children with obstructive sleep-disordered breathing for polysomnography if they are under 2 or have obesity, Down syndrome, craniofacial abnormalities, neuromuscular disorders, sickle cell disease, or mucopolysaccharidoses.",
+          "cite": [1]
+        },
+        {
+          "label": "Proceed to adenotonsillectomy on history and examination",
+          "next": "fail_psg",
+          "isCorrect": false,
+          "feedback": "AAO-HNS 2019: obesity is one of the conditions that require polysomnography before tonsillectomy in children with obstructive sleep-disordered breathing.",
+          "cite": [1]
+        }
+      ]
+    },
+    "standard": {
+      "type": "decision",
+      "text": "He has none of the high-risk conditions, but his tonsils are small on examination, which does not fit the severity his parents describe. What next?",
+      "options": [
+        {
+          "label": "Polysomnography, because history and examination disagree",
+          "next": "psg",
+          "isCorrect": true,
+          "feedback": "AAO-HNS 2019: advocate for polysomnography before tonsillectomy in children without high-risk conditions when the need for surgery is uncertain or the examination and the reported severity of sleep-disordered breathing disagree.",
+          "cite": [1]
+        },
+        {
+          "label": "Tonsillectomy based on the parents' description alone",
+          "next": "fail_psg",
+          "isCorrect": false,
+          "feedback": "AAO-HNS 2019: when the examination and the reported severity disagree, advocate for polysomnography before deciding on tonsillectomy.",
+          "cite": [1]
+        }
+      ]
+    },
+    "psg": {
+      "type": "decision",
+      "text": "Polysomnography shows obstructive sleep apnea: apnea-hypopnea index 12 events/hour, oxygen saturation nadir 78%. Recommendation?",
+      "vitals": [
+        { "label": "AHI", "value": "12", "unit": "/h", "status": "critical" },
+        { "label": "SpO2", "value": "78", "unit": "% nadir", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Tonsillectomy, warning that sleep-disordered breathing may persist or recur",
+          "next": "periop",
+          "isCorrect": true,
+          "feedback": "AAO-HNS 2019: recommend tonsillectomy for obstructive sleep apnea documented by polysomnography, and counsel that it may persist or recur. In CHAT, early adenotonsillectomy normalized polysomnography in 79% vs 46% with watchful waiting and improved behavior, quality of life, and symptoms, though not attention and executive function scores.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Watchful waiting for 12 months, then repeat the sleep study",
+          "next": "fail_indication",
+          "isCorrect": false,
+          "feedback": "AAO-HNS 2019: recommend tonsillectomy for children with obstructive sleep apnea documented by polysomnography. In CHAT, surgery improved symptoms, behavior, quality of life, and polysomnography compared with watchful waiting.",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "periop": {
+      "type": "multi",
+      "text": "Which belong in his perioperative plan?",
+      "options": [
+        { "label": "A single intraoperative dose of IV dexamethasone", "isCorrect": true },
+        { "label": "Ibuprofen and/or acetaminophen for pain", "isCorrect": true },
+        { "label": "Overnight inpatient monitoring after surgery", "isCorrect": true },
+        { "label": "A 5-day course of amoxicillin after surgery", "isCorrect": false },
+        { "label": "Acetaminophen with codeine for breakthrough pain", "isCorrect": false }
+      ],
+      "feedback": "AAO-HNS 2019: give a single intraoperative dose of IV dexamethasone (strong), and recommend ibuprofen, acetaminophen, or both for pain (strong). Do not give perioperative antibiotics (strong), and never prescribe codeine or codeine-containing medication under age 12 (strong). Monitor overnight as an inpatient for children under 3 or with severe OSA, meaning an apnea-hypopnea index of 10 or more or a saturation nadir below 80%; he has both.",
+      "cite": [1],
+      "next": "bleed",
+      "failNext": "fail_periop"
+    },
+    "bleed": {
+      "type": "decision",
+      "text": "On day 6 his parents bring him back after he spat out bright red blood at home; he has now stopped bleeding. How should this be recorded?",
+      "options": [
+        {
+          "label": "As secondary post-tonsillectomy bleeding, contributing to the surgeon's annual bleeding rate",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "AAO-HNS 2019: follow up after tonsillectomy and document bleeding within 24 hours (primary) and later than 24 hours (secondary). Surgeons should determine their primary and secondary bleeding rates at least annually.",
+          "cite": [1]
+        },
+        {
+          "label": "No record needed, as the bleeding stopped on its own",
+          "next": "fail_audit",
+          "isCorrect": false,
+          "feedback": "AAO-HNS 2019: document the presence or absence of primary (within 24 hours) and secondary (after 24 hours) bleeding, and determine bleeding rates at least annually.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_indication": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Tonsillectomy decision off the indications."
+    },
+    "fail_psg": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Surgery without a required sleep study."
+    },
+    "fail_periop": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Safety Risk: Perioperative plan with antibiotics, codeine, or no monitoring."
+    },
+    "fail_audit": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Post-tonsillectomy bleeding not recorded."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Right indication, safe perioperative care, and bleeding audited."
+    }
+  }
+}

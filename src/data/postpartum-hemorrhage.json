@@ -1,0 +1,227 @@
+{
+  "id": "postpartum-hemorrhage",
+  "title": "Postpartum Hemorrhage",
+  "category": "Obstetrics",
+  "description": "Measure blood loss and use the shock index to call PPH early, deliver the first-response bundle with tranexamic acid inside 3 hours, and escalate from uterotonics to balloon tamponade to surgery.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Recognize postpartum hemorrhage early using measured blood loss and the shock index",
+    "Deliver the first-response bundle: massage, oxytocin, tranexamic acid, crystalloid, examination, escalation",
+    "Give tranexamic acid correctly: 1 g IV within 3 hours of birth, repeated if bleeding continues",
+    "Escalate for atony through second-line uterotonics and balloon tamponade",
+    "Move quickly to surgery when conservative measures fail"
+  ],
+  "references": [
+    {
+      "citation": "Escobar MF, Nassar AH, Theron G, et al. FIGO recommendations on the management of postpartum hemorrhage 2022. Int J Gynaecol Obstet. 2022;157 Suppl 1:3-50.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9313855/",
+      "kind": "guideline",
+      "pmid": "35297039",
+      "doi": "10.1002/ijgo.14116"
+    },
+    {
+      "citation": "WOMAN Trial Collaborators. Effect of early tranexamic acid administration on mortality, hysterectomy, and other morbidities in women with post-partum haemorrhage (WOMAN): an international, randomised, double-blind, placebo-controlled trial. Lancet. 2017;389(10084):2105-2116.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5446563/",
+      "kind": "trial",
+      "pmid": "28456509",
+      "doi": "10.1016/S0140-6736(17)30638-4"
+    },
+    {
+      "citation": "Gallos I, Devall A, Martin J, et al. Randomized Trial of Early Detection and Treatment of Postpartum Hemorrhage. N Engl J Med. 2023;389(1):11-21.",
+      "url": "https://doi.org/10.1056/NEJMoa2303966",
+      "kind": "trial",
+      "pmid": "37158447",
+      "doi": "10.1056/NEJMoa2303966"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 31-year-old has just had a vaginal birth of a 4.1 kg baby after an oxytocin-augmented labor. She received 10 IU of oxytocin IM in the third stage, and the placenta came out complete. Twenty minutes later the calibrated drape shows 600 mL and she is still bleeding briskly. Her uterus is soft and above the umbilicus.",
+      "vitals": [
+        { "label": "HR", "value": "118", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "100/64", "unit": "mmHg", "status": "warning" },
+        { "label": "SpO2", "value": "98", "unit": "%" }
+      ],
+      "next": "recognize"
+    },
+    "recognize": {
+      "type": "decision",
+      "text": "How do you read this?",
+      "options": [
+        {
+          "label": "Expected blood loss for a big baby; reassess in 30 minutes",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "FIGO 2022: the shock index (heart rate ÷ systolic BP) flags hemodynamic instability when it exceeds 0.9; hers is 118 ÷ 100 = 1.18. In E-MOTIVE, objective measurement with a calibrated drape plus a treatment bundle raised detection of PPH from 51.1% to 93.1%. Waiting loses that advantage.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Postpartum hemorrhage with hemodynamic compromise: call for help and start the first-response bundle",
+          "next": "bundle",
+          "isCorrect": true,
+          "feedback": "Measured loss of 600 mL after a vaginal birth with ongoing bleeding is PPH by the classic 500 mL definition. Her shock index is 1.18; FIGO 2022 treats values above 0.9 as an alert for hemodynamic instability. ACOG's 2017 definition also counts blood loss with signs of hypovolemia. In E-MOTIVE, a calibrated drape raised PPH detection to 93.1%.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Not PPH until loss reaches 1,000 mL",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "FIGO 2022 notes the classic definition of more than 500 mL after vaginal birth. ACOG's 2017 definition of 1,000 mL or more also counts any loss accompanied by signs of hypovolemia. Her shock index of 1.18 (above 0.9) signals hemodynamic instability.",
+          "cite": [1]
+        }
+      ]
+    },
+    "bundle": {
+      "type": "multi",
+      "text": "First response: which belong now?",
+      "options": [
+        { "label": "Uterine massage", "isCorrect": true },
+        { "label": "IV oxytocin", "isCorrect": true },
+        { "label": "IV tranexamic acid 1 g over 10 minutes", "isCorrect": true },
+        { "label": "IV isotonic crystalloid", "isCorrect": true },
+        { "label": "Examine for the cause, including genital tract tears", "isCorrect": true },
+        { "label": "Colloid rather than crystalloid for resuscitation", "isCorrect": false },
+        { "label": "Wait for a blood count before giving tranexamic acid", "isCorrect": false }
+      ],
+      "feedback": "FIGO 2022: IV oxytocin is first line; use uterine massage; prefer isotonic crystalloids to colloids. Give tranexamic acid 1 g IV at 1 mL/min as soon as PPH is diagnosed, within 3 hours of birth, and a second 1 g if bleeding continues after 30 minutes or restarts within 24 hours. In WOMAN, tranexamic acid cut death from bleeding (1.5% vs 1.9%), most clearly within 3 hours (1.2% vs 1.7%). In E-MOTIVE, a bundle of massage, oxytocics, tranexamic acid, fluids, examination, and escalation reduced severe PPH, laparotomy, or death from bleeding from 4.3% to 1.6%.",
+      "cite": [1, 2, 3],
+      "next": "response",
+      "failNext": "fail_bundle"
+    },
+    "response": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "settles", "weight": 4 },
+        { "next": "atony", "weight": 6 }
+      ]
+    },
+    "settles": {
+      "type": "info",
+      "text": "The uterus contracts, the bleeding slows, and her heart rate comes down. Total measured loss is 850 mL.",
+      "vitals": [
+        { "label": "HR", "value": "96", "unit": "bpm" },
+        { "label": "BP", "value": "112/70", "unit": "mmHg" }
+      ],
+      "next": "success"
+    },
+    "atony": {
+      "type": "decision",
+      "text": "Despite oxytocin and massage the uterus stays atonic and bleeding continues. There are no tears. She is not hypertensive. Next?",
+      "vitals": [
+        { "label": "HR", "value": "126", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "94/58", "unit": "mmHg", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "Pack the uterine cavity with gauze",
+          "next": "fail_packing",
+          "isCorrect": false,
+          "feedback": "FIGO 2022: uterine packing is not recommended for PPH from atony after vaginal birth. When oxytocin fails, give another uterotonic (ergometrine, oxytocin–ergometrine, or sublingual misoprostol 800 µg), with bimanual compression as a temporizing measure.",
+          "cite": [1]
+        },
+        {
+          "label": "Second-line uterotonic (IM ergometrine or sublingual misoprostol 800 µg), with bimanual compression while you escalate",
+          "next": "refractory_check",
+          "isCorrect": true,
+          "feedback": "FIGO 2022: if bleeding does not respond to oxytocin, use IM ergometrine, fixed-dose oxytocin–ergometrine, or a prostaglandin such as sublingual misoprostol 800 µg. Ergometrine needs hypertensive disorders excluded first. Bimanual uterine compression is a temporizing measure until definitive care is available.",
+          "cite": [1]
+        },
+        {
+          "label": "Go straight to hysterectomy",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "FIGO 2022: try conservative approaches first and move rapidly to more invasive procedures if they fail. Second-line uterotonics, bimanual compression, and balloon tamponade come before surgery.",
+          "cite": [1]
+        }
+      ]
+    },
+    "refractory_check": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "settles", "weight": 1 },
+        { "next": "refractory", "weight": 1 }
+      ]
+    },
+    "refractory": {
+      "type": "decision",
+      "text": "The uterus is still atonic and bleeding continues. Retained tissue and uterine rupture have been excluded. Next?",
+      "options": [
+        {
+          "label": "Uterine balloon tamponade",
+          "next": "balloon",
+          "isCorrect": true,
+          "feedback": "FIGO 2022: when uterotonics fail, uterine balloon tamponade is recommended as an effective nonsurgical technique for atony, after ruling out retained products and uterine rupture. Uterine artery embolization is another conservative option where the expertise and equipment exist.",
+          "cite": [1]
+        },
+        {
+          "label": "Another dose of IM oxytocin and review in an hour",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "FIGO 2022: the priority is to stop the bleeding before coagulopathy and organ damage develop, moving rapidly to more invasive options when conservative measures fail. After failed uterotonics, balloon tamponade is recommended.",
+          "cite": [1]
+        }
+      ]
+    },
+    "balloon": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "settles", "weight": 1 },
+        { "next": "surgery", "weight": 1 }
+      ]
+    },
+    "surgery": {
+      "type": "decision",
+      "text": "Bleeding continues despite the balloon. She is in theatre, with a second 1 g of tranexamic acid given and blood products running. Plan?",
+      "vitals": [
+        { "label": "HR", "value": "138", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "82/48", "unit": "mmHg", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Laparotomy with a uterine compression suture, moving on to artery ligation or hysterectomy if bleeding continues",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "FIGO 2022: if bleeding continues despite uterotonics and conservative measures such as balloon tamponade, surgery is recommended: compression sutures, uterine or internal iliac artery ligation, and hysterectomy. The priority is to stop the bleeding before coagulopathy and organ damage develop.",
+          "cite": [1]
+        },
+        {
+          "label": "Reinflate the balloon to a higher volume and wait",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "FIGO 2022: when conservative measures fail, move rapidly to surgery (compression sutures, artery ligation, hysterectomy) before coagulopathy and organ damage develop.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Delayed escalation with ongoing hemorrhage.",
+      "vitals": [
+        { "label": "HR", "value": "148", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "70/40", "unit": "mmHg", "status": "critical" }
+      ]
+    },
+    "fail_bundle": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Incomplete first-response bundle."
+    },
+    "fail_packing": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Uterine packing for atony after vaginal birth."
+    },
+    "fail_overtreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Hysterectomy before conservative measures."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Hemorrhage controlled by stepwise escalation."
+    }
+  }
+}

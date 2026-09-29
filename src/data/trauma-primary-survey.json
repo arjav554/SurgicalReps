@@ -1,0 +1,274 @@
+{
+  "id": "trauma-primary-survey",
+  "title": "Trauma Primary Survey: Unstable Blunt Trauma",
+  "category": "Trauma",
+  "description": "Run xABCDE on a hypotensive motorcyclist: stop the bleeding first, decompress tension physiology, resuscitate with blood, and find where the patient is bleeding.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Apply ATLS 11's xABCDE: control exsanguinating external hemorrhage before the airway",
+    "Decompress a clinically evident tension pneumothorax immediately",
+    "Deliver damage-control resuscitation: balanced products, tranexamic acid within 3 hours, restricted crystalloid, permissive hypotension",
+    "Localize the hemorrhage: positive FAST (abdomen) vs FAST-negative unstable pelvic ring",
+    "Prevent hypothermia, which impairs platelet and coagulation-factor function"
+  ],
+  "references": [
+    {
+      "citation": "American College of Surgeons. Trauma care gets major upgrade with launch of ATLS 11. ACS Brief. 2025 Sep 16.",
+      "url": "https://www.facs.org/for-medical-professionals/news-publications/news-and-articles/acs-brief/september-16-2025-issue/trauma-care-gets-major-upgrade-with-launch-of-atls-11/",
+      "kind": "review"
+    },
+    {
+      "citation": "CRASH-2 collaborators; Roberts I, Shakur H, Afolabi A, et al. The importance of early treatment with tranexamic acid in bleeding trauma patients: an exploratory analysis of the CRASH-2 randomised controlled trial. Lancet. 2011;377(9771):1096-1101.",
+      "url": "https://doi.org/10.1016/S0140-6736(11)60278-X",
+      "kind": "trial",
+      "pmid": "21439633",
+      "doi": "10.1016/S0140-6736(11)60278-X"
+    },
+    {
+      "citation": "Holcomb JB, Tilley BC, Baraniuk S, et al. Transfusion of plasma, platelets, and red blood cells in a 1:1:1 vs a 1:1:2 ratio and mortality in patients with severe trauma: the PROPPR randomized clinical trial. JAMA. 2015;313(5):471-482.",
+      "url": "https://doi.org/10.1001/jama.2015.12",
+      "kind": "trial",
+      "pmid": "25647203",
+      "doi": "10.1001/jama.2015.12"
+    },
+    {
+      "citation": "Coccolini F, Stahel PF, Montori G, et al. Pelvic trauma: WSES classification and guidelines. World J Emerg Surg. 2017;12:5.",
+      "url": "https://doi.org/10.1186/s13017-017-0117-6",
+      "kind": "guideline",
+      "pmid": "28115984",
+      "doi": "10.1186/s13017-017-0117-6"
+    },
+    {
+      "citation": "Rossaint R, Afshari A, Bouillon B, et al. The European guideline on management of major bleeding and coagulopathy following trauma: sixth edition. Crit Care. 2023;27(1):80.",
+      "url": "https://doi.org/10.1186/s13054-023-04327-7",
+      "kind": "guideline",
+      "pmid": "36859355",
+      "doi": "10.1186/s13054-023-04327-7"
+    },
+    {
+      "citation": "Ahmad SJS, Degiannis JR, Head M, et al. Meta-analysis of the optimal needle length and decompression site for tension pneumothorax and consensus recommendations on current ATLS and ETC guidelines. World J Emerg Surg. 2025;20(1):39.",
+      "url": "https://doi.org/10.1186/s13017-025-00613-7",
+      "kind": "systematic-review",
+      "pmid": "40383767",
+      "doi": "10.1186/s13017-025-00613-7"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 34-year-old motorcyclist arrives 25 minutes after a high-speed collision. Pulsatile, high-volume bleeding from a deep right thigh laceration. The trauma team is assembled.",
+      "vitals": [
+        { "label": "HR", "value": "132", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "82/50", "unit": "mmHg", "status": "critical" },
+        { "label": "SpO2", "value": "89", "unit": "%", "status": "critical" },
+        { "label": "RR", "value": "30", "unit": "/min", "status": "warning" },
+        { "label": "GCS", "value": "13", "status": "warning" },
+        { "label": "Temp", "value": "36.1", "unit": "°C" }
+      ],
+      "next": "x"
+    },
+    "x": {
+      "type": "decision",
+      "text": "What is your first action?",
+      "options": [
+        {
+          "label": "Rapid-sequence intubation to secure the airway first",
+          "next": "fail_arrest_induction",
+          "isCorrect": false,
+          "feedback": "ATLS 11 (2025) changed ABCDE to xABCDE because, for some patients, rapid control of exsanguinating external hemorrhage is lifesaving and comes before the airway. The European trauma guideline also recommends minimizing the time from injury to bleeding control (1B).",
+          "cite": [1, 5]
+        },
+        {
+          "label": "Control the exsanguinating thigh hemorrhage: direct pressure, then a limb tourniquet proximal to the wound, tightened until the bleeding stops",
+          "next": "airway",
+          "isCorrect": true,
+          "feedback": "ATLS 11: 'x' comes first, for rapid control of exsanguinating external hemorrhage. The European trauma guideline recommends local compression for open extremity bleeding and adjunct tourniquet use to stop life-threatening bleeding from open extremity injuries (1B).",
+          "cite": [1, 5]
+        }
+      ]
+    },
+    "airway": {
+      "type": "info",
+      "text": "Tourniquet applied; bleeding stops. Airway: he is speaking in short phrases, so it is patent. Cervical spine motion restriction is maintained.",
+      "next": "breathing"
+    },
+    "breathing": {
+      "type": "decision",
+      "text": "Breathing: absent breath sounds and hyperresonance on the left, trachea deviated to the right, distended neck veins.",
+      "vitals": [
+        { "label": "HR", "value": "138", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "74/48", "unit": "mmHg", "status": "critical" },
+        { "label": "SpO2", "value": "84", "unit": "%", "status": "critical" },
+        { "label": "RR", "value": "34", "unit": "/min", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Get a portable chest X-ray to confirm before decompressing",
+          "next": "fail_tension",
+          "isCorrect": false,
+          "feedback": "These are the clinical signs of tension pneumothorax, a life-threatening condition that needs urgent intervention: rising intrathoracic pressure shifts the mediastinum, reduces venous return, and causes hemodynamic instability. Immediate needle decompression is the first-line treatment.",
+          "cite": [6]
+        },
+        {
+          "label": "Immediate pleural decompression, then a chest tube",
+          "next": "circulation",
+          "isCorrect": true,
+          "feedback": "Immediate needle decompression is first-line treatment, converting the tension pneumothorax to a simple pneumothorax, followed by an intercostal chest drain as definitive treatment. The decompression site is taught differently by ATLS and the European Trauma Course, so follow your local course standard.",
+          "cite": [6]
+        }
+      ]
+    },
+    "circulation": {
+      "type": "info",
+      "text": "Decompression releases a rush of air and a chest tube is placed. Oxygenation recovers, but he remains hypotensive after 1 L of crystalloid through two large-bore IVs.",
+      "vitals": [
+        { "label": "HR", "value": "128", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "84/52", "unit": "mmHg", "status": "critical" },
+        { "label": "SpO2", "value": "96", "unit": "%" },
+        { "label": "Since injury", "value": "32", "unit": "min" }
+      ],
+      "next": "resuscitation"
+    },
+    "resuscitation": {
+      "type": "multi",
+      "text": "Ongoing hemorrhagic shock. Which belong in his resuscitation right now?",
+      "options": [
+        { "label": "Activate massive transfusion with plasma:platelets:RBC ≈ 1:1:1", "isCorrect": true },
+        { "label": "Tranexamic acid now: 1 g over 10 min, then 1 g over 8 h", "isCorrect": true },
+        { "label": "Restrict further crystalloid, accepting a systolic pressure of 80–90 mmHg until bleeding is controlled", "isCorrect": true },
+        { "label": "Norepinephrine infusion to normalize the blood pressure", "isCorrect": false },
+        { "label": "Another 2 L crystalloid bolus before any blood", "isCorrect": false },
+        { "label": "Hold blood until the hemoglobin result is back", "isCorrect": false }
+      ],
+      "feedback": "PROPPR: 1:1:1 achieved hemostasis more often (86% vs 78%) and cut deaths from exsanguination at 24 h (9.2% vs 14.6%) compared with 1:1:2. CRASH-2: tranexamic acid (1 g over 10 min, then 1 g over 8 h) reduced death from bleeding when given within 3 h of injury, most of all within 1 h, and seemed harmful after 3 h. The European guideline recommends restricted volume replacement targeting a systolic pressure of 80–90 mmHg until major bleeding stops (1B), adding noradrenaline only if that target cannot be reached (1C), and warns that an initial hemoglobin near normal may mask early serious bleeding.",
+      "cite": [3, 2, 5],
+      "next": "localize",
+      "failNext": "fail_coagulopathy"
+    },
+    "localize": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "fast_positive", "weight": 3 },
+        { "next": "fast_negative_pelvis", "weight": 2 }
+      ]
+    },
+    "fast_positive": {
+      "type": "decision",
+      "text": "eFAST: large volume of free fluid in Morison's pouch and the splenorenal recess. Pelvic X-ray: no pelvic ring injury. He is still hypotensive despite blood products. Next?",
+      "vitals": [
+        { "label": "HR", "value": "124", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "86/54", "unit": "mmHg", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Straight to the operating room for damage-control laparotomy",
+          "next": "exposure",
+          "isCorrect": true,
+          "feedback": "European trauma guideline: patients in hemorrhagic shock with a suspected bleeding source should undergo an immediate bleeding control procedure (1B). Further investigation such as CT is for patients who do not need immediate bleeding control.",
+          "cite": [5]
+        },
+        {
+          "label": "CT of the abdomen and pelvis first to define the injuries",
+          "next": "fail_ct",
+          "isCorrect": false,
+          "feedback": "He is in hemorrhagic shock with a suspected intra-abdominal source, which calls for an immediate bleeding control procedure (1B). The European guideline reserves further investigation for patients who do not need immediate bleeding control, such as those who are stable or have been stabilized.",
+          "cite": [5]
+        }
+      ]
+    },
+    "fast_negative_pelvis": {
+      "type": "decision",
+      "text": "eFAST: no intraperitoneal or pericardial fluid. Pelvic X-ray: wide anteroposterior-compression (open-book) pelvic ring disruption. He is still hypotensive despite blood products. What is your priority?",
+      "vitals": [
+        { "label": "HR", "value": "126", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "80/50", "unit": "mmHg", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Exploratory laparotomy to find the bleeding",
+          "next": "fail_nontherapeutic",
+          "isCorrect": false,
+          "feedback": "WSES 2017, citing EAST: E-FAST is not sensitive enough to exclude pelvic bleeding, but it can be considered adequate to exclude the need for laparotomy in unstable patients. Here the open-book pelvic ring is the likely source.",
+          "cite": [4]
+        },
+        {
+          "label": "Pelvic binder, continued hemostatic resuscitation, then preperitoneal pelvic packing and/or angioembolization",
+          "next": "exposure",
+          "isCorrect": true,
+          "feedback": "WSES 2017: pelvic binders are superior to sheet wrapping for hemorrhage control (1C); direct preperitoneal pelvic packing is an effective early hemorrhage-control measure in hypotensive patients with bleeding pelvic ring disruptions (1B); and after stabilization, resuscitation, and exclusion of other sources, unstable patients should be considered for angioembolization (2A).",
+          "cite": [4]
+        },
+        {
+          "label": "CT to classify the fracture before any intervention",
+          "next": "fail_ct",
+          "isCorrect": false,
+          "feedback": "WSES 2017: the emergency workup must avoid unnecessary delay to definitive bleeding control, because time from trauma to the operating room inversely correlates with survival in pelvic hemorrhage. Stabilize, pack, or embolize first.",
+          "cite": [4, 5]
+        }
+      ]
+    },
+    "exposure": {
+      "type": "decision",
+      "text": "Disability: GCS 13, pupils equal and reactive. Exposure: he has been fully exposed for the survey and his temperature is now 35.1 °C. What do you do on the way to definitive hemorrhage control?",
+      "vitals": [
+        { "label": "Temp", "value": "35.1", "unit": "°C", "status": "warning" },
+        { "label": "GCS", "value": "13", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "Leave him exposed; his temperature will recover once the bleeding is controlled",
+          "next": "fail_hypothermia",
+          "isCorrect": false,
+          "feedback": "Hypothermia in trauma is associated with higher mortality and more transfusion. It alters platelet function and impairs coagulation factors (about 10% loss of function per 1 °C drop). The European guideline recommends early measures to reduce heat loss (1C).",
+          "cite": [5]
+        },
+        {
+          "label": "Prevent further heat loss: cover him, warm the room, and give all fluids and blood through a warmer",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "European trauma guideline (1C): apply early measures to reduce heat loss and warm the hypothermic patient to achieve and maintain normothermia, because hypothermia impairs platelet and coagulation-factor function.",
+          "cite": [5]
+        }
+      ]
+    },
+    "fail_arrest_induction": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Peri-intubation cardiac arrest with uncontrolled hemorrhage."
+    },
+    "fail_tension": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Cardiac arrest from untreated tension pneumothorax."
+    },
+    "fail_coagulopathy": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Worsening shock and trauma-induced coagulopathy.",
+      "vitals": [
+        { "label": "BP", "value": "68/40", "unit": "mmHg", "status": "critical" },
+        { "label": "INR", "value": "2.1", "status": "critical" }
+      ]
+    },
+    "fail_ct": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Cardiac arrest in the CT scanner."
+    },
+    "fail_nontherapeutic": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Non-therapeutic laparotomy while the pelvis keeps bleeding."
+    },
+    "fail_hypothermia": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Hypothermia-associated coagulopathy."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Primary Survey Complete: Hemorrhage source targeted, patient warm and en route to definitive control."
+    }
+  }
+}

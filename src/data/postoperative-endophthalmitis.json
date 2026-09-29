@@ -1,0 +1,175 @@
+{
+  "id": "postoperative-endophthalmitis",
+  "title": "Endophthalmitis After Cataract Surgery",
+  "category": "Ophthalmology",
+  "description": "Treat a painful hypopyon after cataract surgery as an emergency, sample and inject intravitreal antibiotics within the hour, choose vitrectomy by presenting vision, and prevent it with intracameral cefuroxime.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Recognize acute postoperative endophthalmitis and avoid a delaying trial of steroids",
+    "Sample the eye and give intravitreal vancomycin and ceftazidime at the correct doses",
+    "Use presenting vision to decide on immediate vitrectomy",
+    "Plan early review and supportive treatment",
+    "Prevent endophthalmitis with intracameral cefuroxime"
+  ],
+  "references": [
+    {
+      "citation": "Barry P, Cordovés L, Gardner S. ESCRS Guidelines for Prevention and Treatment of Endophthalmitis Following Cataract Surgery: Data, Dilemmas and Conclusions. Dublin: European Society of Cataract and Refractive Surgeons; 2013.",
+      "url": "https://www.escrs.org/media/uljgvpn1/english_2018_updated.pdf",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Endophthalmitis Vitrectomy Study Group. Results of the Endophthalmitis Vitrectomy Study. A randomized trial of immediate vitrectomy and of intravenous antibiotics for the treatment of postoperative bacterial endophthalmitis. Arch Ophthalmol. 1995;113(12):1479-1496.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7487614/",
+      "kind": "trial",
+      "pmid": "7487614"
+    },
+    {
+      "citation": "Endophthalmitis Study Group, European Society of Cataract & Refractive Surgeons. Prophylaxis of postoperative endophthalmitis following cataract surgery: results of the ESCRS multicenter study and identification of risk factors. J Cataract Refract Surg. 2007;33(6):978-988.",
+      "url": "https://doi.org/10.1016/j.jcrs.2007.02.032",
+      "kind": "trial",
+      "pmid": "17531690",
+      "doi": "10.1016/j.jcrs.2007.02.032"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 72-year-old man is 5 days after uncomplicated cataract surgery on his right eye. Since yesterday the eye has become painful, red, and blurred. Vision is hand movements. There is a 2 mm hypopyon, and the fundus view is hazy.",
+      "next": "diagnosis"
+    },
+    "diagnosis": {
+      "type": "decision",
+      "text": "What is your working diagnosis and plan?",
+      "options": [
+        {
+          "label": "Postoperative inflammation: intensify steroid drops and review in 48 hours",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "ESCRS 2013: presumed endophthalmitis is a medical emergency, because bacteria multiply exponentially and destroy visual potential. Do not delay diagnosis with a trial of steroid drops unless a sterile cause (toxic anterior segment syndrome) is strongly suspected.",
+          "cite": [1]
+        },
+        {
+          "label": "Presumed acute postoperative endophthalmitis: sample the eye and inject antibiotics within the hour",
+          "next": "vision",
+          "isCorrect": true,
+          "feedback": "ESCRS 2013: presumed endophthalmitis is a medical emergency needing investigation and treatment within an hour of presentation. Take an intraocular sample and give empirical intravitreal antibiotics. Blurred vision (93–94%), pain (74–79%), and hypopyon (72–85%) were the commonest presenting features in the EVS and ESCRS series.",
+          "cite": [1]
+        }
+      ]
+    },
+    "vision": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "hand_motion", "weight": 6 },
+        { "next": "light_perception", "weight": 4 }
+      ]
+    },
+    "hand_motion": {
+      "type": "decision",
+      "text": "His best vision is hand movements, and no vitreoretinal theatre is free for several hours. What now?",
+      "options": [
+        {
+          "label": "Vitreous biopsy with intravitreal vancomycin 1 mg and ceftazidime 2 mg, in separate syringes, now",
+          "next": "aftercare",
+          "isCorrect": true,
+          "feedback": "EVS: with vision of hand movements or better, immediate vitrectomy gave no better outcome than a vitreous tap or biopsy. ESCRS 2013: when a vitrectomy theatre is not available promptly, vitreous biopsy with intravitreal antibiotics avoids delay. First-choice doses are vancomycin 1 mg plus ceftazidime 2 mg, in separate syringes and needles to prevent precipitation.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "IV ceftazidime and amikacin, with intravitreal injection tomorrow",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "EVS: systemic ceftazidime and amikacin made no difference to final vision or media clarity. The intravitreal injection should not wait: ESCRS 2013 asks for sampling and intravitreal antibiotics within an hour of presentation.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Fortified topical antibiotics alone",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "ESCRS 2013: treatment of acute endophthalmitis is an intraocular sample with intravitreal antibiotics, given as an emergency. Topical antibiotics are at most an adjunct once intravitreal antibiotics have been given.",
+          "cite": [1]
+        }
+      ]
+    },
+    "light_perception": {
+      "type": "decision",
+      "text": "His vision is light perception only. What now?",
+      "options": [
+        {
+          "label": "Vitreous tap and intravitreal antibiotics, avoiding theatre",
+          "next": "fail_vitrectomy",
+          "isCorrect": false,
+          "feedback": "EVS: with light perception only, immediate vitrectomy tripled the chance of reaching 20/40 (33% vs 11%) and halved severe visual loss (20% vs 47%) compared with a tap.",
+          "cite": [2]
+        },
+        {
+          "label": "Immediate pars plana vitrectomy with intravitreal antibiotics",
+          "next": "aftercare",
+          "isCorrect": true,
+          "feedback": "EVS: for light-perception-only vision, immediate vitrectomy increased the chance of 20/40 or better threefold (33% vs 11%) and halved severe visual loss (20% vs 47%). ESCRS 2013: inject intravitreal vancomycin 1 mg and ceftazidime 2 mg slowly at the end, considering a 50% dose reduction after a full vitrectomy.",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "aftercare": {
+      "type": "multi",
+      "text": "Which belong in his care over the next 2 days?",
+      "options": [
+        { "label": "Clinical review about 6 hours after a tap and injection (12 hours after vitrectomy)", "isCorrect": true },
+        { "label": "Topical steroid and atropine to prevent posterior synechiae", "isCorrect": true },
+        { "label": "Chase the culture and sensitivity results", "isCorrect": true },
+        { "label": "Repeat intravitreal antibiotics every 24 hours for 5 days", "isCorrect": false },
+        { "label": "Intravitreal gentamicin 400 µg for Gram-negative cover", "isCorrect": false }
+      ],
+      "feedback": "ESCRS 2013: review 6 hours after a tap and injection, or 12 hours after vitrectomy; patients often worsen before improving. Start topical steroids and atropine, and chase microbiology results. Repeat intravitreal antibiotics only if needed, at 48–72-hour intervals; most eyes need one injection (7% of EVS patients were re-injected), and repeat injections increase retinal toxicity. Aminoglycoside doses have a narrow margin: gentamicin 400 µg may cause macular infarction.",
+      "cite": [1, 2],
+      "next": "prevention",
+      "failNext": "fail_aftercare"
+    },
+    "prevention": {
+      "type": "decision",
+      "text": "At the unit's audit meeting you are asked how to prevent further cases. What do you recommend?",
+      "options": [
+        {
+          "label": "Postoperative topical antibiotic drops alone",
+          "next": "fail_prevention",
+          "isCorrect": false,
+          "feedback": "In the ESCRS study, the absence of intracameral cefuroxime was associated with a 4.92-fold higher endophthalmitis risk. ESCRS 2013 notes that Swedish register data showed topical antibiotic drops added no clear benefit over the intracameral injection.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Intracameral cefuroxime 1 mg in 0.1 mL at the end of surgery, unless the patient is allergic to cephalosporins",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ESCRS study: omitting intracameral cefuroxime 1 mg in 0.1 mL was associated with a 4.92-fold increase in endophthalmitis. Clear corneal incisions, silicone lenses, and surgical complications also raised risk. ESCRS 2013: cefuroxime's side chain differs from penicillins, so cross-reactivity is very low; Swedish practice withholds it only for cephalosporin allergy.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Delayed intravitreal treatment and vision loss."
+    },
+    "fail_vitrectomy": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Worse visual outcome without vitrectomy at light perception."
+    },
+    "fail_aftercare": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Retinal toxicity or synechiae from unsafe aftercare."
+    },
+    "fail_prevention": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Prophylaxis without intracameral antibiotic."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Endophthalmitis treated and prevention improved."
+    }
+  }
+}

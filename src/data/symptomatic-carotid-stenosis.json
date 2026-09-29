@@ -1,0 +1,128 @@
+{
+  "id": "symptomatic-carotid-stenosis",
+  "title": "Symptomatic Carotid Stenosis",
+  "category": "Vascular",
+  "description": "Start aspirin and specialist review within 24 hours of a TIA, image the carotids, and offer endarterectomy within 2 weeks for 50–99% NASCET stenosis, preferring it to stenting from age 70.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Start aspirin and arrange specialist review within 24 hours of a TIA, without risk scores",
+    "Refer 50–99% NASCET symptomatic stenosis urgently for endarterectomy",
+    "Operate within 2 weeks of the last event, when the benefit is greatest",
+    "Choose endarterectomy over stenting in patients aged 70 or over"
+  ],
+  "references": [
+    {
+      "citation": "National Institute for Health and Care Excellence. Stroke and transient ischaemic attack in over 16s: diagnosis and initial management (NICE guideline NG128). London: NICE; 2019, updated 2022.",
+      "url": "https://www.nice.org.uk/guidance/ng128",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Bonati LH, Kakkos S, Berkefeld J, et al. European Stroke Organisation guideline on endarterectomy and stenting for carotid artery stenosis. Eur Stroke J. 2021;6(2):I-XLVII.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8370069/",
+      "kind": "guideline",
+      "pmid": "34414302",
+      "doi": "10.1177/23969873211012121"
+    },
+    {
+      "citation": "Rothwell PM, Eliasziw M, Gutnikov SA, et al. Endarterectomy for symptomatic carotid stenosis in relation to clinical subgroups and timing of surgery. Lancet. 2004;363(9413):915-924.",
+      "url": "https://doi.org/10.1016/S0140-6736(04)15785-1",
+      "kind": "systematic-review",
+      "pmid": "15043958",
+      "doi": "10.1016/S0140-6736(04)15785-1"
+    },
+    {
+      "citation": "Bonati LH, Dobson J, Algra A, et al. Short-term outcome after stenting versus endarterectomy for symptomatic carotid stenosis: a preplanned meta-analysis of individual patient data. Lancet. 2010;376(9746):1062-1073.",
+      "url": "https://doi.org/10.1016/S0140-6736(10)61009-4",
+      "kind": "systematic-review",
+      "pmid": "20832852",
+      "doi": "10.1016/S0140-6736(10)61009-4"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 74-year-old man had 20 minutes of weakness and numbness in his right hand, with difficulty finding words, yesterday evening. It has fully resolved. He comes to the emergency department this morning.",
+      "vitals": [
+        { "label": "BP", "value": "158/92", "unit": "mmHg", "status": "warning" },
+        { "label": "HR", "value": "78", "unit": "bpm" }
+      ],
+      "next": "first"
+    },
+    "first": {
+      "type": "multi",
+      "text": "Which belong in your first steps?",
+      "options": [
+        { "label": "Aspirin 300 mg daily, started immediately unless contraindicated", "isCorrect": true },
+        { "label": "Referral for specialist assessment within 24 hours of symptom onset", "isCorrect": true },
+        { "label": "An ABCD2 score to decide how urgently to refer", "isCorrect": false },
+        { "label": "CT of the brain, as for every suspected TIA", "isCorrect": false }
+      ],
+      "feedback": "NICE NG128: exclude hypoglycemia, offer aspirin 300 mg daily started immediately unless contraindicated, and refer immediately for specialist assessment within 24 hours of symptom onset. Do not use scoring systems such as ABCD2 to assess stroke risk or set the urgency of referral. Do not offer CT brain for a suspected TIA unless another diagnosis that CT could detect is suspected.",
+      "cite": [1],
+      "next": "stenosis",
+      "failNext": "fail_workup"
+    },
+    "stenosis": {
+      "type": "decision",
+      "text": "The TIA clinic considers him a candidate for endarterectomy. Urgent carotid imaging shows 80% stenosis of the left internal carotid artery by NASCET criteria. Next?",
+      "options": [
+        {
+          "label": "Urgent referral for endarterectomy within 2 weeks of the event, with best medical treatment meanwhile",
+          "next": "technique",
+          "isCorrect": true,
+          "feedback": "NICE NG128: refer people with stable symptoms and 50–99% NASCET (70–99% ECST) symptomatic stenosis urgently for endarterectomy, with best medical treatment: blood pressure control, antiplatelets, cholesterol lowering, and lifestyle advice. ESO 2021 recommends endarterectomy for 70–99% symptomatic stenosis, ideally within 2 weeks of the last event (high-quality evidence). In pooled ECST and NASCET data, the number needed to treat to prevent one ipsilateral stroke in 5 years was 5 when surgery was within 2 weeks, compared with 125 after 12 weeks.",
+          "cite": [1, 2, 3]
+        },
+        {
+          "label": "Best medical treatment alone, with surgery only if symptoms recur",
+          "next": "fail_stroke",
+          "isCorrect": false,
+          "feedback": "NICE NG128: symptomatic stenosis of 50–99% by NASCET criteria should be referred urgently for endarterectomy as well as best medical treatment. ESO 2021 recommends endarterectomy for 70–99% symptomatic stenosis.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Elective endarterectomy in 3 months, once the plaque has settled",
+          "next": "fail_stroke",
+          "isCorrect": false,
+          "feedback": "In pooled trial data, the benefit of endarterectomy fell rapidly with delay: the number needed to treat was 5 within 2 weeks of the last event, compared with 125 beyond 12 weeks. ESO 2021 recommends surgery ideally within 2 weeks (high-quality evidence).",
+          "cite": [2, 3]
+        }
+      ]
+    },
+    "technique": {
+      "type": "decision",
+      "text": "The team discusses carotid stenting as an alternative to endarterectomy. Which do you recommend for him?",
+      "options": [
+        {
+          "label": "Endarterectomy: at his age, stenting carries about twice the early risk of stroke or death",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "In an individual-patient meta-analysis of 3 trials (3,433 patients), stroke or death within 120 days in patients aged 70 or over was 12.0% after stenting vs 5.9% after endarterectomy (RR 2.04), whereas the risks were similar under 70. ESO 2021 suggests stenting may be considered in patients under 70 (low-quality evidence).",
+          "cite": [2, 4]
+        },
+        {
+          "label": "Stenting, as it is equally safe at any age",
+          "next": "fail_stroke",
+          "isCorrect": false,
+          "feedback": "Age modified the risk of stenting: at 70 or over, stroke or death within 120 days was 12.0% after stenting vs 5.9% after endarterectomy. The authors advise avoiding stenting in older patients.",
+          "cite": [4]
+        }
+      ]
+    },
+    "fail_workup": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: TIA assessment not by the guideline."
+    },
+    "fail_stroke": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Avoidable stroke risk from a symptomatic stenosis."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Early endarterectomy for symptomatic stenosis."
+    }
+  }
+}

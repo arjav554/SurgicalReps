@@ -1,0 +1,221 @@
+{
+  "id": "open-globe-injury",
+  "title": "Open Globe Injury",
+  "category": "Ophthalmology",
+  "description": "Protect the eye, image for a foreign body, repair within 24 hours with the best evidence against endophthalmitis, and repair rather than remove even a badly injured eye.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Protect a suspected open globe in the emergency department and avoid harmful examinations",
+    "Image with CT, knowing its limits",
+    "Weigh the evidence on antibiotics and repair timing for preventing endophthalmitis",
+    "Repair rather than remove a severely injured eye, and time vitrectomy for posterior injuries"
+  ],
+  "references": [
+    {
+      "citation": "Blanch RJ, McMaster D, Patterson TJ. Management of open globe injury: a narrative review. Eye (Lond). 2024;38(16):3047-3051.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11543839/",
+      "kind": "review",
+      "pmid": "39085596",
+      "doi": "10.1038/s41433-024-03246-3"
+    },
+    {
+      "citation": "Zhou Y, DiSclafani M, Jeang L, et al. Open Globe Injuries: Review of Evaluation, Management, and Surgical Pearls. Clin Ophthalmol. 2022;16:2545-2559.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9379121/",
+      "kind": "review",
+      "pmid": "35983163",
+      "doi": "10.2147/OPTH.S372011"
+    },
+    {
+      "citation": "McMaster D, Bapty J, Bush L, et al. Early versus Delayed Timing of Primary Repair after Open-Globe Injury: A Systematic Review and Meta-analysis. Ophthalmology. 2025;132(4):431-441.",
+      "url": "https://doi.org/10.1016/j.ophtha.2024.08.030",
+      "kind": "systematic-review",
+      "pmid": "39218161",
+      "doi": "10.1016/j.ophtha.2024.08.030"
+    },
+    {
+      "citation": "Patterson TJ, McKinney D, Ritson J, et al. The Use of Preoperative Prophylactic Systemic Antibiotics for the Prevention of Endopthalmitis in Open Globe Injuries: A Meta-Analysis. Ophthalmol Retina. 2023;7(11):972-981.",
+      "url": "https://doi.org/10.1016/j.oret.2023.06.022",
+      "kind": "systematic-review",
+      "pmid": "37406735",
+      "doi": "10.1016/j.oret.2023.06.022"
+    },
+    {
+      "citation": "Du Toit N, Mustak S, Cook C. Randomised controlled trial of prophylactic antibiotic treatment for the prevention of endophthalmitis after open globe injury at Groote Schuur Hospital. Br J Ophthalmol. 2017;101(7):862-867.",
+      "url": "https://doi.org/10.1136/bjophthalmol-2016-309736",
+      "kind": "trial",
+      "pmid": "27793818",
+      "doi": "10.1136/bjophthalmol-2016-309736"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 28-year-old was hammering a steel chisel when something struck his left eye. Vision in that eye is counting fingers. The pupil is peaked toward a 4 mm corneoscleral laceration with prolapsed iris. He is nauseated and in pain.",
+      "vitals": [
+        { "label": "HR", "value": "104", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "138/84", "unit": "mmHg" }
+      ],
+      "next": "protect"
+    },
+    "protect": {
+      "type": "multi",
+      "text": "In the emergency department, which belong?",
+      "options": [
+        { "label": "A rigid shield over the eye, with no pressure on the globe", "isCorrect": true },
+        { "label": "Nil by mouth, ready for general anesthesia", "isCorrect": true },
+        { "label": "IV antiemetic and opioid analgesia", "isCorrect": true },
+        { "label": "Check tetanus status and give prophylaxis if needed", "isCorrect": true },
+        { "label": "Measure the intraocular pressure", "isCorrect": false },
+        { "label": "Ibuprofen for the pain", "isCorrect": false }
+      ],
+      "feedback": "Zhou 2022: place an eye shield immediately, keep the patient nil by mouth for general anesthesia, and address tetanus prophylaxis. Give antiemetics to prevent Valsalva, which risks expulsion of intraocular contents, and opioids for pain. NSAIDs are relatively contraindicated because of their antiplatelet effect. Measuring intraocular pressure is contraindicated in a suspected open globe, and a Seidel test is unnecessary when the injury is obvious.",
+      "cite": [2],
+      "next": "imaging",
+      "failNext": "fail_expulsion"
+    },
+    "imaging": {
+      "type": "decision",
+      "text": "Metal-on-metal hammering raises the question of an intraocular foreign body. Imaging?",
+      "options": [
+        {
+          "label": "B-scan ultrasound through the closed lid",
+          "next": "fail_expulsion",
+          "isCorrect": false,
+          "feedback": "Zhou 2022: B-scan ultrasound is not advised for a confirmed open globe. Non-contrast CT of the orbits is the recommended imaging.",
+          "cite": [2]
+        },
+        {
+          "label": "Non-contrast CT of the orbits",
+          "next": "prevention",
+          "isCorrect": true,
+          "feedback": "Zhou 2022: non-contrast orbital CT is the recommended imaging in ocular trauma. It is highly specific (90–100%) but only moderately sensitive (50–80%) for open globe, so it cannot rule one out. Radiopaque foreign bodies such as steel are reliably shown.",
+          "cite": [2]
+        },
+        {
+          "label": "No imaging; the wound is visible, so go straight to repair",
+          "next": "fail_iofb",
+          "isCorrect": false,
+          "feedback": "Zhou 2022: CT reliably shows radiopaque foreign bodies, which matters after metal-on-metal hammering, and helps plan surgery. The visible wound does not tell you whether a foreign body is inside the eye.",
+          "cite": [2]
+        }
+      ]
+    },
+    "prevention": {
+      "type": "multi",
+      "text": "CT shows no intraocular foreign body. Which statements about preventing post-traumatic endophthalmitis are supported?",
+      "options": [
+        { "label": "Primary repair within 24 hours is associated with less endophthalmitis", "isCorrect": true },
+        { "label": "Oral antibiotic prophylaxis appears non-inferior to IV", "isCorrect": true },
+        { "label": "Intraocular antibiotics at primary repair have the strongest evidence", "isCorrect": true },
+        { "label": "Systemic prophylaxis has been proven to reduce endophthalmitis", "isCorrect": false },
+        { "label": "Systemic antibiotics make a delayed repair safe", "isCorrect": false }
+      ],
+      "feedback": "In a meta-analysis of 8,497 eyes, repair within 24 hours was associated with lower odds of endophthalmitis (OR 0.39; low-certainty, retrospective data). Oral prophylaxis matched IV in randomized data (2.26% vs 2.11%); in one RCT, rates were 2.7% oral vs 2.0% IV plus oral. No prospective evidence shows that systemic prophylaxis itself reduces endophthalmitis. Intravitreal gentamicin at repair cut endophthalmitis from 6% to 0% in pooled RCTs, and the harm of delay persisted despite systemic antibiotics (Blanch 2024).",
+      "cite": [1, 3, 4, 5],
+      "next": "timing",
+      "failNext": "fail_endophthalmitis"
+    },
+    "timing": {
+      "type": "decision",
+      "text": "It is 9 pm. When should the primary repair happen?",
+      "options": [
+        {
+          "label": "On the next routine elective list, in 2–3 days",
+          "next": "fail_endophthalmitis",
+          "isCorrect": false,
+          "feedback": "Blanch 2024: delays beyond 24 hours increase endophthalmitis risk, and it is difficult to defend policies that plan repair more than 24 hours after injury. Sooner is likely better. In McMaster 2025, repair within 24 hours was associated with lower odds of endophthalmitis (OR 0.39).",
+          "cite": [1, 3]
+        },
+        {
+          "label": "As soon as feasible, and within 24 hours of injury",
+          "next": "extent",
+          "isCorrect": true,
+          "feedback": "Blanch 2024: repair as soon as possible, balanced against the risks of out-of-hours surgery. The usual UK standard is 12–24 hours, and plans for repair beyond 24 hours are hard to defend. Repair within 24 hours was associated with less endophthalmitis (McMaster 2025, OR 0.39), without a clear difference in visual outcome.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "extent": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "anterior", "weight": 6 },
+        { "next": "posterior", "weight": 4 }
+      ]
+    },
+    "anterior": {
+      "type": "info",
+      "text": "The laceration is confined to the cornea and limbus (zone I). It is closed watertight and the iris is reposited. He is reviewed the next day to check the seal.",
+      "next": "success"
+    },
+    "posterior": {
+      "type": "decision",
+      "text": "Exploration shows the wound extends well behind the equator (zone III). After repair, his vision is no light perception with a relative afferent pupillary defect. His family asks whether removing the eye would protect the other one. What do you advise?",
+      "options": [
+        {
+          "label": "Remove the eye within 2 weeks to prevent sympathetic ophthalmia",
+          "next": "fail_removal",
+          "isCorrect": false,
+          "feedback": "Blanch 2024: there is no evidence that eye removal prevents sympathetic ophthalmia. In a meta-analysis, it occurred in 0.15% after primary repair vs 0–0.21% after removal, so at least 323 eyes would need removal to prevent one case. Some recovery from no light perception is common: in the Ocular Trauma Score series, 26–73% of such eyes improved.",
+          "cite": [1]
+        },
+        {
+          "label": "Keep the repaired eye: vision can recover, and removal has not been shown to prevent sympathetic ophthalmia",
+          "next": "vitrectomy",
+          "isCorrect": true,
+          "feedback": "Blanch 2024: sympathetic ophthalmia is rare (0.06–0.19%). There is no evidence that removal prevents it; after primary repair it occurred in 0.15%, vs 0–0.21% after removal. Some recovery from no light perception is common (26% of OTS I and 73% of OTS II eyes), so eyes should be repaired where possible.",
+          "cite": [1]
+        }
+      ]
+    },
+    "vitrectomy": {
+      "type": "decision",
+      "text": "When should vitrectomy be planned for this zone III injury?",
+      "options": [
+        {
+          "label": "Wait at least 6 weeks for the eye to settle",
+          "next": "fail_pvr",
+          "isCorrect": false,
+          "feedback": "Blanch 2024: retinal detachment affects 29% within the first month after open globe injury, and up to half develop proliferative vitreoretinopathy. Retrospective studies and limited trial data favor vitrectomy within 4–7 days for zone III injuries.",
+          "cite": [1]
+        },
+        {
+          "label": "Within about 4–7 days of injury",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "Blanch 2024: no drug prevents proliferative vitreoretinopathy. Vitrectomy within 4–7 days is associated with lower rates in retrospective studies and limited trial data, especially for zone III injuries with retinal involvement, detachment, or vitreous hemorrhage.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_expulsion": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Extrusion of intraocular contents from pressure on the globe."
+    },
+    "fail_iofb": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Intraocular foreign body not excluded."
+    },
+    "fail_endophthalmitis": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Post-traumatic endophthalmitis."
+    },
+    "fail_removal": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Management Error: Eye removed without evidence of benefit."
+    },
+    "fail_pvr": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Proliferative vitreoretinopathy and retinal detachment."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Globe repaired promptly with complications anticipated."
+    }
+  }
+}

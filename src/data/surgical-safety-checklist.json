@@ -1,0 +1,181 @@
+{
+  "id": "surgical-safety-checklist",
+  "title": "WHO Surgical Safety Checklist",
+  "category": "Perioperative Safety",
+  "description": "Run Sign In, Time Out, and Sign Out, the checklist associated with fewer deaths and complications, and hold the line when a step is skipped.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Place checklist steps in the right pause: Sign In, Time Out, or Sign Out",
+    "Complete site marking before induction of anesthesia",
+    "Hold the incision until the Time Out, including team introductions, is complete",
+    "Confirm counts and specimen labelling at Sign Out",
+    "Run the checklist aloud, as a team"
+  ],
+  "references": [
+    {
+      "citation": "World Health Organization. WHO Surgical Safety Checklist and safe surgery tools and resources. Geneva: WHO; 2009.",
+      "url": "https://www.who.int/teams/integrated-health-services/patient-safety/research/safe-surgery/tool-and-resources",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Haynes AB, Weiser TG, Berry WR, et al. A surgical safety checklist to reduce morbidity and mortality in a global population. N Engl J Med. 2009;360(5):491-499.",
+      "url": "https://doi.org/10.1056/NEJMsa0810119",
+      "kind": "cohort",
+      "pmid": "19144931",
+      "doi": "10.1056/NEJMsa0810119"
+    },
+    {
+      "citation": "Gul F, Nazir M, Abbas K, et al. Surgical safety checklist compliance: the clinical audit. Ann Med Surg (Lond). 2022;81:104397.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9486577/",
+      "kind": "cohort",
+      "pmid": "36147088",
+      "doi": "10.1016/j.amsu.2022.104397"
+    },
+    {
+      "citation": "Treadwell JR, Lucas S, Tsou AY. Surgical checklists: a systematic review of impacts and implementation. BMJ Qual Saf. 2014;23(4):299-318.",
+      "url": "https://doi.org/10.1136/bmjqs-2012-001797",
+      "kind": "systematic-review",
+      "pmid": "23922403",
+      "doi": "10.1136/bmjqs-2012-001797"
+    },
+    {
+      "citation": "World Health Organization. The WHO Surgical Safety Checklist: adaptation guide. Geneva: WHO; 2009.",
+      "url": "https://cdn.who.int/media/docs/default-source/patient-safety/safe-surgery/checklist-adaptation.pdf",
+      "kind": "guideline"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "You are the resident leading the checklist for an elective left open inguinal hernia repair under general anesthesia. The patient is on the table; anesthesia is ready to induce. The WHO checklist pauses the team at three points: before induction (Sign In), before skin incision (Time Out), and before the patient leaves the operating room (Sign Out).",
+      "cite": [1, 3],
+      "next": "phases"
+    },
+    "phases": {
+      "type": "multi",
+      "text": "Which of these checks belong to SIGN IN, before induction of anesthesia?",
+      "options": [
+        { "label": "Surgical site marked", "isCorrect": true },
+        { "label": "Anesthesia machine and medication check", "isCorrect": true },
+        { "label": "Pulse oximeter on the patient and functioning", "isCorrect": true },
+        { "label": "Team members introduce themselves by name and role", "isCorrect": false },
+        { "label": "Essential imaging displayed", "isCorrect": false },
+        { "label": "Instrument, sponge, and needle counts complete", "isCorrect": false }
+      ],
+      "feedback": "Sign In, before induction: the surgical site is marked and the anesthesia machine, medications, and pulse oximeter are checked. Team introductions by name and role and the display of essential imaging belong to the Time Out, before skin incision. Instrument, sponge, and needle counts and specimen labelling belong to the Sign Out, after closure or before the patient leaves the operating room.",
+      "cite": [3, 1],
+      "next": "sign_in_site",
+      "failNext": "fail_phases"
+    },
+    "sign_in_site": {
+      "type": "decision",
+      "text": "SIGN IN. The patient confirms his name and the procedure, but there is no site marking on the left groin. What do you do?",
+      "options": [
+        {
+          "label": "Pause before induction: confirm laterality against the consent and clinic records, then mark the site with the patient awake",
+          "next": "time_out_team",
+          "isCorrect": true,
+          "feedback": "Marking the surgical site is a Sign In step, completed before induction of anesthesia. Resolve the missing mark at Sign In rather than proceeding without it.",
+          "cite": [3, 1]
+        },
+        {
+          "label": "Induce now and confirm the side by examination under anesthesia",
+          "next": "fail_wrong_site",
+          "isCorrect": false,
+          "feedback": "Site marking is part of Sign In, which the checklist places before induction of anesthesia. Inducing first skips the step at the point it was designed for.",
+          "cite": [3, 1]
+        }
+      ]
+    },
+    "time_out_team": {
+      "type": "decision",
+      "text": "TIME OUT. The attending picks up the scalpel. The scrub nurse is new today, the team has not introduced themselves, and the images are not up. What do you do?",
+      "options": [
+        {
+          "label": "Call the Time Out before incision: introductions by name and role, and essential imaging displayed",
+          "next": "sign_out_count",
+          "isCorrect": true,
+          "feedback": "The Time Out is performed before skin incision and includes team introductions by name and role and displaying essential imaging. In one audit, introductions were the least-complied item even after an educational intervention; the communication items are the ones teams skip.",
+          "cite": [3, 1]
+        },
+        {
+          "label": "Let the incision proceed; everyone knows the case",
+          "next": "fail_time_out",
+          "isCorrect": false,
+          "feedback": "The Time Out happens before skin incision. Introducing the 19-item checklist was associated with deaths falling from 1.5% to 0.8% and complications from 11.0% to 7.0%, and a systematic review linked checklists to better detection of safety hazards, fewer complications, and better team communication.",
+          "cite": [2, 4]
+        }
+      ]
+    },
+    "sign_out_count": {
+      "type": "decision",
+      "text": "SIGN OUT. Before closure the scrub nurse reports the sponge count is one short. The attending says it was probably miscounted at the start. What do you do?",
+      "options": [
+        {
+          "label": "Close and document the discrepancy",
+          "next": "fail_retained",
+          "isCorrect": false,
+          "feedback": "Sign Out asks whether the sponge, needle, and instrument counts are complete. An incomplete count has not passed that check, and documenting the discrepancy does not complete it.",
+          "cite": [3]
+        },
+        {
+          "label": "Do not close until the count is complete and correct",
+          "next": "sign_out_specimen",
+          "isCorrect": true,
+          "feedback": "Sign Out includes confirming that sponge, needle, and instrument counts are complete. In one audit this was the step whose compliance improved most with training, from 33% to 100%.",
+          "cite": [3]
+        }
+      ]
+    },
+    "sign_out_specimen": {
+      "type": "decision",
+      "text": "SIGN OUT. The missing sponge is found and the count is complete. A hernia sac specimen goes to pathology. How is it handled?",
+      "options": [
+        {
+          "label": "Confirm the specimen labelling aloud with the team as part of Sign Out, before the patient leaves the room",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "Specimen labelling is a Sign Out item. WHO stresses that the checklist is a verbal exercise among team members: reading it aloud as a team is critical to its success.",
+          "cite": [3, 5]
+        },
+        {
+          "label": "Label it later in recovery once the paperwork is done",
+          "next": "fail_specimen",
+          "isCorrect": false,
+          "feedback": "Specimen labelling belongs to the Sign Out, completed before the patient leaves the operating room, and is confirmed aloud by the team rather than left for later.",
+          "cite": [3, 5]
+        }
+      ]
+    },
+    "fail_phases": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Safety Failure: Checklist items run in the wrong phase."
+    },
+    "fail_wrong_site": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Safety Failure: Site unconfirmed before induction (wrong-site surgery risk)."
+    },
+    "fail_time_out": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Safety Failure: Incision without a Time Out."
+    },
+    "fail_retained": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Safety Failure: Closure over an incomplete count (retained sponge risk)."
+    },
+    "fail_specimen": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Safety Failure: Specimen labelling skipped at Sign Out."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Checklist Complete: Sign In, Time Out, and Sign Out with no safety events."
+    }
+  }
+}

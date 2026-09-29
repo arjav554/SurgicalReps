@@ -1,0 +1,362 @@
+{
+  "id": "spontaneous-pneumothorax",
+  "title": "Primary Spontaneous Pneumothorax",
+  "category": "Thoracic",
+  "description": "Classify the pneumothorax, treat the patient's symptoms rather than the rim size, weigh conservative, ambulatory, aspiration, and drain options, and know when to call the thoracic surgeon.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Classify spontaneous pneumothorax as primary or secondary",
+    "Base initial management on symptoms and high-risk features, not size",
+    "Explain the trade-offs of conservative care, ambulatory devices, aspiration, and drains",
+    "Recognize the accepted indications for a thoracic surgical opinion",
+    "Give discharge advice on warning signs, smoking, flying, and diving"
+  ],
+  "references": [
+    {
+      "citation": "Roberts ME, Rahman NM, Maskell NA, et al. British Thoracic Society Guideline for pleural disease. Thorax. 2023;78(Suppl 3):s1-s42.",
+      "url": "https://doi.org/10.1136/thorax-2022-219784",
+      "kind": "guideline",
+      "pmid": "37433578",
+      "doi": "10.1136/thorax-2022-219784"
+    },
+    {
+      "citation": "Brown SGA, Ball EL, Perrin K, et al. Conservative versus Interventional Treatment for Spontaneous Pneumothorax. N Engl J Med. 2020;382(5):405-415.",
+      "url": "https://doi.org/10.1056/NEJMoa1910775",
+      "kind": "trial",
+      "pmid": "31995686",
+      "doi": "10.1056/NEJMoa1910775"
+    },
+    {
+      "citation": "Hallifax RJ, McKeown E, Sivakumar P, et al. Ambulatory management of primary spontaneous pneumothorax: an open-label, randomised controlled trial. Lancet. 2020;396(10243):39-49.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7607300/",
+      "kind": "trial",
+      "pmid": "32622394",
+      "doi": "10.1016/S0140-6736(20)31043-6"
+    },
+    {
+      "citation": "Carson-Chahhoud KV, Wakai A, van Agteren JE, et al. Simple aspiration versus intercostal tube drainage for primary spontaneous pneumothorax in adults. Cochrane Database Syst Rev. 2017;9(9):CD004479.",
+      "url": "https://doi.org/10.1002/14651858.CD004479.pub3",
+      "kind": "systematic-review",
+      "pmid": "28881006",
+      "doi": "10.1002/14651858.CD004479.pub3"
+    },
+    {
+      "citation": "Walker SP, Bibby AC, Halford P, et al. Recurrence rates in primary spontaneous pneumothorax: a systematic review and meta-analysis. Eur Respir J. 2018;52(3):1800864.",
+      "url": "https://doi.org/10.1183/13993003.00864-2018",
+      "kind": "systematic-review",
+      "pmid": "30002105",
+      "doi": "10.1183/13993003.00864-2018"
+    },
+    {
+      "citation": "Tschopp JM, Bintcliffe O, Astoul P, et al. ERS task force statement: diagnosis and treatment of primary spontaneous pneumothorax. Eur Respir J. 2015;46(2):321-335.",
+      "url": "https://doi.org/10.1183/09031936.00219214",
+      "kind": "consensus",
+      "pmid": "26113675",
+      "doi": "10.1183/09031936.00219214"
+    },
+    {
+      "citation": "Subedi A, Banjade P, Joshi S, et al. Updates on British Thoracic Society Statement on Pleural Disease and Procedures 2023. Open Respir Med J. 2023;17:e18743064286775.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11037506/",
+      "kind": "review",
+      "pmid": "38655073",
+      "doi": "10.2174/0118743064286775231128104253"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 24-year-old man who smokes has had sudden right-sided pleuritic chest pain since this morning, which began at rest. He has no known lung disease. Chest X-ray shows a large right pneumothorax.",
+      "vitals": [
+        { "label": "HR", "value": "92", "unit": "bpm" },
+        { "label": "BP", "value": "126/78", "unit": "mmHg" },
+        { "label": "RR", "value": "18", "unit": "/min" },
+        { "label": "SpO2", "value": "97", "unit": "%" }
+      ],
+      "next": "classify"
+    },
+    "classify": {
+      "type": "decision",
+      "text": "How do you classify this pneumothorax?",
+      "options": [
+        {
+          "label": "Secondary spontaneous pneumothorax, because he smokes",
+          "next": "fail_classify",
+          "isCorrect": false,
+          "feedback": "BTS 2023: a pneumothorax is secondary when there is established underlying lung disease, or when the patient is over 50 with a smoking history. A 24-year-old smoker without lung disease has a primary pneumothorax. His smoking still matters, for recurrence.",
+          "cite": [1]
+        },
+        {
+          "label": "Primary spontaneous pneumothorax: no known lung disease, and he is under 50",
+          "next": "presentation",
+          "isCorrect": true,
+          "feedback": "BTS 2023: primary means no suspected lung disease; secondary means established lung disease. Patients over 50 with a smoking history are also treated as secondary because they may respond differently to needle aspiration. At 24, his smoking does not change the category.",
+          "cite": [1]
+        }
+      ]
+    },
+    "presentation": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "minimal", "weight": 9 },
+        { "next": "symptomatic", "weight": 8 },
+        { "next": "bilateral", "weight": 3 }
+      ]
+    },
+    "minimal": {
+      "type": "decision",
+      "text": "His pain settles with oral analgesia. He is not breathless and his observations are normal, but the pneumothorax is large on the film. What do you recommend?",
+      "vitals": [
+        { "label": "HR", "value": "84", "unit": "bpm" },
+        { "label": "RR", "value": "16", "unit": "/min" },
+        { "label": "SpO2", "value": "98", "unit": "%" }
+      ],
+      "options": [
+        {
+          "label": "Chest drain: the pneumothorax is large",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "BTS 2023 (conditional, by consensus): minimally symptomatic or asymptomatic primary pneumothorax can be managed conservatively regardless of size. Size no longer drives invasive management. In Brown 2020, conservative care of moderate-to-large pneumothorax re-expanded the lung by 8 weeks in 94.4% vs 98.5% with intervention (complete-case analysis). Serious adverse events and recurrence were less common with conservative care.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Conservative care: analgesia, observation, early review, and a clear plan to return if he becomes breathless",
+          "next": "counsel",
+          "isCorrect": true,
+          "feedback": "BTS 2023: conservative management for minimally symptomatic primary pneumothorax regardless of size (conditional, by consensus). ERS 2015: treatment follows symptoms, not size. In Brown 2020, 84.6% of the conservative arm needed no intervention, with fewer serious adverse events or recurrences than intervention. The non-inferiority result did not hold when missing data were imputed as failures.",
+          "cite": [1, 2, 6]
+        },
+        {
+          "label": "Needle aspiration, because the rim is wider than 2 cm",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "BTS 2023 dropped size as an indication for invasive management; size now only decides whether an intervention can be done safely. A minimally symptomatic patient can be managed conservatively regardless of size (conditional, by consensus).",
+          "cite": [1]
+        }
+      ]
+    },
+    "symptomatic": {
+      "type": "decision",
+      "text": "He is breathless on walking and in pain despite analgesia, but has no high-risk features: no significant hypoxia, no bilateral pneumothorax, no underlying lung disease. Your hospital runs an ambulatory pneumothorax service with next-day review. Initial approach?",
+      "vitals": [
+        { "label": "HR", "value": "106", "unit": "bpm", "status": "warning" },
+        { "label": "RR", "value": "22", "unit": "/min", "status": "warning" },
+        { "label": "SpO2", "value": "95", "unit": "%" }
+      ],
+      "options": [
+        {
+          "label": "Observe only; he is young and fit",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "BTS 2023: conservative management is for minimally symptomatic patients, meaning no significant pain or breathlessness and no physiological compromise. He is breathless and in pain, so ambulatory management, needle aspiration, or a drain should be considered.",
+          "cite": [1]
+        },
+        {
+          "label": "VATS bullectomy and pleurodesis today to prevent recurrence",
+          "next": "fail_early_surgery",
+          "isCorrect": false,
+          "feedback": "BTS 2023 (conditional): surgery at first presentation can be considered when preventing recurrence is especially important, for example after a tension pneumothorax or in a high-risk occupation. He has neither. The guideline asks that every option be discussed with the patient, with consideration for the least invasive.",
+          "cite": [1]
+        },
+        {
+          "label": "Ambulatory device, with next-day review in the pleural clinic",
+          "next": "options_talk",
+          "isCorrect": true,
+          "feedback": "BTS 2023 (conditional): consider ambulatory management for adults with primary pneumothorax who have good support, in centres with the expertise and follow-up to deliver it. In RAMPP, median hospital stay was 0 days vs 4 with standard care. Adverse events were more common (55% vs 39%), and all 14 serious adverse events occurred in the ambulatory arm.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "options_talk": {
+      "type": "multi",
+      "text": "He asks what the alternatives would have been. Which statements about aspiration and chest drains are supported by the evidence?",
+      "options": [
+        { "label": "Needle aspiration shortens hospital stay compared with a drain", "isCorrect": true },
+        { "label": "A drain is more likely to succeed immediately", "isCorrect": true },
+        { "label": "Recurrence is similar after aspiration and after a drain", "isCorrect": true },
+        { "label": "After aspiration, a further pleural procedure is less likely than after a drain", "isCorrect": false },
+        { "label": "A drain lowers recurrence compared with conservative management", "isCorrect": false }
+      ],
+      "feedback": "BTS 2023 evidence review, aspiration vs a drain: stay about 2.55 days shorter, no difference in recurrence, but more patients need a further procedure (626 vs 240 per 1000). Recurrence after a drain was higher than after conservative care (179 vs 111 per 1000; very low certainty). Cochrane 2017: a drain succeeds immediately more often (risk ratio for aspiration 0.78), aspiration shortens stay by 1.66 days, and 1-year success does not differ.",
+      "cite": [1, 4],
+      "next": "course",
+      "failNext": "fail_consent"
+    },
+    "course": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "resolved", "weight": 7 },
+        { "next": "air_leak", "weight": 3 }
+      ]
+    },
+    "resolved": {
+      "type": "info",
+      "text": "At clinic review the lung has re-expanded, the air leak has stopped, and the device is removed.",
+      "next": "counsel"
+    },
+    "air_leak": {
+      "type": "decision",
+      "text": "Day 6 of drainage: air is still leaking and the lung has not fully re-expanded. He is otherwise well. Next step?",
+      "vitals": [
+        { "label": "HR", "value": "88", "unit": "bpm" },
+        { "label": "SpO2", "value": "96", "unit": "%" }
+      ],
+      "options": [
+        {
+          "label": "Add high-pressure suction and review in another week",
+          "next": "fail_air_leak",
+          "isCorrect": false,
+          "feedback": "BTS 2023: no evidence that suction helps a pneumothorax with persistent air leak. A leak that persists despite 5–7 days of chest tube drainage is an accepted indication for thoracic surgical advice.",
+          "cite": [1]
+        },
+        {
+          "label": "Refer to thoracic surgery",
+          "next": "operation",
+          "isCorrect": true,
+          "feedback": "BTS 2023 lists persistent air leak despite 5–7 days of chest tube drainage, or failure of the lung to re-expand, among the accepted indications for a thoracic surgical opinion. No evidence fixes the exact timing, so each case is judged on its merits.",
+          "cite": [1]
+        },
+        {
+          "label": "Autologous blood patch, although he is fit for surgery",
+          "next": "fail_air_leak",
+          "isCorrect": false,
+          "feedback": "BTS 2023 (good practice point): autologous blood pleurodesis or endobronchial therapy is considered when the patient is not fit for surgery. He is fit, so he should see a thoracic surgeon.",
+          "cite": [1]
+        }
+      ]
+    },
+    "bilateral": {
+      "type": "decision",
+      "text": "The film shows pneumothoraces on both sides, and he is now breathless at rest. Plan?",
+      "vitals": [
+        { "label": "HR", "value": "118", "unit": "bpm", "status": "warning" },
+        { "label": "RR", "value": "28", "unit": "/min", "status": "critical" },
+        { "label": "SpO2", "value": "89", "unit": "%", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Drain as needed, then get an early thoracic surgical opinion",
+          "next": "operation",
+          "isCorrect": true,
+          "feedback": "Bilateral pneumothorax and significant hypoxia are high-risk features. For these, the BTS 2023 pathway centres care on drainage by aspiration or chest drain when it is safe (summarized by Subedi 2023). Synchronous bilateral spontaneous pneumothorax is an accepted indication for thoracic surgical advice.",
+          "cite": [1, 7]
+        },
+        {
+          "label": "Conservative care with close observation",
+          "next": "fail_bilateral",
+          "isCorrect": false,
+          "feedback": "Conservative and ambulatory pathways are for patients without high-risk features. Bilateral pneumothorax with significant hypoxia is high-risk, and the BTS 2023 pathway calls for drainage when it is safe to do so (summarized by Subedi 2023).",
+          "cite": [1, 7]
+        }
+      ]
+    },
+    "operation": {
+      "type": "decision",
+      "text": "The thoracic surgeon agrees to operate. He works in an office and does not dive. Which approach and operation?",
+      "options": [
+        {
+          "label": "Thoracotomy and pleurectomy, for the lowest recurrence rate",
+          "next": "fail_approach",
+          "isCorrect": false,
+          "feedback": "BTS 2023 (conditional): thoracotomy is considered when the lowest possible recurrence risk is needed, such as for high-risk occupations. For an office worker, VATS gives a stay 3.66 days shorter, less pain, and fewer complications, and recurrence is low with either approach (31 vs 15 per 1000).",
+          "cite": [1]
+        },
+        {
+          "label": "VATS with surgical pleurodesis and/or bullectomy",
+          "next": "discharge",
+          "isCorrect": true,
+          "feedback": "BTS 2023 (conditional): consider VATS access for surgical pleurodesis, and pleurodesis and/or bullectomy. Compared with thoracotomy, VATS shortened stay by 3.66 days with fewer complications (99 vs 138 per 1000), at a slightly higher recurrence rate (31 vs 15 per 1000). ERS 2015 also prefers VATS.",
+          "cite": [1, 6]
+        }
+      ]
+    },
+    "counsel": {
+      "type": "decision",
+      "text": "Before discharge he asks whether he should have an operation now so this never happens again. He works in an office and does not dive. What do you advise?",
+      "options": [
+        {
+          "label": "Book elective VATS pleurodesis now",
+          "next": "fail_early_surgery",
+          "isCorrect": false,
+          "feedback": "BTS 2023 found no evidence for elective surgery after a first episode. It may be considered when preventing recurrence is especially important (divers, pilots, military personnel, or after a tension pneumothorax), and should be considered after a second pneumothorax on the same side or a first on the other side.",
+          "cite": [1]
+        },
+        {
+          "label": "Not after a first episode, unless he dives or flies for work; surgery is considered if it recurs on the same side or occurs on the other side",
+          "next": "discharge",
+          "isCorrect": true,
+          "feedback": "BTS 2023: elective surgery may be considered where preventing recurrence is especially important (divers, pilots, military, after tension), and should be considered after a second ipsilateral or first contralateral pneumothorax. About 32% of primary pneumothoraces recur, with the greatest risk in the first year (Walker 2018).",
+          "cite": [1, 5]
+        }
+      ]
+    },
+    "discharge": {
+      "type": "multi",
+      "text": "Discharge advice: which belong?",
+      "options": [
+        { "label": "Return immediately if breathlessness comes back", "isCorrect": true },
+        { "label": "Stop smoking: it lowers the risk of recurrence", "isCorrect": true },
+        { "label": "Respiratory follow-up to confirm the lung has fully re-expanded", "isCorrect": true },
+        { "label": "Commercial flights are fine as soon as he feels well", "isCorrect": false },
+        { "label": "Scuba diving is safe once the X-ray is clear", "isCorrect": false }
+      ],
+      "feedback": "BTS 2023: give verbal and written advice to return at once with breathlessness, arrange respiratory follow-up (a chest X-ray at 2–4 weeks after observation or aspiration), and advise stopping smoking. Quitting was linked to a four-fold lower recurrence risk (OR 0.26; Walker 2018). No commercial flights until the pneumothorax has resolved on X-ray, then wait 7 days after the film that shows full resolution. Discourage scuba diving permanently unless a secure definitive procedure such as surgical pleurectomy has been done.",
+      "cite": [1, 5],
+      "next": "success",
+      "failNext": "fail_discharge"
+    },
+    "fail_classify": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Classification Error: Primary pneumothorax managed as secondary."
+    },
+    "fail_overtreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Invasive drainage for a minimally symptomatic pneumothorax."
+    },
+    "fail_undertreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Symptomatic pneumothorax left untreated."
+    },
+    "fail_early_surgery": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Surgery offered without an accepted indication."
+    },
+    "fail_consent": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Consent Error: Treatment trade-offs misrepresented."
+    },
+    "fail_air_leak": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Prolonged air leak without a surgical opinion."
+    },
+    "fail_bilateral": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Worsening hypoxia from undrained bilateral pneumothoraces.",
+      "vitals": [
+        { "label": "RR", "value": "34", "unit": "/min", "status": "critical" },
+        { "label": "SpO2", "value": "84", "unit": "%", "status": "critical" }
+      ]
+    },
+    "fail_approach": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Management Error: Thoracotomy where VATS was appropriate."
+    },
+    "fail_discharge": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Safety Risk: Unsafe advice on flying or diving."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Treated for his symptoms, with a clear plan if it recurs."
+    }
+  }
+}

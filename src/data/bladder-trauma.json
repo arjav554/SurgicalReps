@@ -1,0 +1,206 @@
+{
+  "id": "bladder-trauma",
+  "title": "Bladder Rupture with Pelvic Fracture",
+  "category": "Urology",
+  "description": "Read the signs of urethral injury, image the bladder by retrograde cystography when a pelvic fracture comes with visible hematuria, repair intraperitoneal ruptures, and drain uncomplicated extraperitoneal ones.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Recognize the clinical signs of a urethral injury with a pelvic fracture",
+    "Image the bladder with active retrograde cystography, not passive filling",
+    "Repair intraperitoneal bladder ruptures surgically",
+    "Drain uncomplicated extraperitoneal ruptures, and repair them at any operation done for other injuries",
+    "Confirm healing with cystography before removing the catheter after conservative treatment"
+  ],
+  "references": [
+    {
+      "citation": "European Association of Urology. EAU Guidelines on Urological Trauma. Edn. presented at the EAU Annual Congress London 2026. Arnhem: EAU Guidelines Office; 2026.",
+      "url": "https://uroweb.org/guidelines/urological-trauma",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Quagliano PV, Delair SM, Malhotra AK. Diagnosis of blunt bladder injury: A prospective comparative study of computed tomography cystography and conventional retrograde cystography. J Trauma. 2006;61(2):410-421.",
+      "url": "https://doi.org/10.1097/01.ta.0000229940.36556.bf",
+      "kind": "cohort",
+      "pmid": "16917459",
+      "doi": "10.1097/01.ta.0000229940.36556.bf"
+    },
+    {
+      "citation": "Johnsen NV, Young JB, Reynolds WS, et al. Evaluating the Role of Operative Repair of Extraperitoneal Bladder Rupture Following Blunt Pelvic Trauma. J Urol. 2016;195(3):661-665.",
+      "url": "https://doi.org/10.1016/j.juro.2015.08.081",
+      "kind": "cohort",
+      "pmid": "26318983",
+      "doi": "10.1016/j.juro.2015.08.081"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 34-year-old man was struck by a car. He arrived in a pelvic binder and is now stable after 2 units of blood. CT with IV contrast shows fractures of the pubic rami with 1.5 cm diastasis of the pubic symphysis.",
+      "vitals": [
+        { "label": "HR", "value": "104", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "118/72", "unit": "mmHg" },
+        { "label": "GCS", "value": "15" }
+      ],
+      "next": "urethra"
+    },
+    "urethra": {
+      "type": "multi",
+      "text": "Before anyone passes a urethral catheter, which findings would point to a urethral injury?",
+      "options": [
+        { "label": "Blood at the urethral meatus", "isCorrect": true },
+        { "label": "Inability to void with a palpable, distended bladder", "isCorrect": true },
+        { "label": "Scrotal, penile, or perineal swelling and bruising", "isCorrect": true },
+        { "label": "None, if there is no blood at the meatus", "isCorrect": false },
+        { "label": "None, if the prostate feels normal on rectal examination", "isCorrect": false }
+      ],
+      "feedback": "EAU 2026: blood at the meatus is the cardinal sign, but its absence does not rule out a urethral injury. Inability to void with a palpable bladder is another classic sign, often with complete rupture, and extravasation and bleeding can cause scrotal, penile, or perineal swelling and bruising. A 'high-riding' prostate is an unreliable finding. Evaluate a suspected male urethral injury with retrograde urethrography and/or flexible cystourethroscopy (strong).",
+      "cite": [1],
+      "next": "imaging",
+      "failNext": "fail_urethra"
+    },
+    "imaging": {
+      "type": "decision",
+      "text": "He has none of these signs. A urethral catheter passes easily and drains visibly bloody urine. His trauma CT was done with IV contrast only. How do you assess the bladder?",
+      "options": [
+        {
+          "label": "CT cystography, actively filling the bladder with at least 300–350 mL of dilute contrast",
+          "next": "location",
+          "isCorrect": true,
+          "feedback": "EAU 2026: perform cystography when visible hematuria comes with a pelvic fracture, using active retrograde filling with 300–350 mL of dilute contrast (both strong). Plain and CT cystography are comparably accurate, but CT is better at showing bone fragments in the bladder, bladder neck injuries, and other abdominal injuries. In a prospective study of 212 patients, CT cystography was 95% sensitive and 100% specific, the same as conventional cystography.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Clamp the catheter and repeat a delayed excretory phase of the CT",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "EAU 2026: passively filling the bladder by clamping the catheter during the excretory phase of CT is not sufficient to exclude a bladder injury. Cystography needs active retrograde filling with 300–350 mL of dilute contrast (strong).",
+          "cite": [1]
+        },
+        {
+          "label": "No bladder imaging: the blood comes from the pelvic fracture",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "EAU 2026: visible hematuria with a pelvic fracture is highly suggestive of bladder injury and is an absolute indication for cystography (strong).",
+          "cite": [1]
+        }
+      ]
+    },
+    "location": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "intraperitoneal", "weight": 1 },
+        { "next": "extraperitoneal", "weight": 1 }
+      ]
+    },
+    "intraperitoneal": {
+      "type": "decision",
+      "text": "CT cystography shows free contrast outlining the bowel loops, from a rupture at the bladder dome. Plan?",
+      "options": [
+        {
+          "label": "Surgical repair, open or laparoscopic, inspecting the abdominal organs and draining any urinoma",
+          "next": "after_repair",
+          "isCorrect": true,
+          "feedback": "EAU 2026: manage blunt intraperitoneal injuries by surgical exploration and repair (strong), because intraperitoneal urine can cause peritonitis, intra-abdominal sepsis, and death. Repair can be open or laparoscopic. Inspect the abdominal organs for associated injuries, and drain any urinoma.",
+          "cite": [1]
+        },
+        {
+          "label": "Catheter drainage alone, as for most bladder ruptures",
+          "next": "fail_sepsis",
+          "isCorrect": false,
+          "feedback": "EAU 2026: intraperitoneal ruptures from blunt trauma should always be repaired surgically (strong). Conservative care is an option only for small, uncomplicated intraperitoneal injuries during endoscopic procedures, without peritonitis or ileus.",
+          "cite": [1]
+        }
+      ]
+    },
+    "after_repair": {
+      "type": "decision",
+      "text": "A simple dome laceration is closed with absorbable sutures. He is otherwise healthy. Catheter plan?",
+      "options": [
+        {
+          "label": "Keep the catheter for 5 to 10 days, then remove it; cystography is needed only after complex repairs",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "EAU 2026: continuous bladder drainage prevents raised bladder pressure and lets the repair heal. After repair of a simple injury in a healthy patient, the catheter can come out after 5 to 10 days without cystography. Perform cystography after complex repairs (trigone involvement, ureteric reimplantation) or when wound healing is impaired (strong).",
+          "cite": [1]
+        },
+        {
+          "label": "Remove the catheter the next day",
+          "next": "fail_leak",
+          "isCorrect": false,
+          "feedback": "EAU 2026: continuous bladder drainage is required to prevent raised pressure inside the bladder and let it heal. After a simple repair, the catheter stays for 5 to 10 days.",
+          "cite": [1]
+        }
+      ]
+    },
+    "extraperitoneal": {
+      "type": "decision",
+      "text": "CT cystography shows flame-shaped contrast around the bladder base. The bladder neck is intact, there are no bone fragments in the bladder wall, and he needs no operation for other injuries. Plan?",
+      "options": [
+        {
+          "label": "Continuous catheter drainage and observation",
+          "next": "follow_up",
+          "isCorrect": true,
+          "feedback": "EAU 2026: manage uncomplicated blunt extraperitoneal injuries conservatively (weak). In a registry study, catheter drainage alone (56 patients) matched early repair (24) for complications and length of stay. Operate when the bladder neck is involved, bone fragments are in the bladder wall, the rectum or vagina is injured, or the bladder wall is entrapped. If he did go to theatre for other injuries, repair the rupture then (strong): without repair, patients had more urological complications and longer ICU (9.0 vs 4.0 days) and hospital stays (18.9 vs 10.6 days).",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Open repair now, as for every bladder rupture",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "EAU 2026: most extraperitoneal ruptures can be treated conservatively, and continuous drainage with observation is the standard for uncomplicated blunt injuries. In a registry study, catheter drainage alone gave outcomes equivalent to early repair in most patients.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "follow_up": {
+      "type": "decision",
+      "text": "Ten days later he is well. When can the catheter come out?",
+      "options": [
+        {
+          "label": "After a cystogram shows no leak; if it still leaks, cystoscopy for bone fragments and a repeat cystogram a week later",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "EAU 2026: conservatively treated bladder injuries are followed up with cystography, first at about 10 days, to rule out extravasation and confirm healing. If leakage persists, perform cystoscopy to rule out bone fragments in the bladder, and repeat cystography one week later.",
+          "cite": [1]
+        },
+        {
+          "label": "Remove it now without imaging: 10 days is enough",
+          "next": "fail_leak",
+          "isCorrect": false,
+          "feedback": "EAU 2026: conservatively treated bladder injuries are followed up with cystography to rule out extravasation and confirm healing before drainage stops.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_urethra": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Signs of urethral injury misread."
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Bladder rupture not excluded."
+    },
+    "fail_sepsis": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Urinary peritonitis from an unrepaired intraperitoneal rupture."
+    },
+    "fail_overtreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Operation for an injury that drainage treats."
+    },
+    "fail_leak": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Bladder drainage stopped too early."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Bladder injury found, classified, and treated."
+    }
+  }
+}

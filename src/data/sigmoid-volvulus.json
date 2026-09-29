@@ -1,0 +1,326 @@
+{
+  "id": "sigmoid-volvulus",
+  "title": "Sigmoid Volvulus",
+  "category": "Colorectal",
+  "description": "Diagnose on plain films, detorse endoscopically when the colon is viable, resect without untwisting when it is not, and prevent recurrence with sigmoid colectomy during the same admission.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Diagnose sigmoid volvulus with plain films, reserving CT for doubt or suspected ischemia",
+    "Decompress endoscopically only when ischemia and perforation are not suspected",
+    "Resect non-viable colon without detorsion and choose a stoma in the unstable patient",
+    "Offer sigmoid colectomy during the index admission; avoid non-resectional operations",
+    "Recognize megacolon and the patient too frail for surgery"
+  ],
+  "references": [
+    {
+      "citation": "Tian BWCA, Vigutto G, Tan E, et al. WSES consensus guidelines on sigmoid volvulus management. World J Emerg Surg. 2023;18(1):34.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10186802/",
+      "kind": "guideline",
+      "pmid": "37189134",
+      "doi": "10.1186/s13017-023-00502-x"
+    },
+    {
+      "citation": "Oren D, Atamanalp SS, Aydinli B, et al. An algorithm for the management of sigmoid colon volvulus and the safety of primary resection: experience with 827 cases. Dis Colon Rectum. 2007;50(4):489-497.",
+      "url": "https://doi.org/10.1007/s10350-006-0821-x",
+      "kind": "cohort",
+      "pmid": "17205203",
+      "doi": "10.1007/s10350-006-0821-x"
+    },
+    {
+      "citation": "Yassaie O, Thompson-Fawcett M, Rossaak J. Management of sigmoid volvulus: is early surgery justifiable? ANZ J Surg. 2013;83(1-2):74-78.",
+      "url": "https://doi.org/10.1111/j.1445-2197.2012.06182.x",
+      "kind": "cohort",
+      "pmid": "22924840",
+      "doi": "10.1111/j.1445-2197.2012.06182.x"
+    },
+    {
+      "citation": "Johansson N, Rosemar A, Angenete E. Risk of recurrence of sigmoid volvulus: a single-centre cohort study. Colorectal Dis. 2018;20(6):529-535.",
+      "url": "https://doi.org/10.1111/codi.13972",
+      "kind": "cohort",
+      "pmid": "29178415",
+      "doi": "10.1111/codi.13972"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "An 81-year-old nursing-home resident with chronic constipation, who takes an antipsychotic, has 3 days of abdominal distension and no flatus. His abdomen is tympanic and asymmetrically distended, without guarding, and the rectum is empty.",
+      "vitals": [
+        { "label": "HR", "value": "96", "unit": "bpm" },
+        { "label": "BP", "value": "132/78", "unit": "mmHg" },
+        { "label": "Temp", "value": "37.2", "unit": "°C" },
+        { "label": "WBC", "value": "9.8", "unit": "×10³/µL" },
+        { "label": "Lactate", "value": "1.4", "unit": "mmol/L" },
+        { "label": "Cr", "value": "1.5", "unit": "mg/dL", "status": "warning" }
+      ],
+      "next": "imaging"
+    },
+    "imaging": {
+      "type": "decision",
+      "text": "Blood gas, lactate, electrolytes, and renal function are sent. Which first-line imaging?",
+      "options": [
+        {
+          "label": "Barium enema to show the bird's beak",
+          "next": "fail_barium",
+          "isCorrect": false,
+          "feedback": "WSES 2023: an enema is contraindicated when perforation is suspected. If a contrast enema is used, water-soluble contrast is much preferred, because barium can cause chemical peritonitis if the colon is perforated. Plain films are the first-line test (1C).",
+          "cite": [1]
+        },
+        {
+          "label": "Plain abdominal X-ray, with an erect chest film for free air",
+          "next": "presentation",
+          "isCorrect": true,
+          "feedback": "WSES 2023 (1C): diagnose on plain abdominal films, looking for the coffee bean sign; a chest film shows free air if perforated. CT is for diagnostic doubt or suspected ischemia or perforation (1C). Blood gas and lactate are part of the initial workup, but ischemia can be present without a raised lactate or peritonitis.",
+          "cite": [1]
+        }
+      ]
+    },
+    "presentation": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "uncomplicated", "weight": 7 },
+        { "next": "ischemic", "weight": 3 }
+      ]
+    },
+    "uncomplicated": {
+      "type": "decision",
+      "text": "The film shows a coffee bean sign pointing to the right upper quadrant and no free air. There is no peritonitis, and nothing suggests ischemia. Treatment?",
+      "options": [
+        {
+          "label": "Urgent flexible endoscopic detorsion: pass the twist, inspect the mucosa, and leave a decompression tube",
+          "next": "endoscopy",
+          "isCorrect": true,
+          "feedback": "WSES 2023 (1C): without suspected ischemia or perforation, flexible endoscopic decompression is first line; it succeeds in 60–95%, with about 4% morbidity. The endoscopist must pass the transition points, inspect the mucosa for viability, and leave a decompression tube. Flexible scopes are preferred to rigid ones, which can miss ischemia in up to 24%.",
+          "cite": [1]
+        },
+        {
+          "label": "Emergency laparotomy and sigmoid colectomy",
+          "next": "fail_emergency_surgery",
+          "isCorrect": false,
+          "feedback": "WSES 2023 (1C): without suspected ischemia or perforation, endoscopic decompression comes first. Emergency operations for volvulus carry far higher risk: in 827 cases, surgery had 15.8% mortality vs 0.9% for non-operative reduction (Oren 2007).",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Rigid sigmoidoscopy at the bedside, which is quicker",
+          "next": "fail_missed_ischemia",
+          "isCorrect": false,
+          "feedback": "WSES 2023: flexible endoscopy is favored over rigid because it assesses ischemia better and perforates less. Rigid sigmoidoscopy can miss volvulus and ischemia in up to 24% of cases.",
+          "cite": [1]
+        }
+      ]
+    },
+    "endoscopy": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "fitness", "weight": 8 },
+        { "next": "endo_ischemia", "weight": 2 }
+      ]
+    },
+    "endo_ischemia": {
+      "type": "decision",
+      "text": "Beyond the twist the mucosa is black and necrotic. What now?",
+      "options": [
+        {
+          "label": "Complete the detorsion and leave a flatus tube",
+          "next": "fail_missed_ischemia",
+          "isCorrect": false,
+          "feedback": "WSES 2023: when advanced mucosal ischemia, perforation, or impending perforation is found at endoscopy, abort the procedure; emergency colectomy is warranted.",
+          "cite": [1]
+        },
+        {
+          "label": "Abort the endoscopy and take him for emergency colectomy",
+          "next": "resect",
+          "isCorrect": true,
+          "feedback": "WSES 2023: abort endoscopy when advanced mucosal ischemia, perforation, or impending perforation is found; emergency colectomy is warranted. Urgent sigmoid resection is indicated for non-viable or perforated colon (1C).",
+          "cite": [1]
+        }
+      ]
+    },
+    "ischemic": {
+      "type": "decision",
+      "text": "He now has guarding and his lactate has risen. CT shows a sigmoid twist with poor wall enhancement and free fluid. Next?",
+      "vitals": [
+        { "label": "HR", "value": "118", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "104/62", "unit": "mmHg" },
+        { "label": "Lactate", "value": "4.6", "unit": "mmol/L", "status": "critical" },
+        { "label": "WBC", "value": "17.2", "unit": "×10³/µL", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "Endoscopic detorsion first, then decide",
+          "next": "fail_missed_ischemia",
+          "isCorrect": false,
+          "feedback": "WSES 2023 (1C): endoscopic decompression is first line only when ischemia and perforation are not suspected. With peritonism and CT signs of ischemia, he needs urgent resection.",
+          "cite": [1]
+        },
+        {
+          "label": "Emergency laparotomy",
+          "next": "resect",
+          "isCorrect": true,
+          "feedback": "WSES 2023 (1C): urgent sigmoid resection for non-viable or perforated colon, or when endoscopic detorsion fails. Patients presenting with ischemia, perforation, peritonitis, or septic shock (5–25%) need upfront colectomy.",
+          "cite": [1]
+        }
+      ]
+    },
+    "resect": {
+      "type": "decision",
+      "text": "At laparotomy the twisted sigmoid is gangrenous. How do you handle it?",
+      "options": [
+        {
+          "label": "Untwist it first to judge how much colon is viable",
+          "next": "fail_detorsion",
+          "isCorrect": false,
+          "feedback": "WSES 2023: resect infarcted bowel without detorsion and with minimal handling. Untwisting it can release endotoxin, potassium, and bacteria into the circulation, and the colon may perforate.",
+          "cite": [1]
+        },
+        {
+          "label": "Resect the gangrenous sigmoid without untwisting it, handling it minimally",
+          "next": "reconstruct",
+          "isCorrect": true,
+          "feedback": "WSES 2023: resect infarcted bowel without detorsion and with minimal manipulation, so endotoxin, potassium, and bacteria are not released into the circulation and the colon does not perforate. A full oncological resection is not needed for this benign disease; the remnant's blood supply is the main consideration.",
+          "cite": [1]
+        }
+      ]
+    },
+    "reconstruct": {
+      "type": "decision",
+      "text": "After the resection he needs escalating norepinephrine. pH 7.18, INR 1.9, temperature 35.4 °C. Restore continuity?",
+      "vitals": [
+        { "label": "BP", "value": "86/50", "unit": "mmHg", "status": "critical" },
+        { "label": "Lactate", "value": "5.2", "unit": "mmol/L", "status": "critical" },
+        { "label": "INR", "value": "1.9", "status": "warning" },
+        { "label": "Temp", "value": "35.4", "unit": "°C", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "End colostomy (Hartmann's procedure)",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "WSES 2023: data do not favor one emergency technique overall, and the choice is individualized. An end colostomy is often most appropriate in a hemodynamically unstable patient, or with coagulopathy, acidosis, or hypothermia, which make an anastomosis prohibitively risky. He has all four.",
+          "cite": [1]
+        },
+        {
+          "label": "Primary colorectal anastomosis without diversion",
+          "next": "fail_leak",
+          "isCorrect": false,
+          "feedback": "WSES 2023: hemodynamic instability, a high ASA or APACHE II score, coagulopathy, acidosis, and hypothermia add prohibitive risk to a colorectal anastomosis; an end colostomy is often the most appropriate choice. In series cited by WSES, leaks after an undiverted colorectal anastomosis occurred in 7–12%.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fitness": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "fit", "weight": 6 },
+        { "next": "megacolon", "weight": 2 },
+        { "next": "frail", "weight": 2 }
+      ]
+    },
+    "fit": {
+      "type": "decision",
+      "text": "Detorsion succeeds; the mucosa is viable and a decompression tube is in. His comorbidities are controlled, and he is fit for surgery. What next?",
+      "options": [
+        {
+          "label": "Discharge; operate only if it recurs",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "WSES 2023: recurrence after endoscopic detorsion alone is 43–75%, and each episode risks ischemia and perforation. In a New Zealand series, 61% recurred at a median of 31 days (Yassaie 2013). In a Swedish cohort, 84% of successful decompressions recurred without planned surgery (Johansson 2018).",
+          "cite": [1, 3, 4]
+        },
+        {
+          "label": "Laparoscopic mesosigmoidoplasty to preserve the colon",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "WSES 2023 (1C): non-resectional operations (detorsion, sigmoidopexy, mesosigmoidoplasty) are inferior to sigmoid colectomy for preventing recurrence and should be avoided. Series report recurrence of 16–21% after mesosigmoidoplasty and 29–36% after sigmoidopexy.",
+          "cite": [1]
+        },
+        {
+          "label": "Sigmoid colectomy during this admission",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "WSES 2023 (1C): after successful decompression, offer sigmoid colectomy as early as possible, even during the index admission. Elective resection has 0–12% morbidity and mortality. In a Swedish cohort, mortality was 3.3% after planned surgery vs 13% after emergency surgery (Johansson 2018). Yassaie 2013 found no recurrence after surgery.",
+          "cite": [1, 3, 4]
+        }
+      ]
+    },
+    "megacolon": {
+      "type": "decision",
+      "text": "Detorsion succeeds, but the rectum is capacious on examination and the whole colon proximal to the twist is markedly dilated. He is fit for surgery. Which operation?",
+      "options": [
+        {
+          "label": "Subtotal colectomy",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "WSES 2023 (1C): with megacolon and sigmoid volvulus, perform a subtotal colectomy; sigmoid colectomy alone is not enough because volvulus recurs in the remaining colon. In one series, recurrence was 82% with megacolon vs 6% when disease was limited to the sigmoid, with none after subtotal colectomy.",
+          "cite": [1]
+        },
+        {
+          "label": "Sigmoid colectomy alone",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "WSES 2023 (1C): with concomitant megacolon, sigmoid colectomy alone is insufficient because volvulus tends to recur in the remaining colon. Perform a subtotal colectomy.",
+          "cite": [1]
+        }
+      ]
+    },
+    "frail": {
+      "type": "decision",
+      "text": "Detorsion succeeds, but he has severe heart failure and advanced dementia, and the anesthetic team judges any abdominal operation too risky. How do you try to prevent recurrence?",
+      "options": [
+        {
+          "label": "Discuss endoscopic fixation (percutaneous endoscopic colostomy) with him and his family",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "WSES 2023 (2C): endoscopic fixation of the sigmoid may be considered when operative risk is prohibitive. Series are small: in 19 elderly patients, major complications occurred in 10% and minor ones in 37%, and no volvulus recurred in the 6 whose tubes were later removed.",
+          "cite": [1]
+        },
+        {
+          "label": "Operative detorsion and sigmoidopexy, as a smaller operation",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "WSES 2023 (1C): non-resectional operations are inferior for preventing recurrence and should be avoided; detorsion alone carries 30–35% morbidity and 11–15% mortality. For a patient too frail for surgery, endoscopic fixation may be considered (2C).",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_barium": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication Risk: Barium enema in possible perforation."
+    },
+    "fail_emergency_surgery": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Emergency laparotomy when endoscopic decompression was indicated."
+    },
+    "fail_missed_ischemia": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Gangrenous colon missed or left in place.",
+      "vitals": [
+        { "label": "HR", "value": "132", "unit": "bpm", "status": "critical" },
+        { "label": "Lactate", "value": "6.1", "unit": "mmol/L", "status": "critical" }
+      ]
+    },
+    "fail_detorsion": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Reperfusion of gangrenous bowel after detorsion."
+    },
+    "fail_leak": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Anastomotic leak in a shocked, coagulopathic patient."
+    },
+    "fail_recurrence": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Recurrent volvulus."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Volvulus treated, with its recurrence addressed."
+    }
+  }
+}

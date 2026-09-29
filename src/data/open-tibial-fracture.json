@@ -1,0 +1,194 @@
+{
+  "id": "open-tibial-fracture",
+  "title": "Open Tibial Fracture",
+  "category": "Orthopedic Trauma",
+  "description": "Give antibiotics immediately, dress rather than irrigate in the ED, recognize vascular injury by hard signs, and time orthoplastic excision, fixation, and cover by contamination and energy.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Start IV antibiotics immediately and dress the wound without emergency department irrigation",
+    "Diagnose vascular injury by hard signs, not capillary refill or Doppler",
+    "Time wound excision by contamination and injury energy",
+    "Coordinate orthoplastic fixation and cover within 72 hours",
+    "Use saline irrigation at low pressure and keep watch for compartment syndrome"
+  ],
+  "references": [
+    {
+      "citation": "National Institute for Health and Care Excellence. Fractures (complex): assessment and management. NICE guideline NG37. London: NICE; 2016 (updated 2022).",
+      "url": "https://www.nice.org.uk/guidance/ng37",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Gustilo RB, Anderson JT. Prevention of infection in the treatment of one thousand and twenty-five open fractures of long bones: retrospective and prospective analyses. J Bone Joint Surg Am. 1976;58(4):453-458.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/773941/",
+      "kind": "cohort",
+      "pmid": "773941"
+    },
+    {
+      "citation": "FLOW Investigators; Bhandari M, Jeray KJ, Petrisor BA, et al. A Trial of Wound Irrigation in the Initial Management of Open Fracture Wounds. N Engl J Med. 2015;373(27):2629-2641.",
+      "url": "https://doi.org/10.1056/NEJMoa1508502",
+      "kind": "trial",
+      "pmid": "26448371",
+      "doi": "10.1056/NEJMoa1508502"
+    },
+    {
+      "citation": "Costa ML, Achten J, Bruce J, et al. Effect of Negative Pressure Wound Therapy vs Standard Wound Management on 12-Month Disability Among Adults With Severe Open Fracture of the Lower Limb: The WOLLF Randomized Clinical Trial. JAMA. 2018;319(22):2280-2288.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6583504/",
+      "kind": "trial",
+      "pmid": "29896626",
+      "doi": "10.1001/jama.2018.6452"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 32-year-old motorcyclist arrives 40 minutes after a crash with an open fracture of the left tibial shaft: a 6 cm wound with exposed bone and some road debris. He received no antibiotics before hospital. The primary survey is otherwise clear.",
+      "vitals": [
+        { "label": "HR", "value": "104", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "128/78", "unit": "mmHg" },
+        { "label": "SpO2", "value": "98", "unit": "%" }
+      ],
+      "next": "ed"
+    },
+    "ed": {
+      "type": "multi",
+      "text": "In the emergency department, which belong?",
+      "options": [
+        { "label": "IV prophylactic antibiotics now", "isCorrect": true },
+        { "label": "A saline-soaked dressing with an occlusive layer", "isCorrect": true },
+        { "label": "Irrigate the wound thoroughly in the department", "isCorrect": false },
+        { "label": "Hold antibiotics until wound cultures are taken in theatre", "isCorrect": false }
+      ],
+      "feedback": "NICE NG37: give prophylactic IV antibiotics immediately in the emergency department if not already given. Do not irrigate open fractures of long bones in the department before wound excision. Consider a saline-soaked dressing with an occlusive layer. In Gustilo and Anderson's prospective series, preoperative and postoperative antibiotics with debridement brought the infection rate to 2.5%.",
+      "cite": [1, 2],
+      "next": "pulses",
+      "failNext": "fail_infection"
+    },
+    "pulses": {
+      "type": "decision",
+      "text": "After realignment the foot is cool, the dorsalis pedis and posterior tibial pulses are absent, and a hematoma in the calf is expanding. Capillary refill is 3 seconds and a faint Doppler signal is heard. Next?",
+      "options": [
+        {
+          "label": "The Doppler signal excludes vascular injury; splint and observe",
+          "next": "fail_vascular",
+          "isCorrect": false,
+          "feedback": "NICE NG37: diagnose vascular injury with hard signs (absent palpable pulse, continued bleeding, expanding hematoma), and do not rely on capillary return or a Doppler signal to exclude it.",
+          "cite": [1]
+        },
+        {
+          "label": "Formal angiography first to plan the repair",
+          "next": "fail_vascular",
+          "isCorrect": false,
+          "feedback": "NICE NG37: do not delay revascularization for angiography in complex fractures. Hard signs that persist after realignment mean immediate surgical exploration.",
+          "cite": [1]
+        },
+        {
+          "label": "Immediate exploration, with a vascular shunt before skeletal stabilization",
+          "next": "excision",
+          "isCorrect": true,
+          "feedback": "NICE NG37: hard signs (no palpable pulse, continued bleeding, expanding hematoma) diagnose vascular injury; capillary return and Doppler do not exclude it. If hard signs persist after realignment, explore immediately. Use a shunt as the first intervention in a devascularized limb, before skeletal fixation and definitive reconstruction, without delaying for angiography.",
+          "cite": [1]
+        }
+      ]
+    },
+    "excision": {
+      "type": "decision",
+      "text": "Perfusion is restored with a shunt. The wound is heavily contaminated with road debris, and the injury is high energy. When should wound excision be done?",
+      "options": [
+        {
+          "label": "Immediately",
+          "next": "fixation",
+          "isCorrect": true,
+          "feedback": "NICE NG37: perform wound excision immediately for highly contaminated open fractures, within 12 hours for high-energy fractures (likely Gustilo–Anderson IIIA or IIIB) that are not highly contaminated, and within 24 hours for all others. Orthopedic and plastic surgery consultants operate together (the orthoplastic approach).",
+          "cite": [1]
+        },
+        {
+          "label": "Within 24 hours, on the next morning's list",
+          "next": "fail_infection",
+          "isCorrect": false,
+          "feedback": "NICE NG37: a highly contaminated open fracture needs immediate wound excision. The 24-hour window applies only to open fractures that are neither highly contaminated nor high energy.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fixation": {
+      "type": "decision",
+      "text": "At excision, the plastic surgeon cannot provide definitive soft-tissue cover today. Which plan fits?",
+      "options": [
+        {
+          "label": "Definitive internal fixation now, leaving the wound to heal by secondary intention",
+          "next": "fail_infection",
+          "isCorrect": false,
+          "feedback": "NICE NG37: when internal fixation is used, perform definitive soft-tissue cover at the same time. If cover cannot be done at excision, complete fixation and cover within 72 hours of injury.",
+          "cite": [1]
+        },
+        {
+          "label": "A temporary dressing now, with orthoplastic fixation and definitive cover within 72 hours of injury",
+          "next": "irrigation",
+          "isCorrect": true,
+          "feedback": "NICE NG37: if cover cannot be done at excision, perform fixation and definitive soft-tissue cover within 72 hours of injury, and do definitive cover at the same time as any internal fixation. Meanwhile, use a temporary dressing that prevents desiccation and limits dressing changes. In WOLLF, negative-pressure dressings did not improve 12-month disability or deep infection (7.1% vs 8.1%) over standard dressings.",
+          "cite": [1, 4]
+        }
+      ]
+    },
+    "irrigation": {
+      "type": "decision",
+      "text": "How should the wound be irrigated at excision?",
+      "options": [
+        {
+          "label": "Castile soap solution at high pressure",
+          "next": "fail_infection",
+          "isCorrect": false,
+          "feedback": "In FLOW (2,447 patients), soap increased reoperation compared with saline (14.8% vs 11.6%), and irrigation pressure made no difference to reoperation rates.",
+          "cite": [3]
+        },
+        {
+          "label": "Normal saline; very low pressure is acceptable",
+          "next": "compartment",
+          "isCorrect": true,
+          "feedback": "In FLOW, reoperation within 12 months was similar at high (13.2%), low (12.7%), and very low (13.7%) pressure, so very low pressure is an acceptable, low-cost option. Saline beat castile soap (11.6% vs 14.8% reoperation).",
+          "cite": [3]
+        }
+      ]
+    },
+    "compartment": {
+      "type": "decision",
+      "text": "He goes to the ward after surgery with a regional nerve block running. How do you watch for compartment syndrome?",
+      "options": [
+        {
+          "label": "Rely on him to report increasing pain",
+          "next": "fail_compartment",
+          "isCorrect": false,
+          "feedback": "NICE NG37: a nerve block can mask symptoms. Stay alert to compartment syndrome for 48 hours after tibial injury or fixation, and consider continuous compartment pressure monitoring when clinical signs cannot be readily identified.",
+          "cite": [1]
+        },
+        {
+          "label": "Regular recorded clinical checks for 48 hours, with continuous compartment pressure monitoring while the block masks symptoms",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "NICE NG37: after tibial fractures, stay alert to compartment syndrome for 48 hours after injury or fixation. Assess and record symptoms and signs regularly, consider continuous pressure monitoring when signs cannot be readily identified (for example, under a nerve block), and teach self-monitoring at discharge.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_infection": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Deep infection of the open fracture."
+    },
+    "fail_vascular": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Prolonged limb ischemia from an unrecognized arterial injury."
+    },
+    "fail_compartment": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Missed compartment syndrome."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Open fracture managed on orthoplastic timelines."
+    }
+  }
+}

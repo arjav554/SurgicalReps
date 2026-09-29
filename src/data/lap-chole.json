@@ -1,0 +1,66 @@
+{
+  "id": "lap-chole",
+  "title": "Laparoscopic Cholecystectomy",
+  "description": "Master the Critical View of Safety (CVS) and avoid vascular/biliary injuries.",
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "Ports are placed. The fundus is retracted cephalad, and the infundibulum is retracted laterally. You are exposing Calot's triangle.",
+      "next": "dissection_start"
+    },
+    "dissection_start": {
+      "type": "decision",
+      "text": "What is your first major dissection step?",
+      "options": [
+        {
+          "label": "Incise the peritoneum over the hepatocystic triangle",
+          "next": "clear_fat",
+          "isCorrect": true
+        },
+        {
+          "label": "Clip the largest tubular structure visible",
+          "next": "fail_cbd_injury",
+          "isCorrect": false,
+          "feedback": "Catastrophic error. You clipped the Common Bile Duct (CBD) because you did not achieve the Critical View of Safety."
+        }
+      ]
+    },
+    "clear_fat": {
+      "type": "decision",
+      "text": "You are clearing the hepatocystic triangle of fibrofatty tissue. You see two tubular structures entering the gallbladder. What is the next mandatory step for the Critical View of Safety (CVS)?",
+      "options": [
+        {
+          "label": "Clip and divide both structures immediately",
+          "next": "fail_no_cvs",
+          "isCorrect": false,
+          "feedback": "You have not met all 3 criteria for CVS. You must clear the cystic plate."
+        },
+        {
+          "label": "Separate the lower third of the gallbladder off the cystic plate (liver bed)",
+          "next": "cvs_achieved",
+          "isCorrect": true
+        }
+      ]
+    },
+    "cvs_achieved": {
+      "type": "info",
+      "text": "CVS Achieved: 1) Hepatocystic triangle cleared, 2) Lower third separated from liver bed, 3) Only two structures enter the gallbladder.",
+      "next": "success"
+    },
+    "fail_cbd_injury": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Procedure Failed: Common Bile Duct Injury."
+    },
+    "fail_no_cvs": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Procedure Failed: Premature clipping without CVS."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Procedure Successful: Safe dissection and clipping."
+    }
+  }
+}

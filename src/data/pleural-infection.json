@@ -1,0 +1,334 @@
+{
+  "id": "pleural-infection",
+  "title": "Pleural Infection and Empyema",
+  "category": "Thoracic",
+  "description": "Decide drainage by pleural fluid pH, stratify risk with RAPID, drain with a small-bore tube, use tPA–DNase for a residual collection, and choose VATS when surgery is needed.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Use pleural fluid pH, LDH, and glucose thresholds to decide who needs a drain",
+    "Calculate and use the RAPID score",
+    "Plan antibiotics, cultures, and supportive care",
+    "Choose intrapleural tPA with DNase, not streptokinase or single agents",
+    "Prefer VATS when surgery is needed, tailoring the extent to the empyema"
+  ],
+  "references": [
+    {
+      "citation": "Roberts ME, Rahman NM, Maskell NA, et al. British Thoracic Society Guideline for pleural disease. Thorax. 2023;78(Suppl 3):s1-s42.",
+      "url": "https://doi.org/10.1136/thorax-2022-219784",
+      "kind": "guideline",
+      "pmid": "37433578",
+      "doi": "10.1136/thorax-2022-219784"
+    },
+    {
+      "citation": "Rahman NM, Maskell NA, West A, et al. Intrapleural use of tissue plasminogen activator and DNase in pleural infection. N Engl J Med. 2011;365(6):518-526.",
+      "url": "https://doi.org/10.1056/NEJMoa1012740",
+      "kind": "trial",
+      "pmid": "21830966",
+      "doi": "10.1056/NEJMoa1012740"
+    },
+    {
+      "citation": "Maskell NA, Davies CW, Nunn AJ, et al. U.K. Controlled trial of intrapleural streptokinase for pleural infection. N Engl J Med. 2005;352(9):865-874.",
+      "url": "https://doi.org/10.1056/NEJMoa042473",
+      "kind": "trial",
+      "pmid": "15745977",
+      "doi": "10.1056/NEJMoa042473"
+    },
+    {
+      "citation": "Corcoran JP, Psallidas I, Gerry S, et al. Prospective validation of the RAPID clinical risk prediction score in adult patients with pleural infection: the PILOT study. Eur Respir J. 2020;56(5):2000130.",
+      "url": "https://doi.org/10.1183/13993003.00130-2020",
+      "kind": "cohort",
+      "pmid": "32675200",
+      "doi": "10.1183/13993003.00130-2020"
+    },
+    {
+      "citation": "Subedi A, Banjade P, Joshi S, et al. Updates on British Thoracic Society Statement on Pleural Disease and Procedures 2023. Open Respir Med J. 2023;17:e18743064286775.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11037506/",
+      "kind": "review",
+      "pmid": "38655073",
+      "doi": "10.2174/0118743064286775231128104253"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 62-year-old woman on day 4 of oral antibiotics for community-acquired pneumonia still has fevers and new left pleuritic pain. Chest X-ray shows a moderate left pleural effusion, and ultrasound finds a large pocket that is safe to sample.",
+      "vitals": [
+        { "label": "Temp", "value": "38.6", "unit": "°C", "status": "warning" },
+        { "label": "HR", "value": "108", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "118/72", "unit": "mmHg" },
+        { "label": "RR", "value": "22", "unit": "/min", "status": "warning" },
+        { "label": "SpO2", "value": "94", "unit": "%" }
+      ],
+      "next": "aspirate"
+    },
+    "aspirate": {
+      "type": "decision",
+      "text": "Ultrasound-guided aspiration returns turbid fluid that is not frank pus. Which result decides whether she needs a drain?",
+      "options": [
+        {
+          "label": "Gram stain and culture: wait for them before deciding",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "BTS 2023: conventional pleural fluid culture is positive in 50–60% of cases at best, so a negative result cannot exclude infection, and waiting delays drainage. Measure pH immediately (strong, by consensus).",
+          "cite": [1]
+        },
+        {
+          "label": "Pleural fluid LDH on its own",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "BTS 2023: pleural fluid LDH and glucose are less accurate than pH for deciding who needs a drain. LDH is added when the pH is intermediate (above 7.2 and below 7.4), not used instead of pH.",
+          "cite": [1]
+        },
+        {
+          "label": "Immediate pleural fluid pH on a blood-gas analyzer, in a syringe free of heparin and local anesthetic",
+          "next": "rapid",
+          "isCorrect": true,
+          "feedback": "BTS 2023 (strong, by consensus): when aspiration in suspected pleural infection does not yield frank pus, measure pH immediately. Heparin or local anesthetic in the sample lowers the pH; delay or air in the syringe raises it. If pH is not available, a pleural fluid glucose below 3.3 mmol/L indicates a high probability of complex parapneumonic effusion.",
+          "cite": [1]
+        }
+      ]
+    },
+    "rapid": {
+      "type": "decision",
+      "text": "Her results: urea 9.1 mmol/L, albumin 24 g/L, community-acquired infection, non-purulent fluid, age 62. What is her RAPID score, and how do you use it?",
+      "options": [
+        {
+          "label": "5, high risk: send her straight for surgery",
+          "next": "fail_rapid",
+          "isCorrect": false,
+          "feedback": "The score is 5 (high risk), but BTS 2023 uses RAPID to stratify risk and inform discussion, not to choose treatment. There is no evidence that early fibrinolytics or surgery improve outcomes in patients with high RAPID scores (summarized by Subedi 2023), and early surgery is not recommended over chest tube drainage as initial treatment.",
+          "cite": [1, 5]
+        },
+        {
+          "label": "5, high risk: use it to inform a frank discussion of her likely outcome",
+          "next": "antibiotics",
+          "isCorrect": true,
+          "feedback": "RAPID: urea above 8 mmol/L (2) + age 50–70 (1) + non-purulent fluid (1) + community-acquired (0) + albumin below 27 g/L (1) = 5, high risk. BTS 2023 (conditional): use RAPID to risk-stratify and to inform discussions about likely outcome. In PILOT, 3-month mortality was 2.3%, 9.2%, and 29.3% in the low-, medium-, and high-risk groups.",
+          "cite": [1, 4]
+        },
+        {
+          "label": "2, low risk: manage her as an outpatient",
+          "next": "fail_rapid",
+          "isCorrect": false,
+          "feedback": "Recount: urea above 8 mmol/L scores 2, age 50–70 scores 1, non-purulent fluid scores 1, community-acquired scores 0, and albumin below 27 g/L scores 1, for a total of 5 (high risk, 5–7). In PILOT, high-risk patients had 29.3% mortality at 3 months.",
+          "cite": [1, 4]
+        }
+      ]
+    },
+    "antibiotics": {
+      "type": "multi",
+      "text": "Antibiotic and supportive plan: which belong?",
+      "options": [
+        { "label": "Empirical IV antibiotics that include anaerobic cover, started before cultures return", "isCorrect": true },
+        { "label": "Pleural fluid inoculated into blood culture bottles", "isCorrect": true },
+        { "label": "Venous thromboembolism prophylaxis and nutritional support", "isCorrect": true },
+        { "label": "A 2–6 week course guided by response, switching to oral when appropriate", "isCorrect": true },
+        { "label": "Stop antibiotics once the fluid is drained", "isCorrect": false },
+        { "label": "Routine empirical antifungal therapy", "isCorrect": false }
+      ],
+      "feedback": "BTS 2023: start antibiotics before culture results, covering likely organisms including anaerobes; for community-acquired infection, cefuroxime plus metronidazole is one example. Blood culture bottles raise the yield of pleural fluid culture, which is positive in 50–60% at best. Nutrition and VTE prophylaxis are cornerstones of care. Courses of 2–6 weeks are usual, guided by response, because shorter courses may relapse; give IV antibiotics first, then oral. Fungal pleural infection is rare (under 1%) and mostly affects immunosuppressed patients.",
+      "cite": [1],
+      "next": "ph_result",
+      "failNext": "fail_antibiotics"
+    },
+    "ph_result": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "ph_high_risk", "weight": 6 },
+        { "next": "ph_intermediate", "weight": 3 },
+        { "next": "ph_low_risk", "weight": 2 }
+      ]
+    },
+    "ph_high_risk": {
+      "type": "decision",
+      "text": "Pleural fluid pH is 7.08. Plan?",
+      "options": [
+        {
+          "label": "Continue antibiotics alone and re-image in a week",
+          "next": "fail_undrained",
+          "isCorrect": false,
+          "feedback": "BTS 2023 (strong, by consensus): a pH of 7.2 or less implies a high risk of complex parapneumonic effusion or pleural infection. Insert a drain when ultrasound shows a safe pocket; drainage for source control is a cornerstone of management.",
+          "cite": [1]
+        },
+        {
+          "label": "Early VATS decortication instead of a drain",
+          "next": "fail_early_surgery",
+          "isCorrect": false,
+          "feedback": "BTS 2023 (good practice point): because supporting evidence is lacking, early surgical drainage by VATS or thoracotomy should not be chosen over chest tube drainage as the initial treatment.",
+          "cite": [1]
+        },
+        {
+          "label": "Ultrasound-guided small-bore chest drain (14F or smaller)",
+          "next": "course",
+          "isCorrect": true,
+          "feedback": "BTS 2023 (strong, by consensus): a pH of 7.2 or less implies a high risk of complex effusion or infection, so insert a drain if ultrasound shows a safe pocket. Use a small-bore tube, 14F or smaller (conditional, by consensus). Bore size did not change mortality, surgery, or length of stay, but tubes larger than 14F may cause more pain.",
+          "cite": [1]
+        }
+      ]
+    },
+    "ph_intermediate": {
+      "type": "decision",
+      "text": "Pleural fluid pH is 7.28 and LDH is 1,450 IU/L. She is still febrile, and ultrasound shows septations. Plan?",
+      "options": [
+        {
+          "label": "Small-bore chest drain",
+          "next": "course",
+          "isCorrect": true,
+          "feedback": "BTS 2023 (strong, by consensus): a pH above 7.2 and below 7.4 is intermediate risk. Measure LDH; if it is above 900 IU/L, consider a drain, especially with ongoing fever, a large effusion, low glucose, pleural enhancement on CT, or septations on ultrasound. She has an LDH of 1,450, fever, and septations.",
+          "cite": [1]
+        },
+        {
+          "label": "No drain: a pH above 7.2 excludes pleural infection",
+          "next": "fail_undrained",
+          "isCorrect": false,
+          "feedback": "BTS 2023: a pH above 7.2 and below 7.4 is intermediate risk, not low. With LDH above 900 IU/L, fever, and septations, a drain should be considered (strong, by consensus).",
+          "cite": [1]
+        }
+      ]
+    },
+    "ph_low_risk": {
+      "type": "decision",
+      "text": "Pleural fluid pH is 7.46, and she is starting to improve on antibiotics. Plan?",
+      "options": [
+        {
+          "label": "Insert a chest drain anyway",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "BTS 2023 (strong, by consensus): a pH of 7.4 or above implies a low risk of complex parapneumonic effusion or pleural infection, with no indication for immediate drainage.",
+          "cite": [1]
+        },
+        {
+          "label": "No drain now; review her regularly and repeat the tap if she stops improving",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "BTS 2023 (strong, by consensus): a pH of 7.4 or above implies a low risk and no indication for immediate drainage. When no drain is placed, review her regularly and consider repeat thoracentesis so that a complex effusion is not missed.",
+          "cite": [1]
+        }
+      ]
+    },
+    "course": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "drained", "weight": 6 },
+        { "next": "residual", "weight": 4 }
+      ]
+    },
+    "drained": {
+      "type": "info",
+      "text": "The drain empties the collection, the effusion clears on imaging, and her fever settles.",
+      "next": "success"
+    },
+    "residual": {
+      "type": "decision",
+      "text": "Day 3: the drain has stopped draining, but CT shows a residual loculated collection and she is still febrile. Next?",
+      "vitals": [
+        { "label": "Temp", "value": "38.3", "unit": "°C", "status": "warning" },
+        { "label": "HR", "value": "102", "unit": "bpm", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "Intrapleural streptokinase",
+          "next": "fail_fibrinolytic",
+          "isCorrect": false,
+          "feedback": "BTS 2023 (conditional): streptokinase should not be used. In MIST1 (454 patients), it did not reduce death or surgery (31% vs 27% with placebo), and serious adverse events were more common (7% vs 3%).",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Intrapleural tPA 10 mg plus DNase 5 mg twice daily for 3 days, after consent for bleeding risk",
+          "next": "fibrinolysis",
+          "isCorrect": true,
+          "feedback": "BTS 2023 (conditional, by consensus): consider combined tPA and DNase when drainage has stopped and leaves a residual collection. Consent for the bleeding risk. The trial regimen is tPA 10 mg plus DNase 5 mg twice daily for 3 days. In MIST2, the combination improved drainage, cut surgical referral at 3 months (4% vs 16%), and shortened stay by 6.7 days vs placebo.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Intrapleural DNase alone",
+          "next": "fail_fibrinolytic",
+          "isCorrect": false,
+          "feedback": "BTS 2023: do not use single-agent tPA or DNase. In MIST2, neither agent alone beat placebo, and DNase alone increased surgical referral (39% vs 16%).",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "fibrinolysis": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "cleared", "weight": 7 },
+        { "next": "surgery", "weight": 3 }
+      ]
+    },
+    "cleared": {
+      "type": "info",
+      "text": "Over 3 days of tPA–DNase the collection drains and her fever settles.",
+      "next": "success"
+    },
+    "surgery": {
+      "type": "decision",
+      "text": "Despite tPA–DNase she remains septic with a persistent collection. The thoracic surgeon will operate. Approach?",
+      "options": [
+        {
+          "label": "VATS, with drainage, debridement, or decortication tailored to the empyema stage and any lung trapping",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "BTS 2023 (conditional): consider VATS over thoracotomy. VATS shortened stay by 2.3 days, with fewer complications (152 vs 197 per 1000) and slightly lower mortality (35 vs 47 per 1000). Tailor the extent of surgery to the patient and the empyema stage; decortication of a trapped lung is decided case by case on fitness and stage.",
+          "cite": [1]
+        },
+        {
+          "label": "Open thoracotomy as the standard approach",
+          "next": "fail_approach",
+          "isCorrect": false,
+          "feedback": "BTS 2023 (conditional): consider VATS over thoracotomy. VATS gave a stay 2.3 days shorter, less pain, and fewer complications (152 vs 197 per 1000), with similar repeat-intervention rates.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Delay: Drainage decision deferred for tests that cannot exclude infection."
+    },
+    "fail_rapid": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Risk Assessment Error: RAPID score miscalculated or misused."
+    },
+    "fail_antibiotics": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Incomplete antibiotic and supportive plan."
+    },
+    "fail_undrained": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Undrained pleural infection progresses to loculated empyema.",
+      "vitals": [
+        { "label": "Temp", "value": "39.1", "unit": "°C", "status": "critical" },
+        { "label": "HR", "value": "124", "unit": "bpm", "status": "critical" }
+      ]
+    },
+    "fail_early_surgery": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Surgery chosen over chest tube drainage as first treatment."
+    },
+    "fail_overtreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Drain placed for a low-risk effusion."
+    },
+    "fail_fibrinolytic": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Intrapleural agent without proven benefit."
+    },
+    "fail_approach": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Thoracotomy chosen over VATS."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Pleural infection treated by the evidence."
+    }
+  }
+}

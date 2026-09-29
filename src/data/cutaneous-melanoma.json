@@ -1,0 +1,174 @@
+{
+  "id": "cutaneous-melanoma",
+  "title": "Primary Cutaneous Melanoma",
+  "category": "Plastic Surgery",
+  "description": "Stage the primary from its Breslow thickness, offer sentinel node biopsy without routine pre-biopsy imaging, excise with the margin the stage calls for, and manage a positive sentinel node without routine completion dissection.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Stage a primary melanoma by thickness and ulceration",
+    "Select patients for sentinel lymph node biopsy",
+    "Choose a wide local excision margin by stage",
+    "Manage micrometastatic sentinel node disease without routine completion dissection"
+  ],
+  "references": [
+    {
+      "citation": "National Institute for Health and Care Excellence. Melanoma: assessment and management (NICE guideline NG14). London: NICE; 2015, updated 2022.",
+      "url": "https://www.nice.org.uk/guidance/ng14",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Gershenwald JE, Scolyer RA, Hess KR, et al. Melanoma staging: Evidence-based changes in the American Joint Committee on Cancer eighth edition cancer staging manual. CA Cancer J Clin. 2017;67(6):472-492.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5978683/",
+      "kind": "guideline",
+      "pmid": "29028110",
+      "doi": "10.3322/caac.21409"
+    },
+    {
+      "citation": "Morton DL, Thompson JF, Cochran AJ, et al. Final trial report of sentinel-node biopsy versus nodal observation in melanoma. N Engl J Med. 2014;370(7):599-609.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4058881/",
+      "kind": "trial",
+      "pmid": "24521106",
+      "doi": "10.1056/NEJMoa1310460"
+    },
+    {
+      "citation": "Faries MB, Thompson JF, Cochran AJ, et al. Completion Dissection or Observation for Sentinel-Node Metastasis in Melanoma. N Engl J Med. 2017;376(23):2211-2222.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5548388/",
+      "kind": "trial",
+      "pmid": "28591523",
+      "doi": "10.1056/NEJMoa1613210"
+    },
+    {
+      "citation": "Thomas JM, Newton-Bishop J, A'Hern R, et al. Excision margins in high-risk malignant melanoma. N Engl J Med. 2004;350(8):757-766.",
+      "url": "https://doi.org/10.1056/NEJMoa030681",
+      "kind": "trial",
+      "pmid": "14973217",
+      "doi": "10.1056/NEJMoa030681"
+    },
+    {
+      "citation": "Utjés D, Malmstedt J, Teras J, et al. 2-cm versus 4-cm surgical excision margins for primary cutaneous melanoma thicker than 2 mm: long-term follow-up of a multicentre, randomised trial. Lancet. 2019;394(10197):471-477.",
+      "url": "https://doi.org/10.1016/S0140-6736(19)31132-8",
+      "kind": "trial",
+      "pmid": "31280965",
+      "doi": "10.1016/S0140-6736(19)31132-8"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 52-year-old woman had a changing pigmented lesion on her calf excised for diagnosis. Histology shows a melanoma with a Breslow thickness of 2.4 mm, without ulceration, and clear margins. There are no palpable lymph nodes, and she is otherwise well.",
+      "next": "stage"
+    },
+    "stage": {
+      "type": "decision",
+      "text": "What is her clinical stage by AJCC 8th edition criteria?",
+      "options": [
+        {
+          "label": "Stage IIA (T3a N0 M0)",
+          "next": "slnb",
+          "isCorrect": true,
+          "feedback": "AJCC 8th edition: T3a is a tumor thicker than 2.0 mm and up to 4.0 mm without ulceration, and T3a N0 M0 groups as stage IIA. Ulceration upstages a tumor: a T2b tumor has melanoma-specific survival similar to a T3a tumor.",
+          "cite": [2]
+        },
+        {
+          "label": "Stage IA, because the margins are clear",
+          "next": "fail_stage",
+          "isCorrect": false,
+          "feedback": "AJCC 8th edition: the T category rests on thickness and ulceration, not margin status. At 2.4 mm without ulceration this is T3a, and T3a N0 M0 is stage IIA. T1a is reserved for tumors under 0.8 mm without ulceration.",
+          "cite": [2]
+        }
+      ]
+    },
+    "slnb": {
+      "type": "decision",
+      "text": "How do you stage her nodes?",
+      "options": [
+        {
+          "label": "Offer sentinel lymph node biopsy, without imaging beforehand",
+          "next": "margin",
+          "isCorrect": true,
+          "feedback": "NICE NG14: consider sentinel lymph node biopsy for melanoma thicker than 1.0 mm, and do not image before it unless nodal or distant metastases are suspected. In MSLT-I, biopsy-based management improved 10-year disease-free survival for intermediate-thickness melanomas (1.20 to 3.50 mm; 71.3% vs 64.7%), and nodal status carried strong prognostic information (10-year melanoma-specific survival 62.1% with nodal metastasis vs 85.1% without).",
+          "cite": [1, 3]
+        },
+        {
+          "label": "CT of the body and brain before deciding on the sentinel node",
+          "next": "fail_imaging",
+          "isCorrect": false,
+          "feedback": "NICE NG14: do not image before sentinel lymph node biopsy unless nodal or distant metastases are suspected. She has no palpable nodes and no symptoms.",
+          "cite": [1]
+        }
+      ]
+    },
+    "margin": {
+      "type": "decision",
+      "text": "Wide local excision is planned at the same operation. What clinical margin?",
+      "options": [
+        {
+          "label": "2 cm around the biopsy scar",
+          "next": "node",
+          "isCorrect": true,
+          "feedback": "NICE NG14: use a 2 cm clinical margin for stage II melanoma, around the biopsy scar and allowing for the primary melanoma margin. For melanoma at least 2 mm thick, a 1 cm margin gave more locoregional recurrence than 3 cm (HR 1.26), while 2 cm and 4 cm margins gave similar overall and melanoma-specific survival after a median 19.6 years.",
+          "cite": [1, 5, 6]
+        },
+        {
+          "label": "1 cm, as for all invasive melanoma",
+          "next": "fail_margin",
+          "isCorrect": false,
+          "feedback": "NICE NG14: 1 cm is for stage I, or when a 2 cm margin would cause unacceptable disfigurement or morbidity; stage II needs 2 cm. In a trial of melanoma at least 2 mm thick, a 1 cm margin increased locoregional recurrence compared with 3 cm (HR 1.26).",
+          "cite": [1, 5]
+        },
+        {
+          "label": "4 cm, to improve survival",
+          "next": "fail_margin",
+          "isCorrect": false,
+          "feedback": "In a randomized trial of melanoma thicker than 2 mm, 4 cm margins did not improve overall survival (HR 0.98) or melanoma-specific survival (HR 0.95) compared with 2 cm, at a median 19.6 years. NICE NG14 recommends 2 cm for stage II.",
+          "cite": [1, 6]
+        }
+      ]
+    },
+    "node": {
+      "type": "decision",
+      "text": "One sentinel node contains a micrometastasis, making her stage IIIB (T3a N1a). What next?",
+      "options": [
+        {
+          "label": "No routine completion dissection: whole-body and brain CT staging, specialist MDT review, and nodal surveillance",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "NICE NG14: do not routinely offer completion lymph node dissection for micrometastatic nodal disease found by sentinel node biopsy, unless recurrent nodal disease would be hard to manage and after MDT discussion. Offer whole-body and brain CE-CT for stage IIC to IV. In MSLT-II, immediate completion dissection gave the same 3-year melanoma-specific survival as observation with ultrasound (86% vs 86%), with better regional control (92% vs 77%) but lymphedema in 24.1% vs 6.3%. AJCC 8th edition groups T3a with N1a as stage IIIB.",
+          "cite": [1, 2, 4]
+        },
+        {
+          "label": "Immediate completion lymph node dissection to improve survival",
+          "next": "fail_dissection",
+          "isCorrect": false,
+          "feedback": "In MSLT-II, immediate completion dissection did not improve melanoma-specific survival (86% vs 86% at 3 years), and lymphedema rose from 6.3% to 24.1%. NICE NG14 advises against routine completion dissection for micrometastatic sentinel node disease.",
+          "cite": [1, 4]
+        }
+      ]
+    },
+    "fail_stage": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Staging Error: Melanoma under-staged."
+    },
+    "fail_imaging": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Imaging without an indication."
+    },
+    "fail_margin": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Excision margin not matched to stage."
+    },
+    "fail_dissection": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Routine completion dissection with added morbidity."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Melanoma staged and treated by the evidence."
+    }
+  }
+}

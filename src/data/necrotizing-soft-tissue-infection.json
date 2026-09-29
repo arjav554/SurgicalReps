@@ -1,0 +1,189 @@
+{
+  "id": "necrotizing-soft-tissue-infection",
+  "title": "Necrotizing Soft-Tissue Infection",
+  "category": "Plastic Surgery",
+  "description": "Suspect necrotizing infection clinically, never let a score or scan rule it out or delay theatre, debride early back to viable tissue while sparing perfused skin, re-explore within 24 hours, and plan wound closure with the team.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Recognize the clinical features of necrotizing soft-tissue infection",
+    "Know that LRINEC, plain radiographs, and imaging cannot rule it out or justify delay",
+    "Debride early, within 12 hours at the latest, and re-explore within 12–24 hours",
+    "Choose empirical antibiotics that include toxin suppression",
+    "Spare perfused skin and plan wound care and reconstruction"
+  ],
+  "references": [
+    {
+      "citation": "Sartelli M, Guirao X, Hardcastle TC, et al. 2018 WSES/SIS-E consensus conference: recommendations for the management of skin and soft-tissue infections. World J Emerg Surg. 2018;13:58.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6295010/",
+      "kind": "consensus",
+      "pmid": "30564282",
+      "doi": "10.1186/s13017-018-0219-9"
+    },
+    {
+      "citation": "Nawijn F, Smeeing DPJ, Houwert RM, et al. Time is of the essence when treating necrotizing soft tissue infections: a systematic review and meta-analysis. World J Emerg Surg. 2020;15:4.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6950871/",
+      "kind": "systematic-review",
+      "pmid": "31921330",
+      "doi": "10.1186/s13017-019-0286-6"
+    },
+    {
+      "citation": "Fernando SM, Tran A, Cheng W, et al. Necrotizing Soft Tissue Infection: Diagnostic Accuracy of Physical Examination, Imaging, and LRINEC Score: A Systematic Review and Meta-Analysis. Ann Surg. 2019;269(1):58-65.",
+      "url": "https://doi.org/10.1097/SLA.0000000000002774",
+      "kind": "systematic-review",
+      "pmid": "29672405",
+      "doi": "10.1097/SLA.0000000000002774"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 58-year-old man with type 2 diabetes cut his left shin in the garden 2 days ago. Since this morning his calf pain has become severe. On examination there is only faint erythema, but the swelling extends well beyond it, and he winces at light touch. The redness has spread since the triage nurse marked it an hour ago.",
+      "vitals": [
+        { "label": "HR", "value": "124", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "96/58", "unit": "mmHg", "status": "warning" },
+        { "label": "Temp", "value": "38.9", "unit": "°C", "status": "warning" },
+        { "label": "RR", "value": "24", "unit": "/min", "status": "warning" },
+        { "label": "WBC", "value": "17.2", "unit": "×10³/µL", "status": "warning" }
+      ],
+      "next": "features"
+    },
+    "features": {
+      "type": "multi",
+      "text": "Which statements about diagnosing a necrotizing infection here are correct?",
+      "options": [
+        { "label": "Pain out of proportion to the skin findings is a typical sign", "isCorrect": true },
+        { "label": "Edema extending beyond the erythema is a typical sign", "isCorrect": true },
+        { "label": "A rapidly progressing soft-tissue infection should be treated as necrotizing", "isCorrect": true },
+        { "label": "A plain radiograph with no soft-tissue gas rules it out", "isCorrect": false },
+        { "label": "A LRINEC score below 6 rules it out", "isCorrect": false }
+      ],
+      "feedback": "WSES/SIS-E 2018: clinical signs include pain out of proportion, edema extending beyond the erythema, and fever. A rapidly progressive soft-tissue infection should be suspected and treated as necrotizing (1C). A plain radiograph should not be used to rule it out (1B); gas is absent in many cases. In a meta-analysis of 23 studies, LRINEC ≥ 6 was only 68.2% sensitive, and no single examination sign such as fever or hypotension excludes the diagnosis.",
+      "cite": [1, 3],
+      "next": "timing",
+      "failNext": "fail_missed"
+    },
+    "timing": {
+      "type": "decision",
+      "text": "His LRINEC score is 5. CT can be done in 2 hours. What do you do?",
+      "options": [
+        {
+          "label": "Blood cultures, broad-spectrum antibiotics, resuscitation, and urgent surgical exploration without waiting for the scan",
+          "next": "antibiotics",
+          "isCorrect": true,
+          "feedback": "WSES/SIS-E 2018: imaging should not delay surgical consultation and intervention (1A). Provide surgical source control as soon as possible, and at least within 12 hours of admission, when suspicion is high (1B). In a meta-analysis, mortality was 19% with surgery within 6 hours of presentation vs 32% after 6 hours (OR 0.43), and surgery within 12 hours also lowered mortality (OR 0.41). LRINEC should not be used to rule out the diagnosis.",
+          "cite": [1, 2, 3]
+        },
+        {
+          "label": "Wait for the CT before deciding on surgery",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "WSES/SIS-E 2018: imaging studies should not delay surgical consultation and intervention (1A). Mortality was 19% with surgery within 6 hours of presentation vs 32% after 6 hours.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Admit on IV antibiotics as cellulitis, and operate if he is no better in 24 hours",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "WSES/SIS-E 2018: source control should come as soon as possible, and at least within 12 hours of admission, when necrotizing infection is highly suspected (1B). Delayed surgery is repeatedly associated with higher mortality, and surgery within 12 hours lowered mortality in a meta-analysis (OR 0.41).",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "antibiotics": {
+      "type": "decision",
+      "text": "Which empirical antibiotic regimen do you start?",
+      "options": [
+        {
+          "label": "Broad-spectrum cover including MRSA and Gram-negative organisms, with clindamycin or linezolid",
+          "next": "debride",
+          "isCorrect": true,
+          "feedback": "WSES/SIS-E 2018: give prompt, aggressive antibiotics (1B) with broad-spectrum empirical cover including MRSA and Gram-negative organisms (1C), and include clindamycin or linezolid (1C), which can inhibit exotoxin production by Gram-positive pathogens. Antibiotics are an adjunct to early surgical debridement, not a substitute.",
+          "cite": [1]
+        },
+        {
+          "label": "Gram-positive cover alone, as for cellulitis",
+          "next": "fail_antibiotics",
+          "isCorrect": false,
+          "feedback": "WSES/SIS-E 2018: a polymicrobial infection cannot be excluded, so empirical therapy should be broad-spectrum, covering MRSA and Gram-negative organisms (1C), and include clindamycin or linezolid (1C).",
+          "cite": [1]
+        }
+      ]
+    },
+    "debride": {
+      "type": "decision",
+      "text": "At operation the deep fascia is gray and necrotic, and a small incision releases thin, grayish fluid. The skin at the edges of the affected area looks questionably viable. What is your operative plan?",
+      "options": [
+        {
+          "label": "Excise all necrotic tissue back to viable tissue, keep questionable skin for reassessment, leave the wound open, and re-explore within 12–24 hours",
+          "next": "after",
+          "isCorrect": true,
+          "feedback": "WSES/SIS-E 2018: remove all non-viable tissue until healthy tissue is reached, but remove only devitalized skin and spare normally perfused skin; where skin viability is questionable, preserve it and reassess at the second operation (1C). Leave the wound open. Plan the first re-exploration within 12–24 hours, and repeat until no necrosis remains (1C). Limb amputation is reserved for late and extreme presentations.",
+          "cite": [1]
+        },
+        {
+          "label": "Wide excision including the normally perfused skin, to be safe",
+          "next": "fail_overdebride",
+          "isCorrect": false,
+          "feedback": "WSES/SIS-E 2018: remove only devitalized skin and spare normally perfused skin (1C). Skin sparing through multiple incisions preserves perforators, and questionable skin can be reassessed and removed at re-exploration if needed.",
+          "cite": [1]
+        },
+        {
+          "label": "Above-knee amputation now",
+          "next": "fail_overdebride",
+          "isCorrect": false,
+          "feedback": "WSES/SIS-E 2018: amputation of a limb does not add to the acute debridement and should be reserved for late and extreme presentations.",
+          "cite": [1]
+        }
+      ]
+    },
+    "after": {
+      "type": "decision",
+      "text": "After two further debridements, no necrosis remains, he is improving, and he has been afebrile for 24 hours. What next?",
+      "options": [
+        {
+          "label": "Consider negative pressure wound therapy, plan reconstruction with the team, and continue antibiotics until he has been afebrile for 48–72 hours",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "WSES/SIS-E 2018: consider negative pressure wound therapy once all necrosis is removed (1C). Continue antibiotics until no further debridement is needed, the patient has improved clinically, and fever has resolved for 48–72 hours (1C). A multidisciplinary team is mandatory, with attention to wound care, function, reconstruction, and rehabilitation (1C).",
+          "cite": [1]
+        },
+        {
+          "label": "Stop antibiotics now, as the source is controlled",
+          "next": "fail_antibiotics",
+          "isCorrect": false,
+          "feedback": "WSES/SIS-E 2018: continue antibiotics until further debridement is no longer necessary, the patient has improved clinically, and fever has resolved for 48–72 hours (1C). He has been afebrile for only 24 hours.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Necrotizing infection falsely excluded."
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Spreading necrosis and septic shock from delayed debridement.",
+      "vitals": [
+        { "label": "BP", "value": "78/42", "unit": "mmHg", "status": "critical" },
+        { "label": "Lactate", "value": "5.1", "unit": "mmol/L", "status": "critical" }
+      ]
+    },
+    "fail_antibiotics": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Antibiotic cover or duration not by the guideline."
+    },
+    "fail_overdebride": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Viable tissue sacrificed."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Early debridement, targeted cover, and planned closure."
+    }
+  }
+}

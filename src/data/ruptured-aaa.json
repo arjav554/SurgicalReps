@@ -1,0 +1,151 @@
+{
+  "id": "ruptured-aaa",
+  "title": "Ruptured Abdominal Aortic Aneurysm",
+  "category": "Aortic Disease",
+  "description": "Suspect rupture, confirm the aneurysm with bedside ultrasound, call the regional vascular service, transfer within 30 minutes with restrictive fluids, prefer EVAR under local anesthesia when anatomy allows, and watch for abdominal compartment syndrome.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Recognize the presentation and risk factors of ruptured AAA",
+    "Confirm an aneurysm with bedside ultrasound and involve the vascular service at once",
+    "Transfer within 30 minutes with a restrictive approach to fluids",
+    "Avoid scores and single factors when deciding on repair",
+    "Choose EVAR or open repair using the trial evidence"
+  ],
+  "references": [
+    {
+      "citation": "National Institute for Health and Care Excellence. Abdominal aortic aneurysm: diagnosis and management (NICE guideline NG156). London: NICE; 2020.",
+      "url": "https://www.nice.org.uk/guidance/ng156",
+      "kind": "guideline"
+    },
+    {
+      "citation": "IMPROVE Trial Investigators; Powell JT, Sweeting MJ, Thompson MM, et al. Endovascular or open repair strategy for ruptured abdominal aortic aneurysm: 30 day outcomes from IMPROVE randomised trial. BMJ. 2014;348:f7661.",
+      "url": "https://doi.org/10.1136/bmj.f7661",
+      "kind": "trial",
+      "pmid": "24418950",
+      "doi": "10.1136/bmj.f7661"
+    },
+    {
+      "citation": "IMPROVE Trial Investigators. Comparative clinical effectiveness and cost effectiveness of endovascular strategy v open repair for ruptured abdominal aortic aneurysm: three year results of the IMPROVE randomised trial. BMJ. 2017;359:j4859.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5682594/",
+      "kind": "trial",
+      "pmid": "29138135",
+      "doi": "10.1136/bmj.j4859"
+    },
+    {
+      "citation": "Powell JT, Hinchliffe RJ, Thompson MM, et al. Observations from the IMPROVE trial concerning the clinical care of patients with ruptured abdominal aortic aneurysm. Br J Surg. 2014;101(3):216-224.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4164272/",
+      "kind": "trial",
+      "pmid": "24469620",
+      "doi": "10.1002/bjs.9410"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 76-year-old man collapsed at home with sudden back and abdominal pain. He smoked for 40 years and takes medication for hypertension. He is now awake in the emergency department of a hospital without vascular surgery.",
+      "vitals": [
+        { "label": "HR", "value": "124", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "84/50", "unit": "mmHg", "status": "critical" },
+        { "label": "GCS", "value": "15" }
+      ],
+      "next": "first"
+    },
+    "first": {
+      "type": "multi",
+      "text": "Which belong in your first steps?",
+      "options": [
+        { "label": "Immediate bedside aortic ultrasound", "isCorrect": true },
+        { "label": "Call the regional vascular service at once if it shows an AAA, or if it is unavailable or non-diagnostic", "isCorrect": true },
+        { "label": "Use a risk score to decide whether he is fit for repair", "isCorrect": false },
+        { "label": "Wait for a formal CT in this hospital before calling anyone", "isCorrect": false }
+      ],
+      "feedback": "NICE NG156: think of ruptured AAA with new abdominal or back pain, collapse, or loss of consciousness, especially with a known AAA, age over 60, smoking, or hypertension. Offer immediate bedside aortic ultrasound, and discuss immediately with a regional vascular service if it shows an AAA or is unavailable or non-diagnostic. Do not use risk scores or any single symptom, sign, or risk factor to decide whether repair is suitable.",
+      "cite": [1],
+      "next": "transfer",
+      "failNext": "fail_delay"
+    },
+    "transfer": {
+      "type": "decision",
+      "text": "Ultrasound shows a 7 cm abdominal aortic aneurysm. The regional vascular service accepts him. How do you transfer him?",
+      "options": [
+        {
+          "label": "Out of the department within 30 minutes of the decision, with restrictive fluid resuscitation (permissive hypotension)",
+          "next": "repair",
+          "isCorrect": true,
+          "feedback": "NICE NG156: once accepted, he should leave the referring unit within 30 minutes of the decision to transfer. Consider a restrictive approach to fluids (permissive hypotension) during transfer. In IMPROVE, the lowest systolic pressure was strongly linked to 30-day mortality (51% below 70 mmHg), and the investigators concluded that 70 mmHg is too low a threshold for permissive hypotension.",
+          "cite": [1, 4]
+        },
+        {
+          "label": "Give fluids until his blood pressure is normal, then transfer",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "NICE NG156: consider a restrictive approach to fluid resuscitation (permissive hypotension) during transfer, and make sure he leaves within 30 minutes of the decision to transfer.",
+          "cite": [1]
+        }
+      ]
+    },
+    "repair": {
+      "type": "decision",
+      "text": "At the vascular center, CT angiography confirms a ruptured infrarenal aneurysm with anatomy suitable for standard EVAR. Which repair?",
+      "options": [
+        {
+          "label": "EVAR, under local anesthesia alone if feasible",
+          "next": "after",
+          "isCorrect": true,
+          "feedback": "NICE NG156: consider EVAR or open repair for a ruptured infrarenal AAA; EVAR gives more benefit for most people, especially men over 70 and women of any age. Consider local infiltrative anesthesia alone for EVAR. In IMPROVE, 30-day mortality was similar (35.4% vs 37.4%), and at 3 years it was lower with the endovascular strategy (48% vs 56%), though about 60% in both groups by 7 years. EVAR under local anesthesia alone was linked to lower 30-day mortality than under general anesthesia (adjusted OR 0.27).",
+          "cite": [1, 2, 3, 4]
+        },
+        {
+          "label": "Open repair, because EVAR has higher early mortality",
+          "next": "fail_repair",
+          "isCorrect": false,
+          "feedback": "In IMPROVE, 30-day mortality was 35.4% with the endovascular strategy and 37.4% with open repair, and 3-year mortality was lower with the endovascular strategy (48% vs 56%). NICE NG156 notes that EVAR gives more benefit for most people, especially men over 70; open repair is likely better balanced in men under 70.",
+          "cite": [1, 2, 3]
+        }
+      ]
+    },
+    "after": {
+      "type": "decision",
+      "text": "After EVAR, his condition does not improve, and his abdomen is distended. What must you consider?",
+      "options": [
+        {
+          "label": "Assess him for abdominal compartment syndrome",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "NICE NG156: people can develop abdominal compartment syndrome after either EVAR or open repair of a ruptured AAA. Assess for it if their condition does not improve after repair.",
+          "cite": [1]
+        },
+        {
+          "label": "Nothing specific: abdominal compartment syndrome follows only open repair",
+          "next": "fail_compartment",
+          "isCorrect": false,
+          "feedback": "NICE NG156: abdominal compartment syndrome can develop after EVAR as well as after open repair of a ruptured AAA. Assess for it when the condition does not improve.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Delay to repair of a ruptured aneurysm.",
+      "vitals": [
+        { "label": "BP", "value": "62/34", "unit": "mmHg", "status": "critical" }
+      ]
+    },
+    "fail_repair": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Repair chosen on a false premise."
+    },
+    "fail_compartment": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Abdominal compartment syndrome missed after repair."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Ruptured aneurysm recognized, transferred, and repaired."
+    }
+  }
+}

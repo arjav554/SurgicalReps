@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Web: thin scrollbars in the line tone instead of the browser default. */
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #3a4148 transparent;
+  }
+}

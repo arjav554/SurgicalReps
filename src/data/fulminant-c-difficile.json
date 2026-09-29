@@ -1,0 +1,235 @@
+{
+  "id": "fulminant-c-difficile",
+  "title": "Fulminant C. difficile Colitis",
+  "category": "Colorectal",
+  "description": "Test and isolate, grade severity, escalate to the fulminant regimen, operate before organ failure deepens, and choose between subtotal colectomy and loop ileostomy with lavage.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Test appropriately, start empirical therapy when severe disease is suspected, and stop precipitants",
+    "Grade severity by white cell count and creatinine, and treat severe disease with vancomycin or fidaxomicin",
+    "Recognize fulminant colitis and give the high-dose combination regimen",
+    "Involve surgeons early and operate before intubation and escalating vasopressors",
+    "Know the two evidence-supported operations and how to treat a first recurrence"
+  ],
+  "references": [
+    {
+      "citation": "Sartelli M, Di Bella S, McFarland LV, et al. 2019 update of the WSES guidelines for management of Clostridioides (Clostridium) difficile infection in surgical patients. World J Emerg Surg. 2019;14:8.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6394026/",
+      "kind": "guideline",
+      "pmid": "30858872",
+      "doi": "10.1186/s13017-019-0228-3"
+    },
+    {
+      "citation": "McDonald LC, Gerding DN, Johnson S, et al. Clinical Practice Guidelines for Clostridium difficile Infection in Adults and Children: 2017 Update by the Infectious Diseases Society of America (IDSA) and Society for Healthcare Epidemiology of America (SHEA). Clin Infect Dis. 2018;66(7):e1-e48.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6018983/",
+      "kind": "guideline",
+      "pmid": "29462280",
+      "doi": "10.1093/cid/cix1085"
+    },
+    {
+      "citation": "Neal MD, Alverdy JC, Hall DE, et al. Diverting loop ileostomy and colonic lavage: an alternative to total abdominal colectomy for the treatment of severe, complicated Clostridium difficile associated disease. Ann Surg. 2011;254(3):423-427.",
+      "url": "https://doi.org/10.1097/SLA.0b013e31822ade48",
+      "kind": "cohort",
+      "pmid": "21865943",
+      "doi": "10.1097/SLA.0b013e31822ade48"
+    },
+    {
+      "citation": "Ferrada P, Callcut R, Zielinski MD, et al. Loop ileostomy versus total colectomy as surgical treatment for Clostridium difficile-associated disease: An Eastern Association for the Surgery of Trauma multicenter trial. J Trauma Acute Care Surg. 2017;83(1):36-40.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5998809/",
+      "kind": "cohort",
+      "pmid": "28426557",
+      "doi": "10.1097/TA.0000000000001498"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 74-year-old woman is on day 6 after a total knee replacement. She received cefuroxime prophylaxis and is now taking oral ciprofloxacin for a urinary infection, plus omeprazole. She has had 8 watery stools a day for 2 days, with cramping abdominal pain.",
+      "vitals": [
+        { "label": "HR", "value": "104", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "118/70", "unit": "mmHg" },
+        { "label": "Temp", "value": "38.4", "unit": "°C", "status": "warning" },
+        { "label": "WBC", "value": "21.5", "unit": "×10³/µL", "status": "warning" },
+        { "label": "Cr", "value": "1.7", "unit": "mg/dL", "status": "warning" },
+        { "label": "Lactate", "value": "1.6", "unit": "mmol/L" }
+      ],
+      "next": "initial"
+    },
+    "initial": {
+      "type": "multi",
+      "text": "You suspect C. difficile infection. Which belong in your first steps?",
+      "options": [
+        { "label": "Stool nucleic acid amplification test (or GDH screen plus toxin assay)", "isCorrect": true },
+        { "label": "Start anti–C. difficile therapy now, before the result", "isCorrect": true },
+        { "label": "Stop the ciprofloxacin and omeprazole unless still needed", "isCorrect": true },
+        { "label": "Contact precautions and soap-and-water hand hygiene", "isCorrect": true },
+        { "label": "Loperamide to control the diarrhea", "isCorrect": false },
+        { "label": "Toxin A/B immunoassay alone; treat only if positive", "isCorrect": false }
+      ],
+      "feedback": "WSES 2019: NAAT is sensitive and specific; a GDH screen followed by a toxin assay is an alternative (1B). Toxin immunoassay alone is not recommended because of its low sensitivity (1B). With strong suspicion of severe infection, start empirical therapy while awaiting results (1C). Stop unnecessary antibiotics (1B) and PPIs (1C). Use contact precautions and soap and water (1B), because alcohol gel does not kill spores. Anti-peristaltic agents are discouraged (2C).",
+      "cite": [1],
+      "next": "severity",
+      "failNext": "fail_initial"
+    },
+    "severity": {
+      "type": "decision",
+      "text": "The NAAT is positive. How severe is this, and what do you give?",
+      "options": [
+        {
+          "label": "Non-severe: oral metronidazole 500 mg three times daily",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "IDSA/SHEA 2017: a white cell count of 15,000/µL or more, or creatinine above 1.5 mg/dL, marks severe infection; she has both. Treat with oral vancomycin or fidaxomicin (strong, high quality). Metronidazole is reserved for non-severe episodes when those agents are unavailable (weak).",
+          "cite": [2]
+        },
+        {
+          "label": "Severe: oral vancomycin 125 mg four times daily, or fidaxomicin 200 mg twice daily, for 10 days",
+          "next": "course",
+          "isCorrect": true,
+          "feedback": "IDSA/SHEA 2017: a white cell count of 15,000/µL or more, or creatinine above 1.5 mg/dL, marks severe infection. Treat with vancomycin 125 mg four times daily or fidaxomicin 200 mg twice daily for 10 days (strong, high quality). WSES 2019: vancomycin or fidaxomicin for all severe infections (1A).",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "course": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "responds", "weight": 5 },
+        { "next": "fulminant", "weight": 5 }
+      ]
+    },
+    "responds": {
+      "type": "info",
+      "text": "She improves over the next few days and completes 10 days of oral vancomycin. Six weeks later she returns with a first recurrence: new watery diarrhea, now without signs of severe disease.",
+      "next": "recurrence"
+    },
+    "recurrence": {
+      "type": "decision",
+      "text": "How do you treat this first recurrence?",
+      "options": [
+        {
+          "label": "Fidaxomicin for 10 days, or a tapered and pulsed oral vancomycin regimen",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "IDSA/SHEA 2017 (weak): treat a first recurrence with a tapered and pulsed oral vancomycin regimen, or with 10 days of fidaxomicin, rather than repeating a standard 10-day vancomycin course. About 25% of patients treated with vancomycin have at least one further episode. WSES 2019: vancomycin or fidaxomicin for a first recurrence (1B).",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Oral metronidazole for 10 days",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "WSES 2019: avoid repeated or prolonged metronidazole because of cumulative and potentially irreversible neurotoxicity (1B). IDSA/SHEA 2017 recommends tapered and pulsed vancomycin or fidaxomicin for a first recurrence.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Fecal microbiota transplantation now",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "IDSA/SHEA 2017 (strong, moderate quality) and WSES 2019 (2C): fecal microbiota transplantation is for multiple recurrences after appropriate antibiotic treatment has failed. A first recurrence is treated with vancomycin (tapered and pulsed) or fidaxomicin.",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "fulminant": {
+      "type": "multi",
+      "text": "Day 2 of treatment: her abdomen is distended and silent, she needs norepinephrine, and CT shows pancolitis with a dilated colon. Which belong in her management now?",
+      "vitals": [
+        { "label": "HR", "value": "124", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "84/48", "unit": "mmHg", "status": "critical" },
+        { "label": "WBC", "value": "34.0", "unit": "×10³/µL", "status": "critical" },
+        { "label": "Lactate", "value": "3.8", "unit": "mmol/L", "status": "critical" }
+      ],
+      "options": [
+        { "label": "Vancomycin 500 mg four times daily by mouth or nasogastric tube", "isCorrect": true },
+        { "label": "Vancomycin retention enemas, because she has an ileus", "isCorrect": true },
+        { "label": "IV metronidazole 500 mg every 8 hours", "isCorrect": true },
+        { "label": "Early surgical consultation", "isCorrect": true },
+        { "label": "IV fluids, electrolyte replacement, and ICU organ support", "isCorrect": true },
+        { "label": "Switch to oral metronidazole alone", "isCorrect": false },
+        { "label": "Hold off on surgeons until 5 days of therapy have failed", "isCorrect": false }
+      ],
+      "feedback": "IDSA/SHEA 2017: fulminant infection (hypotension or shock, ileus, or megacolon) is treated with oral vancomycin 500 mg four times daily (strong). With ileus, add rectal vancomycin 500 mg in about 100 mL saline every 6 hours (weak), plus IV metronidazole 500 mg every 8 hours (strong). WSES 2019: severe disease progressing to systemic toxicity needs early surgical consultation (1C), with aggressive fluid, electrolyte, and organ support (1C).",
+      "cite": [1, 2],
+      "next": "timing",
+      "failNext": "fail_fulminant"
+    },
+    "timing": {
+      "type": "decision",
+      "text": "Twenty-four hours later her norepinephrine dose is rising, lactate is 5.1 mmol/L, and she is newly confused. Her white count is 41,000/µL. What now?",
+      "vitals": [
+        { "label": "BP", "value": "82/46", "unit": "mmHg", "status": "critical" },
+        { "label": "Lactate", "value": "5.1", "unit": "mmol/L", "status": "critical" },
+        { "label": "WBC", "value": "41.0", "unit": "×10³/µL", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Add IV immunoglobulin and continue medical therapy",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "WSES 2019: IV immunoglobulin is only an adjunct pending better trials (2C), and delaying surgery once systemic toxicity develops worsens outcomes. Mortality rises when operation follows intubation or vasopressor escalation.",
+          "cite": [1]
+        },
+        {
+          "label": "Operate now",
+          "next": "operation",
+          "isCorrect": true,
+          "feedback": "WSES 2019: timing is key; mortality was lower with surgery before vasopressors were needed and higher after intubation or vasopressor use. In a review of 510 patients, emergency colectomy improved survival over continued antibiotics (adjusted OR 0.70). IDSA/SHEA 2017: a rising white count of 25,000/µL or more or a lactate of 5 mmol/L or more marks patients whose best hope may be early surgery.",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "operation": {
+      "type": "multi",
+      "text": "Which operations are supported for fulminant C. difficile colitis?",
+      "options": [
+        { "label": "Subtotal colectomy with end ileostomy, preserving the rectum", "isCorrect": true },
+        { "label": "Diverting loop ileostomy, colonic lavage, then antegrade vancomycin flushes", "isCorrect": true },
+        { "label": "Segmental resection of the worst-affected colon", "isCorrect": false },
+        { "label": "Total proctocolectomy", "isCorrect": false }
+      ],
+      "feedback": "IDSA/SHEA 2017: perform subtotal colectomy with rectal preservation (strong); loop ileostomy with colonic lavage and antegrade vancomycin flushes is an alternative (weak, low quality). WSES 2019 supports both (1B). When the whole colon was not resected, 15.9% needed reoperation to remove more bowel. In Neal 2011, loop ileostomy preserved the colon in 93%, with lower mortality than historical colectomy controls (19% vs 50%). In the EAST multicenter study, adjusted mortality was 17.2% after loop ileostomy vs 39.7% after total colectomy.",
+      "cite": [1, 2, 3, 4],
+      "next": "success",
+      "failNext": "fail_operation"
+    },
+    "fail_initial": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Testing, isolation, or precipitant control mishandled."
+    },
+    "fail_undertreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Severe infection undertreated with metronidazole."
+    },
+    "fail_recurrence": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: First recurrence not treated as recommended."
+    },
+    "fail_fulminant": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Fulminant colitis progresses without adequate therapy.",
+      "vitals": [
+        { "label": "BP", "value": "74/40", "unit": "mmHg", "status": "critical" },
+        { "label": "Lactate", "value": "7.2", "unit": "mmol/L", "status": "critical" }
+      ]
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Surgery delayed until multiorgan failure."
+    },
+    "fail_operation": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Operation outside the supported options."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: C. difficile infection treated by severity."
+    }
+  }
+}

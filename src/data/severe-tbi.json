@@ -1,0 +1,253 @@
+{
+  "id": "severe-tbi",
+  "title": "Severe Traumatic Brain Injury",
+  "category": "Neurotrauma",
+  "description": "Run the first ICU day by the Brain Trauma Foundation thresholds, escalate treatment for rising ICP, and time decompressive craniectomy by what DECRA and RESCUEicp showed.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Set blood pressure, ICP, and CPP targets from the Brain Trauma Foundation guidelines",
+    "Avoid harmful routine therapies: steroids, prophylactic hyperventilation, early prophylactic hypothermia",
+    "Distinguish early from late refractory intracranial hypertension",
+    "Choose a large frontotemporoparietal craniectomy when decompression is indicated",
+    "Plan nutrition, airway, infection, and thrombosis prophylaxis"
+  ],
+  "references": [
+    {
+      "citation": "Carney N, Totten AM, O'Reilly C, et al. Guidelines for the Management of Severe Traumatic Brain Injury, Fourth Edition. Neurosurgery. 2017;80(1):6-15.",
+      "url": "https://doi.org/10.1227/NEU.0000000000001432",
+      "kind": "guideline",
+      "pmid": "27654000",
+      "doi": "10.1227/NEU.0000000000001432"
+    },
+    {
+      "citation": "Hawryluk GWJ, Rubiano AM, Totten AM, et al. Guidelines for the Management of Severe Traumatic Brain Injury: 2020 Update of the Decompressive Craniectomy Recommendations. Neurosurgery. 2020;87(3):427-434.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7426189/",
+      "kind": "guideline",
+      "pmid": "32761068",
+      "doi": "10.1093/neuros/nyaa278"
+    },
+    {
+      "citation": "Hutchinson PJ, Kolias AG, Timofeev IS, et al. Trial of Decompressive Craniectomy for Traumatic Intracranial Hypertension. N Engl J Med. 2016;375(12):1119-1130.",
+      "url": "https://doi.org/10.1056/NEJMoa1605215",
+      "kind": "trial",
+      "pmid": "27602507",
+      "doi": "10.1056/NEJMoa1605215"
+    },
+    {
+      "citation": "Cooper DJ, Rosenfeld JV, Murray L, et al. Decompressive craniectomy in diffuse traumatic brain injury. N Engl J Med. 2011;364(16):1493-1502.",
+      "url": "https://doi.org/10.1056/NEJMoa1102077",
+      "kind": "trial",
+      "pmid": "21434843",
+      "doi": "10.1056/NEJMoa1102077"
+    },
+    {
+      "citation": "Roberts I, Yates D, Sandercock P, et al. Effect of intravenous corticosteroids on death within 14 days in 10008 adults with clinically significant head injury (MRC CRASH trial): randomised placebo-controlled trial. Lancet. 2004;364(9442):1321-1328.",
+      "url": "https://doi.org/10.1016/S0140-6736(04)17188-2",
+      "kind": "trial",
+      "pmid": "15474134",
+      "doi": "10.1016/S0140-6736(04)17188-2"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 34-year-old motorcyclist has a GCS of 7 after resuscitation and is intubated. CT shows scattered contusions with compressed basal cisterns and no hematoma needing evacuation. He arrives in the neuro-ICU.",
+      "vitals": [
+        { "label": "GCS", "value": "7", "status": "critical" },
+        { "label": "HR", "value": "96", "unit": "bpm" },
+        { "label": "BP", "value": "104/62", "unit": "mmHg", "status": "warning" },
+        { "label": "SpO2", "value": "98", "unit": "%" }
+      ],
+      "next": "bp"
+    },
+    "bp": {
+      "type": "decision",
+      "text": "What systolic blood pressure floor do you set for him?",
+      "options": [
+        {
+          "label": "At least 90 mm Hg",
+          "next": "fail_hypotension",
+          "isCorrect": false,
+          "feedback": "Brain Trauma Foundation 2017 (Level III): maintain systolic BP at 110 mm Hg or more for patients aged 15–49 or over 70, and 100 mm Hg or more for those aged 50–69, to decrease mortality and improve outcomes. At 34, his floor is 110.",
+          "cite": [1]
+        },
+        {
+          "label": "At least 110 mm Hg",
+          "next": "bundle",
+          "isCorrect": true,
+          "feedback": "Brain Trauma Foundation 2017 (Level III): maintaining systolic BP of 110 mm Hg or more for patients aged 15–49 or over 70 (100 mm Hg or more for 50–69) may be considered to decrease mortality and improve outcomes. He is 34, and his current 104 mm Hg is below target.",
+          "cite": [1]
+        },
+        {
+          "label": "At least 100 mm Hg",
+          "next": "fail_hypotension",
+          "isCorrect": false,
+          "feedback": "Brain Trauma Foundation 2017 (Level III): 100 mm Hg is the floor for patients aged 50–69. For patients aged 15–49 or over 70 it is 110 mm Hg.",
+          "cite": [1]
+        }
+      ]
+    },
+    "bundle": {
+      "type": "multi",
+      "text": "First ICU orders: which belong?",
+      "options": [
+        { "label": "ICP monitor, with management guided by its readings", "isCorrect": true },
+        { "label": "Phenytoin for 7 days to reduce early post-traumatic seizures", "isCorrect": true },
+        { "label": "High-dose methylprednisolone to reduce brain swelling", "isCorrect": false },
+        { "label": "Prophylactic hyperventilation to a PaCO2 of 25 mm Hg", "isCorrect": false },
+        { "label": "Prophylactic hypothermia started now for 48 hours", "isCorrect": false }
+      ],
+      "feedback": "Brain Trauma Foundation 2017: manage with ICP monitoring to reduce in-hospital and 2-week mortality (IIB). Phenytoin reduces early seizures within 7 days when the benefit outweighs the complications (IIA), though early seizures have not been linked to worse outcomes. Steroids are not recommended, and high-dose methylprednisolone is contraindicated (Level I); in MRC CRASH it raised 2-week mortality (21.1% vs 17.9%). Prolonged prophylactic hyperventilation to 25 mm Hg or less (IIB) and early short-term prophylactic hypothermia (IIB) are not recommended.",
+      "cite": [1, 5],
+      "next": "icp",
+      "failNext": "fail_bundle"
+    },
+    "icp": {
+      "type": "decision",
+      "text": "The monitor shows an ICP of 26 mm Hg and a CPP of 58 mm Hg. What thresholds guide you?",
+      "vitals": [
+        { "label": "ICP", "value": "26", "unit": "mmHg", "status": "critical" },
+        { "label": "CPP", "value": "58", "unit": "mmHg", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "Tolerate ICP up to 30 mm Hg before treating",
+          "next": "fail_icp",
+          "isCorrect": false,
+          "feedback": "Brain Trauma Foundation 2017 (IIB): treat ICP above 22 mm Hg, because higher values are associated with increased mortality. The target CPP is 60–70 mm Hg.",
+          "cite": [1]
+        },
+        {
+          "label": "Treat ICP above 22 mm Hg and target a CPP of 60–70 mm Hg",
+          "next": "early",
+          "isCorrect": true,
+          "feedback": "Brain Trauma Foundation 2017 (IIB): treat ICP above 22 mm Hg, as higher values are associated with increased mortality, and target a CPP of 60–70 mm Hg for survival and favorable outcomes. Avoid aggressive attempts to hold CPP above 70 with fluids and pressors, which risk respiratory failure (Level III).",
+          "cite": [1]
+        },
+        {
+          "label": "Push CPP above 80 mm Hg with fluids and vasopressors",
+          "next": "fail_icp",
+          "isCorrect": false,
+          "feedback": "Brain Trauma Foundation 2017: the CPP target is 60–70 mm Hg (IIB), and aggressive attempts to keep CPP above 70 with fluids and pressors may be avoided because of the risk of adult respiratory failure (Level III).",
+          "cite": [1]
+        }
+      ]
+    },
+    "early": {
+      "type": "decision",
+      "text": "Hour 20: despite sedation, head elevation, CSF drainage, and hyperosmolar therapy, ICP stays above 20 mm Hg for more than 15 minutes in the hour. What now?",
+      "options": [
+        {
+          "label": "Early bifrontal decompressive craniectomy to improve his outcome",
+          "next": "fail_early_dc",
+          "isCorrect": false,
+          "feedback": "Brain Trauma Foundation 2020 (IIA): secondary decompressive craniectomy for early refractory ICP elevation is not recommended to improve mortality or favorable outcome. In DECRA, early bifrontal craniectomy lowered ICP and ICU days but worsened functional outcome (odds ratio for a worse score 1.84), with similar 6-month mortality (19% vs 18%).",
+          "cite": [2, 4]
+        },
+        {
+          "label": "Escalate medical therapy; early craniectomy lowers ICP but does not improve outcome",
+          "next": "course",
+          "isCorrect": true,
+          "feedback": "Brain Trauma Foundation 2020 (IIA): secondary craniectomy for early refractory ICP (like DECRA's: above 20 mm Hg for 15 minutes in an hour despite first-tier therapy) is not recommended to improve outcome, although it reduces ICP and ICU stay. DECRA's craniectomy group had worse functional outcomes (odds ratio 1.84). Escalate medical therapy instead.",
+          "cite": [2, 4]
+        },
+        {
+          "label": "High-dose methylprednisolone",
+          "next": "fail_bundle",
+          "isCorrect": false,
+          "feedback": "Brain Trauma Foundation 2017 (Level I): steroids do not improve outcome or reduce ICP, and high-dose methylprednisolone is contraindicated in severe TBI. In MRC CRASH, 2-week mortality rose to 21.1% vs 17.9% (relative risk 1.18).",
+          "cite": [1, 5]
+        }
+      ]
+    },
+    "course": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "controlled", "weight": 1 },
+        { "next": "late", "weight": 1 }
+      ]
+    },
+    "controlled": {
+      "type": "info",
+      "text": "Second-tier medical therapy brings his ICP below 22 mm Hg, and it stays there.",
+      "next": "support"
+    },
+    "late": {
+      "type": "decision",
+      "text": "Day 4: ICP has stayed above 25 mm Hg for several hours despite two tiers of therapy. Your team discusses craniectomy with his family. What do you offer?",
+      "vitals": [
+        { "label": "ICP", "value": "29", "unit": "mmHg", "status": "critical" },
+        { "label": "CPP", "value": "56", "unit": "mmHg", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "Small temporal craniectomy to limit the operation",
+          "next": "fail_small_dc",
+          "isCorrect": false,
+          "feedback": "Brain Trauma Foundation 2020 (IIA): a large frontotemporoparietal craniectomy, at least 12 × 15 cm or 15 cm in diameter, is recommended over a small one to reduce mortality and improve neurological outcome.",
+          "cite": [2]
+        },
+        {
+          "label": "Large frontotemporoparietal decompressive craniectomy, after explaining the likely outcomes to his family",
+          "next": "support",
+          "isCorrect": true,
+          "feedback": "Brain Trauma Foundation 2020 (IIA): secondary craniectomy for late refractory ICP is recommended to improve mortality and favorable outcome, using a large frontotemporoparietal flap (at least 12 × 15 cm). In RESCUEicp, 6-month mortality was 26.9% vs 48.9%, but vegetative state (8.5% vs 2.1%) and severe disability were more common. Families need that trade-off explained.",
+          "cite": [2, 3]
+        }
+      ]
+    },
+    "support": {
+      "type": "multi",
+      "text": "Supportive care over the coming days: which belong?",
+      "options": [
+        { "label": "Reach basal caloric replacement by day 5, and no later than day 7", "isCorrect": true },
+        { "label": "Consider early tracheostomy to shorten ventilation", "isCorrect": true },
+        { "label": "Mechanical prophylaxis, with LMWH or low-dose heparin once the injury is stable", "isCorrect": true },
+        { "label": "Povidone-iodine oral care to prevent pneumonia", "isCorrect": false },
+        { "label": "Withhold feeding until he is extubated", "isCorrect": false }
+      ],
+      "feedback": "Brain Trauma Foundation 2017: attain basal caloric replacement at least by day 5 and at most by day 7 to decrease mortality (IIA). Early tracheostomy reduces ventilator days, though not mortality or pneumonia (IIA). Povidone-iodine oral care is not recommended and may increase ARDS (IIA). LMWH or low-dose heparin may be combined with mechanical prophylaxis, accepting a risk of hemorrhage expansion (Level III).",
+      "cite": [1],
+      "next": "success",
+      "failNext": "fail_support"
+    },
+    "fail_hypotension": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Secondary Injury: Blood pressure target set too low."
+    },
+    "fail_bundle": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Harmful or missing first-day therapy."
+    },
+    "fail_icp": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Secondary Injury: ICP and CPP managed outside guideline thresholds.",
+      "vitals": [
+        { "label": "ICP", "value": "34", "unit": "mmHg", "status": "critical" }
+      ]
+    },
+    "fail_early_dc": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Early craniectomy with worse functional outcome."
+    },
+    "fail_small_dc": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Undersized decompression."
+    },
+    "fail_support": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Supportive care plan off guideline."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: ICU care run to Brain Trauma Foundation thresholds."
+    }
+  }
+}

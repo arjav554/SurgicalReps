@@ -1,0 +1,212 @@
+{
+  "id": "traumatic-intracranial-hematoma",
+  "title": "Anticoagulated Head Injury: Acute Subdural Hematoma",
+  "category": "Neurotrauma",
+  "description": "Scan within the hour when risk factors appear, reverse warfarin with prothrombin complex concentrate, and decide on evacuation using the subdural hematoma surgical criteria.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Apply NICE criteria for the timing of a head CT",
+    "Reverse warfarin with prothrombin complex concentrate, not plasma",
+    "Use hematoma thickness, midline shift, GCS trajectory, pupils, and ICP to decide on evacuation",
+    "Know what RESCUE-ASDH showed about craniotomy versus craniectomy"
+  ],
+  "references": [
+    {
+      "citation": "National Institute for Health and Care Excellence. Head injury: assessment and early management. NICE guideline NG232. London: NICE; 2023.",
+      "url": "https://www.nice.org.uk/guidance/ng232",
+      "kind": "guideline"
+    },
+    {
+      "citation": "National Institute for Health and Care Excellence. Blood transfusion. NICE guideline NG24. London: NICE; 2015 (updated 2026).",
+      "url": "https://www.nice.org.uk/guidance/ng24",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Bullock MR, Chesnut R, Ghajar J, et al. Surgical management of acute subdural hematomas. Neurosurgery. 2006;58(3 Suppl):S16-S24.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16710968/",
+      "kind": "guideline",
+      "pmid": "16710968"
+    },
+    {
+      "citation": "Hutchinson PJ, Adams H, Mohan M, et al. Decompressive Craniectomy versus Craniotomy for Acute Subdural Hematoma. N Engl J Med. 2023;388(24):2219-2229.",
+      "url": "https://doi.org/10.1056/NEJMoa2214172",
+      "kind": "trial",
+      "pmid": "37092792",
+      "doi": "10.1056/NEJMoa2214172"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 76-year-old man who takes warfarin for atrial fibrillation fell down the stairs at home with a brief loss of consciousness. In the emergency department his GCS is 14, and he has vomited twice.",
+      "vitals": [
+        { "label": "GCS", "value": "14", "status": "warning" },
+        { "label": "HR", "value": "88", "unit": "bpm" },
+        { "label": "BP", "value": "158/84", "unit": "mmHg" }
+      ],
+      "next": "ct"
+    },
+    "ct": {
+      "type": "decision",
+      "text": "When should he have a head CT?",
+      "options": [
+        {
+          "label": "Within 8 hours of the injury, since his GCS is 14",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "NICE NG232: scan within 1 hour of identifying any of these: GCS 12 or less at first assessment, GCS below 15 at 2 hours, suspected open, depressed, or basal skull fracture, a post-traumatic seizure, a focal deficit, or more than one episode of vomiting. He has vomited twice.",
+          "cite": [1]
+        },
+        {
+          "label": "Within 1 hour",
+          "next": "reverse",
+          "isCorrect": true,
+          "feedback": "NICE NG232: more than one episode of vomiting after a head injury is an indication for CT within 1 hour. Anticoagulant use alone would warrant considering a CT within 8 hours, and CT, not skull X-ray or MRI, is the primary investigation.",
+          "cite": [1]
+        },
+        {
+          "label": "Skull X-ray first; CT only if there is a fracture",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "NICE NG232: CT is the primary investigation for clinically important brain injury, and plain skull X-rays should not be used to diagnose it. His two episodes of vomiting mean CT within 1 hour.",
+          "cite": [1]
+        }
+      ]
+    },
+    "reverse": {
+      "type": "decision",
+      "text": "CT shows an acute left subdural hematoma. His INR is 3.2. First step while neurosurgery reviews the scan?",
+      "vitals": [
+        { "label": "INR", "value": "3.2", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Fresh frozen plasma until the INR is below 1.5",
+          "next": "fail_reversal",
+          "isCorrect": false,
+          "feedback": "NICE NG24: do not offer fresh frozen plasma to reverse a vitamin K antagonist. Give immediate prothrombin complex concentrate for warfarin reversal after a head injury with suspected intracranial hemorrhage.",
+          "cite": [2]
+        },
+        {
+          "label": "Stop the warfarin and let the INR drift down",
+          "next": "fail_reversal",
+          "isCorrect": false,
+          "feedback": "NICE NG24: offer immediate prothrombin complex concentrate to reverse warfarin in a head injury with suspected intracranial hemorrhage. Stopping warfarin alone does not reverse anticoagulation quickly.",
+          "cite": [2]
+        },
+        {
+          "label": "Immediate prothrombin complex concentrate, then recheck the INR",
+          "next": "scan_review",
+          "isCorrect": true,
+          "feedback": "NICE NG24: offer immediate prothrombin complex concentrate for emergency warfarin reversal after a head injury with suspected intracerebral hemorrhage. Monitor the INR to confirm reversal and consider further doses. NICE NG232 points to this guidance for traumatic intracranial hemorrhage.",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "scan_review": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "large", "weight": 5 },
+        { "next": "small", "weight": 3 },
+        { "next": "deteriorates", "weight": 2 }
+      ]
+    },
+    "large": {
+      "type": "decision",
+      "text": "The hematoma is 12 mm thick with a 7 mm midline shift. His GCS is 13. Plan?",
+      "options": [
+        {
+          "label": "Serial CT and observation, since he is not in a coma",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "Brain Trauma Foundation surgical guidelines (2006): an acute subdural hematoma thicker than 10 mm or with more than 5 mm of midline shift should be evacuated regardless of GCS. His is 12 mm with a 7 mm shift.",
+          "cite": [3]
+        },
+        {
+          "label": "Evacuate as soon as possible",
+          "next": "technique",
+          "isCorrect": true,
+          "feedback": "Brain Trauma Foundation surgical guidelines (2006): evacuate an acute subdural hematoma thicker than 10 mm or with more than 5 mm of midline shift regardless of GCS, and operate as soon as possible once surgery is indicated.",
+          "cite": [3]
+        }
+      ]
+    },
+    "small": {
+      "type": "decision",
+      "text": "The hematoma is 5 mm thick with no midline shift. His GCS stays at 14, with equal pupils. Plan?",
+      "options": [
+        {
+          "label": "Nonoperative care with close neurological observation, after reversal",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "Brain Trauma Foundation surgical guidelines (2006): he meets none of the criteria for evacuation. Those are thickness over 10 mm or midline shift over 5 mm, or, in coma (GCS below 9), a fall of 2 or more GCS points, asymmetric or fixed pupils, or ICP above 20 mm Hg. NICE NG232 lists new clinically important imaging abnormalities, and a GCS that has not returned to 15, among its criteria for hospital admission.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Emergency craniotomy because he is anticoagulated",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "Brain Trauma Foundation surgical guidelines (2006): surgery is indicated for thickness over 10 mm or midline shift over 5 mm, or for a comatose patient who deteriorates, has pupil asymmetry, or has ICP above 20 mm Hg. A 5 mm hematoma without shift in an alert patient meets none of these; anticoagulation is reversed, not operated on.",
+          "cite": [3]
+        }
+      ]
+    },
+    "deteriorates": {
+      "type": "decision",
+      "text": "The hematoma is 8 mm thick with a 4 mm shift, but in the resuscitation room his GCS falls to 7 and his left pupil dilates. Plan?",
+      "vitals": [
+        { "label": "GCS", "value": "7", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "ICP monitor only, as the hematoma is under 10 mm",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "Brain Trauma Foundation surgical guidelines (2006): a comatose patient (GCS below 9) with a hematoma under 10 mm and shift under 5 mm still needs evacuation if the GCS has fallen by 2 or more points or the pupils are asymmetric or fixed and dilated. He has both.",
+          "cite": [3]
+        },
+        {
+          "label": "Emergency evacuation",
+          "next": "technique",
+          "isCorrect": true,
+          "feedback": "Brain Trauma Foundation surgical guidelines (2006): in coma, evacuate a subdural hematoma under 10 mm with under 5 mm shift if the GCS fell by 2 or more points, the pupils are asymmetric or fixed and dilated, or ICP exceeds 20 mm Hg. All comatose patients with acute subdural hematoma should have ICP monitoring.",
+          "cite": [3]
+        }
+      ]
+    },
+    "technique": {
+      "type": "info",
+      "text": "He goes to theatre. The 2006 guidelines advise craniotomy with or without bone flap removal and duraplasty in comatose patients. In RESCUE-ASDH, 12-month outcomes after craniotomy and decompressive craniectomy were similar (death 30.2% vs 32.2%). Craniotomy needed more further cranial surgery within 2 weeks (14.6% vs 6.9%), and craniectomy had more wound complications (12.2% vs 3.9%).",
+      "cite": [3, 4],
+      "next": "success"
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Delay: Head CT not done within the hour."
+    },
+    "fail_reversal": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Hematoma expansion while anticoagulated."
+    },
+    "fail_undertreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Brain herniation from an unevacuated hematoma.",
+      "vitals": [
+        { "label": "GCS", "value": "4", "status": "critical" }
+      ]
+    },
+    "fail_overtreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Craniotomy without a surgical indication."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Anticoagulation reversed and hematoma managed to criteria."
+    }
+  }
+}

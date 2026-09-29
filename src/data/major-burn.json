@@ -1,0 +1,191 @@
+{
+  "id": "major-burn",
+  "title": "Major Burn: First Aid, Fluids, and Escharotomy",
+  "category": "Plastic Surgery",
+  "description": "Cool the burn with running water, refer to a burn center, resuscitate with balanced crystalloid titrated to urine output rather than the formula alone, release a compromised circumferential burn by escharotomy, and avoid prophylactic antibiotics.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Give effective burn first aid and recognize burn center referral criteria",
+    "Prescribe initial fluid resuscitation by weight and burn size",
+    "Titrate fluids to urine output and recognize fluid creep",
+    "Recognize a circumferential burn compromising the limb and release it by escharotomy",
+    "Avoid prophylactic systemic antibiotics"
+  ],
+  "references": [
+    {
+      "citation": "European Burns Association. European Practice Guidelines for Burn Care: Minimum Level of Burn Care Provision in Europe. Version 4. Barcelona: European Burns Association; 2017.",
+      "url": "https://www.euroburn.org/wp-content/uploads/EBA-Guidelines-Version-4-2017-1.pdf",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Griffin BR, Frear CC, Babl F, et al. Cool Running Water First Aid Decreases Skin Grafting Requirements in Pediatric Burns: A Cohort Study of Two Thousand Four Hundred Ninety-five Children. Ann Emerg Med. 2020;75(1):75-85.",
+      "url": "https://doi.org/10.1016/j.annemergmed.2019.06.028",
+      "kind": "cohort",
+      "pmid": "31474480",
+      "doi": "10.1016/j.annemergmed.2019.06.028"
+    },
+    {
+      "citation": "Saffle JI. The phenomenon of \"fluid creep\" in acute burn resuscitation. J Burn Care Res. 2007;28(3):382-395.",
+      "url": "https://doi.org/10.1097/BCR.0B013E318053D3A1",
+      "kind": "review",
+      "pmid": "17438489",
+      "doi": "10.1097/BCR.0B013E318053D3A1"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 35-year-old man weighing 80 kg was pulled from a burning shed 40 minutes ago. He is talking normally. He has deep partial- and full-thickness burns of the chest, abdomen, and both arms, about 30% TBSA, including a full-thickness burn all the way around the left forearm. His burnt clothing is still on, and the burns have not been cooled.",
+      "vitals": [
+        { "label": "HR", "value": "118", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "124/78", "unit": "mmHg" },
+        { "label": "SpO2", "value": "97", "unit": "%" },
+        { "label": "Temp", "value": "36.4", "unit": "°C" }
+      ],
+      "next": "first"
+    },
+    "first": {
+      "type": "multi",
+      "text": "Which belong in your first steps?",
+      "options": [
+        { "label": "Remove burnt clothing that is not stuck, and any constricting jewelry", "isCorrect": true },
+        { "label": "Cool running water on the burns for 20 minutes, while keeping him warm", "isCorrect": true },
+        { "label": "Arrange transfer to a burn center", "isCorrect": true },
+        { "label": "Ice packs, to cool the burns faster", "isCorrect": false },
+        { "label": "A topical cream on the burns before transfer", "isCorrect": false }
+      ],
+      "feedback": "EBA 2017: remove burnt clothing unless it is stuck, and any constricting jewelry. Cool with running water for 20 minutes, avoiding hypothermia; it helps within 3 hours of injury. Do not use ice, and avoid topical creams before transfer, as they hinder later wound assessment. Refer adults with superficial dermal burns over 20% TBSA, any deep partial- or full-thickness burn, circumferential burns, or a need for burn shock resuscitation to a burn center. In a cohort of 2,495 children, 20 minutes of cool running water within 3 hours lowered the odds of skin grafting (OR 0.6).",
+      "cite": [1, 2],
+      "next": "fluids",
+      "failNext": "fail_first"
+    },
+    "fluids": {
+      "type": "decision",
+      "text": "What fluid do you prescribe for the first 24 hours?",
+      "options": [
+        {
+          "label": "Balanced crystalloid such as Ringer's lactate, 2–4 mL/kg/%TBSA (4.8–9.6 L), half in the first 8 hours, titrated to urine output",
+          "next": "urine",
+          "isCorrect": true,
+          "feedback": "EBA 2017: resuscitate adults with burns over 20% TBSA, prescribing 2 to 4 mL/kg/%TBSA over the first 24 hours with crystalloid as first line. Here that is 2–4 × 80 kg × 30% = 4,800–9,600 mL. Give half in the first 8 hours and half over the next 16, titrated to urine output. The Parkland (4 mL) and modified Brooke (2 mL) formulas bracket this range.",
+          "cite": [1]
+        },
+        {
+          "label": "0.9% saline at 4 mL/kg/%TBSA",
+          "next": "fail_fluids",
+          "isCorrect": false,
+          "feedback": "EBA 2017 recommends against 0.9% saline for burn resuscitation. It is linked to hypernatremia, hyperchloremic metabolic acidosis, and a higher risk of acute kidney injury; balanced crystalloid is preferred.",
+          "cite": [1]
+        },
+        {
+          "label": "Albumin from the start instead of crystalloid",
+          "next": "fail_fluids",
+          "isCorrect": false,
+          "feedback": "EBA 2017: use crystalloid as first line, and avoid systematic use of colloids, which can be considered as salvage therapy. No colloids are given in the first 8 hours after the burn.",
+          "cite": [1]
+        }
+      ]
+    },
+    "urine": {
+      "type": "decision",
+      "text": "Six hours in, his urine output is 130 mL/h (about 1.6 mL/kg/h), and he is hemodynamically stable. What do you do with the fluids?",
+      "vitals": [
+        { "label": "HR", "value": "102", "unit": "bpm" },
+        { "label": "BP", "value": "126/74", "unit": "mmHg" }
+      ],
+      "options": [
+        {
+          "label": "Reduce the infusion rate, aiming for about 0.5 mL/kg/h of urine",
+          "next": "forearm",
+          "isCorrect": true,
+          "feedback": "EBA 2017: titrate crystalloid to urine output, targeting 0.5 mL/kg/h in adults (1 mL/kg/h in children under 30 kg, 1–2 mL/kg/h in high-voltage burns), and reduce the rate once the endpoints are met. Over-resuscitation ('fluid creep') is linked to abdominal compartment syndrome, excess edema, respiratory failure, and acute kidney injury. Modern patients often receive far more fluid than the Parkland formula predicts.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Keep the calculated rate unchanged for the full 24 hours",
+          "next": "fail_creep",
+          "isCorrect": false,
+          "feedback": "EBA 2017: fluids are titrated to urine output, and the rate is reduced once the targets are met. Over-resuscitation ('fluid creep') is associated with abdominal compartment syndrome and other serious complications.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "forearm": {
+      "type": "decision",
+      "text": "The circumferential left forearm burn is now tight. His hand is cool, capillary refill is slow, and he has tingling in his fingers. Next?",
+      "options": [
+        {
+          "label": "Escharotomy by an experienced clinician, with mid-axial incisions from normal skin to normal skin; fasciotomy only if compression persists",
+          "next": "closure",
+          "isCorrect": true,
+          "feedback": "EBA 2017: perform escharotomy when a circumferential burn compromises circulation, by a suitably experienced clinician. Make full-thickness incisions down to fat along the mid-axial lines, from normal skin to normal skin, near but not directly over the nerves and vessels; on the hand, incisions go on the dorsum. Fasciotomy is rarely a primary procedure outside high-voltage or very deep burns, and is indicated when compression persists after escharotomy.",
+          "cite": [1]
+        },
+        {
+          "label": "Forearm fasciotomy as the first procedure",
+          "next": "fail_limb",
+          "isCorrect": false,
+          "feedback": "EBA 2017: apart from high-voltage electrical injuries and very deep burns, fasciotomy is rarely a primary procedure in burns. It is indicated when compression persists after escharotomy, and it carries a higher risk of neurovascular injury.",
+          "cite": [1]
+        },
+        {
+          "label": "Elevate the arm and review in the morning",
+          "next": "fail_limb",
+          "isCorrect": false,
+          "feedback": "EBA 2017: elevation reduces edema, but escharotomy is recommended when a circumferential burn compromises circulation. Color, capillary refill, pulses, pain, and paresthesia should be checked at regular intervals.",
+          "cite": [1]
+        }
+      ]
+    },
+    "closure": {
+      "type": "decision",
+      "text": "His limb perfusion recovers after escharotomy. What is your wound plan?",
+      "options": [
+        {
+          "label": "Aim for early wound closure, without prophylactic systemic antibiotics",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "EBA 2017: a longer time to healing is linked to hypertrophic scarring, so aim to close burn wounds as soon as possible. Prophylactic systemic antibiotics are not supported by evidence.",
+          "cite": [1]
+        },
+        {
+          "label": "Prophylactic IV antibiotics to prevent burn wound infection",
+          "next": "fail_antibiotics",
+          "isCorrect": false,
+          "feedback": "EBA 2017: the use of prophylactic systemic antibiotics in burn care is not supported by evidence.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_first": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Burn first aid or referral not by the guideline."
+    },
+    "fail_fluids": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Resuscitation fluid against the guideline."
+    },
+    "fail_creep": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Over-resuscitation and fluid creep."
+    },
+    "fail_limb": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Limb ischemia under a circumferential burn."
+    },
+    "fail_antibiotics": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Prophylactic antibiotics without evidence."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Burn cooled, referred, resuscitated, and released."
+    }
+  }
+}

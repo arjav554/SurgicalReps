@@ -1,0 +1,187 @@
+{
+  "id": "acute-angle-closure",
+  "title": "Acute Angle-Closure Crisis",
+  "category": "Ophthalmology",
+  "description": "Recognize the red painful eye with a mid-dilated pupil, lower the pressure medically, relieve pupillary block with iridotomy as soon as possible, treat the fellow eye, and weigh early lens extraction.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Recognize acute angle-closure crisis and its systemic mimics",
+    "Lower intraocular pressure medically, knowing why some agents fail at very high pressure",
+    "Relieve pupillary block with laser iridotomy as soon as possible",
+    "Treat the fellow eye promptly",
+    "Know the evidence for early lens extraction"
+  ],
+  "references": [
+    {
+      "citation": "Gedde SJ, Chen PP, Muir KW, et al. Primary Angle-Closure Disease Preferred Practice Pattern®. Ophthalmology. 2021;128(1):P30-P70.",
+      "url": "https://www.aao.org/education/preferred-practice-pattern/primary-angle-closure-disease-ppp",
+      "kind": "guideline",
+      "pmid": "34933744",
+      "doi": "10.1016/j.ophtha.2020.10.021"
+    },
+    {
+      "citation": "Lam DS, Leung DY, Tham CC, et al. Randomized trial of early phacoemulsification versus peripheral iridotomy to prevent intraocular pressure rise after acute primary angle closure. Ophthalmology. 2008;115(7):1134-1140.",
+      "url": "https://doi.org/10.1016/j.ophtha.2007.10.033",
+      "kind": "trial",
+      "pmid": "18164064",
+      "doi": "10.1016/j.ophtha.2007.10.033"
+    },
+    {
+      "citation": "Azuara-Blanco A, Burr J, Ramsay C, et al. Effectiveness of early lens extraction for the treatment of primary angle-closure glaucoma (EAGLE): a randomised controlled trial. Lancet. 2016;388(10052):1389-1397.",
+      "url": "https://doi.org/10.1016/S0140-6736(16)30956-4",
+      "kind": "trial",
+      "pmid": "27707497",
+      "doi": "10.1016/S0140-6736(16)30956-4"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 64-year-old woman has had severe right eye pain, blurred vision with halos around lights, headache, and vomiting since she left a dark cinema 3 hours ago. The eye is red, the cornea hazy, and the pupil fixed and mid-dilated. The anterior chamber is shallow.",
+      "vitals": [
+        { "label": "IOP", "value": "58", "unit": "mmHg", "status": "critical" },
+        { "label": "HR", "value": "92", "unit": "bpm" },
+        { "label": "BP", "value": "168/94", "unit": "mmHg", "status": "warning" }
+      ],
+      "next": "recognize"
+    },
+    "recognize": {
+      "type": "decision",
+      "text": "What is the diagnosis, and how urgent is it?",
+      "options": [
+        {
+          "label": "Migraine with conjunctivitis; antiemetic, analgesia, and review tomorrow",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "AAO 2020: corneal edema with halos, a mid-dilated pupil, conjunctival and episcleral congestion, eye pain, headache, and nausea or vomiting are the characteristic signs of acute angle-closure crisis. Untreated, it can cause permanent vision loss or blindness. Headache and vomiting can mislead toward a systemic diagnosis.",
+          "cite": [1]
+        },
+        {
+          "label": "Acute angle-closure crisis: lower the pressure now and arrange iridotomy",
+          "next": "medical",
+          "isCorrect": true,
+          "feedback": "AAO 2020: sudden obstruction of the angle raises intraocular pressure rapidly. Corneal edema with halos, a mid-dilated pupil, vascular congestion, eye pain, headache, and nausea or vomiting define an acute angle-closure crisis, which can cause permanent vision loss or blindness if untreated. The fellow eye is also at high risk.",
+          "cite": [1]
+        }
+      ]
+    },
+    "medical": {
+      "type": "multi",
+      "text": "Which belong in the initial medical treatment? (She has no asthma, heart block, or sulfonamide allergy.)",
+      "options": [
+        { "label": "Topical beta-blocker", "isCorrect": true },
+        { "label": "Topical alpha-2 agonist", "isCorrect": true },
+        { "label": "Carbonic anhydrase inhibitor (topical, oral, or IV)", "isCorrect": true },
+        { "label": "Systemic hyperosmotic agent if pressure must fall fast", "isCorrect": true },
+        { "label": "Dilating drops to break the pupillary block", "isCorrect": false }
+      ],
+      "feedback": "AAO 2020: medical therapy includes some or all of topical beta-blockers, alpha-2 agonists, carbonic anhydrase inhibitors, parasympathomimetics, and oral or IV hyperosmotic agents, allowing for contraindications. Aqueous suppressants may work poorly at first if the ciliary body is ischemic. Miotics may fail while the pressure is very high because the sphincter is ischemic. Systemic hyperosmotics may be needed for a rapid fall. Mydriatics help only in secondary pupillary block from gas, oil, vitreous, or a lens blocking the pupil.",
+      "cite": [1],
+      "next": "iridotomy",
+      "failNext": "fail_medical"
+    },
+    "iridotomy": {
+      "type": "decision",
+      "text": "Two hours later the pressure is 24 mm Hg and the cornea is clearing. Definitive treatment?",
+      "vitals": [
+        { "label": "IOP", "value": "24", "unit": "mmHg", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "Continue pilocarpine drops long term instead of a procedure",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "AAO 2020: chronic parasympathomimetic therapy is not a substitute for iridotomy, either for the affected eye or for fellow-eye prophylaxis. About 40% of fellow eyes treated with miotics developed an acute attack within 5 years.",
+          "cite": [1]
+        },
+        {
+          "label": "Laser peripheral iridotomy as soon as possible",
+          "next": "fellow",
+          "isCorrect": true,
+          "feedback": "AAO 2020: after medical therapy lowers the pressure and clears the cornea, perform iridotomy as soon as possible. Laser iridotomy is the preferred surgical treatment because of its favorable risk-benefit ratio. It relieves pupillary block, can prevent peripheral anterior synechiae, and widens the angle. If the cornea stays too cloudy, paracentesis, iridoplasty, or incisional iridectomy are alternatives.",
+          "cite": [1]
+        },
+        {
+          "label": "Trabeculectomy now, while the angle is still closed",
+          "next": "fail_filtering",
+          "isCorrect": false,
+          "feedback": "AAO 2020: filtering surgery in an eye with an unbroken attack carries a high risk of postoperative anterior chamber shallowing, from aqueous misdirection, choroidal effusions, or aqueous hyposecretion. Laser iridotomy is the preferred treatment.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fellow": {
+      "type": "decision",
+      "text": "Gonioscopy shows the left eye's angle is also anatomically narrow. What do you do for it?",
+      "options": [
+        {
+          "label": "Prophylactic laser iridotomy in the left eye as soon as possible",
+          "next": "lens",
+          "isCorrect": true,
+          "feedback": "AAO 2020: evaluate the fellow eye and schedule prophylactic laser iridotomy promptly if the angle is narrow. About half of fellow eyes have an acute attack within 5 years, sometimes within days, so consider iridotomy as soon as possible.",
+          "cite": [1]
+        },
+        {
+          "label": "Observe it and review at the routine clinic in 3 months",
+          "next": "fail_fellow",
+          "isCorrect": false,
+          "feedback": "AAO 2020: about half of fellow eyes of acute angle-closure patients have an attack within 5 years, and attacks can occur within days of presentation. Prophylactic laser iridotomy should be considered as soon as possible.",
+          "cite": [1]
+        }
+      ]
+    },
+    "lens": {
+      "type": "decision",
+      "text": "At follow-up, her right eye has a visually significant cataract, and she asks what more could prevent further pressure rises. Which statement is accurate?",
+      "options": [
+        {
+          "label": "Early lens extraction is effective after an acute attack, though surgery in these eyes carries more operative risk",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "AAO 2020: phacoemulsification soon after medical reduction of pressure maintains pressure control and reduces the need for medication, though small anterior chambers raise operative risk. In Lam 2008, pressure rose after 18 months in 46.7% of eyes treated with iridotomy vs 3.2% after early phacoemulsification. In EAGLE, clear-lens extraction beat iridotomy for pressure and quality of life in primary angle closure.",
+          "cite": [1, 2, 3]
+        },
+        {
+          "label": "Nothing more is needed once the iridotomy is patent",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "After iridotomy for acute angle closure, pressure can rise again: in Lam 2008, 46.7% of iridotomy-treated eyes had a pressure rise at 18 months, vs 3.2% after early phacoemulsification. AAO 2020 notes that lens extraction widens the angle and can lower pressure.",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Acute angle closure missed; optic nerve damage."
+    },
+    "fail_medical": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Pressure stays high or rises with inappropriate drops.",
+      "vitals": [
+        { "label": "IOP", "value": "64", "unit": "mmHg", "status": "critical" }
+      ]
+    },
+    "fail_recurrence": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Recurrent pressure rise from untreated pupillary block."
+    },
+    "fail_filtering": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Flat anterior chamber after filtering surgery in an unbroken attack."
+    },
+    "fail_fellow": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Acute attack in the fellow eye."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Attack broken, pupillary block relieved in both eyes."
+    }
+  }
+}

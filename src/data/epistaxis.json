@@ -1,0 +1,217 @@
+{
+  "id": "epistaxis",
+  "title": "Epistaxis on Anticoagulation",
+  "category": "Otolaryngology",
+  "description": "Compress correctly, find the bleeding point, cauterize only that spot or pack with a resorbable material, treat locally before reversing anticoagulation, and escalate to ligation or embolization when packing fails.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Apply firm compression to the lower third of the nose for at least 5 minutes",
+    "Document bleeding risk factors and examine the nose after clot removal",
+    "Treat locally before reversing or stopping anticoagulation, unless bleeding is life-threatening",
+    "Cauterize only the bleeding point, or pack with resorbable material in anticoagulated patients",
+    "Escalate persistent or recurrent bleeding to endoscopy, ligation, or embolization"
+  ],
+  "references": [
+    {
+      "citation": "Tunkel DE, Anne S, Payne SC, et al. Clinical Practice Guideline: Nosebleed (Epistaxis). Otolaryngol Head Neck Surg. 2020;162(1_suppl):S1-S38.",
+      "url": "https://doi.org/10.1177/0194599819890327",
+      "kind": "guideline",
+      "pmid": "31910111",
+      "doi": "10.1177/0194599819890327"
+    },
+    {
+      "citation": "Reuben A, Appelboam A, Stevens KN, et al. The Use of Tranexamic Acid to Reduce the Need for Nasal Packing in Epistaxis (NoPAC): Randomized Controlled Trial. Ann Emerg Med. 2021;77(6):631-640.",
+      "url": "https://doi.org/10.1016/j.annemergmed.2020.12.013",
+      "kind": "trial",
+      "pmid": "33612282",
+      "doi": "10.1016/j.annemergmed.2020.12.013"
+    },
+    {
+      "citation": "Joseph J, Martinez-Devesa P, Bellorini J, et al. Tranexamic acid for patients with nasal haemorrhage (epistaxis). Cochrane Database Syst Rev. 2018;12(12):CD004328.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6517002/",
+      "kind": "systematic-review",
+      "pmid": "30596479",
+      "doi": "10.1002/14651858.CD004328.pub3"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 74-year-old man on warfarin for atrial fibrillation has had a right-sided nosebleed for 40 minutes. He is spitting blood but is alert and stable.",
+      "vitals": [
+        { "label": "HR", "value": "96", "unit": "bpm" },
+        { "label": "BP", "value": "168/92", "unit": "mmHg", "status": "warning" },
+        { "label": "INR", "value": "2.6", "status": "warning" }
+      ],
+      "next": "compress"
+    },
+    "compress": {
+      "type": "decision",
+      "text": "He needs prompt management. What do you do first?",
+      "options": [
+        {
+          "label": "Pinch the bony bridge of the nose for 1 minute",
+          "next": "fail_bleeding",
+          "isCorrect": false,
+          "feedback": "AAO-HNS 2020: treat active bleeding with firm, sustained compression to the lower third of the nose for 5 minutes or longer.",
+          "cite": [1]
+        },
+        {
+          "label": "Firm, sustained compression of the lower third of the nose for at least 5 minutes",
+          "next": "assess",
+          "isCorrect": true,
+          "feedback": "AAO-HNS 2020: first distinguish patients who need prompt management. Then treat active bleeding with firm, sustained compression to the lower third of the nose, with or without help from the patient, for 5 minutes or longer.",
+          "cite": [1]
+        },
+        {
+          "label": "Stop the warfarin and give reversal before any local treatment",
+          "next": "fail_reversal",
+          "isCorrect": false,
+          "feedback": "AAO-HNS 2020: in the absence of life-threatening bleeding, start first-line local treatments before transfusion, reversal, or withdrawal of anticoagulant or antiplatelet medication.",
+          "cite": [1]
+        }
+      ]
+    },
+    "assess": {
+      "type": "multi",
+      "text": "Compression and a topical vasoconstrictor slow the bleeding. Which belong in your next steps?",
+      "options": [
+        { "label": "Remove clot and perform anterior rhinoscopy to find the source", "isCorrect": true },
+        { "label": "Document the anticoagulant, any bleeding disorder, and intranasal drug use", "isCorrect": true },
+        { "label": "Reverse the INR before examining the nose", "isCorrect": false },
+        { "label": "Topical tranexamic acid on a dental roll will reliably avoid packing", "isCorrect": false }
+      ],
+      "feedback": "AAO-HNS 2020: after removing any clot, perform anterior rhinoscopy to find the source. Document factors that increase bleeding, including bleeding disorders, anticoagulant or antiplatelet use, and intranasal drug use. Local treatment comes before reversal when bleeding is not life-threatening. In NoPAC, topical tranexamic acid on a dental roll did not reduce packing vs placebo (43.7% vs 41.3%), and Cochrane 2018 rated evidence for single topical doses as low quality.",
+      "cite": [1, 2, 3],
+      "next": "site",
+      "failNext": "fail_reversal"
+    },
+    "site": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "visible", "weight": 6 },
+        { "next": "no_site", "weight": 4 }
+      ]
+    },
+    "visible": {
+      "type": "decision",
+      "text": "A bleeding vessel is visible on the anterior right septum. Treatment?",
+      "options": [
+        {
+          "label": "Topical anesthetic, then cautery restricted to the bleeding point",
+          "next": "education",
+          "isCorrect": true,
+          "feedback": "AAO-HNS 2020: treat an identified bleeding site with topical vasoconstrictors, cautery, and moisturizing or lubricating agents as appropriate. Anesthetize the site before cautery, and restrict cautery to the active or suspected bleeding site.",
+          "cite": [1]
+        },
+        {
+          "label": "Extensive cautery across both sides of the septum to prevent recurrence",
+          "next": "fail_cautery",
+          "isCorrect": false,
+          "feedback": "AAO-HNS 2020: anesthetize the site and restrict cautery to the active or suspected bleeding site.",
+          "cite": [1]
+        }
+      ]
+    },
+    "no_site": {
+      "type": "decision",
+      "text": "Bleeding continues and no source can be seen. Next?",
+      "options": [
+        {
+          "label": "Resorbable nasal packing, explaining the packing and warning signs",
+          "next": "packing_result",
+          "isCorrect": true,
+          "feedback": "AAO-HNS 2020: when bleeding hides the source despite compression, treat with nasal packing. Use resorbable packing for patients on anticoagulant or antiplatelet medication or with a suspected bleeding disorder. Explain the packing type, removal plan if any, aftercare, and signs needing prompt review.",
+          "cite": [1]
+        },
+        {
+          "label": "Non-resorbable packing, to be removed in 48 hours",
+          "next": "fail_packing",
+          "isCorrect": false,
+          "feedback": "AAO-HNS 2020: use resorbable packing for patients taking anticoagulant or antiplatelet medication or with a suspected bleeding disorder.",
+          "cite": [1]
+        }
+      ]
+    },
+    "packing_result": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "education", "weight": 7 },
+        { "next": "refractory", "weight": 3 }
+      ]
+    },
+    "refractory": {
+      "type": "decision",
+      "text": "Despite packing, he keeps bleeding over the next day. Next?",
+      "options": [
+        {
+          "label": "Repack and continue observation for several more days",
+          "next": "fail_bleeding",
+          "isCorrect": false,
+          "feedback": "AAO-HNS 2020: for persistent or recurrent bleeding not controlled by packing or cautery, evaluate or refer for surgical arterial ligation or endovascular embolization.",
+          "cite": [1]
+        },
+        {
+          "label": "Endoscopic examination and assessment for surgical arterial ligation or endovascular embolization",
+          "next": "education",
+          "isCorrect": true,
+          "feedback": "AAO-HNS 2020: perform or refer for nasal endoscopy to find the bleeding site when bleeding recurs despite packing or cautery. Assess candidacy for surgical arterial ligation or endovascular embolization when bleeding persists despite packing or cauterization.",
+          "cite": [1]
+        }
+      ]
+    },
+    "education": {
+      "type": "decision",
+      "text": "The bleeding is controlled. What does he need before he leaves?",
+      "options": [
+        {
+          "label": "Advice on prevention, home first aid, and when to return",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "AAO-HNS 2020: educate patients and caregivers about preventive measures, home treatment, and when to seek care. Document the outcome within 30 days after nonresorbable packing, surgery, or ligation or embolization. Recurrent unilateral bleeding despite treatment warrants nasal endoscopy.",
+          "cite": [1]
+        },
+        {
+          "label": "Discharge without advice now that the bleeding has stopped",
+          "next": "fail_education",
+          "isCorrect": false,
+          "feedback": "AAO-HNS 2020: educate patients with nosebleeds and their caregivers about preventive measures, home treatment, and indications to seek further care.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_bleeding": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Ongoing epistaxis from ineffective treatment.",
+      "vitals": [
+        { "label": "HR", "value": "118", "unit": "bpm", "status": "warning" }
+      ]
+    },
+    "fail_reversal": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Anticoagulation reversed or stopped before local treatment."
+    },
+    "fail_cautery": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Cautery beyond the bleeding site."
+    },
+    "fail_packing": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Non-resorbable packing in an anticoagulated patient."
+    },
+    "fail_education": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: No prevention or return advice."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Epistaxis controlled locally with anticoagulation preserved."
+    }
+  }
+}

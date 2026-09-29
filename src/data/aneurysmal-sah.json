@@ -1,0 +1,262 @@
+{
+  "id": "aneurysmal-sah",
+  "title": "Aneurysmal Subarachnoid Hemorrhage",
+  "category": "Neurovascular",
+  "description": "Scan a thunderclap headache early, know when a negative CT ends the workup, secure the aneurysm quickly (coiling first), and treat hydrocephalus and delayed cerebral ischemia.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Investigate thunderclap headache with early non-contrast CT, and know when lumbar puncture adds nothing",
+    "Start analgesia and nimodipine, and involve the neurosurgical centre without waiting for a severity score",
+    "Secure a ruptured aneurysm at the earliest opportunity, preferring coiling when both options suit",
+    "Recognize and treat acute hydrocephalus and delayed cerebral ischemia",
+    "Plan follow-up, secondary prevention, and advice about relatives"
+  ],
+  "references": [
+    {
+      "citation": "National Institute for Health and Care Excellence. Subarachnoid haemorrhage caused by a ruptured aneurysm: diagnosis and management. NICE guideline NG228. London: NICE; 2022.",
+      "url": "https://www.nice.org.uk/guidance/ng228",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Molyneux A, Kerr R, Stratton I, et al. International Subarachnoid Aneurysm Trial (ISAT) of neurosurgical clipping versus endovascular coiling in 2143 patients with ruptured intracranial aneurysms: a randomised trial. Lancet. 2002;360(9342):1267-1274.",
+      "url": "https://doi.org/10.1016/s0140-6736(02)11314-6",
+      "kind": "trial",
+      "pmid": "12414200",
+      "doi": "10.1016/s0140-6736(02)11314-6"
+    },
+    {
+      "citation": "Pickard JD, Murray GD, Illingworth R, et al. Effect of oral nimodipine on cerebral infarction and outcome after subarachnoid haemorrhage: British aneurysm nimodipine trial. BMJ. 1989;298(6674):636-642.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1835889/",
+      "kind": "trial",
+      "pmid": "2496789",
+      "doi": "10.1136/bmj.298.6674.636"
+    },
+    {
+      "citation": "Perry JJ, Stiell IG, Sivilotti ML, et al. Sensitivity of computed tomography performed within six hours of onset of headache for diagnosis of subarachnoid haemorrhage: prospective cohort study. BMJ. 2011;343:d4277.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3138338/",
+      "kind": "cohort",
+      "pmid": "21768192",
+      "doi": "10.1136/bmj.d4277"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 52-year-old woman who smokes had a sudden, severe headache 3 hours ago while lifting shopping. It peaked within a minute. She has vomited and her neck is stiff. GCS 15, no focal deficit.",
+      "vitals": [
+        { "label": "GCS", "value": "15" },
+        { "label": "HR", "value": "84", "unit": "bpm" },
+        { "label": "BP", "value": "164/92", "unit": "mmHg", "status": "warning" }
+      ],
+      "next": "ct"
+    },
+    "ct": {
+      "type": "decision",
+      "text": "What next?",
+      "options": [
+        {
+          "label": "Lumbar puncture now",
+          "next": "fail_workup",
+          "isCorrect": false,
+          "feedback": "NICE NG228: a senior review that confirms an unexplained thunderclap headache leads to urgent non-contrast CT, which is most accurate within 6 hours of onset. If a lumbar puncture is needed, wait at least 12 hours after symptom onset.",
+          "cite": [1]
+        },
+        {
+          "label": "Urgent non-contrast CT head",
+          "next": "ct_result",
+          "isCorrect": true,
+          "feedback": "NICE NG228: a thunderclap headache, peaking within 1–5 minutes, is a red flag. After senior review, request an urgent non-contrast CT head; its accuracy is highest within 6 hours of onset. In Perry 2011, CT within 6 hours identified all 121 subarachnoid hemorrhages (sensitivity 100%).",
+          "cite": [1, 4]
+        },
+        {
+          "label": "Analgesia and discharge: migraine is more likely",
+          "next": "fail_workup",
+          "isCorrect": false,
+          "feedback": "NICE NG228: most thunderclap headaches are not subarachnoid hemorrhage, but that should not deter investigation when it is suspected. Keep a high index of suspicion and request urgent CT after senior review.",
+          "cite": [1]
+        }
+      ]
+    },
+    "ct_result": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "positive", "weight": 7 },
+        { "next": "negative", "weight": 3 }
+      ]
+    },
+    "negative": {
+      "type": "decision",
+      "text": "The CT, done 3.5 hours after onset and reported by a radiologist, shows no subarachnoid blood. Next?",
+      "options": [
+        {
+          "label": "No routine lumbar puncture; consider other diagnoses with a senior and seek specialist advice",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "NICE NG228: if a radiologist-reported CT within 6 hours of onset shows no hemorrhage, do not routinely offer a lumbar puncture. Think about alternative diagnoses, discuss with a senior, and seek specialist advice. In Perry 2011, CT within 6 hours had 100% sensitivity and a 100% negative predictive value.",
+          "cite": [1, 4]
+        },
+        {
+          "label": "Lumbar puncture tonight to look for xanthochromia",
+          "next": "fail_workup",
+          "isCorrect": false,
+          "feedback": "NICE NG228: after a negative radiologist-reported CT within 6 hours, do not routinely offer a lumbar puncture. A lumbar puncture is considered only when CT is done after 6 hours, and at least 12 hours after onset.",
+          "cite": [1]
+        }
+      ]
+    },
+    "positive": {
+      "type": "multi",
+      "text": "CT shows diffuse subarachnoid blood in the basal cisterns. Which belong in your next steps?",
+      "options": [
+        { "label": "Urgent discussion with the neurosurgical centre about transfer", "isCorrect": true },
+        { "label": "CT angiography of the head without delay", "isCorrect": true },
+        { "label": "Effective analgesia, including opioids, documented", "isCorrect": true },
+        { "label": "Enteral nimodipine", "isCorrect": true },
+        { "label": "Calculate a severity score first to decide whether to transfer", "isCorrect": false },
+        { "label": "IV nimodipine in the emergency department", "isCorrect": false }
+      ],
+      "feedback": "NICE NG228: urgently discuss transfer with the neurosurgical centre, and do not use a severity score in isolation to decide on it. Offer CT angiography without delay. Give effective analgesia, including opioids, and document them because they affect pupils and sedation. Consider enteral nimodipine; IV nimodipine only in a specialist setting when enteral is unsuitable. In the British trial, oral nimodipine cut cerebral infarction from 33% to 22% and poor outcomes from 33% to 20%.",
+      "cite": [1, 3],
+      "next": "secure",
+      "failNext": "fail_initial"
+    },
+    "secure": {
+      "type": "decision",
+      "text": "CT angiography shows a 7 mm anterior communicating artery aneurysm. The neurovascular team agrees it suits either coiling or clipping. Plan?",
+      "options": [
+        {
+          "label": "Wait 10 days for the blood to clear, then treat",
+          "next": "fail_rebleed",
+          "isCorrect": false,
+          "feedback": "NICE NG228: secure the aneurysm at the earliest opportunity, because the risk of rebleeding is highest within 24 hours of onset.",
+          "cite": [1]
+        },
+        {
+          "label": "Endovascular coiling at the earliest opportunity",
+          "next": "complications",
+          "isCorrect": true,
+          "feedback": "NICE NG228: if intervention is an option, offer endovascular coiling, or clipping if coiling is unsuitable, at the earliest opportunity; rebleeding risk is highest within 24 hours. In ISAT, 23.7% of patients allocated coiling were dependent or dead at 1 year vs 30.6% with clipping. Late rebleeding was low with both but slightly more frequent after coiling.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Neurosurgical clipping as first choice",
+          "next": "fail_approach",
+          "isCorrect": false,
+          "feedback": "NICE NG228: offer coiling, with clipping if coiling is not suitable. When both were options in ISAT, coiling reduced dependency or death at 1 year (23.7% vs 30.6%; absolute reduction 6.9%).",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "complications": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "hydrocephalus", "weight": 3 },
+        { "next": "dci", "weight": 3 },
+        { "next": "discharge", "weight": 4 }
+      ]
+    },
+    "hydrocephalus": {
+      "type": "decision",
+      "text": "Day 2: she becomes drowsy (GCS 12). A non-contrast CT shows larger ventricles than on admission, with no new blood. Next?",
+      "vitals": [
+        { "label": "GCS", "value": "12", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "Cerebrospinal fluid drainage",
+          "next": "discharge",
+          "isCorrect": true,
+          "feedback": "NICE NG228: for unexplained deterioration, non-contrast CT comes first. Diagnose hydrocephalus from symptoms, signs, and comparison with earlier imaging, and consider CSF drainage or diversion when acute hydrocephalus causes neurological deterioration.",
+          "cite": [1]
+        },
+        {
+          "label": "Observe and repeat the CT in 24 hours",
+          "next": "fail_complication",
+          "isCorrect": false,
+          "feedback": "NICE NG228: when acute hydrocephalus causes neurological deterioration, consider CSF drainage or diversion. Her GCS has fallen and her ventricles have enlarged.",
+          "cite": [1]
+        }
+      ]
+    },
+    "dci": {
+      "type": "decision",
+      "text": "Day 7: she develops right arm weakness and confusion. CT shows no rebleed or hydrocephalus; the team diagnoses delayed cerebral ischemia. Next?",
+      "options": [
+        {
+          "label": "Ensure euvolemia, and consider a vasopressor if the deficit persists",
+          "next": "discharge",
+          "isCorrect": true,
+          "feedback": "NICE NG228: in delayed cerebral ischemia, ensure euvolemia and consider a vasopressor if symptoms persist, bearing in mind that improvement may be temporary. Transcranial Doppler should not guide management outside research.",
+          "cite": [1]
+        },
+        {
+          "label": "Restrict fluids to prevent hyponatremia",
+          "next": "fail_complication",
+          "isCorrect": false,
+          "feedback": "NICE NG228: ensure euvolemia (a normal blood volume) in delayed cerebral ischemia, and consider a vasopressor if symptoms persist. Fluid restriction works against that goal.",
+          "cite": [1]
+        },
+        {
+          "label": "Daily transcranial Doppler to guide treatment",
+          "next": "fail_complication",
+          "isCorrect": false,
+          "feedback": "NICE NG228: do not use transcranial Doppler monitoring to guide management except in research. Ensure euvolemia and consider a vasopressor if symptoms persist.",
+          "cite": [1]
+        }
+      ]
+    },
+    "discharge": {
+      "type": "multi",
+      "text": "She recovers well. Which belong in her discharge plan?",
+      "options": [
+        { "label": "A written follow-up plan with a named specialist contact", "isCorrect": true },
+        { "label": "Support to stop smoking", "isCorrect": true },
+        { "label": "Future antiplatelets are not withheld solely because of the hemorrhage, now the aneurysm is secured", "isCorrect": true },
+        { "label": "Aneurysm screening for all her first-degree relatives", "isCorrect": false },
+        { "label": "No advice about returning to work or driving until a year has passed", "isCorrect": false }
+      ],
+      "feedback": "NICE NG228: agree and document a follow-up plan, with a paper copy and a specialist contact. Encourage smoking cessation. Do not withhold antiplatelets or anticoagulants solely because of the hemorrhage once the aneurysm is secured. Routine screening of relatives has not been shown to save lives; testing is usually limited to people with at least 2 affected first-degree relatives. Give advice on returning to work, exercise, driving, and sexual activity.",
+      "cite": [1],
+      "next": "success",
+      "failNext": "fail_followup"
+    },
+    "fail_workup": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Thunderclap headache investigated off guideline."
+    },
+    "fail_initial": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Early management of confirmed hemorrhage incomplete."
+    },
+    "fail_rebleed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Aneurysm rebleed before treatment.",
+      "vitals": [
+        { "label": "GCS", "value": "5", "status": "critical" }
+      ]
+    },
+    "fail_approach": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Clipping chosen where coiling was suitable."
+    },
+    "fail_complication": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Neurological deterioration left untreated."
+    },
+    "fail_followup": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Follow-up plan off guideline."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Diagnosed, secured, and followed by the guideline."
+    }
+  }
+}

@@ -1,0 +1,291 @@
+{
+  "id": "perforated-peptic-ulcer",
+  "title": "Perforated Peptic Ulcer",
+  "category": "Emergency General Surgery",
+  "description": "Diagnose with CT, start antibiotics and operate without delay, pick the approach by physiology, repair by ulcer size and site, and prevent recurrence.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Diagnose perforation with CT when it is promptly available",
+    "Start broad-spectrum antibiotics and operate without delay",
+    "Choose laparoscopy for stable patients and open surgery for unstable ones",
+    "Repair small ulcers primarily; resect suspicious gastric ulcers with frozen section",
+    "Keep postoperative antibiotics short and eradicate H. pylori"
+  ],
+  "references": [
+    {
+      "citation": "Tarasconi A, Coccolini F, Biffl WL, et al. Perforated and bleeding peptic ulcer: WSES guidelines. World J Emerg Surg. 2020;15:3.",
+      "url": "https://doi.org/10.1186/s13017-019-0283-9",
+      "kind": "guideline",
+      "pmid": "31921329",
+      "doi": "10.1186/s13017-019-0283-9"
+    },
+    {
+      "citation": "Ng EK, Lam YH, Sung JJ, et al. Eradication of Helicobacter pylori prevents recurrence of ulcer after simple closure of duodenal ulcer perforation: randomized controlled trial. Ann Surg. 2000;231(2):153-158.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1420980/",
+      "kind": "trial",
+      "pmid": "10674604"
+    },
+    {
+      "citation": "Kamada T, Satoh K, Itoh T, et al. Evidence-based clinical practice guidelines for peptic ulcer disease 2020. J Gastroenterol. 2021;56(4):303-322.",
+      "url": "https://doi.org/10.1007/s00535-021-01769-0",
+      "kind": "guideline",
+      "pmid": "33620586",
+      "doi": "10.1007/s00535-021-01769-0"
+    },
+    {
+      "citation": "Sawyer RG, Claridge JA, Nathens AB, et al. Trial of short-course antimicrobial therapy for intraabdominal infection. N Engl J Med. 2015;372(21):1996-2005.",
+      "url": "https://doi.org/10.1056/NEJMoa1411162",
+      "kind": "trial",
+      "pmid": "25992746",
+      "doi": "10.1056/NEJMoa1411162"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 64-year-old man who takes ibuprofen daily for knee pain has 5 hours of sudden, severe epigastric pain that is now generalized. The abdomen is rigid.",
+      "vitals": [
+        { "label": "HR", "value": "112", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "124/76", "unit": "mmHg" },
+        { "label": "Temp", "value": "37.9", "unit": "°C" },
+        { "label": "SpO2", "value": "96", "unit": "%" },
+        { "label": "WBC", "value": "15.1", "unit": "×10³/µL", "status": "warning" },
+        { "label": "Lactate", "value": "2.2", "unit": "mmol/L", "status": "warning" }
+      ],
+      "next": "imaging"
+    },
+    "imaging": {
+      "type": "decision",
+      "text": "CT is immediately available. What imaging?",
+      "options": [
+        {
+          "label": "Upright chest X-ray only; no free air rules out perforation",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "Free air is seen on plain films in only 30–85% of perforations, so a negative film does not rule out perforation. WSES 2020 (strong, 1C): CT for suspected perforated peptic ulcer, with chest/abdominal X-ray as the initial study only if CT is not promptly available.",
+          "cite": [1]
+        },
+        {
+          "label": "CT of the abdomen and pelvis",
+          "next": "ct_result",
+          "isCorrect": true,
+          "feedback": "WSES 2020 (strong, 1C): CT for suspected perforated peptic ulcer. Plain X-ray is the fallback only when CT is not promptly available, because free air is detected in just 30–85% of cases.",
+          "cite": [1]
+        }
+      ]
+    },
+    "ct_result": {
+      "type": "info",
+      "text": "CT: pneumoperitoneum and free fluid around the stomach and duodenum, consistent with a perforated peptic ulcer. No contained or sealed collection.",
+      "next": "initial"
+    },
+    "initial": {
+      "type": "multi",
+      "text": "Initial management: which belong in your plan?",
+      "options": [
+        { "label": "Broad-spectrum IV antibiotics now", "isCorrect": true },
+        { "label": "IV fluid resuscitation and analgesia", "isCorrect": true },
+        { "label": "Book the operating room without delay", "isCorrect": true },
+        { "label": "Non-operative trial with a PPI and antibiotics; operate if he worsens", "isCorrect": false },
+        { "label": "Wait for the morning list; he is not in shock", "isCorrect": false },
+        { "label": "Routine empirical antifungal therapy", "isCorrect": false }
+      ],
+      "feedback": "WSES 2020: start empiric broad-spectrum antibiotics as soon as possible (1C) and operate as soon as possible (1B); in a Danish cohort each hour of delay cut the adjusted probability of survival by 2.4%. Non-operative management is not routine and is reserved for extremely selected sealed perforations confirmed on a water-soluble contrast study (2C). Antifungals are only for high-risk patients (2C).",
+      "cite": [1],
+      "next": "physiology",
+      "failNext": "fail_delay"
+    },
+    "physiology": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "stable", "weight": 13 },
+        { "next": "unstable", "weight": 7 }
+      ]
+    },
+    "stable": {
+      "type": "decision",
+      "text": "In the operating room he remains hemodynamically stable, and you have the laparoscopic skills and equipment. Approach?",
+      "vitals": [
+        { "label": "HR", "value": "102", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "126/78", "unit": "mmHg" }
+      ],
+      "options": [
+        {
+          "label": "Endoscopic clipping of the perforation",
+          "next": "fail_endoscopic",
+          "isCorrect": false,
+          "feedback": "WSES 2020 (weak, 2C): avoid endoscopic treatment such as clipping, fibrin glue sealing, or stenting for perforated peptic ulcer. Clips may not hold in fibrotic ulcer tissue that has lost its compliance.",
+          "cite": [1]
+        },
+        {
+          "label": "Laparoscopic repair",
+          "next": "ulcer_site",
+          "isCorrect": true,
+          "feedback": "WSES 2020 (weak, 2B): in stable patients, a laparoscopic approach, with open surgery if laparoscopic skills or equipment are lacking.",
+          "cite": [1]
+        }
+      ]
+    },
+    "unstable": {
+      "type": "decision",
+      "text": "On induction he becomes hypotensive and needs escalating norepinephrine. What approach?",
+      "vitals": [
+        { "label": "HR", "value": "134", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "78/44", "unit": "mmHg", "status": "critical" },
+        { "label": "Lactate", "value": "4.8", "unit": "mmol/L", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Open laparotomy, with a damage-control strategy if his physiology keeps deteriorating",
+          "next": "duodenal_repair",
+          "isCorrect": true,
+          "feedback": "WSES 2020: open surgery for unstable patients (strong, 1D), and a damage-control strategy in septic shock with severe physiological derangement (weak, 2D).",
+          "cite": [1]
+        },
+        {
+          "label": "Laparoscopic repair as planned",
+          "next": "fail_laparoscopy_unstable",
+          "isCorrect": false,
+          "feedback": "WSES 2020 (strong, 1D): unstable patients should have open surgery. Pneumoperitoneum raises PaCO2 and reduces venous return, stroke volume, and cardiac output, which precludes laparoscopy in hemodynamically unstable patients.",
+          "cite": [1]
+        }
+      ]
+    },
+    "ulcer_site": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "duodenal_repair", "weight": 7 },
+        { "next": "gastric_ulcer", "weight": 3 }
+      ]
+    },
+    "duodenal_repair": {
+      "type": "decision",
+      "text": "At operation: a 7 mm perforation of the anterior duodenal bulb with healthy edges. How do you repair it?",
+      "options": [
+        {
+          "label": "Primary closure, with or without an omental patch",
+          "next": "postop_antibiotics",
+          "isCorrect": true,
+          "feedback": "WSES 2020 (weak, 2C): primary repair for perforations smaller than 2 cm; no recommendation can be made on whether an omental patch adds protection. Ng 2000: with H. pylori eradication, immediate acid-reduction surgery is unnecessary.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Distal gastrectomy for definitive ulcer control",
+          "next": "fail_overtreatment",
+          "isCorrect": false,
+          "feedback": "WSES 2020 (weak, 2C): primary repair for perforations smaller than 2 cm. Ng 2000: after simple closure, H. pylori eradication prevented ulcer relapse, and immediate acid-reduction surgery was unnecessary even with generalized peritonitis.",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "gastric_ulcer": {
+      "type": "decision",
+      "text": "At operation: a 2.5 cm perforation on the lesser curve of the stomach with rolled, indurated edges. How do you manage it?",
+      "options": [
+        {
+          "label": "Simple closure; biopsy is unnecessary in an emergency",
+          "next": "fail_missed_cancer",
+          "isCorrect": false,
+          "feedback": "A large perforated gastric ulcer can be a perforated cancer. WSES 2020: for large gastric ulcers suspicious for malignancy, resection with intraoperative frozen section whenever possible.",
+          "cite": [1]
+        },
+        {
+          "label": "Resection with intraoperative frozen-section pathology where possible",
+          "next": "postop_antibiotics",
+          "isCorrect": true,
+          "feedback": "WSES 2020: tailor repair of perforations over 2 cm to the ulcer's location. For large gastric ulcers suspicious for malignancy, resection with intraoperative frozen-section examination whenever possible.",
+          "cite": [1]
+        }
+      ]
+    },
+    "postop_antibiotics": {
+      "type": "decision",
+      "text": "Source control has been achieved. How long do antibiotics continue?",
+      "options": [
+        {
+          "label": "A short course: 3–5 days, or until inflammatory markers normalize",
+          "next": "recurrence",
+          "isCorrect": true,
+          "feedback": "WSES 2020 (weak, 2C): a short course of antibiotics, 3–5 days or until inflammatory markers normalize, after perforated peptic ulcer. In STOP-IT, about 4 days of fixed therapy after adequate source control gave outcomes similar to longer courses.",
+          "cite": [1, 4]
+        },
+        {
+          "label": "Two weeks of IV antibiotics",
+          "next": "fail_duration",
+          "isCorrect": false,
+          "feedback": "WSES 2020 (weak, 2C): a short course, 3–5 days or until inflammatory markers normalize. In STOP-IT, about 4 days of fixed therapy after adequate source control was as effective as courses running up to 10 days.",
+          "cite": [1, 4]
+        }
+      ]
+    },
+    "recurrence": {
+      "type": "decision",
+      "text": "Before discharge, what prevents a recurrent ulcer?",
+      "options": [
+        {
+          "label": "A 4-week PPI course alone",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "Ng 2000: after simple closure of an H. pylori-positive duodenal perforation, 1-year ulcer relapse was 38.1% with omeprazole alone vs 4.8% after eradication therapy.",
+          "cite": [2]
+        },
+        {
+          "label": "Test for H. pylori and give eradication therapy if positive, and stop the NSAID",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "Ng 2000 (RCT): eradicating H. pylori after simple closure cut 1-year relapse from 38.1% (omeprazole alone) to 4.8%. For NSAID-induced ulcers, the NSAID is discontinued (JSGE 2020), so his daily ibuprofen stops.",
+          "cite": [2, 3]
+        }
+      ]
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Perforation missed on plain films."
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Worsening peritonitis and sepsis from delayed source control.",
+      "vitals": [
+        { "label": "HR", "value": "128", "unit": "bpm", "status": "critical" },
+        { "label": "Lactate", "value": "4.1", "unit": "mmol/L", "status": "critical" }
+      ]
+    },
+    "fail_endoscopic": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Endoscopic closure without peritoneal source control."
+    },
+    "fail_laparoscopy_unstable": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Hemodynamic collapse under pneumoperitoneum."
+    },
+    "fail_overtreatment": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Management Error: Gastric resection for a small duodenal perforation."
+    },
+    "fail_missed_cancer": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Risk: Possible perforated gastric cancer closed without tissue."
+    },
+    "fail_duration": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Prolonged antibiotics after source control."
+    },
+    "fail_recurrence": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Recurrent ulcer within a year."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Procedure Complete: Perforation repaired, H. pylori treated, NSAID stopped."
+    }
+  }
+}

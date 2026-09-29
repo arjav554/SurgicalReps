@@ -1,0 +1,285 @@
+{
+  "id": "early-cervical-cancer",
+  "title": "Early Cervical Cancer",
+  "category": "Gynecologic Oncology",
+  "description": "Stage with MRI, operate open with sentinel nodes first, abandon the hysterectomy for positive nodes, and base adjuvant treatment on intermediate- or high-risk pathology.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Complete the local workup for early cervical cancer",
+    "Choose open radical hysterectomy over minimally invasive surgery, and know who qualifies for simple hysterectomy",
+    "Start with sentinel node biopsy and frozen section, and abandon radical surgery if nodes are positive",
+    "Counsel on ovarian preservation",
+    "Give adjuvant radiotherapy or chemoradiotherapy according to intermediate- or high-risk pathology"
+  ],
+  "references": [
+    {
+      "citation": "Cibula D, Raspollini MR, Planchamp F, et al. ESGO/ESTRO/ESP Guidelines for the management of patients with cervical cancer - Update 2023. Int J Gynecol Cancer. 2023;33(5):649-666.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10176411/",
+      "kind": "guideline",
+      "pmid": "37127326",
+      "doi": "10.1136/ijgc-2023-004429"
+    },
+    {
+      "citation": "Ramirez PT, Frumovitz M, Pareja R, et al. Minimally Invasive versus Abdominal Radical Hysterectomy for Cervical Cancer. N Engl J Med. 2018;379(20):1895-1904.",
+      "url": "https://doi.org/10.1056/NEJMoa1806395",
+      "kind": "trial",
+      "pmid": "30380365",
+      "doi": "10.1056/NEJMoa1806395"
+    },
+    {
+      "citation": "Ramirez PT, Robledo KP, Frumovitz M, et al. LACC Trial: Final Analysis on Overall Survival Comparing Open Versus Minimally Invasive Radical Hysterectomy for Early-Stage Cervical Cancer. J Clin Oncol. 2024;42(23):2741-2746.",
+      "url": "https://doi.org/10.1200/JCO.23.02335",
+      "kind": "trial",
+      "pmid": "38810208",
+      "doi": "10.1200/JCO.23.02335"
+    },
+    {
+      "citation": "Plante M, Kwon JS, Ferguson S, et al. Simple versus Radical Hysterectomy in Women with Low-Risk Cervical Cancer. N Engl J Med. 2024;390(9):819-829.",
+      "url": "https://doi.org/10.1056/NEJMoa2308900",
+      "kind": "trial",
+      "pmid": "38416430",
+      "doi": "10.1056/NEJMoa2308900"
+    },
+    {
+      "citation": "Sedlis A, Bundy BN, Rotman MZ, et al. A randomized trial of pelvic radiation therapy versus no further therapy in selected patients with stage IB carcinoma of the cervix after radical hysterectomy and pelvic lymphadenectomy: A Gynecologic Oncology Group Study. Gynecol Oncol. 1999;73(2):177-183.",
+      "url": "https://doi.org/10.1006/gyno.1999.5387",
+      "kind": "trial",
+      "pmid": "10329031",
+      "doi": "10.1006/gyno.1999.5387"
+    },
+    {
+      "citation": "Peters WA 3rd, Liu PY, Barrett RJ 2nd, et al. Concurrent chemotherapy and pelvic radiation therapy compared with pelvic radiation therapy alone as adjuvant therapy after radical surgery in high-risk early-stage cancer of the cervix. J Clin Oncol. 2000;18(8):1606-1613.",
+      "url": "https://doi.org/10.1200/JCO.2000.18.8.1606",
+      "kind": "trial",
+      "pmid": "10764420",
+      "doi": "10.1200/JCO.2000.18.8.1606"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 41-year-old woman with postcoital bleeding has a visible cervical lesion. Biopsy shows squamous cell carcinoma. She has completed her family.",
+      "next": "workup"
+    },
+    "workup": {
+      "type": "multi",
+      "text": "Which belong in her local staging workup?",
+      "options": [
+        { "label": "Pelvic examination with biopsy", "isCorrect": true },
+        { "label": "Pelvic MRI", "isCorrect": true },
+        { "label": "Routine cystoscopy and proctoscopy", "isCorrect": false },
+        { "label": "Skip imaging and stage at surgery", "isCorrect": false }
+      ],
+      "feedback": "ESGO/ESTRO/ESP 2023: pelvic examination and biopsy are mandatory for diagnosis (II, A), and pelvic MRI is mandatory to assess local tumor extent and guide treatment (II, A). Cystoscopy and proctoscopy are not routinely recommended (IV, D).",
+      "cite": [1],
+      "next": "approach",
+      "failNext": "fail_workup"
+    },
+    "approach": {
+      "type": "decision",
+      "text": "MRI: a 3.2 cm tumor confined to the cervix, no parametrial invasion, and no suspicious lymph nodes (FIGO 2018 IB2). Which operation do you plan?",
+      "options": [
+        {
+          "label": "Simple hysterectomy with lymph node assessment",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "In SHAPE, simple hysterectomy matched radical hysterectomy for 3-year pelvic recurrence (2.52% vs 2.17%) only in low-risk tumors: 2 cm or smaller with limited stromal invasion. Her 3.2 cm tumor does not qualify. ESGO/ESTRO/ESP 2023: radical surgery by a gynecologic oncologist is preferred (I, A).",
+          "cite": [1, 4]
+        },
+        {
+          "label": "Laparoscopic radical hysterectomy",
+          "next": "fail_mis",
+          "isCorrect": false,
+          "feedback": "In LACC, minimally invasive radical hysterectomy had lower 4.5-year disease-free survival (86.0% vs 96.5%) and worse survival (3-year overall survival 93.8% vs 99.0%) than open surgery. The final analysis confirmed 4.5-year overall survival of 90.6% vs 96.2%. ESGO/ESTRO/ESP 2023: laparotomy is the standard approach for any procedure that includes radical parametrectomy (I, A).",
+          "cite": [1, 2, 3]
+        },
+        {
+          "label": "Open radical hysterectomy, starting with sentinel node biopsy and frozen section",
+          "next": "counsel",
+          "isCorrect": true,
+          "feedback": "ESGO/ESTRO/ESP 2023: laparotomy is the standard for radical parametrectomy (I, A). Minimally invasive surgery may be considered only for tumors under 2 cm with clear margins after conization, in experienced high-volume centers (IV, C). Assess the nodes first (IV, A): sentinel node biopsy with indocyanine green (III, A), with frozen section of the sentinel nodes (III, A). In LACC, minimally invasive surgery lowered 4.5-year disease-free survival (86.0% vs 96.5%).",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Neoadjuvant chemotherapy, then radical hysterectomy",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "ESGO/ESTRO/ESP 2023: neoadjuvant chemotherapy or chemoradiotherapy followed by surgery is not recommended (IV, D). For node-negative tumors of this size, radical surgery is preferred, with definitive chemoradiotherapy and brachytherapy as the alternative.",
+          "cite": [1]
+        }
+      ]
+    },
+    "counsel": {
+      "type": "multi",
+      "text": "Before surgery, which belong in your counselling?",
+      "options": [
+        { "label": "Ovarian preservation is an option for her squamous cancer", "isCorrect": true },
+        { "label": "If the ovaries are kept, the fallopian tubes are removed", "isCorrect": true },
+        { "label": "If nodes are positive at frozen section, the hysterectomy will be abandoned for chemoradiotherapy", "isCorrect": true },
+        { "label": "The ovaries must be removed in every cervical cancer", "isCorrect": false },
+        { "label": "Surgery followed by routine radiotherapy is the usual plan", "isCorrect": false }
+      ],
+      "feedback": "ESGO/ESTRO/ESP 2023: discuss ovarian preservation with women of reproductive age with squamous cell carcinoma, and perform opportunistic bilateral salpingectomy if the ovaries are kept (IV, A). Aim to avoid combining radical surgery with radiotherapy because of the high morbidity (IV, A); if nodes are involved at frozen section, abandon lymphadenectomy and hysterectomy for definitive chemoradiotherapy (III, A).",
+      "cite": [1],
+      "next": "frozen",
+      "failNext": "fail_counsel"
+    },
+    "frozen": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "node_positive", "weight": 2 },
+        { "next": "node_negative", "weight": 8 }
+      ]
+    },
+    "node_positive": {
+      "type": "decision",
+      "text": "Frozen section shows a macrometastasis in the right pelvic sentinel node. What now?",
+      "options": [
+        {
+          "label": "Complete the radical hysterectomy and pelvic lymphadenectomy, then give adjuvant chemoradiotherapy",
+          "next": "fail_combined",
+          "isCorrect": false,
+          "feedback": "ESGO/ESTRO/ESP 2023: if any lymph node is involved intraoperatively, avoid further pelvic lymphadenectomy and radical hysterectomy, and refer for definitive chemoradiotherapy (III, A). Combining radical surgery with radiotherapy causes high morbidity (IV, A).",
+          "cite": [1]
+        },
+        {
+          "label": "Abandon the hysterectomy and pelvic lymphadenectomy; refer for definitive chemoradiotherapy",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ESGO/ESTRO/ESP 2023: with intraoperative nodal involvement, avoid further pelvic lymphadenectomy and radical hysterectomy, and refer for definitive chemoradiotherapy (III, A). Para-aortic dissection up to the inferior mesenteric artery may be considered for staging (IV, C).",
+          "cite": [1]
+        }
+      ]
+    },
+    "node_negative": {
+      "type": "decision",
+      "text": "Both sentinel nodes map and are negative on frozen section. How do you complete the operation?",
+      "options": [
+        {
+          "label": "Pelvic lymphadenectomy (can be limited to level I, as both level I sentinels are negative), then radical hysterectomy tailored to her risk factors",
+          "next": "pathology",
+          "isCorrect": true,
+          "feedback": "ESGO/ESTRO/ESP 2023: after negative sentinel nodes on frozen section, systematic pelvic lymphadenectomy is the standard nodal staging (III, A). It can be limited to level I if the sentinel nodes are negative bilaterally at that level (IV, B). The type of radical hysterectomy follows preoperative risk factors (size, stromal invasion, LVSI), and all sentinel nodes go for ultrastaging (III, A).",
+          "cite": [1]
+        },
+        {
+          "label": "Omit further nodal dissection and perform a simple hysterectomy",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "ESGO/ESTRO/ESP 2023: after negative sentinel nodes on frozen section, systematic pelvic lymphadenectomy remains the standard (III, A), and radical surgery is preferred for this tumor (I, A). In SHAPE, simple hysterectomy was supported only for low-risk tumors of 2 cm or less.",
+          "cite": [1, 4]
+        }
+      ]
+    },
+    "pathology": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "risk_intermediate", "weight": 4 },
+        { "next": "risk_high", "weight": 3 },
+        { "next": "risk_low", "weight": 3 }
+      ]
+    },
+    "risk_intermediate": {
+      "type": "decision",
+      "text": "Final pathology: 3.2 cm tumor, invasion of the outer third of the cervical stroma, and extensive LVSI. Nodes, margins, and parametria are negative. Adjuvant treatment?",
+      "options": [
+        {
+          "label": "Adjuvant pelvic radiotherapy, discussing observation as the alternative after an adequate radical hysterectomy",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ESGO/ESTRO/ESP 2023: consider adjuvant radiotherapy for the intermediate-risk group, defined by a combination of tumor size, LVSI, and depth of stromal invasion (IV, A); observation is an alternative after an adequate radical hysterectomy (IV, B). In Sedlis's trial of patients with at least two of these factors, radiotherapy cut recurrence from 28% to 15% (relative risk 0.53), with grade 3–4 toxicity in 6% vs 2.1%.",
+          "cite": [1, 5]
+        },
+        {
+          "label": "Adjuvant chemoradiotherapy",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "ESGO/ESTRO/ESP 2023: adjuvant chemoradiotherapy is for the high-risk group: positive pelvic nodes, positive margins, or parametrial involvement (IV, A). She is intermediate risk, for whom adjuvant radiotherapy should be considered (IV, A).",
+          "cite": [1]
+        }
+      ]
+    },
+    "risk_high": {
+      "type": "decision",
+      "text": "Final pathology: margins and parametria are clear, but ultrastaging finds a micrometastasis in one pelvic lymph node. Adjuvant treatment?",
+      "options": [
+        {
+          "label": "Observation, since it is only a micrometastasis",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "ESGO/ESTRO/ESP 2023: nodal macrometastases or micrometastases (pN1 or pN1mi) on final pathology define high risk, which calls for adjuvant chemoradiotherapy (IV, A).",
+          "cite": [1]
+        },
+        {
+          "label": "Adjuvant chemoradiotherapy",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ESGO/ESTRO/ESP 2023: adjuvant chemoradiotherapy is indicated for high risk: pelvic node metastases, including micrometastases; positive margins; or parametrial involvement (IV, A). In Peters 2000, adding concurrent cisplatin-based chemotherapy to radiotherapy raised 4-year progression-free survival from 63% to 80% and overall survival from 71% to 81%.",
+          "cite": [1, 6]
+        },
+        {
+          "label": "Pelvic radiotherapy alone",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "In Peters 2000, adding concurrent cisplatin-based chemotherapy to radiotherapy for node-positive, margin-positive, or parametrium-positive disease improved 4-year progression-free survival (80% vs 63%) and overall survival (81% vs 71%). ESGO/ESTRO/ESP 2023 indicates chemoradiotherapy for this high-risk group (IV, A).",
+          "cite": [1, 6]
+        }
+      ]
+    },
+    "risk_low": {
+      "type": "decision",
+      "text": "Final pathology: 3.2 cm tumor with invasion of only the inner third of the stroma and no LVSI. Nodes, margins, and parametria are negative. Adjuvant treatment?",
+      "options": [
+        {
+          "label": "Adjuvant pelvic radiotherapy because the tumor exceeds 2 cm",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "ESGO/ESTRO/ESP 2023: adjuvant radiotherapy is considered for intermediate risk, meaning a combination of risk factors such as size, LVSI, and deep stromal invasion. The Sedlis trial enrolled patients with at least two such factors; size alone does not qualify.",
+          "cite": [1, 5]
+        },
+        {
+          "label": "Follow-up without adjuvant treatment",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ESGO/ESTRO/ESP 2023: adjuvant radiotherapy is considered when a combination of risk factors (size, LVSI, depth of stromal invasion) puts her at intermediate risk, and chemoradiotherapy is for nodal, margin, or parametrial involvement. With a single factor (size) and none of the high-risk findings, no adjuvant treatment is indicated. Sedlis required at least two factors.",
+          "cite": [1, 5]
+        }
+      ]
+    },
+    "fail_workup": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Incomplete or unnecessary staging workup."
+    },
+    "fail_mis": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Minimally invasive radical hysterectomy with worse survival."
+    },
+    "fail_undertreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Treatment below the standard for her disease."
+    },
+    "fail_counsel": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Consent Error: Surgical counselling inaccurate."
+    },
+    "fail_combined": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Morbidity of radical surgery followed by chemoradiotherapy."
+    },
+    "fail_overtreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Adjuvant treatment beyond her risk group."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Treated by stage and pathologic risk."
+    }
+  }
+}

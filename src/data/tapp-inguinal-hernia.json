@@ -1,0 +1,216 @@
+{
+  "id": "tapp-inguinal-hernia",
+  "title": "Laparoscopic Inguinal Hernia Repair (TAPP)",
+  "category": "Hernia",
+  "description": "Know the danger triangles, clear the myopectineal orifice, size and fix the mesh by HerniaSurge standards, and close the peritoneum without gaps.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Define the triangle of doom and the triangle of pain and what runs through each",
+    "Reduce cord lipomas and parietalize the cord structures adequately",
+    "Size the mesh to cover the whole myopectineal orifice",
+    "Fix mesh only when indicated (M3 defects) and only in safe zones",
+    "Close the peritoneal flap without gaps"
+  ],
+  "references": [
+    {
+      "citation": "HerniaSurge Group. International guidelines for groin hernia management. Hernia. 2018;22(1):1-165.",
+      "url": "https://doi.org/10.1007/s10029-017-1668-x",
+      "kind": "guideline",
+      "pmid": "29330835",
+      "doi": "10.1007/s10029-017-1668-x"
+    },
+    {
+      "citation": "Stabilini C, van Veenendaal N, Aasvang E, et al. Update of the international HerniaSurge guidelines for groin hernia management. BJS Open. 2023;7(5):zrad080.",
+      "url": "https://doi.org/10.1093/bjsopen/zrad080",
+      "kind": "guideline",
+      "pmid": "37862616",
+      "doi": "10.1093/bjsopen/zrad080"
+    },
+    {
+      "citation": "Furtado M, Claus CMP, Cavazzola LT, Malcher F, Bakonyi-Neto A, Saad-Hossne R. Systemization of laparoscopic inguinal hernia repair (TAPP) based on a new anatomical concept: inverted Y and five triangles. Arq Bras Cir Dig. 2019;32(1):e1426.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6368153/",
+      "kind": "cohort",
+      "pmid": "30758474",
+      "doi": "10.1590/0102-672020180001e1426"
+    },
+    {
+      "citation": "Lilly MC, Arregui ME. Lipomas of the cord and round ligament. Ann Surg. 2002;235(4):586-590.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1422475/",
+      "kind": "cohort",
+      "pmid": "11923616"
+    },
+    {
+      "citation": "Carilli S, Alper A, Emre A. Inguinal cord lipomas. Hernia. 2004;8(3):252-254.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/15105999/",
+      "kind": "cohort",
+      "pmid": "15105999"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "TAPP repair of a symptomatic right groin hernia in a 52-year-old man. You incise the peritoneum from the medial umbilical ligament to the anterior superior iliac spine and raise the flap. There is a large direct defect over 3 cm through Hesselbach's triangle (EHS M3).",
+      "next": "triangles"
+    },
+    "triangles": {
+      "type": "multi",
+      "text": "Before any fixation, name what runs through the triangle of pain (bounded medially by the spermatic vessels and above by the iliopubic tract). Select all that apply.",
+      "options": [
+        { "label": "Lateral femoral cutaneous nerve", "isCorrect": true },
+        { "label": "Femoral branch of the genitofemoral nerve", "isCorrect": true },
+        { "label": "Femoral nerve", "isCorrect": true },
+        { "label": "External iliac artery and vein", "isCorrect": false },
+        { "label": "Vas deferens", "isCorrect": false },
+        { "label": "Inferior epigastric vessels", "isCorrect": false }
+      ],
+      "feedback": "Furtado 2019: the triangle of pain, medial border the spermatic vessels, superolateral border the iliopubic tract, carries the lateral femoral cutaneous nerve, the femoral branch of the genitofemoral nerve, and the femoral nerve. The external iliac artery and vein lie in the triangle of doom, between the vas deferens medially and the spermatic vessels laterally. Neither triangle is a fixation zone.",
+      "cite": [3],
+      "next": "lipoma",
+      "failNext": "fail_pain"
+    },
+    "lipoma": {
+      "type": "decision",
+      "text": "Lateral to the inferior epigastric vessels, preperitoneal fat is prolapsing into the internal ring alongside the cord. What do you do?",
+      "options": [
+        {
+          "label": "Leave it; the mesh will hold it in place",
+          "next": "fail_pseudorecurrence",
+          "isCorrect": false,
+          "feedback": "A cord lipoma is herniated preperitoneal fat that protrudes through the internal ring lateral to the cord. Cord lipomas are easily overlooked at laparoscopic repair (HerniaSurge notes TAPP's limits in recognizing them), and missed lipomas have presented as symptomatic groin swellings after surgery. Herniated extraperitoneal fat should be treated as a hernia.",
+          "cite": [4, 5, 2]
+        },
+        {
+          "label": "Reduce the cord lipoma out of the internal ring before placing the mesh",
+          "next": "parietalize",
+          "isCorrect": true,
+          "feedback": "Cord lipomas were found in 22.5% of groin hernia repairs in one series and are generally not visible from inside the abdomen unless actively reduced. Herniated extraperitoneal fat counts as a hernia and should be reduced before the mesh goes in.",
+          "cite": [4, 5]
+        }
+      ]
+    },
+    "parietalize": {
+      "type": "decision",
+      "text": "How far do you dissect the peritoneum off the vas deferens and gonadal vessels?",
+      "options": [
+        {
+          "label": "Parietalize the cord structures far enough that the inferior edge of the mesh lies flat without peritoneum curling beneath it",
+          "next": "mesh",
+          "isCorrect": true,
+          "feedback": "Furtado 2019: in zone 3 the peritoneum is stripped from the vas deferens and spermatic vessels (parietalization of the cord), and a wide inferior peritoneal dissection keeps the peritoneum from folding the inferior edge of the mesh, a potential cause of recurrence.",
+          "cite": [3]
+        },
+        {
+          "label": "Stop at the internal ring; the mesh edge can rest on the peritoneal sac",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "Furtado 2019: without wide inferior dissection of the peritoneum off the cord, the peritoneum can fold the inferior portion of the mesh, a potential cause of recurrence.",
+          "cite": [3]
+        }
+      ]
+    },
+    "mesh": {
+      "type": "decision",
+      "text": "What size mesh do you place?",
+      "options": [
+        {
+          "label": "7.5 × 12 cm; the defect is only direct",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "HerniaSurge 2018 calls meshes smaller than 10 × 15 cm overly small for TEP and TAPP. Every laparoscopic repair must cover the whole myopectineal orifice (direct, indirect, and femoral spaces), not just the visible defect.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "At least 10 × 15 cm, covering the direct, indirect, and femoral spaces with overlap",
+          "next": "fixation",
+          "isCorrect": true,
+          "feedback": "HerniaSurge 2018 describes meshes under 10 × 15 cm as overly small for TEP and TAPP. The mesh must cover the entire myopectineal orifice with overlap.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "fixation": {
+      "type": "decision",
+      "text": "This is a large direct (M3) defect. How do you fix the mesh?",
+      "options": [
+        {
+          "label": "No fixation; laparoscopic meshes never need it",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "HerniaSurge 2018: non-fixation is recommended in almost all hernia types in TEP and TAPP, except large medial defects (M3), where fixation is recommended to reduce recurrence.",
+          "cite": [1]
+        },
+        {
+          "label": "Tack the inferolateral corner below the iliopubic tract, lateral to the spermatic vessels",
+          "next": "fail_pain",
+          "isCorrect": false,
+          "feedback": "That is the triangle of pain, where the lateral femoral cutaneous nerve, the femoral branch of the genitofemoral nerve, and the femoral nerve run. Furtado 2019: no fixation in the triangles of doom or pain; treat 2 cm above the iliopubic tract as the lateral safety margin.",
+          "cite": [3]
+        },
+        {
+          "label": "Place a tack between the vas deferens and the spermatic vessels to stop the mesh sliding",
+          "next": "fail_vascular",
+          "isCorrect": false,
+          "feedback": "That is the triangle of doom, between the vas deferens medially and the spermatic vessels laterally, where the external iliac artery and vein lie. Furtado 2019: staples should not be placed in the triangles of doom or pain.",
+          "cite": [3]
+        },
+        {
+          "label": "Fix only in safe zones: laterally at least 2 cm above the iliopubic tract, never in either triangle (tacks or glue)",
+          "next": "closure",
+          "isCorrect": true,
+          "feedback": "HerniaSurge 2018 (expert consensus): fix the mesh in large medial (M3) defects. Furtado 2019: never staple in the triangles of doom or pain, treat 2 cm above the iliopubic tract as the lateral safety margin, and watch the path of the inferior epigastric vessels.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "closure": {
+      "type": "decision",
+      "text": "The mesh is positioned and fixed. What do you do with the peritoneal flap?",
+      "options": [
+        {
+          "label": "Leave the flap open; the peritoneum will heal over the mesh",
+          "next": "fail_obstruction",
+          "isCorrect": false,
+          "feedback": "Furtado 2019: the peritoneal closure must cover the mesh and leave no gaps between sutures or staples, because gaps can trap small bowel and cause obstruction.",
+          "cite": [3]
+        },
+        {
+          "label": "Close the flap completely, covering the mesh with no gaps and without folding its inferior edge",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "Furtado 2019: peritoneal closure should cover the mesh to avoid contact with intraperitoneal structures, leave no gaps where bowel could herniate, and not fold the inferior mesh edge.",
+          "cite": [3]
+        }
+      ]
+    },
+    "fail_pseudorecurrence": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Symptomatic groin swelling from a missed cord lipoma."
+    },
+    "fail_recurrence": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Early hernia recurrence."
+    },
+    "fail_pain": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Chronic neuropathic groin pain (triangle of pain)."
+    },
+    "fail_vascular": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: External iliac vessel injury (triangle of doom)."
+    },
+    "fail_obstruction": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Small bowel obstruction through a peritoneal gap."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Procedure Complete: Myopectineal orifice covered, safe fixation, flap closed."
+    }
+  }
+}

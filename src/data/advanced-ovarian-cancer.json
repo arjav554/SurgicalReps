@@ -1,0 +1,205 @@
+{
+  "id": "advanced-ovarian-cancer",
+  "title": "Advanced Ovarian Cancer",
+  "category": "Gynecologic Oncology",
+  "description": "Assess with a gynecologic oncologist, choose primary or interval cytoreduction by the chance of complete resection, skip lymphadenectomy of normal nodes, and match maintenance to BRCA status.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Complete the initial assessment, including universal germline and somatic BRCA testing",
+    "Choose primary cytoreduction when complete resection is likely, and neoadjuvant chemotherapy when it is not",
+    "Confirm the histology before neoadjuvant chemotherapy and use a platinum–taxane doublet",
+    "Time interval cytoreduction, and know where HIPEC fits",
+    "Avoid systematic lymphadenectomy of normal nodes, and offer maintenance therapy"
+  ],
+  "references": [
+    {
+      "citation": "Gaillard S, Lacchetti C, Armstrong DK, et al. Neoadjuvant Chemotherapy for Newly Diagnosed, Advanced Ovarian Cancer: ASCO Guideline Update. J Clin Oncol. 2025;43(7):868-891.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11934100/",
+      "kind": "guideline",
+      "pmid": "39841949",
+      "doi": "10.1200/JCO-24-02589"
+    },
+    {
+      "citation": "Harter P, Sehouli J, Lorusso D, et al. A Randomized Trial of Lymphadenectomy in Patients with Advanced Ovarian Neoplasms. N Engl J Med. 2019;380(9):822-832.",
+      "url": "https://doi.org/10.1056/NEJMoa1808424",
+      "kind": "trial",
+      "pmid": "30811909",
+      "doi": "10.1056/NEJMoa1808424"
+    },
+    {
+      "citation": "Kehoe S, Hook J, Nankivell M, et al. Primary chemotherapy versus primary surgery for newly diagnosed advanced ovarian cancer (CHORUS): an open-label, randomised, controlled, non-inferiority trial. Lancet. 2015;386(9990):249-257.",
+      "url": "https://doi.org/10.1016/S0140-6736(14)62223-6",
+      "kind": "trial",
+      "pmid": "26002111",
+      "doi": "10.1016/S0140-6736(14)62223-6"
+    },
+    {
+      "citation": "Moore K, Colombo N, Scambia G, et al. Maintenance Olaparib in Patients with Newly Diagnosed Advanced Ovarian Cancer. N Engl J Med. 2018;379(26):2495-2505.",
+      "url": "https://doi.org/10.1056/NEJMoa1810858",
+      "kind": "trial",
+      "pmid": "30345884",
+      "doi": "10.1056/NEJMoa1810858"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 63-year-old woman has 3 months of bloating and early satiety. Examination finds ascites and a pelvic mass. CA-125 is 1,840 U/mL, and CT of the abdomen and pelvis shows bilateral adnexal masses, an omental cake, and peritoneal nodules.",
+      "next": "assess"
+    },
+    "assess": {
+      "type": "multi",
+      "text": "Which belong in her initial assessment?",
+      "options": [
+        { "label": "Evaluation by a gynecologic oncologist before any treatment", "isCorrect": true },
+        { "label": "Chest imaging, preferably CT", "isCorrect": true },
+        { "label": "Germline and somatic BRCA1/2 testing now", "isCorrect": true },
+        { "label": "Genetic testing only if she has a family history", "isCorrect": false },
+        { "label": "Start chemotherapy now based on CT and CA-125 alone", "isCorrect": false }
+      ],
+      "feedback": "ASCO 2025: a gynecologic oncologist should evaluate every patient with suspected stage III–IV disease before therapy (strong). Assessment includes CA-125, CT of the abdomen and pelvis, and chest imaging, preferably CT (strong). Offer all patients germline and somatic BRCA1/2 testing at diagnosis, whatever the family history (strong). Before neoadjuvant chemotherapy, obtain histologic confirmation, preferably by core biopsy.",
+      "cite": [1],
+      "next": "operability",
+      "failNext": "fail_workup"
+    },
+    "operability": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "resectable", "weight": 1 },
+        { "next": "unresectable", "weight": 1 }
+      ]
+    },
+    "resectable": {
+      "type": "decision",
+      "text": "She is fit (ECOG 0), and the gynecologic oncologist, after diagnostic laparoscopy, judges complete cytoreduction likely with acceptable morbidity. Plan?",
+      "options": [
+        {
+          "label": "Primary cytoreductive surgery aiming for no visible residual disease",
+          "next": "nodes",
+          "isCorrect": true,
+          "feedback": "ASCO 2025 (conditional): for patients fit for surgery with a high likelihood of complete cytoreduction and acceptable morbidity, primary cytoreduction is recommended over neoadjuvant chemotherapy. Suitability depends on fitness, performance status, frailty, nutrition, and the surgical complexity required.",
+          "cite": [1]
+        },
+        {
+          "label": "Neoadjuvant chemotherapy for every stage III patient",
+          "next": "fail_sequence",
+          "isCorrect": false,
+          "feedback": "ASCO 2025: neoadjuvant chemotherapy is for patients unlikely to be completely cytoreduced or at high perioperative risk. When a fit patient is likely to achieve complete cytoreduction, primary surgery is recommended. EORTC 55971 and CHORUS found neoadjuvant chemotherapy non-inferior, but JCOG0602 did not confirm this.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "nodes": {
+      "type": "decision",
+      "text": "She has complete macroscopic resection of all intra-abdominal disease. Her retroperitoneal nodes looked normal on CT and feel normal at surgery. What about the nodes?",
+      "options": [
+        {
+          "label": "Systematic pelvic and para-aortic lymphadenectomy for staging",
+          "next": "fail_lymphadenectomy",
+          "isCorrect": false,
+          "feedback": "In LION, patients with complete resection and clinically normal nodes gained no survival from systematic lymphadenectomy (median overall survival 65.5 vs 69.2 months without). They had more repeat laparotomies (12.4% vs 6.5%) and higher 60-day mortality (3.1% vs 0.9%).",
+          "cite": [2]
+        },
+        {
+          "label": "Leave the clinically normal nodes",
+          "next": "maintenance",
+          "isCorrect": true,
+          "feedback": "In LION, systematic pelvic and para-aortic lymphadenectomy after complete resection with clinically normal nodes did not improve overall survival (65.5 vs 69.2 months) or progression-free survival (25.5 months in both). It increased repeat laparotomy (12.4% vs 6.5%) and 60-day mortality (3.1% vs 0.9%).",
+          "cite": [2]
+        }
+      ]
+    },
+    "unresectable": {
+      "type": "decision",
+      "text": "Laparoscopy and imaging show extensive disease on the small-bowel mesentery and around the porta hepatis. The gynecologic oncologist judges complete cytoreduction unlikely. Plan?",
+      "options": [
+        {
+          "label": "Primary surgery anyway, to remove as much tumor as possible",
+          "next": "fail_sequence",
+          "isCorrect": false,
+          "feedback": "ASCO 2025 (strong): when a fit patient is unlikely to achieve complete cytoreduction, neoadjuvant chemotherapy is recommended over primary surgery. In CHORUS, primary chemotherapy was non-inferior for survival (median 24.1 vs 22.6 months), with fewer grade 3–4 postoperative complications (14% vs 24%) and fewer 28-day deaths.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Core biopsy to confirm the diagnosis, then platinum–taxane neoadjuvant chemotherapy",
+          "next": "interval",
+          "isCorrect": true,
+          "feedback": "ASCO 2025: when complete cytoreduction is unlikely, neoadjuvant chemotherapy is recommended over primary surgery (strong). Confirm invasive cancer histologically first, preferably by core biopsy. Use a platinum–taxane doublet, especially for high-grade serous or endometrioid cancer (strong); single-agent carboplatin gave worse survival in vulnerable older patients.",
+          "cite": [1]
+        },
+        {
+          "label": "Single-agent carboplatin, to limit toxicity",
+          "next": "fail_sequence",
+          "isCorrect": false,
+          "feedback": "ASCO 2025 (strong): use a platinum–taxane doublet for neoadjuvant chemotherapy, especially in high-grade serous disease. In a GINECO trial in vulnerable older patients, single-agent carboplatin was less active and gave significantly worse survival than the three-weekly doublet.",
+          "cite": [1]
+        }
+      ]
+    },
+    "interval": {
+      "type": "decision",
+      "text": "After 3 cycles her CA-125 has fallen to 120 U/mL and CT shows a good response. She has stage III disease, good performance status, and normal renal function. What next?",
+      "options": [
+        {
+          "label": "Continue to 8 cycles of chemotherapy before considering surgery",
+          "next": "fail_sequence",
+          "isCorrect": false,
+          "feedback": "ASCO 2025 (conditional): perform interval cytoreduction after 4 or fewer cycles in patients who respond or have stable disease. In a meta-analysis of 7,005 patients, survival was better with fewer cycles before interval surgery.",
+          "cite": [1]
+        },
+        {
+          "label": "Interval cytoreduction now, discussing HIPEC at surgery",
+          "next": "maintenance",
+          "isCorrect": true,
+          "feedback": "ASCO 2025: perform interval cytoreduction after 4 or fewer cycles for response or stable disease (conditional). For stage III disease with good performance status and renal function, HIPEC may be offered at interval surgery through shared decision-making (conditional). In OVHIPEC-1, median overall survival was 44.9 vs 33.3 months. Complete a total of six cycles afterward.",
+          "cite": [1]
+        }
+      ]
+    },
+    "maintenance": {
+      "type": "decision",
+      "text": "She completes six cycles in total with a complete response. Her testing shows a germline BRCA1 mutation. What do you offer?",
+      "options": [
+        {
+          "label": "PARP-inhibitor maintenance, such as olaparib, plus genetic counseling",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ASCO 2025 (strong): offer FDA-approved maintenance, such as a PARP inhibitor or bevacizumab, weighing benefit, adverse effects, and quality of life. In SOLO1, olaparib maintenance for BRCA-mutated disease after response to platinum cut the risk of progression or death by 70%; 60% vs 27% were progression-free at 3 years. Genetic counseling is recommended for anyone with a heritable variant.",
+          "cite": [1, 4]
+        },
+        {
+          "label": "Six more cycles of carboplatin–paclitaxel as consolidation",
+          "next": "fail_maintenance",
+          "isCorrect": false,
+          "feedback": "ASCO 2025: a total of six cycles is recommended. After that, offer approved maintenance, such as a PARP inhibitor (in SOLO1, 70% lower risk of progression or death with BRCA mutations) or bevacizumab, rather than more chemotherapy.",
+          "cite": [1, 4]
+        }
+      ]
+    },
+    "fail_workup": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Incomplete initial assessment."
+    },
+    "fail_sequence": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Treatment sequence off the evidence."
+    },
+    "fail_lymphadenectomy": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Morbidity from an unnecessary lymphadenectomy."
+    },
+    "fail_maintenance": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Maintenance therapy not offered."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Cytoreduction sequenced by resectability, maintenance by BRCA status."
+    }
+  }
+}

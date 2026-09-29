@@ -1,0 +1,182 @@
+{
+  "id": "adnexal-torsion",
+  "title": "Adnexal Torsion",
+  "category": "Gynecology",
+  "description": "Operate on clinical suspicion rather than Doppler flow, detorse and keep the ovary however dark it looks, defer the cystectomy in a friable ovary, and save oophoropexy for its real indications.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Take suspected torsion to laparoscopy without being reassured by Doppler flow",
+    "Know the diagnostic accuracy and limits of ultrasound signs",
+    "Detorse and preserve the ovary regardless of its color or the time elapsed",
+    "Decide when to defer cystectomy and how to follow up a cyst",
+    "Reserve oophoropexy for repeat torsion or a solitary ovary"
+  ],
+  "references": [
+    {
+      "citation": "American College of Obstetricians and Gynecologists' Committee on Adolescent Health Care. Adnexal Torsion in Adolescents: ACOG Committee Opinion No. 783. Obstet Gynecol. 2019;134(2):e56-e63.",
+      "url": "https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2019/08/adnexal-torsion-in-adolescents",
+      "kind": "consensus",
+      "pmid": "31348225",
+      "doi": "10.1097/AOG.0000000000003373"
+    },
+    {
+      "citation": "Garde I, Paredes C, Ventura L, et al. Diagnostic accuracy of ultrasound signs for detecting adnexal torsion: systematic review and meta-analysis. Ultrasound Obstet Gynecol. 2023;61(3):310-324.",
+      "url": "https://doi.org/10.1002/uog.24976",
+      "kind": "systematic-review",
+      "pmid": "35751902",
+      "doi": "10.1002/uog.24976"
+    },
+    {
+      "citation": "Wattar B, Rimmer M, Rogozinska E, et al. Accuracy of imaging modalities for adnexal torsion: a systematic review and meta-analysis. BJOG. 2021;128(1):37-44.",
+      "url": "https://doi.org/10.1111/1471-0528.16371",
+      "kind": "systematic-review",
+      "pmid": "32570294",
+      "doi": "10.1111/1471-0528.16371"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 15-year-old girl has had 5 hours of sudden, intermittent, non-radiating right lower abdominal pain with nausea and vomiting. She is tender in the right iliac fossa without peritonism. Her pregnancy test is negative. Ultrasound shows an enlarged right ovary with peripherally displaced follicles and a little free fluid; Doppler shows arterial flow within it.",
+      "vitals": [
+        { "label": "HR", "value": "102", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "118/70", "unit": "mmHg" },
+        { "label": "Temp", "value": "37.3", "unit": "°C" },
+        { "label": "WBC", "value": "11.4", "unit": "×10³/µL", "status": "warning" }
+      ],
+      "next": "decide"
+    },
+    "decide": {
+      "type": "decision",
+      "text": "Doppler flow is preserved. What next?",
+      "options": [
+        {
+          "label": "Torsion is excluded by the flow; discharge with analgesia",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "ACOG CO 783: Doppler flow alone should not guide decisions. One study found normal arterial flow in up to 60% of surgically confirmed torsions, because of intermittent twisting and dual blood supply. In a meta-analysis, Doppler findings had 53% sensitivity (95% specificity), so a normal result misses many torsions.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Emergency diagnostic laparoscopy",
+          "next": "findings",
+          "isCorrect": true,
+          "feedback": "ACOG CO 783: no clinical or imaging criteria can confirm torsion before surgery, and Doppler flow alone should not guide decisions. Clinical suspicion warrants emergent diagnostic laparoscopy. Her story (sudden intermittent pain with vomiting) and a unilaterally enlarged, edematous ovary fit. Leukocytosis and CRP do not help. Pooled ultrasound sensitivity is about 79% (Wattar 2021).",
+          "cite": [1, 3]
+        },
+        {
+          "label": "MRI to confirm torsion before deciding on surgery",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "ACOG CO 783: suspected torsion warrants emergent diagnostic laparoscopy, because no imaging can confirm it before surgery. In a meta-analysis, MRI sensitivity was about 81% (Wattar 2021). Ovarian viability declines as time passes before detorsion.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "findings": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "torsion", "weight": 4 },
+        { "next": "negative", "weight": 1 }
+      ]
+    },
+    "negative": {
+      "type": "info",
+      "text": "At laparoscopy the adnexa are not twisted; a hemorrhagic corpus luteum cyst explains the pain. ACOG considers a negative laparoscopy acceptable: torsion is not found in about half of laparoscopies, and another gynecologic cause is usually found and treated.",
+      "cite": [1],
+      "next": "success"
+    },
+    "torsion": {
+      "type": "decision",
+      "text": "The right adnexa are twisted three times. The ovary is blue-black and edematous, with a 4 cm cyst. What do you do?",
+      "options": [
+        {
+          "label": "Oophorectomy: a black ovary is necrotic",
+          "next": "fail_oophorectomy",
+          "isCorrect": false,
+          "feedback": "ACOG CO 783: a black or blue ovary does not mean necrosis. The appearance at surgery is not a reliable indicator of viability; ovaries recover function despite looking ischemic and appear near-normal at second-look laparoscopy 36 hours after detorsion. Detorse and preserve.",
+          "cite": [1]
+        },
+        {
+          "label": "Oophorectomy without untwisting, to avoid releasing a clot",
+          "next": "fail_oophorectomy",
+          "isCorrect": false,
+          "feedback": "ACOG CO 783: embolism after untwisting is an unfounded myth. No venous thromboembolism after detorsion has been reported. Detorse and preserve the ovary regardless of its appearance or the timing of presentation.",
+          "cite": [1]
+        },
+        {
+          "label": "Laparoscopic detorsion, preserving the ovary",
+          "next": "cyst",
+          "isCorrect": true,
+          "feedback": "ACOG CO 783: detorse and preserve the adnexa regardless of the ovary's appearance or the timing of presentation. Remove an ovary only if unavoidable, for example when a severely necrotic ovary falls apart. The ovary's dual blood supply makes it resilient, and function may persist well beyond 72 hours.",
+          "cite": [1]
+        }
+      ]
+    },
+    "cyst": {
+      "type": "decision",
+      "text": "After detorsion the ovary is swollen and friable. What about the 4 cm cyst?",
+      "options": [
+        {
+          "label": "Cystectomy now, through the edematous ovary",
+          "next": "fail_oophorectomy",
+          "isCorrect": false,
+          "feedback": "ACOG CO 783: cystectomy does not need to be done at the time of detorsion. In a severely edematous, friable ovary it can damage tissue and cause bleeding that ends in oophorectomy. Defer it, consider draining a large cyst, and re-image at 6–12 weeks.",
+          "cite": [1]
+        },
+        {
+          "label": "Leave it; drain it if large, and repeat ultrasound in 6–12 weeks",
+          "next": "pexy",
+          "isCorrect": true,
+          "feedback": "ACOG CO 783: cystectomy is not required at detorsion and may add trauma in a friable ovary. Consider incision and drainage of large cysts, and repeat ultrasound at 6–12 weeks; simple cysts usually resolve in 6–8 weeks. Persistent cysts can be removed laparoscopically later, and ovulation suppression can prevent recurrent physiologic cysts.",
+          "cite": [1]
+        }
+      ]
+    },
+    "pexy": {
+      "type": "decision",
+      "text": "Her left ovary looks normal, and this is her first torsion. Do you perform an oophoropexy?",
+      "options": [
+        {
+          "label": "Yes: every torsed ovary should be fixed",
+          "next": "fail_pexy",
+          "isCorrect": false,
+          "feedback": "ACOG CO 783: oophoropexy is controversial, and data are insufficient to support it for preventing recurrence after a first torsion. Its strongest indications are repeat torsion or an absent contralateral ovary. Recurrence overall is low, at 2–12%.",
+          "cite": [1]
+        },
+        {
+          "label": "No: reserve it for repeat torsion or a missing contralateral ovary",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ACOG CO 783: the strongest indications for oophoropexy are repeat torsion or an absent contralateral ovary; evidence does not support it routinely. Recurrence is 2–12%, higher when normal adnexa twist spontaneously. Counsel her to limit high-impact activity until the follow-up ultrasound.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Torsion dismissed because of Doppler flow."
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Surgery delayed for further imaging."
+    },
+    "fail_oophorectomy": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Avoidable loss of the ovary."
+    },
+    "fail_pexy": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Oophoropexy without an established indication."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Ovary preserved, with a follow-up plan."
+    }
+  }
+}

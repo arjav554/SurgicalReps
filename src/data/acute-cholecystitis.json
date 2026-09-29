@@ -1,0 +1,339 @@
+{
+  "id": "acute-cholecystitis",
+  "title": "Acute Cholecystitis: The Difficult Gallbladder",
+  "category": "Hepatobiliary",
+  "description": "Grade severity with the Tokyo Guidelines, choose timing, stay above Rouvière's sulcus, confirm the Critical View of Safety, and bail out when it cannot be achieved.",
+  "reviewed": "2026-09-28",
+  "objectives": [
+    "Apply the Tokyo Guidelines diagnostic criteria and severity grades (Grade I, II, III)",
+    "Match treatment timing to severity grade, Charlson Comorbidity Index, and ASA-PS (TG18 flowchart)",
+    "Keep dissection above the Rouvière's sulcus–segment 4 line and meet all three CVS criteria before dividing any structure",
+    "Use intraoperative biliary imaging when anatomy is uncertain",
+    "Recognize a hepatocystic triangle that cannot be made safe and complete a subtotal cholecystectomy"
+  ],
+  "references": [
+    {
+      "citation": "Yokoe M, Hata J, Takada T, et al. Tokyo Guidelines 2018: diagnostic criteria and severity grading of acute cholecystitis (with videos). J Hepatobiliary Pancreat Sci. 2018;25(1):41-54.",
+      "url": "https://doi.org/10.1002/jhbp.515",
+      "kind": "guideline",
+      "pmid": "29032636",
+      "doi": "10.1002/jhbp.515"
+    },
+    {
+      "citation": "Okamoto K, Suzuki K, Takada T, et al. Tokyo Guidelines 2018: flowchart for the management of acute cholecystitis. J Hepatobiliary Pancreat Sci. 2018;25(1):55-72.",
+      "url": "https://doi.org/10.1002/jhbp.516",
+      "kind": "guideline",
+      "pmid": "29045062",
+      "doi": "10.1002/jhbp.516"
+    },
+    {
+      "citation": "Wakabayashi G, Iwashita Y, Hibi T, et al. Tokyo Guidelines 2018: surgical management of acute cholecystitis: safe steps in laparoscopic cholecystectomy for acute cholecystitis (with videos). J Hepatobiliary Pancreat Sci. 2018;25(1):73-86.",
+      "url": "https://doi.org/10.1002/jhbp.517",
+      "kind": "guideline",
+      "pmid": "29095575",
+      "doi": "10.1002/jhbp.517"
+    },
+    {
+      "citation": "Brunt LM, Deziel DJ, Telem DA, et al. Safe cholecystectomy multi-society practice guideline and state-of-the-art consensus conference on prevention of bile duct injury during cholecystectomy. Surg Endosc. 2020;34(7):2827-2855.",
+      "url": "https://doi.org/10.1007/s00464-020-07568-7",
+      "kind": "guideline",
+      "pmid": "32399938",
+      "doi": "10.1007/s00464-020-07568-7"
+    },
+    {
+      "citation": "Hirota M, Takada T, Kawarada Y, et al. Diagnostic criteria and severity assessment of acute cholecystitis: Tokyo Guidelines. J Hepatobiliary Pancreat Surg. 2007;14(1):78-82.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2784516/",
+      "kind": "guideline",
+      "pmid": "17252300",
+      "doi": "10.1007/s00534-006-1159-4"
+    },
+    {
+      "citation": "Strasberg SM, Pucci MJ, Brunt LM, Deziel DJ. Subtotal cholecystectomy: \"fenestrating\" vs \"reconstituting\" subtypes and the prevention of bile duct injury: definition of the optimal procedure in difficult operative conditions. J Am Coll Surg. 2016;222(1):89-96.",
+      "url": "https://doi.org/10.1016/j.jamcollsurg.2015.09.019",
+      "kind": "review",
+      "pmid": "26521077",
+      "doi": "10.1016/j.jamcollsurg.2015.09.019"
+    },
+    {
+      "citation": "Turan M, Cimen S, Bahcecioglu IB, et al. The efficiency of serum sodium level in predicting the percutaneous cholecystostomy requirement in Grade 2 acute cholecystitis patients. Medicine (Baltimore). 2025;104(39):e44561.",
+      "url": "https://doi.org/10.1097/MD.0000000000044561",
+      "kind": "cohort",
+      "pmid": "40988295",
+      "doi": "10.1097/MD.0000000000044561"
+    },
+    {
+      "citation": "Peregrin T. Critical view of safety minimizes risk of bile duct injury. Bull Am Coll Surg. 2025;110(5).",
+      "url": "https://www.facs.org/for-medical-professionals/news-publications/news-and-articles/bulletin/2025/may-2025-volume-110-issue-5/critical-view-of-safety-minimizes-risk-of-bile-duct-injury/",
+      "kind": "review"
+    },
+    {
+      "citation": "Elshaer M, Gravante G, Thomas K, Sorge R, Al-Hamali S, Ebdewi H. Subtotal cholecystectomy for \"difficult gallbladders\": systematic review and meta-analysis. JAMA Surg. 2015;150(2):159-168.",
+      "url": "https://doi.org/10.1001/jamasurg.2014.1219",
+      "kind": "systematic-review",
+      "pmid": "25548894",
+      "doi": "10.1001/jamasurg.2014.1219"
+    },
+    {
+      "citation": "Pisano M, Allievi N, Gurusamy K, et al. 2020 World Society of Emergency Surgery updated guidelines for the diagnosis and treatment of acute calculus cholecystitis. World J Emerg Surg. 2020;15(1):61.",
+      "url": "https://doi.org/10.1186/s13017-020-00336-x",
+      "kind": "guideline",
+      "pmid": "33153472",
+      "doi": "10.1186/s13017-020-00336-x"
+    },
+    {
+      "citation": "Yokoe M, Takada T, Strasberg SM, et al. TG13 diagnostic criteria and severity grading of acute cholecystitis (with videos). J Hepatobiliary Pancreat Sci. 2013;20(1):35-46.",
+      "url": "https://doi.org/10.1007/s00534-012-0568-9",
+      "kind": "guideline",
+      "pmid": "23340953",
+      "doi": "10.1007/s00534-012-0568-9"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 58-year-old woman with three attacks of biliary colic over two years (surgery was deferred each time) now has 36 hours of constant right upper quadrant pain. Positive Murphy's sign. Ultrasound: gallstones, wall thickness 6 mm, pericholecystic fluid. Charlson Comorbidity Index 2, ASA-PS 2.",
+      "vitals": [
+        { "label": "Temp", "value": "38.4", "unit": "°C", "status": "warning" },
+        { "label": "HR", "value": "98", "unit": "bpm" },
+        { "label": "BP", "value": "132/78", "unit": "mmHg" },
+        { "label": "SpO2", "value": "97", "unit": "%" },
+        { "label": "WBC", "value": "14.5", "unit": "×10³/µL", "status": "warning" },
+        { "label": "Plt", "value": "250", "unit": "×10³/µL" },
+        { "label": "Cr", "value": "0.8", "unit": "mg/dL" },
+        { "label": "INR", "value": "1.0" }
+      ],
+      "next": "grade"
+    },
+    "grade": {
+      "type": "decision",
+      "text": "Murphy's sign, fever, and leukocytosis with confirming ultrasound: this is definite acute cholecystitis. How do you grade its severity?",
+      "options": [
+        {
+          "label": "Grade III (severe): fever and leukocytosis mean systemic sepsis",
+          "next": "fail_misgrade",
+          "isCorrect": false,
+          "feedback": "Grade III is defined by organ dysfunction, and she has none: her blood pressure, mentation, oxygenation, creatinine, INR, and platelets are normal. Fever and a raised white count are the systemic signs used to make the diagnosis. TG18 adopted the earlier Tokyo severity criteria without modification.",
+          "cite": [5, 1]
+        },
+        {
+          "label": "Grade II (moderate): fever with a raised white count means extensive gallbladder disease",
+          "next": "fail_misgrade",
+          "isCorrect": false,
+          "feedback": "Grade II is characterized by a white count above 18,000/mm³ (hers is 14,500), a palpable tender right upper quadrant mass, symptoms for more than 72 hours (she has 36), or imaging showing marked local inflammation. Fever and leukocytosis alone are diagnostic signs, not Grade II features.",
+          "cite": [5, 7]
+        },
+        {
+          "label": "Grade I (mild): no Grade II or Grade III criteria are met",
+          "next": "grade_ii_criteria",
+          "isCorrect": true,
+          "feedback": "A local sign (Murphy's) plus a systemic sign (fever, raised white count), confirmed on imaging, gives a definite diagnosis. She has no Grade II feature and no organ dysfunction, so this is Grade I: disease limited to the gallbladder, where cholecystectomy is low risk.",
+          "cite": [11, 5, 7]
+        }
+      ]
+    },
+    "grade_ii_criteria": {
+      "type": "multi",
+      "text": "Which of these findings, had they been present, would have made her Grade II?",
+      "options": [
+        { "label": "White count above 18,000/mm³", "isCorrect": true },
+        { "label": "Symptoms for more than 72 hours", "isCorrect": true },
+        { "label": "A palpable, tender right upper quadrant mass", "isCorrect": true },
+        { "label": "Imaging showing marked local inflammation, such as an abscess", "isCorrect": true },
+        { "label": "New organ dysfunction, such as acute kidney injury", "isCorrect": false },
+        { "label": "Temperature above 38 °C", "isCorrect": false },
+        { "label": "Age over 75", "isCorrect": false }
+      ],
+      "feedback": "Grade II is characterized by a white count above 18,000/mm³, a palpable tender mass, duration over 72 hours, or imaging showing marked local inflammation (in TG18 practice, for example a pericholecystic or hepatic abscess). Organ dysfunction makes it Grade III. Fever is a systemic sign used for diagnosis, and the Tokyo Guidelines state that being elderly is not itself a severity criterion.",
+      "cite": [5, 7, 1],
+      "next": "timing",
+      "failNext": "fail_misgrade"
+    },
+    "timing": {
+      "type": "decision",
+      "text": "Grade I, CCI 2, ASA-PS 2. What does the TG18 flowchart recommend?",
+      "options": [
+        {
+          "label": "Early laparoscopic cholecystectomy during this admission",
+          "next": "in_or",
+          "isCorrect": true,
+          "feedback": "TG18 flowchart: for Grade I with a Charlson Comorbidity Index of 5 or less and ASA-PS of 2 or less, early laparoscopic cholecystectomy is recommended.",
+          "cite": [2]
+        },
+        {
+          "label": "Percutaneous cholecystostomy, then interval cholecystectomy",
+          "next": "fail_pathway",
+          "isCorrect": false,
+          "feedback": "In TG18, early or urgent gallbladder drainage followed by delayed cholecystectomy is for patients who are not suitable for early surgery. She meets the criteria for early laparoscopic cholecystectomy.",
+          "cite": [2]
+        },
+        {
+          "label": "Antibiotics, discharge, and elective cholecystectomy in 6–8 weeks",
+          "next": "fail_pathway",
+          "isCorrect": false,
+          "feedback": "TG18 recommends early laparoscopic cholecystectomy for Grade I patients with a Charlson Comorbidity Index of 5 or less and ASA-PS of 2 or less. She qualifies.",
+          "cite": [2]
+        }
+      ]
+    },
+    "in_or": {
+      "type": "info",
+      "text": "In the OR the gallbladder is tense and edematous with omental adhesions. You decompress it with a needle aspirator so it can be grasped, then retract the fundus cephalad and the infundibulum laterally to open the hepatocystic triangle.",
+      "next": "landmark"
+    },
+    "landmark": {
+      "type": "decision",
+      "text": "Before incising the peritoneum, where must your dissection stay relative to Rouvière's sulcus?",
+      "options": [
+        {
+          "label": "Ventral to (above) an imaginary line from the roof of Rouvière's sulcus to the base of segment 4",
+          "next": "difficulty",
+          "isCorrect": true,
+          "feedback": "TG18 safe steps: to achieve the Critical View of Safety, dissect above (ventral to) the imaginary line connecting the base of segment 4 and the roof of Rouvière's sulcus, and fulfill all three CVS criteria before dividing any structure.",
+          "cite": [3]
+        },
+        {
+          "label": "Below the sulcus, along the hepatoduodenal ligament, so the common bile duct is found first",
+          "next": "fail_vbi",
+          "isCorrect": false,
+          "feedback": "TG18 safe steps put the dissection above (ventral to) the line joining the base of segment 4 and the roof of Rouvière's sulcus. Exposing the common bile duct is not required for the Critical View of Safety, which identifies the two structures entering the gallbladder instead.",
+          "cite": [3, 8]
+        }
+      ]
+    },
+    "difficulty": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "cvs_dissection", "weight": 1 },
+        { "next": "fused_triangle", "weight": 1 }
+      ]
+    },
+    "cvs_dissection": {
+      "type": "info",
+      "text": "Staying on the gallbladder, you clear the hepatocystic triangle of fat and fibrous tissue and lift the lower gallbladder off the cystic plate. Two tubular structures appear to run into the gallbladder.",
+      "next": "cvs_check"
+    },
+    "cvs_check": {
+      "type": "multi",
+      "text": "Before any clip goes on, which criteria must ALL be met to declare the Critical View of Safety?",
+      "options": [
+        { "label": "Hepatocystic triangle cleared of fat and fibrous tissue", "isCorrect": true },
+        { "label": "Lower third of the gallbladder separated from the liver bed (cystic plate)", "isCorrect": true },
+        { "label": "Two, and only two, structures seen entering the gallbladder", "isCorrect": true },
+        { "label": "Common bile duct exposed along its length", "isCorrect": false },
+        { "label": "Normal intraoperative cholangiogram", "isCorrect": false },
+        { "label": "Cystic lymph node (Calot's node) identified", "isCorrect": false }
+      ],
+      "feedback": "The Critical View of Safety has three criteria: the hepatocystic triangle cleared of fat and fibrous tissue, the lower third of the gallbladder separated from the liver, and two and only two structures entering the gallbladder. Exposing the common bile duct is not required. Intraoperative imaging is an adjunct for uncertain anatomy, not a CVS criterion.",
+      "cite": [8, 3, 4],
+      "next": "success_cvs",
+      "failNext": "fail_cbd"
+    },
+    "fused_triangle": {
+      "type": "decision",
+      "text": "After 30 minutes the hepatocystic triangle is thick, fibrotic, and fused to the liver from her repeated attacks. You cannot confidently say how many structures enter the gallbladder. What adjunct carries a strong recommendation here?",
+      "options": [
+        {
+          "label": "Clip the most obvious tubular structure; experienced eyes are reliable",
+          "next": "fail_cbd",
+          "isCorrect": false,
+          "feedback": "Achieving the Critical View of Safety is what prevents misidentification of the cystic duct and the common bile duct, the two structures most commonly confused. Clipping on uncertain anatomy removes that protection.",
+          "cite": [3]
+        },
+        {
+          "label": "Intraoperative biliary imaging: cholangiography or laparoscopic ultrasound",
+          "next": "imaging_result",
+          "isCorrect": true,
+          "feedback": "The multi-society safe cholecystectomy guideline made only two strong recommendations; one is intraoperative biliary imaging when the anatomy is uncertain or a biliary injury is suspected.",
+          "cite": [4]
+        }
+      ]
+    },
+    "imaging_result": {
+      "type": "info",
+      "text": "The cystic duct cannot be cannulated through the inflamed infundibulum, and ultrasound cannot separate the structures within the fused fibrotic plate. The Critical View of Safety cannot be achieved and the anatomy cannot be defined by other means.",
+      "next": "bailout"
+    },
+    "bailout": {
+      "type": "decision",
+      "text": "What is your next move?",
+      "options": [
+        {
+          "label": "Keep dissecting through the fibrosis until the CVS appears",
+          "next": "fail_vbi",
+          "isCorrect": false,
+          "feedback": "TG18: when nondissectable scarring or severe fibrosis prevents the Critical View of Safety, a bail-out procedure should be chosen rather than continuing the dissection.",
+          "cite": [3]
+        },
+        {
+          "label": "Convert to a total cholecystectomy performed fundus-first (top-down)",
+          "next": "fail_vbi",
+          "isCorrect": false,
+          "feedback": "When the Critical View of Safety cannot be obtained, the recommended change of approach is subtotal cholecystectomy, laparoscopic or open. WSES 2020 recommends subtotal cholecystectomy for the difficult gallbladder.",
+          "cite": [8, 10]
+        },
+        {
+          "label": "Stop and perform a bail-out subtotal cholecystectomy",
+          "next": "remnant",
+          "isCorrect": true,
+          "feedback": "TG18: choose a bail-out when scarring or fibrosis prevents the Critical View of Safety. WSES 2020 recommends subtotal cholecystectomy for the difficult gallbladder, and in a meta-analysis of 30 studies its bile duct injury rate was 0.08%.",
+          "cite": [3, 10, 9]
+        }
+      ]
+    },
+    "remnant": {
+      "type": "decision",
+      "text": "You open the gallbladder and excise its free wall, leaving the posterior wall on the liver bed. How do you finish this fenestrating subtotal cholecystectomy?",
+      "options": [
+        {
+          "label": "Leave the impacted stones; they will pass once the inflammation settles",
+          "next": "fail_retained",
+          "isCorrect": false,
+          "feedback": "Retained stones are a recognized complication of subtotal cholecystectomy (3.1% in a meta-analysis of 30 studies), and a gallbladder remnant can develop recurrent symptomatic stones. Clear the remnant of stones.",
+          "cite": [9, 6]
+        },
+        {
+          "label": "Clear every stone, suture the cystic duct orifice from inside if it can be done safely, and leave a subhepatic drain",
+          "next": "success_bailout",
+          "isCorrect": true,
+          "feedback": "A fenestrating subtotal cholecystectomy does not occlude the gallbladder but may close the cystic duct internally. It has a higher rate of postoperative biliary fistula than the reconstituting type but does not appear to cause recurrent stones. Bile leaks after subtotal cholecystectomy are more frequent but are managed with abdominal drainage, with endoscopic stenting if needed.",
+          "cite": [6, 10, 9]
+        }
+      ]
+    },
+    "fail_misgrade": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Management Error: Misgraded severity sends the patient down the wrong TG18 pathway."
+    },
+    "fail_pathway": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Management Error: Early cholecystectomy withheld from a patient who met TG18 criteria."
+    },
+    "fail_vbi": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Procedure Failed: Vasculobiliary injury in the zone of danger."
+    },
+    "fail_cbd": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Procedure Failed: Common bile duct clipped and divided."
+    },
+    "fail_retained": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Retained stones in the gallbladder remnant."
+    },
+    "success_cvs": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Procedure Complete: CVS confirmed before clipping; cystic duct and artery divided safely."
+    },
+    "success_bailout": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Procedure Complete: Safe bail-out. Subtotal cholecystectomy without bile duct injury."
+    }
+  }
+}

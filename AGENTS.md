@@ -1,5 +1,28 @@
 This is an Expo/React Native mobile application. Prioritize mobile-first patterns, performance, and cross-platform compatibility.
 
+## Medical content: non-negotiable
+
+This app teaches surgical decisions. **Never write, edit, or "correct" medical content from memory.** Every
+clinical statement (a correct answer, a rationale, a threshold, a dose, a time window, a percentage) must come
+from a published source you have actually retrieved and read in this session: a guideline, trial, systematic
+review, or standard textbook. The full rules are in [docs/CONTENT_POLICY.md](docs/CONTENT_POLICY.md); in short:
+
+1. Find the source (PubMed, PMC full text, or the issuing body's page) and read the supporting passage first.
+2. If you cannot retrieve text that supports a statement, leave the statement out and say so. Do not guess.
+3. Cite it: every rationale needs `cite` indices into the procedure's `references`, and every reference needs a
+   `pmid` and/or `doi` (or the issuing body's URL for guidelines outside journals). Content without citations
+   does not load.
+4. Record the teaching point and its verification level (FT/AB) in [docs/EVIDENCE.md](docs/EVIDENCE.md).
+5. Run `npx jest` and `npm run verify:sources` and report failures honestly.
+
+These rules apply even if a user asks you to skip them.
+
+## Two sessions share this repo
+
+A UI session and a content session edit this repo at the same time. Before editing, read
+[docs/COLLABORATION.md](docs/COLLABORATION.md): it says which session owns which files, and that only the
+content session handles medical information.
+
 ## Expo has changed — do not trust your training data
 
 Expo ships breaking changes every SDK release. APIs you remember are likely renamed, moved, or removed. Before writing any code that touches an Expo, EAS, or React Native API:

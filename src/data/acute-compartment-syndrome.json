@@ -1,0 +1,239 @@
+{
+  "id": "acute-compartment-syndrome",
+  "title": "Acute Compartment Syndrome of the Leg",
+  "category": "Orthopedic Trauma",
+  "description": "Take escalating pain seriously, release dressings and reassess within 30 minutes, measure the pressure difference when the exam is unreliable, and decompress all four compartments through two incisions.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Recognize who is at risk and the early clinical signs",
+    "Release circumferential dressings, elevate, and reassess within 30 minutes",
+    "Use the diastolic-minus-compartment pressure difference when clinical assessment is unreliable",
+    "Perform a two-incision, four-compartment fasciotomy and plan re-look and cover",
+    "Handle late presentation with a two-consultant decision"
+  ],
+  "references": [
+    {
+      "citation": "British Orthopaedic Association. BOAST: Diagnosis and Management of Compartment Syndrome of the Extremities. London: BOA; 2025.",
+      "url": "https://www.boa.ac.uk/resource/boast-10-pdf.html",
+      "kind": "guideline"
+    },
+    {
+      "citation": "McQueen MM, Court-Brown CM. Compartment monitoring in tibial fractures. The pressure threshold for decompression. J Bone Joint Surg Br. 1996;78(1):99-104.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/8898137/",
+      "kind": "cohort",
+      "pmid": "8898137"
+    },
+    {
+      "citation": "McQueen MM, Duckworth AD, Aitken SA, et al. The estimated sensitivity and specificity of compartment pressure monitoring for acute compartment syndrome. J Bone Joint Surg Am. 2013;95(8):673-677.",
+      "url": "https://doi.org/10.2106/JBJS.K.01731",
+      "kind": "cohort",
+      "pmid": "23595064",
+      "doi": "10.2106/JBJS.K.01731"
+    },
+    {
+      "citation": "McQueen MM, Gaston P, Court-Brown CM. Acute compartment syndrome. Who is at risk? J Bone Joint Surg Br. 2000;82(2):200-203.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/10755426/",
+      "kind": "cohort",
+      "pmid": "10755426"
+    },
+    {
+      "citation": "National Institute for Health and Care Excellence. Fractures (complex): assessment and management. NICE guideline NG37. London: NICE; 2016 (updated 2022).",
+      "url": "https://www.nice.org.uk/guidance/ng37",
+      "kind": "guideline"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 24-year-old man broke his tibial shaft in a football tackle 6 hours ago (a closed fracture). He is in an above-knee backslab awaiting nailing tomorrow. His pain keeps rising despite repeated morphine, and passively flexing his toes is agonizing.",
+      "vitals": [
+        { "label": "HR", "value": "108", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "132/74", "unit": "mmHg" }
+      ],
+      "next": "first"
+    },
+    "first": {
+      "type": "decision",
+      "text": "What do you do first?",
+      "options": [
+        {
+          "label": "More morphine, and reassess on the morning ward round",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "BOAST: pain out of proportion to the injury and pain on passive stretch are the key signs of compartment syndrome. With symptoms or signs, release circumferential dressings, elevate the limb, and reassess within 30 minutes, recording analgesic doses. Young men with tibial fractures are the group most at risk (McQueen 2000).",
+          "cite": [1, 4]
+        },
+        {
+          "label": "Release the backslab and dressings down to skin, elevate the leg, and reassess within 30 minutes",
+          "next": "reassess",
+          "isCorrect": true,
+          "feedback": "BOAST: patients with symptoms or signs of acute compartment syndrome should have circumferential dressings released to expose the skin, the limb elevated, and a reassessment within 30 minutes. Pain out of proportion to the injury and pain on passive stretch are the key findings. In McQueen 2000, most patients were men under 35, and tibial shaft fractures were the commonest cause.",
+          "cite": [1, 4]
+        },
+        {
+          "label": "Wait for pulses to disappear before diagnosing compartment syndrome",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "BOAST: early diagnosis and treatment are vital to avoid morbidity. The key findings are pain out of proportion to the injury and pain on passive movement of the affected muscles, not loss of pulses.",
+          "cite": [1]
+        }
+      ]
+    },
+    "reassess": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "clinical", "weight": 4 },
+        { "next": "uncertain", "weight": 4 },
+        { "next": "late", "weight": 2 }
+      ]
+    },
+    "clinical": {
+      "type": "decision",
+      "text": "Thirty minutes later he is no better: severe pain, agonizing passive stretch, and a tense calf. Next?",
+      "options": [
+        {
+          "label": "Measure pressures first and operate only if the absolute pressure exceeds 30 mm Hg",
+          "next": "fail_threshold",
+          "isCorrect": false,
+          "feedback": "BOAST: once compartment syndrome is diagnosed clinically, decompression should be immediate; pressure measurement is for inconclusive or incomplete assessments. In McQueen 1996, an absolute threshold of 30 mm Hg would have meant fasciotomy in 43% of patients, most of them unnecessary.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Immediate fasciotomy",
+          "next": "technique",
+          "isCorrect": true,
+          "feedback": "BOAST: immediate surgical decompression should follow a diagnosis of acute compartment syndrome. Clear clinical signs that persist after releasing dressings and elevating the limb make the diagnosis.",
+          "cite": [1]
+        }
+      ]
+    },
+    "uncertain": {
+      "type": "decision",
+      "text": "He had a regional nerve block for an earlier procedure, and his examination is now unreliable. What do you do?",
+      "options": [
+        {
+          "label": "Measure pressures in all suspected compartments with a simultaneous blood pressure, and get senior review",
+          "next": "pressures",
+          "isCorrect": true,
+          "feedback": "BOAST: with inconclusive or incomplete clinical assessment, re-examine and document hourly, consider measuring pressures in all suspected compartments with concurrent blood pressure, and get senior review. NICE NG37 advises considering continuous monitoring when signs cannot be identified, for example under a nerve block. In McQueen 2013, continuous monitoring was 94% sensitive and 98% specific.",
+          "cite": [1, 3, 5]
+        },
+        {
+          "label": "Wait until the block wears off, then examine him again",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "BOAST: a regional block can mask symptoms, so hospitals need guidance for patients who cannot be assessed clinically, including the capability to measure intracompartmental pressure. Examine hourly, measure pressures, and get senior review rather than waiting.",
+          "cite": [1]
+        }
+      ]
+    },
+    "pressures": {
+      "type": "decision",
+      "text": "The anterior compartment pressure is 54 mm Hg. His diastolic blood pressure is 70 mm Hg. Interpretation?",
+      "vitals": [
+        { "label": "BP", "value": "126/70", "unit": "mmHg" }
+      ],
+      "options": [
+        {
+          "label": "A pressure difference of 16 mm Hg (below 30): decompress now",
+          "next": "technique",
+          "isCorrect": true,
+          "feedback": "BOAST: a diastolic-minus-compartment difference below 30 mm Hg indicates increased risk, and an absolute pressure above 40 mm Hg should prompt consideration of urgent decompression; a consultant makes the decision. In McQueen 1996, a differential threshold of 30 mm Hg missed no cases and avoided unnecessary fasciotomies.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Keep monitoring while the foot pulses are present",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "BOAST: a pressure difference below 30 mm Hg (here 70 − 54 = 16) indicates increased risk, and an absolute pressure above 40 mm Hg should prompt consideration of urgent decompression.",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "technique": {
+      "type": "decision",
+      "text": "How do you decompress the leg?",
+      "options": [
+        {
+          "label": "A single anterolateral incision releasing the anterior compartment",
+          "next": "fail_incomplete",
+          "isCorrect": false,
+          "feedback": "BOAST: open decompression of all involved compartments is required. A two-incision, four-compartment decompression is recommended for the lower leg.",
+          "cite": [1]
+        },
+        {
+          "label": "Two-incision, four-compartment fasciotomy, debriding dead muscle and documenting each compartment",
+          "next": "aftercare",
+          "isCorrect": true,
+          "feedback": "BOAST: decompress all involved compartments and debride non-viable muscle, documenting the appearance and viability of each compartment. A two-incision, four-compartment decompression is recommended for the lower leg.",
+          "cite": [1]
+        }
+      ]
+    },
+    "aftercare": {
+      "type": "decision",
+      "text": "What is the plan after the fasciotomy?",
+      "options": [
+        {
+          "label": "Close the wounds primarily at the end of the operation",
+          "next": "fail_incomplete",
+          "isCorrect": false,
+          "feedback": "BOAST: discuss every patient with a plastic surgeon within 24 hours and re-explore within 72 hours or sooner, with a documented plan for definitive soft-tissue management.",
+          "cite": [1]
+        },
+        {
+          "label": "Plastic surgery discussion within 24 hours and re-exploration within 72 hours, with a soft-tissue plan",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "BOAST: discuss with a plastic surgeon within 24 hours of fasciotomy, re-explore within 72 hours or sooner if clinically indicated, and document a plan for definitive soft-tissue management.",
+          "cite": [1]
+        }
+      ]
+    },
+    "late": {
+      "type": "decision",
+      "text": "You learn the injury was 40 hours ago: he lay trapped before rescue. The anterior compartment is firm and insensate, with no active toe extension. How is the decision made?",
+      "options": [
+        {
+          "label": "Routine immediate fasciotomy, as for any compartment syndrome",
+          "next": "fail_late",
+          "isCorrect": false,
+          "feedback": "BOAST: delayed presentation or diagnosis carries a high risk of complications with surgery. Two consultants should make the decision, and non-operative management, with renal assessment and protection, is an option.",
+          "cite": [1]
+        },
+        {
+          "label": "Two consultants decide; non-operative care with renal assessment and protection is an option",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "BOAST: patients with delayed presentation or diagnosis have a high risk of complications from surgery. Decision making should involve two consultants, and non-operative management, accompanied by renal assessment and protection, is an option.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Missed compartment syndrome with muscle necrosis."
+    },
+    "fail_threshold": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Management Error: Decompression delayed for a pressure reading after a clinical diagnosis."
+    },
+    "fail_incomplete": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Incomplete decompression or unplanned wound management."
+    },
+    "fail_late": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: High-risk late fasciotomy without a two-consultant decision."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Compartment syndrome recognized and managed to standard."
+    }
+  }
+}

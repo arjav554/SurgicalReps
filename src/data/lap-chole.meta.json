@@ -1,0 +1,35 @@
+{
+  "category": "Hepatobiliary",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Name the three criteria of the Critical View of Safety",
+    "Never clip or divide a structure before the Critical View of Safety is achieved",
+    "Explain how the Critical View of Safety prevents misidentifying the common bile duct as the cystic duct"
+  ],
+  "references": [
+    {
+      "citation": "Wakabayashi G, Iwashita Y, Hibi T, et al. Tokyo Guidelines 2018: surgical management of acute cholecystitis: safe steps in laparoscopic cholecystectomy for acute cholecystitis (with videos). J Hepatobiliary Pancreat Sci. 2018;25(1):73-86.",
+      "url": "https://doi.org/10.1002/jhbp.517",
+      "kind": "guideline",
+      "pmid": "29095575",
+      "doi": "10.1002/jhbp.517"
+    },
+    {
+      "citation": "Brunt LM, Deziel DJ, Telem DA, et al. Safe cholecystectomy multi-society practice guideline and state-of-the-art consensus conference on prevention of bile duct injury during cholecystectomy. Surg Endosc. 2020;34(7):2827-2855.",
+      "url": "https://doi.org/10.1007/s00464-020-07568-7",
+      "kind": "guideline",
+      "pmid": "32399938",
+      "doi": "10.1007/s00464-020-07568-7"
+    },
+    {
+      "citation": "Peregrin T. Critical view of safety minimizes risk of bile duct injury. Bull Am Coll Surg. 2025;110(5).",
+      "url": "https://www.facs.org/for-medical-professionals/news-publications/news-and-articles/bulletin/2025/may-2025-volume-110-issue-5/critical-view-of-safety-minimizes-risk-of-bile-duct-injury/",
+      "kind": "review"
+    }
+  ],
+  "cites": {
+    "dissection_start": { "1": [1, 2] },
+    "clear_fat": { "0": [3, 1] },
+    "cvs_achieved": [3, 1]
+  }
+}

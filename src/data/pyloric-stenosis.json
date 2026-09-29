@@ -1,0 +1,146 @@
+{
+  "id": "pyloric-stenosis",
+  "title": "Infantile Hypertrophic Pyloric Stenosis",
+  "category": "Pediatric Surgery",
+  "description": "Confirm with ultrasound rather than palpation, correct the metabolic alkalosis before anesthesia, and perform a pyloromyotomy, laparoscopically where the expertise exists.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Diagnose pyloric stenosis with ultrasound using a muscle thickness threshold",
+    "Resuscitate and correct metabolic derangement before surgery, knowing the apnea risk",
+    "Compare laparoscopic and open pyloromyotomy outcomes",
+    "Recognize postnatal erythromycin as a risk factor"
+  ],
+  "references": [
+    {
+      "citation": "van den Bunder FA, Derikx JP, Kiblawi R, et al. Diagnostic accuracy of palpation and ultrasonography for diagnosing infantile hypertrophic pyloric stenosis: a systematic review and meta-analysis. Br J Radiol. 2022;95(1139):20211251.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9793478/",
+      "kind": "systematic-review",
+      "pmid": "36043474",
+      "doi": "10.1259/bjr.20211251"
+    },
+    {
+      "citation": "van den Bunder FAIM, van Wijk L, van Woensel JBM, et al. Perioperative apnea in infants with hypertrophic pyloric stenosis: A systematic review. Paediatr Anaesth. 2020;30(7):749-758.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7496757/",
+      "kind": "systematic-review",
+      "pmid": "32298502",
+      "doi": "10.1111/pan.13879"
+    },
+    {
+      "citation": "Hall NJ, Pacilli M, Eaton S, et al. Recovery after open versus laparoscopic pyloromyotomy for pyloric stenosis: a double-blind multicentre randomised controlled trial. Lancet. 2009;373(9661):390-398.",
+      "url": "https://doi.org/10.1016/S0140-6736(09)60006-4",
+      "kind": "trial",
+      "pmid": "19155060",
+      "doi": "10.1016/S0140-6736(09)60006-4"
+    },
+    {
+      "citation": "Oomen MW, Hoekstra LT, Bakx R, et al. Open versus laparoscopic pyloromyotomy for hypertrophic pyloric stenosis: a systematic review and meta-analysis focusing on major complications. Surg Endosc. 2012;26(8):2104-2110.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3392506/",
+      "kind": "systematic-review",
+      "pmid": "22350232",
+      "doi": "10.1007/s00464-012-2174-y"
+    },
+    {
+      "citation": "Murchison L, De Coppi P, Eaton S. Post-natal erythromycin exposure and risk of infantile hypertrophic pyloric stenosis: a systematic review and meta-analysis. Pediatr Surg Int. 2016;32(12):1147-1152.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5106491/",
+      "kind": "systematic-review",
+      "pmid": "27655365",
+      "doi": "10.1007/s00383-016-3971-5"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 5-week-old boy has had 4 days of forceful, non-bilious vomiting after every feed, and he feeds hungrily again afterward. He was given erythromycin at 10 days old; postnatal erythromycin in the first 2 weeks is strongly associated with pyloric stenosis (OR 12.89 in a meta-analysis). He looks mildly dehydrated.",
+      "vitals": [
+        { "label": "HR", "value": "168", "unit": "bpm", "status": "warning" },
+        { "label": "K", "value": "3.1", "unit": "mmol/L", "status": "warning" }
+      ],
+      "cite": [5],
+      "next": "diagnose"
+    },
+    "diagnose": {
+      "type": "decision",
+      "text": "No olive-shaped mass can be felt during a test feed. Next?",
+      "options": [
+        {
+          "label": "No palpable olive, so pyloric stenosis is excluded",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "In a meta-analysis of 43 studies (6,085 infants), the sensitivity of palpation ranged from 10% to 93.4% and has fallen over time. A negative examination does not exclude pyloric stenosis; ultrasound is the most accurate test.",
+          "cite": [1]
+        },
+        {
+          "label": "Abdominal ultrasound, using a pyloric muscle thickness of 3 mm or more",
+          "next": "prepare",
+          "isCorrect": true,
+          "feedback": "Ultrasound has the highest diagnostic accuracy. A pyloric muscle thickness of 3 mm or more had pooled sensitivity of 97.6% and specificity of 98.8%, and the review authors advise that cut-off. Palpation sensitivity ranged from 10% to 93.4%.",
+          "cite": [1]
+        }
+      ]
+    },
+    "prepare": {
+      "type": "decision",
+      "text": "Ultrasound confirms pyloric stenosis. Bloods show a hypochloremic metabolic alkalosis. The on-call team offers theatre tonight. What do you do?",
+      "vitals": [
+        { "label": "K", "value": "3.1", "unit": "mmol/L", "status": "warning" },
+        { "label": "HCO3", "value": "34", "unit": "mmol/L", "status": "warning" }
+      ],
+      "options": [
+        {
+          "label": "Operate tonight before the electrolytes are corrected",
+          "next": "fail_apnea",
+          "isCorrect": false,
+          "feedback": "Correcting metabolic derangements before surgery is the generally accepted practice, intended to prevent apnea. Infants with pyloric stenosis have high rates of perioperative apnea: 27% preoperatively and 0.2–16% postoperatively in a systematic review, although the link to alkalosis is unproven.",
+          "cite": [2]
+        },
+        {
+          "label": "IV resuscitation and correction of the electrolytes and alkalosis first, then pyloromyotomy",
+          "next": "approach",
+          "isCorrect": true,
+          "feedback": "It is generally assumed that metabolic derangements should be corrected before surgery to prevent apnea. A systematic review found apnea in 27% of infants before surgery and 0.2–16% after, though no study had tested the association with alkalosis.",
+          "cite": [2]
+        }
+      ]
+    },
+    "approach": {
+      "type": "decision",
+      "text": "His electrolytes are corrected. Your unit performs laparoscopic pyloromyotomy routinely. Which approach?",
+      "options": [
+        {
+          "label": "Laparoscopic pyloromyotomy",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "In a double-blind RCT, laparoscopy shortened time to full feeds (18.5 vs 23.9 hours) and postoperative stay (33.6 vs 43.8 hours), with similar complications; the authors recommend it in centers with laparoscopic experience. In a meta-analysis of 4 RCTs (502 infants), laparoscopy did not significantly increase major complications (4.9% in the laparoscopic group).",
+          "cite": [3, 4]
+        },
+        {
+          "label": "Open pyloromyotomy, because laparoscopy has more major complications",
+          "next": "fail_slower",
+          "isCorrect": false,
+          "feedback": "In a meta-analysis of 4 RCTs, laparoscopic pyloromyotomy did not lead to significantly more major complications than open surgery, and full feeds came about 2 hours sooner. In the largest RCT, laparoscopy shortened time to full feeds and hospital stay with similar complications.",
+          "cite": [3, 4]
+        }
+      ]
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Pyloric stenosis missed on examination alone."
+    },
+    "fail_apnea": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Safety Risk: Anesthesia before metabolic correction."
+    },
+    "fail_slower": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Slower Recovery: Open pyloromyotomy where laparoscopy was available."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Diagnosed by ultrasound, corrected, and repaired."
+    }
+  }
+}

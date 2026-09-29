@@ -1,0 +1,361 @@
+{
+  "id": "gallstone-pancreatitis",
+  "title": "Acute Gallstone Pancreatitis",
+  "category": "Hepatobiliary",
+  "description": "Diagnose without a reflex CT, resuscitate with moderate goal-directed fluids, feed early, reserve ERCP for cholangitis, and remove the gallbladder before discharge.",
+  "reviewed": "2026-09-28",
+  "objectives": [
+    "Diagnose acute pancreatitis with the 2-of-3 rule and know when CT adds value",
+    "Resuscitate with moderate, goal-directed lactated Ringer's (WATERFALL, ACG 2024)",
+    "Withhold prophylactic antibiotics and feed early",
+    "Reserve urgent ERCP for cholangitis (APEC, ACG 2024)",
+    "Classify severity by the Revised Atlanta criteria",
+    "Perform same-admission cholecystectomy after mild gallstone pancreatitis (PONCHO)"
+  ],
+  "references": [
+    {
+      "citation": "Tenner S, Vege SS, Sheth SG, et al. American College of Gastroenterology guidelines: management of acute pancreatitis. Am J Gastroenterol. 2024;119(3):419-437.",
+      "url": "https://doi.org/10.14309/ajg.0000000000002645",
+      "kind": "guideline",
+      "pmid": "38857482",
+      "doi": "10.14309/ajg.0000000000002645"
+    },
+    {
+      "citation": "Banks PA, Bollen TL, Dervenis C, et al. Classification of acute pancreatitis—2012: revision of the Atlanta classification and definitions by international consensus. Gut. 2013;62(1):102-111.",
+      "url": "https://doi.org/10.1136/gutjnl-2012-302779",
+      "kind": "classification",
+      "pmid": "23100216",
+      "doi": "10.1136/gutjnl-2012-302779"
+    },
+    {
+      "citation": "de-Madaria E, Buxbaum JL, Maisonneuve P, et al. Aggressive or moderate fluid resuscitation in acute pancreatitis. N Engl J Med. 2022;387(11):989-1000.",
+      "url": "https://doi.org/10.1056/NEJMoa2202884",
+      "kind": "trial",
+      "pmid": "36103415",
+      "doi": "10.1056/NEJMoa2202884"
+    },
+    {
+      "citation": "Schepers NJ, Hallensleben NDL, Besselink MG, et al. Urgent endoscopic retrograde cholangiopancreatography with sphincterotomy versus conservative treatment in predicted severe acute gallstone pancreatitis (APEC): a multicentre randomised controlled trial. Lancet. 2020;396(10245):167-176.",
+      "url": "https://doi.org/10.1016/S0140-6736(20)30539-0",
+      "kind": "trial",
+      "pmid": "32682482",
+      "doi": "10.1016/S0140-6736(20)30539-0"
+    },
+    {
+      "citation": "da Costa DW, Bouwense SA, Schepers NJ, et al. Same-admission versus interval cholecystectomy for mild gallstone pancreatitis (PONCHO): a multicentre randomised controlled trial. Lancet. 2015;386(10000):1261-1268.",
+      "url": "https://doi.org/10.1016/S0140-6736(15)00274-3",
+      "kind": "trial",
+      "pmid": "26460661",
+      "doi": "10.1016/S0140-6736(15)00274-3"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 52-year-old woman (70 kg) has 10 hours of severe epigastric pain radiating to the back, with vomiting. Epigastric tenderness, no peritonism. She rarely drinks alcohol. Lipase is 2,450 U/L (upper limit 60).",
+      "vitals": [
+        { "label": "HR", "value": "108", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "118/72", "unit": "mmHg" },
+        { "label": "Temp", "value": "37.4", "unit": "°C" },
+        { "label": "SpO2", "value": "97", "unit": "%" },
+        { "label": "BUN", "value": "24", "unit": "mg/dL", "status": "warning" },
+        { "label": "Hct", "value": "46", "unit": "%", "status": "warning" },
+        { "label": "Lipase", "value": "2,450", "unit": "U/L", "status": "critical" }
+      ],
+      "next": "ct"
+    },
+    "ct": {
+      "type": "decision",
+      "text": "Does she need a CT scan now, to confirm the diagnosis or to stage severity?",
+      "options": [
+        {
+          "label": "Yes: contrast CT on admission to stage severity",
+          "next": "fail_ct",
+          "isCorrect": false,
+          "feedback": "ACG 2024: routine CT at admission should not be done to determine severity. Reserve it for patients whose diagnosis is unclear or who fail to improve within 48–72 hours.",
+          "cite": [1]
+        },
+        {
+          "label": "No: typical pain plus lipase more than 3× the upper limit already meets 2 of 3 criteria",
+          "next": "etiology",
+          "isCorrect": true,
+          "feedback": "Acute pancreatitis is diagnosed by 2 of 3: characteristic pain, amylase or lipase >3× the upper limit, and characteristic imaging (Revised Atlanta; ACG 2024). ACG 2024 reserves CT for diagnostic uncertainty or failure to improve within 48–72 hours.",
+          "cite": [2, 1]
+        }
+      ]
+    },
+    "etiology": {
+      "type": "decision",
+      "text": "How do you establish the cause?",
+      "options": [
+        {
+          "label": "Transabdominal right upper quadrant ultrasound",
+          "next": "us_result",
+          "isCorrect": true,
+          "feedback": "ACG 2024 (conditional): transabdominal ultrasound in every patient with acute pancreatitis to look for a biliary cause, repeated if the first study is inconclusive.",
+          "cite": [1]
+        },
+        {
+          "label": "Diagnostic ERCP to look for stones",
+          "next": "fail_diagnostic_ercp",
+          "isCorrect": false,
+          "feedback": "ACG 2024: avoid diagnostic ERCP. Use MRCP or EUS to look for bile duct stones instead. Pancreatitis is the most common complication of ERCP.",
+          "cite": [1]
+        }
+      ]
+    },
+    "us_result": {
+      "type": "info",
+      "text": "Ultrasound: multiple small gallstones, common bile duct 6 mm, no intrahepatic duct dilatation.",
+      "next": "fluids"
+    },
+    "fluids": {
+      "type": "decision",
+      "text": "She is tachycardic with a raised BUN and hematocrit, consistent with hypovolemia. How do you resuscitate her?",
+      "options": [
+        {
+          "label": "Aggressive: 20 mL/kg bolus, then 3 mL/kg/h for 24 hours",
+          "next": "fail_overload",
+          "isCorrect": false,
+          "feedback": "WATERFALL stopped early for harm: aggressive resuscitation (20 mL/kg bolus, then 3 mL/kg/h) caused fluid overload in 20.5% vs 6.3% with moderate resuscitation, with no improvement in severity.",
+          "cite": [3]
+        },
+        {
+          "label": "Moderate, goal-directed lactated Ringer's: 10 mL/kg bolus for hypovolemia, then 1.5 mL/kg/h, reassessed frequently",
+          "next": "antibiotics",
+          "isCorrect": true,
+          "feedback": "ACG 2024 (conditional, low): moderately aggressive resuscitation, using lactated Ringer's over normal saline, with a 10 mL/kg bolus if hypovolemic and about 1.5 mL/kg/h. This mirrors WATERFALL's moderate arm. Reassess within 6 h and over 24–48 h, aiming for a falling BUN.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Normal saline at a fixed 250 mL/h without reassessment",
+          "next": "fail_fluids",
+          "isCorrect": false,
+          "feedback": "ACG 2024 suggests lactated Ringer's over normal saline, with frequent reassessment within 6 hours and over the next 24–48 hours to guide the rate. A fixed rate that is never reassessed is neither goal-directed nor safe.",
+          "cite": [1]
+        }
+      ]
+    },
+    "antibiotics": {
+      "type": "decision",
+      "text": "Day 1: temperature 38.0 °C and CRP 180 mg/L. Blood and urine cultures are negative, there are no respiratory signs, and liver tests are unchanged. Does she need prophylactic antibiotics?",
+      "vitals": [
+        { "label": "Temp", "value": "38.0", "unit": "°C", "status": "warning" },
+        { "label": "HR", "value": "96", "unit": "bpm" },
+        { "label": "CRP", "value": "180", "unit": "mg/L", "status": "warning" },
+        { "label": "Bili", "value": "0.9", "unit": "mg/dL" }
+      ],
+      "options": [
+        {
+          "label": "No: prophylactic antibiotics are not recommended; treat documented infection only",
+          "next": "cholangitis_check",
+          "isCorrect": true,
+          "feedback": "ACG 2024 (conditional): no prophylactic antibiotics, even in severe acute pancreatitis. Early SIRS can mimic sepsis with fever and leukocytosis. If infection is suspected, antibiotics may start while the source is sought, but they stop once cultures are negative and no source is found.",
+          "cite": [1]
+        },
+        {
+          "label": "Yes: start a carbapenem to prevent infected necrosis",
+          "next": "fail_antibiotics",
+          "isCorrect": false,
+          "feedback": "ACG 2024 suggests against prophylactic antibiotics in severe acute pancreatitis and against using them in sterile necrosis. Early fever and leukocytosis can come from the inflammatory response itself, and her cultures are negative with no source.",
+          "cite": [1]
+        }
+      ]
+    },
+    "cholangitis_check": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "cholangitis", "weight": 3 },
+        { "next": "no_cholangitis", "weight": 7 }
+      ]
+    },
+    "cholangitis": {
+      "type": "decision",
+      "text": "Day 2: rigors, new jaundice, and right upper quadrant tenderness. Repeat ultrasound shows a common bile duct of 9 mm. What now?",
+      "vitals": [
+        { "label": "Temp", "value": "39.1", "unit": "°C", "status": "critical" },
+        { "label": "HR", "value": "118", "unit": "bpm", "status": "critical" },
+        { "label": "BP", "value": "102/64", "unit": "mmHg", "status": "warning" },
+        { "label": "Bili", "value": "4.8", "unit": "mg/dL", "status": "critical" }
+      ],
+      "options": [
+        {
+          "label": "Continue supportive care; ERCP can wait until the pancreatitis settles",
+          "next": "fail_cholangitis",
+          "isCorrect": false,
+          "feedback": "Cholangitis is the clear indication for early ERCP. ACG 2024: in acute pancreatitis complicated by cholangitis, ERCP within 24 hours decreases morbidity and mortality.",
+          "cite": [1]
+        },
+        {
+          "label": "Blood cultures, IV antibiotics, and ERCP with sphincterotomy within 24 hours",
+          "next": "feeding",
+          "isCorrect": true,
+          "feedback": "ACG 2024: early ERCP within 24 h in pancreatitis complicated by cholangitis decreases morbidity and mortality. APEC: ERCP is indicated only with cholangitis or persistent cholestasis.",
+          "cite": [1, 4]
+        }
+      ]
+    },
+    "no_cholangitis": {
+      "type": "decision",
+      "text": "Day 2: pain improving, no fever or jaundice, bilirubin normal. The ward asks whether she should have urgent ERCP 'to clear the duct'.",
+      "vitals": [
+        { "label": "Temp", "value": "37.3", "unit": "°C" },
+        { "label": "HR", "value": "84", "unit": "bpm" },
+        { "label": "Bili", "value": "0.8", "unit": "mg/dL" }
+      ],
+      "options": [
+        {
+          "label": "No: urgent ERCP does not improve gallstone pancreatitis without cholangitis",
+          "next": "feeding",
+          "isCorrect": true,
+          "feedback": "APEC: in predicted severe gallstone pancreatitis without cholangitis, urgent ERCP with sphincterotomy did not reduce major complications or death (38% vs 44%). ACG 2024 (conditional): medical therapy over early ERCP when there is no cholangitis.",
+          "cite": [4, 1]
+        },
+        {
+          "label": "Yes: urgent ERCP with sphincterotomy within 24 hours",
+          "next": "fail_ercp",
+          "isCorrect": false,
+          "feedback": "Without cholangitis, urgent ERCP adds procedural risk without benefit. APEC found no reduction in major complications or mortality, and ACG 2024 suggests medical therapy over early ERCP.",
+          "cite": [4, 1]
+        }
+      ]
+    },
+    "feeding": {
+      "type": "decision",
+      "text": "She is hungry, nausea has settled, and pain is controlled. When and how does she eat?",
+      "options": [
+        {
+          "label": "Keep her nil by mouth until the lipase normalizes",
+          "next": "fail_nutrition",
+          "isCorrect": false,
+          "feedback": "ACG 2024 (conditional): in mild pancreatitis, early oral feeding within 24–48 hours as tolerated is suggested over nil by mouth. Refeeding is guided by the patient, not by lipase.",
+          "cite": [1]
+        },
+        {
+          "label": "Start parenteral nutrition to rest the pancreas",
+          "next": "fail_nutrition",
+          "isCorrect": false,
+          "feedback": "ACG 2024: avoid parenteral nutrition unless the enteral route is impossible, not tolerated, or not meeting needs. She can eat.",
+          "cite": [1]
+        },
+        {
+          "label": "Start a low-fat solid diet now, as tolerated",
+          "next": "severity",
+          "isCorrect": true,
+          "feedback": "ACG 2024 (conditional): in mild pancreatitis, early oral feeding within 24–48 hours as tolerated, starting with a low-fat solid diet rather than a stepwise liquid-to-solid progression.",
+          "cite": [1]
+        }
+      ]
+    },
+    "severity": {
+      "type": "decision",
+      "text": "Day 3. She never developed organ failure and has no local or systemic complications. How is her pancreatitis classified under the Revised Atlanta criteria?",
+      "options": [
+        {
+          "label": "Moderately severe",
+          "next": "fail_classification",
+          "isCorrect": false,
+          "feedback": "Moderately severe requires transient organ failure (<48 h), local complications, or exacerbation of comorbid disease. She had none.",
+          "cite": [2]
+        },
+        {
+          "label": "Mild",
+          "next": "cholecystectomy",
+          "isCorrect": true,
+          "feedback": "Revised Atlanta 2012: mild pancreatitis has no organ failure and no local or systemic complications. Moderately severe has transient organ failure (<48 h) or local complications; severe has persistent organ failure (>48 h).",
+          "cite": [2]
+        },
+        {
+          "label": "Severe",
+          "next": "fail_classification",
+          "isCorrect": false,
+          "feedback": "Severe pancreatitis is defined by persistent organ failure lasting more than 48 hours (Revised Atlanta 2012). She never had organ failure.",
+          "cite": [2]
+        }
+      ]
+    },
+    "cholecystectomy": {
+      "type": "decision",
+      "text": "Day 4: eating, pain-free, CRP falling. When should she have her cholecystectomy?",
+      "options": [
+        {
+          "label": "Interval cholecystectomy in 6–8 weeks, once the inflammation has settled",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "PONCHO: after mild gallstone pancreatitis, interval cholecystectomy led to recurrent gallstone-related complications or death in 17%, vs 5% with same-admission surgery (risk ratio 0.28), with no increase in surgical complications.",
+          "cite": [5]
+        },
+        {
+          "label": "Laparoscopic cholecystectomy during this admission, before discharge",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "PONCHO: same-admission cholecystectomy cut recurrent gallstone-related complications or death from 17% to 5% (RR 0.28). ACG 2024: patients with mild biliary pancreatitis should have cholecystectomy early, preferably before discharge.",
+          "cite": [5, 1]
+        }
+      ]
+    },
+    "fail_ct": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Admission CT that does not change management."
+    },
+    "fail_diagnostic_ercp": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication Risk: Diagnostic ERCP instead of ultrasound, MRCP, or EUS."
+    },
+    "fail_overload": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Fluid overload from aggressive resuscitation.",
+      "vitals": [
+        { "label": "SpO2", "value": "89", "unit": "%", "status": "critical" },
+        { "label": "RR", "value": "28", "unit": "/min", "status": "warning" }
+      ]
+    },
+    "fail_fluids": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Unmonitored fixed-rate saline resuscitation."
+    },
+    "fail_antibiotics": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Prophylactic antibiotics in sterile pancreatitis."
+    },
+    "fail_cholangitis": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Septic shock from undrained cholangitis.",
+      "vitals": [
+        { "label": "BP", "value": "78/46", "unit": "mmHg", "status": "critical" },
+        { "label": "Lactate", "value": "4.9", "unit": "mmol/L", "status": "critical" }
+      ]
+    },
+    "fail_ercp": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication Risk: ERCP without an indication."
+    },
+    "fail_nutrition": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Delayed or unnecessary artificial nutrition."
+    },
+    "fail_classification": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Classification Error: Severity misassigned under the Revised Atlanta criteria."
+    },
+    "fail_recurrence": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Readmission with recurrent gallstone pancreatitis before interval surgery."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Discharged: Mild gallstone pancreatitis, gallbladder removed during the same admission."
+    }
+  }
+}

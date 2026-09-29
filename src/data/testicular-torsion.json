@@ -1,0 +1,172 @@
+{
+  "id": "testicular-torsion",
+  "title": "Testicular Torsion",
+  "category": "Urology",
+  "description": "Diagnose torsion clinically, never let Doppler flow reassure you or delay theatre, detorse manually only as a bridge, and fix both testes at the same operation.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Recognize the clinical features that favor testicular torsion",
+    "Know that preserved Doppler flow does not exclude torsion",
+    "Use manual detorsion only as a bridge to exploration",
+    "Fix the contralateral testis at the same operation",
+    "Counsel families about late atrophy after salvage"
+  ],
+  "references": [
+    {
+      "citation": "European Association of Urology, European Society for Paediatric Urology. EAU Guidelines on Paediatric Urology. Edn. presented at the EAU Annual Congress London 2026. Arnhem: EAU Guidelines Office; 2026.",
+      "url": "https://uroweb.org/guidelines/paediatric-urology",
+      "kind": "guideline"
+    },
+    {
+      "citation": "Mellick LB, Sinex JE, Gibson RW, et al. A Systematic Review of Testicle Survival Time After a Torsion Event. Pediatr Emerg Care. 2019;35(12):821-825.",
+      "url": "https://doi.org/10.1097/PEC.0000000000001287",
+      "kind": "systematic-review",
+      "pmid": "28953100",
+      "doi": "10.1097/PEC.0000000000001287"
+    },
+    {
+      "citation": "Kalfa N, Veyrac C, Lopez M, et al. Multicenter assessment of ultrasound of the spermatic cord in children with acute scrotum. J Urol. 2007;177(1):297-301.",
+      "url": "https://doi.org/10.1016/j.juro.2006.08.128",
+      "kind": "cohort",
+      "pmid": "17162068",
+      "doi": "10.1016/j.juro.2006.08.128"
+    },
+    {
+      "citation": "MacDonald C, Kronfli R, Carachi R, et al. A systematic review and meta-analysis revealing realistic outcomes following paediatric torsion of testes. J Pediatr Urol. 2018;14(6):503-509.",
+      "url": "https://doi.org/10.1016/j.jpurol.2018.09.017",
+      "kind": "systematic-review",
+      "pmid": "30404723",
+      "doi": "10.1016/j.jpurol.2018.09.017"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 14-year-old boy woke 3 hours ago with sudden, severe left scrotal pain and has vomited twice. The left testis sits high and lies horizontally, and it is diffusely tender. He has no fever.",
+      "vitals": [
+        { "label": "HR", "value": "112", "unit": "bpm", "status": "warning" },
+        { "label": "Temp", "value": "36.9", "unit": "°C" }
+      ],
+      "next": "features"
+    },
+    "features": {
+      "type": "multi",
+      "text": "Which findings favor testicular torsion over epididymitis?",
+      "options": [
+        { "label": "Sudden, severe pain with vomiting", "isCorrect": true },
+        { "label": "A horizontal lie of the testis", "isCorrect": true },
+        { "label": "An absent cremasteric reflex", "isCorrect": true },
+        { "label": "Pain eased by lifting the scrotum", "isCorrect": false },
+        { "label": "Pyuria on urinalysis, which would rule torsion out", "isCorrect": false }
+      ],
+      "feedback": "EAU 2026: sudden, severe pain with a vagal reaction such as nausea or vomiting is typical of torsion of the testis or appendix testis. A horizontal testis is more frequent in torsion than in epididymitis, and an absent cremasteric reflex is 100% sensitive and 66% specific for torsion. Lifting the scrotum may ease epididymitis but not torsion (Prehn sign). An abnormal urinalysis does not exclude torsion.",
+      "cite": [1],
+      "next": "doppler",
+      "failNext": "fail_missed"
+    },
+    "doppler": {
+      "type": "decision",
+      "text": "A bedside Doppler scan is available at once. It shows some arterial flow in the left testis, less than on the right. Next?",
+      "options": [
+        {
+          "label": "Urgent scrotal exploration: flow does not exclude torsion",
+          "next": "bridge",
+          "isCorrect": true,
+          "feedback": "EAU 2026: base the diagnosis on examination; Doppler is useful but must not delay intervention (strong). Persistent arterial flow does not exclude torsion, so always compare with the other side. In a multicenter study of 208 boys with torsion proven at surgery, intratesticular flow was absent in only 76%, while the twist itself was seen as a spiral on high-resolution ultrasound in 96%.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Flow is present, so torsion is excluded; treat as epididymitis",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "EAU 2026: persistent arterial flow does not exclude testicular torsion; in a multicenter study, 24% of boys with torsion had normal or increased testicular vascularization. Doppler must not delay intervention (strong).",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Admit for a formal scan in the morning",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "EAU 2026: torsion is a urological emergency needing immediate treatment (strong), and the chance of irreversible necrosis is time-dependent, with a critical window of about 4 to 6 hours. Across 1,283 patients reported in 6-hour intervals, testicle survival was 97.2% at 0–6 hours, 79.3% at 7–12 hours, and 61.3% at 13–18 hours.",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "bridge": {
+      "type": "decision",
+      "text": "Theatre will be ready in 40 minutes. What can you do meanwhile?",
+      "options": [
+        {
+          "label": "Attempt manual detorsion by outward rotation, and explore regardless of the result",
+          "next": "operate",
+          "isCorrect": true,
+          "feedback": "EAU 2026: manual detorsion can be tried in the emergency department while awaiting surgery, but it must not delay surgery. Rotate the testis outward unless the pain increases or there is obvious resistance. In one study, 17 of 53 patients still had residual torsion at exploration, including 11 who had reported pain relief after manual detorsion.",
+          "cite": [1]
+        },
+        {
+          "label": "Attempt manual detorsion, and cancel theatre if the pain settles",
+          "next": "fail_residual",
+          "isCorrect": false,
+          "feedback": "EAU 2026: surgical exploration is necessary in testicular torsion. Residual torsion was found at exploration in 17 of 53 patients, including 11 who reported pain relief after manual detorsion.",
+          "cite": [1]
+        }
+      ]
+    },
+    "operate": {
+      "type": "decision",
+      "text": "At exploration the left cord is twisted. After detorsion and warming, the testis regains its color. What do you do?",
+      "options": [
+        {
+          "label": "Fix the left testis, fix the right testis at the same operation, and counsel the family about later atrophy",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "EAU 2026: when torsion is confirmed, contralateral orchiopexy is commonly performed immediately after detorsion, not as a separate elective procedure. Preserve the affected testis unless it is unequivocally necrotic. Up to half of patients may develop atrophy even when the testis looked viable at surgery, so counsel the family. In a meta-analysis, late testicular loss approached 50%, compared with a mean early loss of 39%.",
+          "cite": [1, 4]
+        },
+        {
+          "label": "Fix the left testis now, and schedule right-sided fixation electively",
+          "next": "fail_contralateral",
+          "isCorrect": false,
+          "feedback": "EAU 2026: contralateral orchiopexy should not be done as an elective procedure, but immediately after detorsion.",
+          "cite": [1]
+        },
+        {
+          "label": "Orchidectomy, because the testis was twisted",
+          "next": "fail_orchidectomy",
+          "isCorrect": false,
+          "feedback": "EAU 2026: larger testicular volume is linked to better testicular function, which supports preserving the affected testis unless it is unequivocally necrotic. This one regained its color.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Testicular torsion missed."
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Testis lost to delayed exploration."
+    },
+    "fail_residual": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Safety Risk: Possible residual torsion left unexplored."
+    },
+    "fail_contralateral": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Contralateral fixation deferred."
+    },
+    "fail_orchidectomy": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: A viable testis removed."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Torsion explored, detorsed, and both testes fixed."
+    }
+  }
+}

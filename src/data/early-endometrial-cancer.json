@@ -1,0 +1,246 @@
+{
+  "id": "early-endometrial-cancer",
+  "title": "Early Endometrial Cancer",
+  "category": "Gynecologic Oncology",
+  "description": "Classify the tumor molecularly, stage it with minimally invasive surgery and sentinel nodes, and match adjuvant therapy to the 2025 ESGO–ESTRO–ESP risk groups.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Order mismatch repair, molecular classification, and estrogen receptor testing for every endometrial cancer",
+    "Stage presumed early disease with minimally invasive hysterectomy, salpingo-oophorectomy, and sentinel node biopsy",
+    "Know when a failed sentinel map needs side-specific lymphadenectomy",
+    "Assign risk groups from FIGO 2023 stage and molecular class",
+    "Match adjuvant therapy to the risk group, including POLE-mutated and p53-abnormal tumors"
+  ],
+  "references": [
+    {
+      "citation": "Concin N, Matias-Guiu X, Cibula D, et al. ESGO-ESTRO-ESP guidelines for the management of patients with endometrial carcinoma: update 2025. Lancet Oncol. 2025;26(8):e423-e435.",
+      "url": "https://doi.org/10.1016/S1470-2045(25)00167-6",
+      "kind": "guideline",
+      "pmid": "40744042",
+      "doi": "10.1016/S1470-2045(25)00167-6"
+    },
+    {
+      "citation": "Janda M, Gebski V, Davies LC, et al. Effect of Total Laparoscopic Hysterectomy vs Total Abdominal Hysterectomy on Disease-Free Survival Among Women With Stage I Endometrial Cancer: A Randomized Clinical Trial. JAMA. 2017;317(12):1224-1233.",
+      "url": "https://doi.org/10.1001/jama.2017.2068",
+      "kind": "trial",
+      "pmid": "28350928",
+      "doi": "10.1001/jama.2017.2068"
+    },
+    {
+      "citation": "Walker JL, Piedmonte MR, Spirtos NM, et al. Laparoscopy compared with laparotomy for comprehensive surgical staging of uterine cancer: Gynecologic Oncology Group Study LAP2. J Clin Oncol. 2009;27(32):5331-5336.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2773219/",
+      "kind": "trial",
+      "pmid": "19805679",
+      "doi": "10.1200/JCO.2009.22.3248"
+    },
+    {
+      "citation": "Rossi EC, Kowalski LD, Scalici J, et al. A comparison of sentinel lymph node biopsy to lymphadenectomy for endometrial cancer staging (FIRES trial): a multicentre, prospective, cohort study. Lancet Oncol. 2017;18(3):384-392.",
+      "url": "https://doi.org/10.1016/S1470-2045(17)30068-2",
+      "kind": "cohort",
+      "pmid": "28159465",
+      "doi": "10.1016/S1470-2045(17)30068-2"
+    },
+    {
+      "citation": "Nout RA, Smit VT, Putter H, et al. Vaginal brachytherapy versus pelvic external beam radiotherapy for patients with endometrial cancer of high-intermediate risk (PORTEC-2): an open-label, non-inferiority, randomised trial. Lancet. 2010;375(9717):816-823.",
+      "url": "https://doi.org/10.1016/S0140-6736(09)62163-2",
+      "kind": "trial",
+      "pmid": "20206777",
+      "doi": "10.1016/S0140-6736(09)62163-2"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 58-year-old woman with postmenopausal bleeding has a low-grade endometrioid carcinoma on endometrial biopsy. Pelvic MRI shows less than 50% myometrial invasion, no cervical involvement, and no enlarged lymph nodes. She has a BMI of 38 and is otherwise fit for surgery.",
+      "next": "tests"
+    },
+    "tests": {
+      "type": "multi",
+      "text": "Which tests belong on the biopsy tissue?",
+      "options": [
+        { "label": "Mismatch repair immunohistochemistry", "isCorrect": true },
+        { "label": "Molecular classification (POLE, mismatch repair, p53)", "isCorrect": true },
+        { "label": "Estrogen receptor immunohistochemistry", "isCorrect": true },
+        { "label": "HER2 testing", "isCorrect": false },
+        { "label": "Germline genetic testing for everyone, instead of tumor screening", "isCorrect": false }
+      ],
+      "feedback": "ESGO–ESTRO–ESP 2025: mismatch repair immunohistochemistry is the preferred Lynch pre-screen for all patients (III, A), with genetic counselling and testing for those at increased risk. Molecular classification (POLEmut, MMRd, NSMP, p53abn) is recommended for all endometrial carcinomas and is encouraged on biopsy material (IV, A). Test estrogen receptor status in all (IV, A). HER2 testing is suggested for advanced or recurrent p53abn tumors, serous carcinomas, and carcinosarcomas.",
+      "cite": [1],
+      "next": "surgery",
+      "failNext": "fail_workup"
+    },
+    "surgery": {
+      "type": "decision",
+      "text": "The biopsy is mismatch repair proficient, p53 wild type, and estrogen receptor positive: no specific molecular profile (NSMP). Surgery?",
+      "options": [
+        {
+          "label": "Laparoscopic hysterectomy with power morcellation to remove the large uterus",
+          "next": "fail_spillage",
+          "isCorrect": false,
+          "feedback": "ESGO–ESTRO–ESP 2025 (III, A): avoid any intraperitoneal tumor spillage, including morcellation, even in a bag. If vaginal extraction risks rupturing the uterus, use a mini-laparotomy or an endobag.",
+          "cite": [1]
+        },
+        {
+          "label": "Laparoscopic total hysterectomy, bilateral salpingo-oophorectomy, and sentinel node biopsy with cervical indocyanine green",
+          "next": "mapping",
+          "isCorrect": true,
+          "feedback": "ESGO–ESTRO–ESP 2025: standard surgery is total hysterectomy, bilateral salpingo-oophorectomy, and lymph node staging (II, A); minimally invasive surgery is preferred (I, A). Sentinel node biopsy is recommended for all presumed uterus-confined disease (II, A), with cervical indocyanine green preferred. In LACE, disease-free survival was equivalent (81.6% laparoscopic vs 81.3% open). In FIRES, sentinel nodes detected nodal disease with 97.2% sensitivity.",
+          "cite": [1, 2, 4]
+        },
+        {
+          "label": "Open hysterectomy with systematic pelvic and para-aortic lymphadenectomy",
+          "next": "fail_overstage",
+          "isCorrect": false,
+          "feedback": "ESGO–ESTRO–ESP 2025: minimally invasive surgery is preferred (I, A), and sentinel node biopsy is recommended for staging presumed uterus-confined disease (II, A). In LAP2, laparoscopy had fewer moderate-to-severe postoperative adverse events (14% vs 21%), and fewer patients stayed over 2 days (52% vs 94%).",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "mapping": {
+      "type": "decision",
+      "text": "The right pelvic sentinel node maps. The left side does not, even after re-injecting the tracer. Based on her biopsy and MRI, she is presumed low risk. What do you do on the left?",
+      "options": [
+        {
+          "label": "Nothing further; side-specific lymphadenectomy is not needed at presumed low risk",
+          "next": "final",
+          "isCorrect": true,
+          "feedback": "ESGO–ESTRO–ESP 2025 (II, A): when a side fails to map, side-specific systematic lymphadenectomy should be done for presumed high-intermediate or high risk, and can be considered at presumed intermediate risk. It is not required at presumed low risk. Tracer re-injection is an option first, and all sentinel nodes should undergo ultrastaging.",
+          "cite": [1]
+        },
+        {
+          "label": "Full bilateral pelvic and para-aortic lymphadenectomy",
+          "next": "fail_overstage",
+          "isCorrect": false,
+          "feedback": "ESGO–ESTRO–ESP 2025 (II, A): a failed sentinel map calls for side-specific lymphadenectomy only at presumed high-intermediate or high risk (considered at intermediate risk). Full bilateral pelvic and para-aortic dissection is not indicated for presumed low-risk disease.",
+          "cite": [1]
+        }
+      ]
+    },
+    "final": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "final_low", "weight": 3 },
+        { "next": "final_intermediate", "weight": 3 },
+        { "next": "final_pole", "weight": 2 },
+        { "next": "final_p53", "weight": 2 }
+      ]
+    },
+    "final_low": {
+      "type": "decision",
+      "text": "Final pathology: low-grade endometrioid carcinoma with less than 50% myometrial invasion, no lymphovascular space invasion, sentinel node negative (FIGO 2023 IA2, NSMP, estrogen receptor positive). Adjuvant therapy?",
+      "options": [
+        {
+          "label": "Vaginal brachytherapy",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "ESGO–ESTRO–ESP 2025: stage IA NSMP low-grade, estrogen receptor-positive carcinoma is low risk (5-year recurrence under 8%), and no adjuvant therapy is recommended. Vaginal brachytherapy is for intermediate risk.",
+          "cite": [1]
+        },
+        {
+          "label": "No adjuvant therapy",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ESGO–ESTRO–ESP 2025: stage IA POLEmut, MMRd, or NSMP low-grade estrogen receptor-positive carcinoma is low risk (estimated 5-year recurrence under 8%), and no adjuvant therapy is recommended.",
+          "cite": [1]
+        }
+      ]
+    },
+    "final_intermediate": {
+      "type": "decision",
+      "text": "Final pathology: low-grade endometrioid carcinoma invading 60% of the myometrium, no lymphovascular space invasion, sentinel nodes negative (FIGO 2023 IB, NSMP, estrogen receptor positive). She is 58. Adjuvant therapy?",
+      "options": [
+        {
+          "label": "Pelvic external beam radiotherapy with concurrent chemotherapy",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "ESGO–ESTRO–ESP 2025: stage IB NSMP low-grade, estrogen receptor-positive disease is intermediate risk. Chemoradiation is for high risk; for intermediate risk, vaginal brachytherapy should be considered (I, A), and no adjuvant therapy is an option.",
+          "cite": [1]
+        },
+        {
+          "label": "Discuss vaginal brachytherapy, with no adjuvant therapy an acceptable option at her age and grade",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ESGO–ESTRO–ESP 2025: for intermediate risk, consider adjuvant vaginal brachytherapy (I, A); no adjuvant therapy is also an option, especially under 60 or with low-grade disease. In PORTEC-2, vaginal brachytherapy matched external beam radiotherapy for 5-year vaginal recurrence (1.8% vs 1.6%) with far less acute bowel toxicity (12.6% vs 53.8%).",
+          "cite": [1, 5]
+        }
+      ]
+    },
+    "final_pole": {
+      "type": "decision",
+      "text": "Final pathology shows a high-grade endometrioid component not seen on the biopsy, invading 60% of the myometrium. Repeat molecular testing on the hysterectomy specimen finds a pathogenic POLE mutation. Nodes are negative. Adjuvant therapy?",
+      "options": [
+        {
+          "label": "No adjuvant therapy",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ESGO–ESTRO–ESP 2025: repeat molecular testing on the hysterectomy when a tumor component appears that the biopsy did not show. Stage I–II disease with a pathogenic POLE mutation is stage IAm POLEmut, which is low risk regardless of grade or depth of invasion, and no adjuvant therapy is recommended.",
+          "cite": [1]
+        },
+        {
+          "label": "Chemoradiation, because the tumor is high grade and deeply invasive",
+          "next": "fail_overtreat",
+          "isCorrect": false,
+          "feedback": "ESGO–ESTRO–ESP 2025: in stage I–II disease, a pathogenic POLE mutation places the tumor in stage IAm POLEmut and the low-risk group, whatever the grade or depth of invasion. No adjuvant therapy is recommended.",
+          "cite": [1]
+        }
+      ]
+    },
+    "final_p53": {
+      "type": "decision",
+      "text": "Final pathology shows a serous component not seen on the biopsy, with 30% myometrial invasion. Testing on the hysterectomy specimen is p53-abnormal. Sentinel nodes are negative. Adjuvant therapy?",
+      "options": [
+        {
+          "label": "No adjuvant therapy, because the nodes are negative",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "ESGO–ESTRO–ESP 2025: a p53-abnormal tumor with any myometrial invasion is stage IICm p53abn, which is high risk. External beam radiotherapy with concurrent and adjuvant chemotherapy is recommended (I, A).",
+          "cite": [1]
+        },
+        {
+          "label": "Vaginal brachytherapy alone",
+          "next": "fail_undertreat",
+          "isCorrect": false,
+          "feedback": "ESGO–ESTRO–ESP 2025: stage IICm p53abn is high risk. Recommended options are external beam radiotherapy with concurrent and adjuvant chemotherapy (I, A), sequential chemotherapy and radiotherapy (I, B), or chemotherapy with or without brachytherapy (I, B). Brachytherapy alone is not one of them.",
+          "cite": [1]
+        },
+        {
+          "label": "External beam radiotherapy with concurrent and adjuvant chemotherapy",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ESGO–ESTRO–ESP 2025: p53-abnormal tumors with myometrial invasion are stage IICm p53abn, a high-risk group. External beam radiotherapy with concurrent and adjuvant chemotherapy is recommended (I, A); sequential chemotherapy and radiotherapy (I, B), or chemotherapy with or without brachytherapy (I, B), are alternatives.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_workup": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Incomplete or misdirected tumor testing."
+    },
+    "fail_spillage": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Intraperitoneal tumor spillage from morcellation."
+    },
+    "fail_overstage": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: More extensive staging than recommended."
+    },
+    "fail_overtreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Adjuvant therapy beyond the risk group."
+    },
+    "fail_undertreat": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: High-risk disease undertreated."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Staged and treated by molecular risk group."
+    }
+  }
+}

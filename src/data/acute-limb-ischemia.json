@@ -1,0 +1,179 @@
+{
+  "id": "acute-limb-ischemia",
+  "title": "Acute Limb Ischemia",
+  "category": "Vascular",
+  "description": "Assess viability at the bedside with a Doppler, heparinize at once, revascularize the salvageable limb without waiting for imaging or an embolic workup, decompress compartment syndrome immediately, and treat the source.",
+  "reviewed": "2026-09-29",
+  "objectives": [
+    "Assess limb viability at the bedside, without routine imaging",
+    "Give unfractionated heparin on diagnosis",
+    "Revascularize a salvageable limb by open or endovascular means",
+    "Recognize reperfusion compartment syndrome and decompress it at once",
+    "Find and treat an embolic source without delaying revascularization"
+  ],
+  "references": [
+    {
+      "citation": "Gornik HL, Aronow HD, Goodney PP, et al. 2024 ACC/AHA/AACVPR/APMA/ABC/SCAI/SVM/SVN/SVS/SIR/VESS Guideline for the Management of Lower Extremity Peripheral Artery Disease: A Report of the American College of Cardiology/American Heart Association Joint Committee on Clinical Practice Guidelines. Circulation. 2024;149(24):e1313-e1410.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12782132/",
+      "kind": "guideline",
+      "pmid": "38743805",
+      "doi": "10.1161/CIR.0000000000001251"
+    },
+    {
+      "citation": "Darwood R, Berridge DC, Kessel DO, et al. Surgery versus thrombolysis for initial management of acute limb ischaemia. Cochrane Database Syst Rev. 2018;8(8):CD002784.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6513660/",
+      "kind": "systematic-review",
+      "pmid": "30095170",
+      "doi": "10.1002/14651858.CD002784.pub3"
+    },
+    {
+      "citation": "Rothenberg KA, George EL, Trickey AW, et al. Delayed Fasciotomy Is Associated with Higher Risk of Major Amputation in Patients with Acute Limb Ischemia. Ann Vasc Surg. 2019;59:195-201.",
+      "url": "https://doi.org/10.1016/j.avsg.2019.01.028",
+      "kind": "cohort",
+      "pmid": "31034949",
+      "doi": "10.1016/j.avsg.2019.01.028"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 74-year-old woman had sudden pain in her right leg 4 hours ago. The foot is cold, pale, and numb, and she can move her toes only weakly. There are no palpable pulses below the right femoral artery. Her pulse is irregular.",
+      "vitals": [
+        { "label": "HR", "value": "116", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "148/86", "unit": "mmHg" }
+      ],
+      "next": "first"
+    },
+    "first": {
+      "type": "multi",
+      "text": "Which belong in your first steps?",
+      "options": [
+        { "label": "Emergency assessment of limb viability by an experienced clinician, with a handheld continuous-wave Doppler", "isCorrect": true },
+        { "label": "IV unfractionated heparin now, unless contraindicated", "isCorrect": true },
+        { "label": "CT angiography before any decision, in every case", "isCorrect": false },
+        { "label": "Echocardiography to find the embolic source before treating the leg", "isCorrect": false }
+      ],
+      "feedback": "ACC/AHA 2024: evaluate ALI on an emergency basis by a clinician able to assess viability (class 1), and rapidly assess viability and salvage potential, which can be done without duplex, CTA, or MRA (class 1). A continuous-wave Doppler is used because pulse palpation is inaccurate here. Give IV unfractionated heparin on diagnosis unless contraindicated (class 1). With rare exceptions, testing for the underlying cause should not delay treatment.",
+      "cite": [1],
+      "next": "viability",
+      "failNext": "fail_delay"
+    },
+    "viability": {
+      "type": "decision",
+      "text": "Heparin is running. The Doppler finds no arterial signal at the ankle, but venous signals are present. How do you classify the limb?",
+      "options": [
+        {
+          "label": "Threatened but salvageable: revascularize urgently",
+          "next": "method",
+          "isCorrect": true,
+          "feedback": "ACC/AHA 2024: loss of the arterial Doppler signal means the limb is threatened, while absence of both arterial and venous signals suggests irreversible (category III) ischemia. Revascularization is indicated for a salvageable limb to prevent amputation (class 1, level A). Skeletal muscle tolerates about 4 to 6 hours of ischemia.",
+          "cite": [1]
+        },
+        {
+          "label": "Irreversible: proceed to primary amputation",
+          "next": "fail_amputation",
+          "isCorrect": false,
+          "feedback": "ACC/AHA 2024: absence of both arterial and venous Doppler signals suggests an irreversibly damaged limb. She has venous signals and some toe movement, so the limb is threatened but salvageable, and revascularization is indicated (class 1).",
+          "cite": [1]
+        },
+        {
+          "label": "Heparin alone, and review in the morning",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "ACC/AHA 2024: revascularization is indicated for any salvageable limb (categories I, IIa, and IIb) to prevent amputation. Loss of the arterial signal means this limb is threatened, and muscle tolerates only about 4 to 6 hours of ischemia.",
+          "cite": [1]
+        }
+      ]
+    },
+    "method": {
+      "type": "decision",
+      "text": "Both a vascular surgeon and interventional radiology are available now. How do you choose the revascularization?",
+      "options": [
+        {
+          "label": "Surgical thromboembolectomy or catheter-based therapy, chosen by anatomy, patient factors, and local resources",
+          "next": "reperfusion",
+          "isCorrect": true,
+          "feedback": "ACC/AHA 2024: both surgical thromboembolectomy and catheter-based thrombolysis are effective; choose by patient and anatomic factors and local resources. In a Cochrane review of 5 RCTs (1,292 patients), limb salvage, amputation, and death at 30 days did not clearly differ, but thrombolysis carried more major hemorrhage (OR 3.22) and distal embolization.",
+          "cite": [1, 2]
+        },
+        {
+          "label": "Thrombolysis, because it saves more limbs with less bleeding",
+          "next": "fail_method",
+          "isCorrect": false,
+          "feedback": "A Cochrane review found no clear difference in limb salvage, amputation, or death between initial thrombolysis and surgery, and thrombolysis carried more major hemorrhage (OR 3.22, 95% CI 1.79 to 5.78). ACC/AHA 2024 likewise reports similar limb salvage with higher bleeding after thrombolysis.",
+          "cite": [1, 2]
+        }
+      ]
+    },
+    "reperfusion": {
+      "type": "decision",
+      "text": "After surgical embolectomy, the foot pulses return. Four hours later her calf is tense and increasingly painful, and her creatine kinase is rising. Next?",
+      "options": [
+        {
+          "label": "Immediate fasciotomy of all involved compartments",
+          "next": "source",
+          "isCorrect": true,
+          "feedback": "ACC/AHA 2024: monitor for compartment syndrome after revascularization and treat it with fasciotomy (class 1). With clinical evidence of compartment syndrome, from examination, raised creatine kinase, or both, immediate fasciotomy of all involved compartments is indicated. Prophylactic fasciotomy at revascularization is reasonable for category IIa or IIb limbs (class 2a). In one cohort, delayed fasciotomy was followed by major amputation within 30 days in 50%, compared with 5.9% after prophylactic fasciotomy.",
+          "cite": [1, 3]
+        },
+        {
+          "label": "Elevate the leg, give analgesia, and reassess in the morning",
+          "next": "fail_compartment",
+          "isCorrect": false,
+          "feedback": "ACC/AHA 2024: clinical evidence of compartment syndrome calls for immediate fasciotomy. In one cohort, delayed fasciotomy was associated with major amputation within 30 days in 50%, compared with 5.9% after prophylactic fasciotomy.",
+          "cite": [1, 3]
+        }
+      ]
+    },
+    "source": {
+      "type": "decision",
+      "text": "The leg recovers. Her ECG confirms atrial fibrillation. Plan before discharge?",
+      "options": [
+        {
+          "label": "Long-term oral anticoagulation, with cardiac evaluation for other embolic sources",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "ACC/AHA 2024: take a full history and examination for the cause (class 1); testing for a cardiovascular source of embolism can be useful (class 2a), including ECG, rhythm monitoring, and echocardiography. Atrial fibrillation is well linked to lower-limb embolism, and long-term oral anticoagulation is important to prevent recurrence.",
+          "cite": [1]
+        },
+        {
+          "label": "No further treatment: the clot has been removed",
+          "next": "fail_recurrence",
+          "isCorrect": false,
+          "feedback": "ACC/AHA 2024: identifying the underlying cause is crucial to preventing recurrent events. In atrial fibrillation, long-term oral anticoagulation is important to prevent recurrence.",
+          "cite": [1]
+        }
+      ]
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Ischemia progressed while treatment was delayed."
+    },
+    "fail_amputation": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: A salvageable limb amputated."
+    },
+    "fail_method": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Revascularization chosen on a false premise."
+    },
+    "fail_compartment": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Compartment syndrome after reperfusion, untreated."
+    },
+    "fail_recurrence": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Safety Risk: Embolic source left untreated."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Case Complete: Limb saved, compartments released, source treated."
+    }
+  }
+}

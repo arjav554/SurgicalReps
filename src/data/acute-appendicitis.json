@@ -1,0 +1,447 @@
+{
+  "id": "acute-appendicitis",
+  "title": "Acute Appendicitis: Laparoscopic Appendectomy",
+  "category": "Emergency General Surgery",
+  "description": "Score the AIR, image the right patients, decide between antibiotics and surgery, and tailor the operation and antibiotics to what laparoscopy shows.",
+  "reviewed": "2026-09-28",
+  "objectives": [
+    "Calculate the Appendicitis Inflammatory Response (AIR) score and act on its risk band",
+    "Choose first-line imaging per WSES",
+    "Know when antibiotic-first treatment is and is not appropriate (appendicolith, CODA)",
+    "Run a guideline-concordant three-port laparoscopic appendectomy",
+    "Tailor postoperative antibiotics to operative findings (WSES 2020 and 2025)"
+  ],
+  "references": [
+    {
+      "citation": "Podda M, Ceresoli M, De Simone B, et al. Diagnosis and treatment of acute appendicitis: 2025 edition of the World Society of Emergency Surgery Jerusalem guidelines. JAMA Surg. 2026;161(3):283-295.",
+      "url": "https://doi.org/10.1001/jamasurg.2025.6218",
+      "kind": "guideline",
+      "pmid": "41604201",
+      "doi": "10.1001/jamasurg.2025.6218"
+    },
+    {
+      "citation": "Di Saverio S, Podda M, De Simone B, et al. Diagnosis and treatment of acute appendicitis: 2020 update of the WSES Jerusalem guidelines. World J Emerg Surg. 2020;15(1):27.",
+      "url": "https://doi.org/10.1186/s13017-020-00306-3",
+      "kind": "guideline",
+      "pmid": "32295644",
+      "doi": "10.1186/s13017-020-00306-3"
+    },
+    {
+      "citation": "Andersson M, Andersson RE. The appendicitis inflammatory response score: a tool for the diagnosis of acute appendicitis that outperforms the Alvarado score. World J Surg. 2008;32(8):1843-1849.",
+      "url": "https://doi.org/10.1007/s00268-008-9649-y",
+      "kind": "classification",
+      "pmid": "18553045",
+      "doi": "10.1007/s00268-008-9649-y"
+    },
+    {
+      "citation": "CODA Collaborative; Flum DR, Davidson GH, Monsell SE, et al. A randomized trial comparing antibiotics with appendectomy for appendicitis. N Engl J Med. 2020;383(20):1907-1919.",
+      "url": "https://doi.org/10.1056/NEJMoa2014320",
+      "kind": "trial",
+      "pmid": "33017106",
+      "doi": "10.1056/NEJMoa2014320"
+    },
+    {
+      "citation": "Sawyer RG, Claridge JA, Nathens AB, et al. Trial of short-course antimicrobial therapy for intraabdominal infection. N Engl J Med. 2015;372(21):1996-2005.",
+      "url": "https://doi.org/10.1056/NEJMoa1411162",
+      "kind": "trial",
+      "pmid": "25992746",
+      "doi": "10.1056/NEJMoa1411162"
+    },
+    {
+      "citation": "Manatakis DK, Aheimastos V, Antonopoulou MI, Agalianos C, Tsiaoussis J, Xynos E. Unfinished business: a systematic review of stump appendicitis. World J Surg. 2019;43(11):2756-2761.",
+      "url": "https://doi.org/10.1007/s00268-019-05101-z",
+      "kind": "systematic-review",
+      "pmid": "31375871",
+      "doi": "10.1007/s00268-019-05101-z"
+    },
+    {
+      "citation": "Andersson M, Kolodziej B, Andersson RE. Validation of the Appendicitis Inflammatory Response (AIR) score. World J Surg. 2021;45(7):2081-2091.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8154764/",
+      "kind": "classification",
+      "pmid": "33825049",
+      "doi": "10.1007/s00268-021-06042-2"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "type": "info",
+      "text": "A 27-year-old man has 18 hours of periumbilical pain that migrated to the right iliac fossa, with anorexia and one episode of vomiting. Right iliac fossa tenderness with moderate rebound. Laparoscopic equipment and expertise are available.",
+      "vitals": [
+        { "label": "Temp", "value": "38.0", "unit": "°C", "status": "warning" },
+        { "label": "HR", "value": "96", "unit": "bpm" },
+        { "label": "BP", "value": "124/76", "unit": "mmHg" },
+        { "label": "WBC", "value": "14.2", "unit": "×10⁹/L", "status": "warning" },
+        { "label": "Neut", "value": "82", "unit": "%", "status": "warning" },
+        { "label": "CRP", "value": "42", "unit": "mg/L", "status": "warning" }
+      ],
+      "next": "air"
+    },
+    "air": {
+      "type": "decision",
+      "text": "Calculate his Appendicitis Inflammatory Response (AIR) score. Which risk band is he in?",
+      "options": [
+        {
+          "label": "High probability (9–12): score 10",
+          "next": "fail_score",
+          "isCorrect": false,
+          "feedback": "Recount: vomiting 1 + right iliac fossa pain 1 + medium rebound 2 + temperature 0 (it scores only at ≥38.5 °C) + neutrophils 70–84% 1 + WBC 10.0–14.9 ×10⁹/L 1 + CRP 10–49 mg/L 1 = 7. WBC and CRP score 2 only at ≥15.0 ×10⁹/L and ≥50 mg/L.",
+          "cite": [3, 7]
+        },
+        {
+          "label": "Intermediate probability: score 7",
+          "next": "imaging",
+          "isCorrect": true,
+          "feedback": "Vomiting 1 + right iliac fossa pain 1 + medium rebound 2 + temperature 0 (<38.5 °C) + neutrophils 70–84% 1 + WBC 10.0–14.9 ×10⁹/L 1 + CRP 10–49 mg/L 1 = 7 of a possible 12. That is the intermediate band (5–8 in the original score, 4–8 after the 2021 validation), where observation or diagnostic imaging is indicated.",
+          "cite": [3, 7]
+        },
+        {
+          "label": "Low probability: score 3",
+          "next": "fail_score",
+          "isCorrect": false,
+          "feedback": "The score is 7: vomiting 1 + right iliac fossa pain 1 + medium rebound 2 + neutrophils 70–84% 1 + WBC 10.0–14.9 ×10⁹/L 1 + CRP 10–49 mg/L 1. Rebound tenderness or guarding is graded light 1, medium 2, strong 3. The low-probability band is managed as an outpatient with planned follow-up, so under-scoring sends a likely appendicitis home.",
+          "cite": [3, 7]
+        }
+      ]
+    },
+    "imaging": {
+      "type": "decision",
+      "text": "In the intermediate band, imaging is indicated. Which modality first?",
+      "options": [
+        {
+          "label": "Point-of-care ultrasound (POCUS)",
+          "next": "us_result",
+          "isCorrect": true,
+          "feedback": "WSES 2020 Recommendation 1.10 (strong, 1B): POCUS is the most appropriate first-line diagnostic tool when imaging is indicated. Recommendation 1.11 (strong, 1A): if ultrasound is negative in an adolescent or young adult, prefer low-dose over standard-dose contrast CT.",
+          "cite": [2]
+        },
+        {
+          "label": "Standard-dose contrast CT before anything else",
+          "next": "fail_radiation",
+          "isCorrect": false,
+          "feedback": "WSES 2020 Recommendation 1.10 (1B): POCUS first-line. Recommendation 1.11 (1A): when CT is needed after a negative ultrasound in adolescents and young adults, low-dose contrast CT is preferred over standard-dose, with equivalent accuracy and far less radiation.",
+          "cite": [2]
+        }
+      ]
+    },
+    "us_result": {
+      "type": "info",
+      "text": "POCUS: a non-compressible 11 mm appendix with an appendicolith and periappendiceal fat stranding. No abscess or free fluid.",
+      "next": "nom"
+    },
+    "nom": {
+      "type": "decision",
+      "text": "He asks whether antibiotics alone could treat this. What do you advise?",
+      "options": [
+        {
+          "label": "Antibiotics alone; the appendicolith does not change the outcome",
+          "next": "fail_nom",
+          "isCorrect": false,
+          "feedback": "In CODA, 41% of antibiotic-treated patients with an appendicolith needed appendectomy by 90 days, and their complication rate was 20.2 vs 3.6 per 100 with surgery. WSES 2020 Recommendation 2.1 (1A) limits antibiotic-first treatment to uncomplicated appendicitis without an appendicolith.",
+          "cite": [4, 2]
+        },
+        {
+          "label": "Recommend laparoscopic appendectomy; the appendicolith predicts failure of antibiotic-first treatment",
+          "next": "timing",
+          "isCorrect": true,
+          "feedback": "WSES 2020 Recommendation 2.1 (strong, 1A): discuss antibiotics as an alternative only in selected uncomplicated appendicitis with no appendicolith, disclosing a recurrence risk of up to 39% at 5 years. CODA showed that the appendicolith drives both failure and complications.",
+          "cite": [2, 4]
+        }
+      ]
+    },
+    "timing": {
+      "type": "decision",
+      "text": "It is 23:00. He is stable, comfortable on analgesia, and on the emergency list. When do you operate?",
+      "options": [
+        {
+          "label": "On the next available operating list, within 24 hours",
+          "next": "prophylaxis",
+          "isCorrect": true,
+          "feedback": "WSES 2020 Recommendation 3.1 (strong, 1B): plan laparoscopic appendectomy for the next available list within 24 h in uncomplicated appendicitis, minimizing delay where possible. The 2025 edition reaffirms that a delay within 24 h is safe.",
+          "cite": [2, 1]
+        },
+        {
+          "label": "Wait 48–72 hours on antibiotics to let the inflammation settle",
+          "next": "fail_delay",
+          "isCorrect": false,
+          "feedback": "WSES supports only a short in-hospital delay, within 24 h, for uncomplicated appendicitis (2020 Recommendation 3.1, 1B; reaffirmed in 2025). Longer delays are not part of either edition.",
+          "cite": [2, 1]
+        }
+      ]
+    },
+    "prophylaxis": {
+      "type": "decision",
+      "text": "When should antibiotic prophylaxis be given?",
+      "options": [
+        {
+          "label": "Hold antibiotics until the appendix has been seen, then decide",
+          "next": "fail_ssi",
+          "isCorrect": false,
+          "feedback": "Prophylaxis must be in the tissue before incision. WSES 2020 Recommendation 7.1 (1A): a single preoperative dose of broad-spectrum antibiotics, given 0–60 minutes before skin incision.",
+          "cite": [2]
+        },
+        {
+          "label": "A single broad-spectrum dose 0–60 minutes before skin incision",
+          "next": "approach",
+          "isCorrect": true,
+          "feedback": "WSES 2020 Statement and Recommendation 7.1 (strong, 1A): a single preoperative broad-spectrum dose given 0–60 minutes before incision reduces wound infection and intra-abdominal abscess regardless of the degree of inflammation.",
+          "cite": [2]
+        }
+      ]
+    },
+    "approach": {
+      "type": "decision",
+      "text": "Which operative approach?",
+      "options": [
+        {
+          "label": "Open appendectomy through a McBurney incision",
+          "next": "fail_approach",
+          "isCorrect": false,
+          "feedback": "WSES 2020 Recommendation 4.1 (strong, 1A): where equipment and expertise are available, laparoscopic appendectomy is preferred, with less pain, fewer surgical site infections, shorter stay, and better quality of life.",
+          "cite": [2]
+        },
+        {
+          "label": "Conventional three-port laparoscopic appendectomy",
+          "next": "findings",
+          "isCorrect": true,
+          "feedback": "WSES 2020 Recommendation 4.1 (1A): laparoscopic over open. Recommendation 4.3 (1A): conventional three-port over single-incision, with shorter operative time, less pain, and fewer wound infections.",
+          "cite": [2]
+        },
+        {
+          "label": "Single-incision laparoscopic appendectomy for cosmesis",
+          "next": "fail_approach",
+          "isCorrect": false,
+          "feedback": "WSES 2020 Recommendation 4.3 (strong, 1A): conventional three-port laparoscopy over single-incision, which has longer operative times, more postoperative pain, and more wound infections.",
+          "cite": [2]
+        }
+      ]
+    },
+    "findings": {
+      "type": "chance",
+      "outcomes": [
+        { "next": "find_uncomplicated", "weight": 5 },
+        { "next": "find_complicated", "weight": 4 },
+        { "next": "find_normal", "weight": 1 }
+      ]
+    },
+    "find_uncomplicated": {
+      "type": "info",
+      "text": "Laparoscopy: an inflamed, non-perforated appendix with a healthy base and no purulent fluid. The mesoappendix is divided with an energy device down to the base.",
+      "next": "stump_uncomplicated"
+    },
+    "stump_uncomplicated": {
+      "type": "decision",
+      "text": "How do you secure the appendiceal stump?",
+      "options": [
+        {
+          "label": "Simple ligation at the base (endoloops, suture ligation, or a polymeric clip) on healthy tissue",
+          "next": "postop_uncomplicated",
+          "isCorrect": true,
+          "feedback": "WSES 2020 Recommendation 4.10 (strong, 1B): endoloops/suture ligation or polymeric clips for stump closure. Recommendation 4.11 (strong, 1A): simple ligation over stump inversion.",
+          "cite": [2]
+        },
+        {
+          "label": "Ligate 1.5 cm from the cecum to stay well clear of the base",
+          "next": "fail_long_stump",
+          "isCorrect": false,
+          "feedback": "Stump appendicitis occurs when more than 0.5 cm of appendiceal stump is left. In a systematic review of 164 cases it was often diagnosed late and needed more extensive surgery. Secure the appendix at its base on healthy tissue.",
+          "cite": [6]
+        }
+      ]
+    },
+    "postop_uncomplicated": {
+      "type": "decision",
+      "text": "Uncomplicated appendicitis, appendix removed. Postoperative antibiotics?",
+      "options": [
+        {
+          "label": "None: the single preoperative dose is sufficient",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "WSES 2020 Recommendation 7.1 (strong, 1A): we recommend against postoperative antibiotics for patients with uncomplicated appendicitis.",
+          "cite": [2]
+        },
+        {
+          "label": "Five days of oral antibiotics to prevent wound infection",
+          "next": "fail_duration",
+          "isCorrect": false,
+          "feedback": "WSES 2020 Recommendation 7.1 (strong, 1A) recommends against postoperative antibiotics after uncomplicated appendicitis. They add adverse effects and resistance without benefit.",
+          "cite": [2]
+        }
+      ]
+    },
+    "find_complicated": {
+      "type": "info",
+      "text": "Laparoscopy: the distal appendix is gangrenous with a small perforation and localized purulent fluid in the pelvis. The base is healthy. The mesoappendix is divided with an energy device down to the base.",
+      "vitals": [
+        { "label": "Temp", "value": "38.3", "unit": "°C", "status": "warning" },
+        { "label": "HR", "value": "104", "unit": "bpm", "status": "warning" },
+        { "label": "BP", "value": "118/72", "unit": "mmHg" }
+      ],
+      "next": "stump_complicated"
+    },
+    "stump_complicated": {
+      "type": "decision",
+      "text": "How do you secure the appendiceal stump?",
+      "options": [
+        {
+          "label": "Invert the stump with a purse-string suture for extra security",
+          "next": "fail_stump",
+          "isCorrect": false,
+          "feedback": "WSES 2020 Recommendation 4.11 (strong, 1A): simple ligation over stump inversion. Morbidity is similar, and simple ligation is faster with less ileus and quicker recovery.",
+          "cite": [2]
+        },
+        {
+          "label": "Simple ligation at the healthy base (endoloops or suture ligation; stapler per intraoperative judgment)",
+          "next": "contamination",
+          "isCorrect": true,
+          "feedback": "WSES 2020 Recommendation 4.10 (1B): endoloops/suture ligation or polymeric clips, with endostaplers an option in complicated cases per intraoperative judgment. Recommendation 4.11 (1A): simple ligation over inversion.",
+          "cite": [2]
+        }
+      ]
+    },
+    "contamination": {
+      "type": "decision",
+      "text": "There is localized purulent fluid in the pelvis. How do you deal with it?",
+      "options": [
+        {
+          "label": "Irrigate with several liters of saline and leave a pelvic drain",
+          "next": "fail_irrigation",
+          "isCorrect": false,
+          "feedback": "WSES 2020 Recommendation 4.8 (strong, 1B): suction alone in complicated appendicitis with intra-abdominal collections; irrigation does not prevent abscess or wound infection. Recommendation 4.12 (strong, 1B): no drains after appendectomy for complicated appendicitis in adults.",
+          "cite": [2]
+        },
+        {
+          "label": "Suction the purulent fluid and retrieve the appendix; no irrigation, no drain",
+          "next": "postop_complicated",
+          "isCorrect": true,
+          "feedback": "WSES 2020 Recommendation 4.8 (1B): suction alone. Recommendation 4.12 (1B): against drains after appendectomy for complicated appendicitis in adults.",
+          "cite": [2]
+        }
+      ]
+    },
+    "postop_complicated": {
+      "type": "decision",
+      "text": "Complicated (gangrenous, perforated) appendicitis with adequate source control. How long do postoperative antibiotics run?",
+      "options": [
+        {
+          "label": "Two weeks of IV antibiotics to be safe",
+          "next": "fail_duration",
+          "isCorrect": false,
+          "feedback": "With adequate source control, long courses add no benefit and add toxicity, C. difficile risk, resistance, and hospital days. WSES 2025 limits postoperative antibiotics to 2–3 days in complicated disease; STOP-IT showed about 4 days of fixed therapy matched about 8.",
+          "cite": [1, 5]
+        },
+        {
+          "label": "A short course: 2–3 days",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "WSES 2025: postoperative antibiotics should be limited to short courses (2–3 days) in complicated appendicitis, shorter than the 2020 limit of 3–5 days (Recommendation 7.2, 1A). STOP-IT: about 4 days of fixed therapy after source control matched longer courses.",
+          "cite": [1, 5]
+        }
+      ]
+    },
+    "find_normal": {
+      "type": "info",
+      "text": "Laparoscopy: the appendix looks macroscopically normal. You run the terminal ileum (no Meckel's diverticulum) and inspect the pelvis, cecum, and small bowel mesentery. No other pathology is found.",
+      "next": "normal_appendix"
+    },
+    "normal_appendix": {
+      "type": "decision",
+      "text": "What do you do with the normal-looking appendix in this symptomatic patient?",
+      "options": [
+        {
+          "label": "Remove it",
+          "next": "stump_normal",
+          "isCorrect": true,
+          "feedback": "WSES 2020 Statement 5.3: the surgeon's macroscopic judgment of early appendicitis is inaccurate. Recommendation 5.3 (weak, 2C): remove the appendix if it appears normal and no other disease is found in a symptomatic patient.",
+          "cite": [2]
+        },
+        {
+          "label": "Leave it; it looks normal",
+          "next": "fail_missed",
+          "isCorrect": false,
+          "feedback": "Early (mucosal) appendicitis can look normal to the eye. WSES 2020 Recommendation 5.3 (2C): remove the appendix when it appears normal and no other cause is found in a symptomatic patient.",
+          "cite": [2]
+        }
+      ]
+    },
+    "stump_normal": {
+      "type": "decision",
+      "text": "How do you secure the appendiceal stump?",
+      "options": [
+        {
+          "label": "Simple ligation at the base (endoloops, suture ligation, or a polymeric clip)",
+          "next": "success",
+          "isCorrect": true,
+          "feedback": "WSES 2020 Recommendation 4.10 (1B) and 4.11 (1A): endoloops/suture ligation or polymeric clips, with simple ligation over stump inversion.",
+          "cite": [2]
+        },
+        {
+          "label": "Invert the stump with a purse-string suture",
+          "next": "fail_stump",
+          "isCorrect": false,
+          "feedback": "WSES 2020 Recommendation 4.11 (strong, 1A): simple ligation is preferred to stump inversion, with similar morbidity and faster recovery.",
+          "cite": [2]
+        }
+      ]
+    },
+    "fail_score": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Error: Misapplied AIR score drives the wrong pathway."
+    },
+    "fail_radiation": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Avoidable standard-dose CT radiation."
+    },
+    "fail_nom": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Treatment Failure: Perforation after antibiotic-first treatment with an appendicolith."
+    },
+    "fail_delay": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Appendectomy delayed beyond 24 hours."
+    },
+    "fail_ssi": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication: Surgical site infection after mistimed prophylaxis."
+    },
+    "fail_approach": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Approach with worse outcomes than three-port laparoscopy."
+    },
+    "fail_stump": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Stump managed against recommended technique."
+    },
+    "fail_long_stump": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Complication Risk: Long residual stump (stump appendicitis)."
+    },
+    "fail_irrigation": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Irrigation and drainage without benefit."
+    },
+    "fail_duration": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Guideline Deviation: Unnecessary postoperative antibiotics."
+    },
+    "fail_missed": {
+      "type": "terminal",
+      "status": "failure",
+      "text": "Diagnostic Risk: Early appendicitis left in situ."
+    },
+    "success": {
+      "type": "terminal",
+      "status": "success",
+      "text": "Procedure Complete: Guideline-concordant laparoscopic appendectomy."
+    }
+  }
+}
