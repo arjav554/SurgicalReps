@@ -3,11 +3,13 @@
 Three Claude sessions edit this repo at the same time, from the same folder. Each owns a set of files, so they
 never write the same file at once. Before touching a file, check who owns it here.
 
+The session name is its `SendMessage` address, so copy it exactly as `ListAgents` shows it.
+
 | Role | Session |
 |---|---|
-| UI: screens, components, layout, styling, motion, visual assets | "Concurrent chat sessions on SurgeryReps" |
-| Content: procedures, references, evidence, and the code that loads them | "Mental-reps Expo app setup" |
-| Security and maintenance: auth and data security, secrets, dependencies, web build and hosting, legal pages | "Surgeryreps security and maintenance" |
+| UI: screens, components, layout, styling, motion, visual assets | "Design Specialisit" |
+| Content: procedures, references, evidence, and the code that loads them | "Medical Specialist" |
+| Security and maintenance: auth and data security, secrets, dependencies, web build and hosting, legal pages | "Security Specialist" |
 
 ## Medical information: content session only
 
@@ -54,8 +56,9 @@ educational-use disclaimer, is checked with the content session before it ships.
   it are UI's)
 - `.gitignore`, `.env.example`
 - `.github/**` (CI, Dependabot), and the web hosting and deploy config it creates
-- Its own check scripts under `scripts/`, in separate files (`verify-references.mjs` and `prepare-figures.py`
-  stay with content)
+- Its own check scripts under `scripts/`, in separate files: `check-figure-licenses.mjs` (`verify-references.mjs`
+  and `prepare-figures.py` stay with content)
+- Tests: `legal`, `security`
 
 **Shared: message the other sessions before changing**
 
