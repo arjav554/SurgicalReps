@@ -12,7 +12,7 @@ The session name is its `SendMessage` address, so copy it exactly as `ListAgents
 | Developer: Supabase schema and sync, persisted stores and device storage, and the code that loads and checks content | "Developer Agent" |
 | Security and maintenance: auth and data security, secrets, dependencies, web build and hosting, legal pages | "Security Agent" |
 | Debugging: reproduces and diagnoses bugs, then sends the fix to the file's owner | "Debug Agent" |
-| Architecture: cross-cutting design, module boundaries, ownership. Owns no code | "Architect Agent" |
+| Architecture and coordination: turns the user's product ideas into small technical tasks for the owning sessions, keeps the system design coherent, manages ownership and commits. Owns no code | "Architect Agent" |
 
 ## Medical information: Medical Agent only
 
