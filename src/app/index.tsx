@@ -1,16 +1,18 @@
 import { router } from 'expo-router';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ScrollView, TextInput, View } from 'react-native';
 import Animated, {
   FadeIn,
+  FadeInDown,
   FadeOut,
+  FadeOutUp,
+  interpolate,
   useAnimatedReaction,
-  useAnimatedRef,
   useAnimatedScrollHandler,
   useAnimatedStyle,
-  useDerivedValue,
+  useReducedMotion,
   useSharedValue,
-  type SharedValue,
+  withTiming,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { scheduleOnRN } from 'react-native-worklets';
@@ -20,14 +22,13 @@ import { ActionButton } from '@/components/ActionButton';
 import { LegalLinks } from '@/components/LegalLinks';
 import { EcgTrace } from '@/components/graphics/EcgTrace';
 import { Logo } from '@/components/graphics/Logo';
-import { ScrollRule } from '@/components/graphics/ScrollRule';
 import { ArcCarousel } from '@/components/home/ArcCarousel';
 import { PearlCarousel } from '@/components/home/PearlCarousel';
 import { ProcedureRow } from '@/components/home/ProcedureCard';
 import { ProcedureVisual } from '@/components/ProcedureVisual';
 import { Icon } from '@/components/ui/Icon';
 import { PressableScale } from '@/components/ui/PressableScale';
-import { Reveal, ScrollProvider } from '@/components/ui/ScrollReveal';
+import { Reveal, ScrollFocus, ScrollProvider, useScrollY } from '@/components/ui/ScrollReveal';
 import { Text } from '@/components/ui/Text';
 import { CLINICAL_DISCLAIMER } from '@/data/disclaimers';
 import { FIGURE_CREDIT } from '@/data/figures';
@@ -52,7 +53,6 @@ import { palette } from '@/theme';
 import type { Procedure } from '@/types/procedure';
 
 const MAX_WIDTH = 1200;
-const RULE_GUTTER = 28;
 const PREVIEW_WIDTH = 340;
 
 type LibraryFilter = 'for-you' | 'all' | SpecialtyId;
@@ -90,16 +90,9 @@ export default function HomeScreen() {
   const preview = desktop && contentWidth >= 1000;
 
   const scrollY = useSharedValue(0);
-  const maxScroll = useSharedValue(1);
   const onScroll = useAnimatedScrollHandler((event) => {
     scrollY.set(event.contentOffset.y);
-    maxScroll.set(Math.max(1, event.contentSize.height - event.layoutMeasurement.height));
   });
-  const progress = useDerivedValue(() => Math.min(1, Math.max(0, scrollY.value / maxScroll.value)));
-
-  // The incision rail's scalpel is also a scroll handle.
-  const scrollRef = useAnimatedRef<Animated.ScrollView>();
-  const seek = (to: number, animated: boolean) => scrollRef.current?.scrollTo({ y: to * maxScroll.get(), animated });
 
   const [condensed, setCondensed] = useState(false);
   useAnimatedReaction(
@@ -126,15 +119,42 @@ export default function HomeScreen() {
   const previewed = listed.find((p) => p.id === hoveredId) ?? listed[0];
   const rowWide = contentWidth - (preview ? PREVIEW_WIDTH + 40 : 0) >= 640;
 
+  // Chapters: the page reads as a short journey, and the header says which part you are in.
+  const [marks, setMarks] = useState<Record<string, number>>({});
+  const mark = (key: string) => (y: number) => setMarks((m) => (m[key] === y ? m : { ...m, [key]: y }));
+  const chapters = [
+    { key: 'top', label: 'Surgical Reps' },
+    ...(suggestions.length > 0 ? [{ key: 'next', label: 'Choose your next case' }] : []),
+    { key: 'pearl', label: 'Clinical pearl' },
+    { key: 'library', label: 'Case library' },
+    { key: 'notes', label: 'Educational use' },
+  ];
+  const starts = useSharedValue<number[]>([]);
+  const chapterKey = chapters.map((c) => `${c.key}:${marks[c.key] ?? ''}`).join('|');
+  useEffect(() => {
+    starts.set(chapters.map((c) => (c.key === 'top' ? 0 : (marks[c.key] ?? Number.POSITIVE_INFINITY))));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chapterKey]);
+  const [active, setActive] = useState(0);
+  useAnimatedReaction(
+    () => {
+      const line = scrollY.value + height * 0.42;
+      let index = 0;
+      for (let i = 0; i < starts.value.length; i++) if ((starts.value[i] ?? Infinity) <= line) index = i;
+      return index;
+    },
+    (now, before) => {
+      if (now !== before) scheduleOnRN(setActive, now);
+    },
+  );
+
   return (
     <View className="flex-1 flex-row bg-canvas">
       <View className="flex-1">
         <ScrollProvider scrollY={scrollY}>
           <Animated.ScrollView
-            ref={scrollRef}
             onScroll={onScroll}
             scrollEventThrottle={16}
-            onContentSizeChange={(_, h) => maxScroll.set(Math.max(1, h - height))}
             contentContainerStyle={{
               paddingTop: insets.top + 18,
               paddingBottom: insets.bottom + 48,
@@ -148,7 +168,8 @@ export default function HomeScreen() {
             <Hero contentWidth={contentWidth} wide={wide} />
 
             {suggestions.length > 0 && (
-              <Reveal>
+              <ScrollFocus onMeasure={mark('next')}>
+                <Reveal>
                 <View className="mt-16 gap-2">
                   <View className="items-center gap-2">
                     <Text className="font-data-medium text-[11px] uppercase tracking-[2px] text-signal">
@@ -163,13 +184,17 @@ export default function HomeScreen() {
                   </View>
                   <ArcCarousel items={suggestions} width={contentWidth} />
                 </View>
-              </Reveal>
+                </Reveal>
+              </ScrollFocus>
             )}
 
-            <View className="mt-14">
-              <PearlCarousel />
-            </View>
+            <ScrollFocus onMeasure={mark('pearl')} strength={0.08}>
+              <View className="mt-14">
+                <PearlCarousel />
+              </View>
+            </ScrollFocus>
 
+            <ScrollFocus onMeasure={mark('library')} strength={0.06}>
             <Reveal>
               <View className="mt-14 gap-5">
                 <View className={wide ? 'flex-row items-end justify-between gap-6' : 'gap-4'}>
@@ -184,6 +209,7 @@ export default function HomeScreen() {
                 <SpecialtyTabs selected={filter} hasProfile={!!profile} wrap={wide} onSelect={setChosen} />
               </View>
             </Reveal>
+            </ScrollFocus>
 
             <View className={preview ? 'mt-1 flex-row items-start' : 'mt-1'} style={preview ? { gap: 40 } : undefined}>
               <View className="flex-1 border-t border-line-strong">
@@ -216,7 +242,10 @@ export default function HomeScreen() {
               )}
             </View>
 
-            <View className="mt-14 gap-2 border-t border-line pt-6">
+            <View
+              className="mt-14 gap-2 border-t border-line pt-6"
+              onLayout={(e) => mark('notes')(e.nativeEvent.layout.y)}
+            >
               <Text className="font-data-medium text-[10px] uppercase tracking-[2px] text-ink-faint">Educational use</Text>
               <Text className="max-w-[760px] text-xs leading-5 text-ink-faint">
                 Scenarios are condensed from the cited guidelines and trials and do not replace clinical judgment, attending
@@ -230,22 +259,7 @@ export default function HomeScreen() {
           </Animated.ScrollView>
         </ScrollProvider>
 
-        {desktop && (
-          <View
-            pointerEvents="box-none"
-            style={{
-              position: 'absolute',
-              left: (width - Math.min(width, MAX_WIDTH)) / 2 + 12,
-              top: insets.top + 96,
-              bottom: 64,
-              width: RULE_GUTTER,
-            }}
-          >
-            <ScrollRule progress={progress} onSeek={seek} />
-          </View>
-        )}
-
-        {condensed && <StickyHeader scrollY={scrollY} maxScroll={maxScroll} />}
+        {condensed && <StickyHeader chapters={chapters} active={Math.min(active, chapters.length - 1)} />}
       </View>
     </View>
   );
@@ -257,7 +271,7 @@ function Masthead() {
       <View className="flex-row items-center gap-3">
         <Logo size={34} />
         <View>
-          <Text className="font-ui-bold text-[15px] tracking-[0.6px] text-ink">Mental Reps</Text>
+          <Text className="font-ui-bold text-[15px] tracking-[0.6px] text-ink">Surgical Reps</Text>
           <Text className="font-data text-[10px] uppercase tracking-[2px] text-ink-faint">Surgical decision simulator</Text>
         </View>
       </View>
@@ -275,13 +289,10 @@ function TailorLine() {
   const open = () => router.push('/onboarding');
   if (!profile) {
     return (
-      <PressableScale accessibilityRole="link" cue="tick" tint={false} onPress={open} className="self-start">
-        <View className="flex-row items-center gap-2">
-          <Icon name="tune-variant" size={15} color={palette.ink} />
-          <Text className="text-[14px] text-ink underline">Tailor cases to your specialty</Text>
-          <Text className="font-data text-[11px] text-ink-faint">3 questions</Text>
-        </View>
-      </PressableScale>
+      <View className="flex-row flex-wrap items-center gap-x-5 gap-y-2">
+        <ActionButton variant="bracket" label="Tailor cases to your specialty" icon="arrow-right" onPress={open} />
+        <Text className="font-data text-[11px] text-ink-faint">3 questions</Text>
+      </View>
     );
   }
   const who = trainingStage(profile.stage).short;
@@ -322,23 +333,45 @@ function Hero({ contentWidth, wide }: { contentWidth: number; wide: boolean }) {
   const mastered = procedures.filter((p) => isMastered(byProcedure[p.id] ?? EMPTY_PROGRESS)).length;
   const profile = useProfileStore((s) => s.profile);
   const next = pickNextRep(procedures, byProcedure, profile);
+  const scrollY = useScrollY();
+  const reduced = useReducedMotion();
 
-  // A wide, tracked wordmark; the featured plate rises over its right-hand end.
-  const size = wide ? Math.min(140, Math.floor(contentWidth / 8.2)) : Math.min(56, Math.floor(contentWidth / 7.2));
+  // As the page moves on, the title recedes into the header and the featured plate settles back.
+  const titleMotion = useAnimatedStyle(() => {
+    if (!scrollY || reduced) return {};
+    const y = scrollY.value;
+    return {
+      opacity: interpolate(y, [0, 300], [1, 0.15], 'clamp'),
+      transform: [{ translateY: interpolate(y, [0, 360], [0, -28], 'clamp') }, { scale: interpolate(y, [0, 360], [1, 0.5], 'clamp') }],
+      transformOrigin: 'left top',
+    };
+  });
+  const plateMotion = useAnimatedStyle(() => {
+    if (!scrollY || reduced) return {};
+    const y = scrollY.value;
+    return {
+      opacity: interpolate(y, [0, 640], [1, 0.25], 'clamp'),
+      transform: [{ translateY: interpolate(y, [0, 560], [0, 90], 'clamp') }, { scale: interpolate(y, [0, 560], [1, 0.8], 'clamp') }],
+      transformOrigin: 'center top',
+    };
+  });
+
+  // A wide, tracked wordmark with the featured plate lit just beneath it.
+  const size = wide ? Math.min(132, Math.floor(contentWidth / 9.8)) : Math.min(56, Math.floor(contentWidth / 8.6));
   const leftWidth = wide ? Math.round(contentWidth * 0.5) : contentWidth;
   const rightWidth = wide ? contentWidth - leftWidth - 48 : contentWidth;
 
   return (
     <View className="mt-6">
-      <View aria-hidden pointerEvents="none">
+      <Animated.View aria-hidden pointerEvents="none" style={titleMotion}>
         <Text
           numberOfLines={1}
           className="font-headline text-ink-muted"
-          style={{ fontSize: size, lineHeight: Math.round(size * 1.05), letterSpacing: Math.round(size * 0.08) }}
+          style={{ fontSize: size, lineHeight: Math.round(size * 1.05), letterSpacing: Math.round(size * 0.06) }}
         >
-          MENTAL REPS
+          SURGICAL REPS
         </Text>
-      </View>
+      </Animated.View>
 
       <View className={wide ? 'flex-row items-start' : 'mt-4 gap-12'} style={wide ? { gap: 48 } : undefined}>
         <View style={{ width: leftWidth }} className="gap-8">
@@ -361,7 +394,7 @@ function Hero({ contentWidth, wide }: { contentWidth: number; wide: boolean }) {
             </View>
           </Animated.View>
 
-          <EcgTrace width={leftWidth} height={56} beats={wide ? 6 : 4} />
+          <EcgTrace width={leftWidth} height={56} beats={wide ? 4 : 3} period={11000} />
 
           <View className="gap-3">
             <Ledger
@@ -377,9 +410,11 @@ function Hero({ contentWidth, wide }: { contentWidth: number; wide: boolean }) {
 
         <Animated.View
           entering={FadeIn.delay(120).duration(420)}
-          style={{ width: rightWidth, marginTop: wide ? -Math.round(size * 0.42) : 0, zIndex: 2 }}
+          style={{ width: rightWidth, marginTop: wide ? 8 : 0 }}
         >
-          <FeaturedCase procedure={next} width={rightWidth} tailored={!!profile} wide={wide} />
+          <Animated.View style={plateMotion}>
+            <FeaturedCase procedure={next} width={rightWidth} tailored={!!profile} wide={wide} />
+          </Animated.View>
         </Animated.View>
       </View>
     </View>
@@ -457,31 +492,67 @@ function FeaturedCase({
 }
 
 /** Condensed header once the hero has scrolled away, with a hairline page-progress rule. */
-function StickyHeader({ scrollY, maxScroll }: { scrollY: SharedValue<number>; maxScroll: SharedValue<number> }) {
+/** Condensed header once the hero has scrolled away: says which chapter of the page you are in. */
+function StickyHeader({ chapters, active }: { chapters: { key: string; label: string }[]; active: number }) {
   const insets = useSafeAreaInsets();
-  const meter = useAnimatedStyle(() => ({ width: `${Math.min(100, (scrollY.value / maxScroll.value) * 100)}%` }));
+  const total = chapters.length;
+  const current = chapters[active];
   return (
     <Animated.View
       entering={FadeIn.duration(180)}
       exiting={FadeOut.duration(140)}
       style={{ position: 'absolute', top: 0, left: 0, right: 0 }}
     >
-      <View className="bg-canvas" style={{ paddingTop: insets.top }}>
+      <View className="border-b border-line bg-canvas" style={{ paddingTop: insets.top }}>
         <View className="flex-row items-center justify-between gap-4 px-5 py-2.5">
           <View className="flex-row items-center gap-2.5">
             <Logo size={24} />
-            <Text className="font-ui-bold text-[13px] tracking-[0.6px] text-ink">Mental Reps</Text>
+            <Text className="hidden font-ui-bold text-[13px] tracking-[0.6px] text-ink sm:flex">Surgical Reps</Text>
           </View>
+
+          <View aria-live="polite" className="flex-1 items-center gap-1.5">
+            <View className="h-[18px] w-full items-center justify-center overflow-hidden">
+              <Animated.View
+                key={current?.key}
+                entering={FadeInDown.duration(260)}
+                exiting={FadeOutUp.duration(160)}
+                style={{ position: 'absolute' }}
+              >
+                <Text numberOfLines={1} className="font-data-medium text-[11px] uppercase tracking-[2px] text-ink">
+                  <Text className="text-gold">{String(active + 1).padStart(2, '0')}</Text>
+                  <Text className="text-ink-faint"> / {String(total).padStart(2, '0')}  </Text>
+                  {current?.label}
+                </Text>
+              </Animated.View>
+            </View>
+            <View className="flex-row gap-1">
+              {chapters.map((c, i) => (
+                <ChapterTick key={c.key} state={i < active ? 'done' : i === active ? 'here' : 'ahead'} />
+              ))}
+            </View>
+          </View>
+
           <View className="flex-row items-center gap-2">
             <AccountButton />
             <SoundToggle />
           </View>
         </View>
-        <View className="h-px bg-line">
-          <Animated.View style={[{ height: '100%', backgroundColor: palette.accent }, meter]} />
-        </View>
       </View>
     </Animated.View>
+  );
+}
+
+/** One short rule per chapter: gold once passed, a longer gold rule for where you are. */
+function ChapterTick({ state }: { state: 'done' | 'here' | 'ahead' }) {
+  const width = useSharedValue(state === 'here' ? 26 : 12);
+  useEffect(() => {
+    width.set(withTiming(state === 'here' ? 26 : 12, { duration: 320 }));
+  }, [state, width]);
+  const style = useAnimatedStyle(() => ({ width: width.value }));
+  return (
+    <Animated.View
+      style={[{ height: 2, backgroundColor: state === 'ahead' ? palette.lineStrong : palette.accent, opacity: state === 'done' ? 0.55 : 1 }, style]}
+    />
   );
 }
 

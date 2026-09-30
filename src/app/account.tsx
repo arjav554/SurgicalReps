@@ -1,10 +1,11 @@
 import { router } from 'expo-router';
-import { useEffect, useState, type ReactNode } from 'react';
-import { ScrollView, View } from 'react-native';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { ScrollView, TextInput, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ActionButton } from '@/components/ActionButton';
+import { LegalLinks } from '@/components/LegalLinks';
 import { Icon } from '@/components/ui/Icon';
 import { PressableScale } from '@/components/ui/PressableScale';
 import { Text } from '@/components/ui/Text';
@@ -21,6 +22,7 @@ import {
   updatePassword,
   type AuthResult,
 } from '@/lib/account';
+import { SIGN_UP_NOTICE } from '@/legal/documents';
 import { emailProblem, passwordProblem } from '@/lib/authMessages';
 import { formatAgo } from '@/lib/formatDuration';
 import { useBreakpoint } from '@/lib/layout';
@@ -107,7 +109,7 @@ export default function AccountScreen() {
               {[
                 ['Progress', 'Runs, streaks, mastery and best times'],
                 ['Profile', 'Training stage and specialty, for recommendations'],
-                ['Privacy', 'Only you can read your records'],
+                ['Privacy', 'Other users can’t see your records'],
               ].map(([term, detail]) => (
                 <View key={term} className="flex-row gap-4 border-b border-line py-3">
                   <Text className="w-20 font-data-medium text-[10px] uppercase tracking-[1.5px] text-ink-faint">{term}</Text>
@@ -121,6 +123,10 @@ export default function AccountScreen() {
             <LinkErrorNotice />
             {body}
           </View>
+        </View>
+
+        <View className="mt-14 border-t border-line pt-6">
+          <LegalLinks />
         </View>
       </ScrollView>
     </View>
@@ -141,6 +147,8 @@ function Notice({ tone, children, onDismiss }: { tone: 'error' | 'info'; childre
   return (
     <Animated.View entering={FadeIn.duration(200)}>
       <View
+        role={tone === 'error' ? 'alert' : undefined}
+        accessibilityLiveRegion="polite"
         className={`mb-5 flex-row items-start gap-3 border-l-2 py-3 pl-4 pr-3 ${
           tone === 'error' ? 'border-alarm bg-alarm-dim' : 'border-ink-muted bg-surface'
         }`}
@@ -194,6 +202,7 @@ function AuthForm() {
   const [fieldErrors, setFieldErrors] = useState<{ email?: string | null; password?: string | null }>({});
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<AuthResult | null>(null);
+  const passwordRef = useRef<TextInput>(null);
   const runs = useProgressStore((s) => totalRuns(s.byProcedure));
   const hasProfile = useProfileStore((s) => s.profile !== null);
 
@@ -255,10 +264,12 @@ function AuthForm() {
           keyboardType="email-address"
           textContentType="emailAddress"
           returnKeyType={mode === 'reset' ? 'send' : 'next'}
-          onSubmitEditing={mode === 'reset' ? submit : undefined}
+          submitBehavior={mode === 'reset' ? 'blurAndSubmit' : 'submit'}
+          onSubmitEditing={mode === 'reset' ? submit : () => passwordRef.current?.focus()}
         />
         {mode !== 'reset' && (
           <TextField
+            ref={passwordRef}
             label="Password"
             secret
             value={password}
@@ -282,6 +293,27 @@ function AuthForm() {
       )}
 
       <View className="mt-6 gap-4">
+        {mode === 'signUp' && (
+          <Text className="text-[13px] leading-5 text-ink-muted">
+            {SIGN_UP_NOTICE.before}
+            <Text
+              accessibilityRole="link"
+              className="text-[13px] leading-5 text-ink underline"
+              onPress={() => router.push({ pathname: '/legal/[doc]', params: { doc: 'terms' } })}
+            >
+              {SIGN_UP_NOTICE.terms}
+            </Text>
+            {SIGN_UP_NOTICE.middle}
+            <Text
+              accessibilityRole="link"
+              className="text-[13px] leading-5 text-ink underline"
+              onPress={() => router.push({ pathname: '/legal/[doc]', params: { doc: 'privacy' } })}
+            >
+              {SIGN_UP_NOTICE.privacy}
+            </Text>
+            {SIGN_UP_NOTICE.after}
+          </Text>
+        )}
         <ActionButton
           label={
             busy

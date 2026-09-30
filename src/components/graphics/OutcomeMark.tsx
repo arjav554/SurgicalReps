@@ -29,7 +29,7 @@ export function OutcomeMark({ success, size = 52 }: { success: boolean; size?: n
   const markProps = useAnimatedProps(() => ({ strokeDashoffset: mark.value * markLen }));
 
   return (
-    <Svg width={size} height={size} viewBox="0 0 56 56">
+    <Svg width={size} height={size} viewBox="0 0 56 56" accessible={false} aria-hidden importantForAccessibility="no-hide-descendants">
       <Rect x="3" y="3" width="50" height="50" rx="3" stroke={color} strokeOpacity={0.15} strokeWidth="1.5" fill="none" />
       <AnimatedRect
         x="3"

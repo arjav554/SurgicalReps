@@ -7,12 +7,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ActionButton } from '@/components/ActionButton';
 import { StreakMeter } from '@/components/graphics/StreakMeter';
 import { ProcedureVisual } from '@/components/ProcedureVisual';
+import { PlateImage } from '@/components/ui/PlateImage';
 import { ReferenceList } from '@/components/ReferenceLink';
 import { SectionLabel } from '@/components/simulation/TerminalStep';
 import { Icon } from '@/components/ui/Icon';
 import { PressableScale } from '@/components/ui/PressableScale';
 import { Reveal, ScrollProvider } from '@/components/ui/ScrollReveal';
 import { Text } from '@/components/ui/Text';
+import { figureFor } from '@/data/figures';
 import { getProcedure } from '@/data/procedures';
 import { sectionLabels, specialtyChoice } from '@/data/specialties';
 import { callsPerCase, caseVariants } from '@/lib/caseShape';
@@ -26,7 +28,7 @@ import { MASTERY_STREAK, isMastered, useProcedureProgress } from '@/store/usePro
 import { palette } from '@/theme';
 import type { Procedure } from '@/types/procedure';
 
-const MAX_WIDTH = 1200;
+const SPLIT_AT = 1000;
 const REFERENCES_PREVIEW = 3;
 
 /** Pre-brief: what the rep trains, where the content comes from, and how you have done so far. */
@@ -34,8 +36,8 @@ export default function BriefingScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const procedure = getProcedure(id);
   const insets = useSafeAreaInsets();
-  const { width } = useBreakpoint();
-  const wide = width >= 1000;
+  const { width, height } = useBreakpoint();
+  const wide = width >= SPLIT_AT;
   const scrollY = useSharedValue(0);
   const onScroll = useAnimatedScrollHandler((e) => {
     scrollY.set(e.contentOffset.y);
@@ -56,60 +58,84 @@ export default function BriefingScreen() {
     );
   }
 
-  const gutter = wide ? 40 : 20;
-  const contentWidth = Math.min(width, MAX_WIDTH) - gutter * 2;
-  const leftWidth = wide ? Math.min(440, contentWidth * 0.4) : contentWidth;
+  const gutter = wide ? 56 : 20;
+  const panelWidth = wide ? Math.round(width * 0.6) : width;
+  const contentWidth = Math.min(panelWidth, 720) - gutter * 2;
 
-  return (
-    <View className="flex-1 bg-canvas">
-      <ScrollProvider scrollY={scrollY}>
-        <Animated.ScrollView
-          onScroll={onScroll}
-          scrollEventThrottle={16}
-          contentContainerStyle={{
-            width: '100%',
-            maxWidth: MAX_WIDTH,
-            alignSelf: 'center',
-            paddingHorizontal: gutter,
-            paddingTop: insets.top + 12,
-            paddingBottom: insets.bottom + (wide ? 48 : 120),
-          }}
-        >
-          <TopBar procedure={procedure} />
-
-          {wide ? (
-            <View className="flex-row items-start" style={{ gap: 56 }}>
-              <View style={{ width: leftWidth }} className="gap-6">
-                <Plate procedure={procedure} width={leftWidth} />
-                <MasteryPanel procedure={procedure} />
-                <ActionButton label="Begin simulation" icon="play" shortcut="Enter" onPress={begin} />
-              </View>
-              <View className="flex-1 gap-10">
-                <Overview procedure={procedure} large />
-                <Objectives procedure={procedure} />
-                <Evidence procedure={procedure} />
-              </View>
-            </View>
-          ) : (
-            <View className="gap-8">
-              <Overview procedure={procedure} />
-              <Plate procedure={procedure} width={leftWidth} />
-              <MasteryPanel procedure={procedure} />
-              <Objectives procedure={procedure} />
-              <Evidence procedure={procedure} />
-            </View>
-          )}
-        </Animated.ScrollView>
-      </ScrollProvider>
-
-      {!wide && (
-        <View
-          className="absolute bottom-0 left-0 right-0 border-t border-line bg-canvas px-5 pt-3"
-          style={{ paddingBottom: insets.bottom + 16 }}
-        >
-          <BeginButton procedure={procedure} onPress={begin} />
+  const body = (
+    <View className="gap-8">
+      <TopBar procedure={procedure} clearCorner={!wide} />
+      <Overview procedure={procedure} large={wide} />
+      {!wide && <Plate procedure={procedure} width={contentWidth} />}
+      <MasteryPanel procedure={procedure} />
+      <Objectives procedure={procedure} />
+      <Evidence procedure={procedure} />
+      {wide && (
+        <View className="pt-2">
+          <ActionButton label="Begin simulation" icon="play" shortcut="Enter" onPress={begin} />
         </View>
       )}
+    </View>
+  );
+
+  return (
+    <View className="flex-1 flex-row bg-canvas">
+      {wide && <PlatePane procedure={procedure} width={width - panelWidth} height={height} />}
+
+      <View className="flex-1">
+        <ScrollProvider scrollY={scrollY}>
+          <Animated.ScrollView
+            onScroll={onScroll}
+            scrollEventThrottle={16}
+            contentContainerStyle={{
+              width: '100%',
+              maxWidth: 720,
+              alignSelf: wide ? 'flex-start' : 'center',
+              paddingHorizontal: gutter,
+              paddingTop: insets.top + 12,
+              paddingBottom: insets.bottom + (wide ? 64 : 120),
+            }}
+          >
+            {body}
+          </Animated.ScrollView>
+        </ScrollProvider>
+
+        {!wide && (
+          <View
+            className="absolute bottom-0 left-0 right-0 border-t border-line bg-canvas px-5 pt-3"
+            style={{ paddingBottom: insets.bottom + 16 }}
+          >
+            <BeginButton procedure={procedure} onPress={begin} />
+          </View>
+        )}
+      </View>
+
+      <BackToLibrary top={insets.top + 12} left={wide ? 32 : 20} />
+    </View>
+  );
+}
+
+/** Desktop: a centred plate with Gray's caption beneath it, balanced against the briefing. */
+function PlatePane({ procedure, width, height }: { procedure: Procedure; width: number; height: number }) {
+  const figure = figureFor(procedure.id);
+  const plateHeight = Math.min(Math.round(height * 0.5), 460);
+  return (
+    <View style={{ width, height }} className="items-center justify-center border-r border-line bg-canvas px-12">
+      <View style={{ width: '100%', maxWidth: 460 }} className="gap-5">
+        <Animated.View entering={FadeIn.duration(600)}>
+          {figure ? (
+            <PlateImage figure={figure} height={plateHeight} accessible={false} />
+          ) : (
+            <ProcedureVisual procedure={procedure} width={width} variant="bare" height={plateHeight} />
+          )}
+        </Animated.View>
+        {figure && (
+          <View className="gap-1 border-t border-line pt-4">
+            <Text className="font-data-semibold text-[11px] uppercase tracking-[2px] text-gold">{figure.label}</Text>
+            <Text className="font-display-italic text-[15px] leading-[22px] text-ink-muted">{figure.caption}</Text>
+          </View>
+        )}
+      </View>
     </View>
   );
 }
@@ -119,19 +145,9 @@ function BeginButton({ procedure, onPress }: { procedure: Procedure; onPress: ()
   return <ActionButton label={progress.attempts === 0 ? 'Begin simulation' : 'Run it again'} icon="play" onPress={onPress} />;
 }
 
-function TopBar({ procedure }: { procedure: Procedure }) {
+function TopBar({ procedure, clearCorner }: { procedure: Procedure; clearCorner: boolean }) {
   return (
-    <View className="mb-8 flex-row items-center gap-4 border-b border-line pb-4">
-      <PressableScale
-        accessibilityRole="button"
-        accessibilityLabel="Back to procedures"
-        hitSlop={12}
-        onPress={() => goBack('/')}
-        className="h-9 flex-row items-center gap-1.5 rounded-sm border border-line pl-1.5 pr-3"
-      >
-        <Icon name="chevron-left" size={18} color={palette.inkMuted} />
-        <Text className="font-ui-medium text-[13px] text-ink-muted">Library</Text>
-      </PressableScale>
+    <View className="flex-row items-center gap-4 border-b border-line pb-4" style={clearCorner ? { paddingLeft: 116 } : undefined}>
       <Text numberOfLines={1} className="flex-1 font-data-medium text-[11px] uppercase tracking-[2px] text-ink-faint">
         {sectionLabels(procedure.id).join(' · ')}
       </Text>
@@ -139,10 +155,28 @@ function TopBar({ procedure }: { procedure: Procedure }) {
   );
 }
 
+/** Pinned to the corner so it stays in reach however far the briefing is scrolled. */
+function BackToLibrary({ top, left }: { top: number; left: number }) {
+  return (
+    <View pointerEvents="box-none" style={{ position: 'absolute', top, left, zIndex: 20 }}>
+      <PressableScale
+        accessibilityRole="button"
+        accessibilityLabel="Back to procedures"
+        hitSlop={12}
+        onPress={() => goBack('/')}
+        className="h-9 flex-row items-center gap-1.5 rounded-sm border border-line-strong bg-canvas pl-1.5 pr-3"
+      >
+        <Icon name="chevron-left" size={18} color={palette.inkMuted} />
+        <Text className="font-ui-medium text-[13px] text-ink-muted">Library</Text>
+      </PressableScale>
+    </View>
+  );
+}
+
 function Plate({ procedure, width }: { procedure: Procedure; width: number }) {
   return (
     <Animated.View entering={FadeIn.duration(420)}>
-      <ProcedureVisual procedure={procedure} width={width} />
+      <ProcedureVisual procedure={procedure} width={width} variant="card" height={220} />
     </Animated.View>
   );
 }

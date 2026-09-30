@@ -11,6 +11,7 @@ import { Icon } from '@/components/ui/Icon';
 import { PressableScale } from '@/components/ui/PressableScale';
 import { Text } from '@/components/ui/Text';
 import { procedures } from '@/data/procedures';
+import { QUIZ_NOTICE } from '@/legal/documents';
 import {
   SPECIALTY_CHOICES,
   TRAINING_STAGES,
@@ -150,6 +151,7 @@ export default function OnboardingScreen() {
             title="Where are you in training?"
             hint="Early learners see the shared fundamentals first."
           >
+            <Text className="mb-5 max-w-[620px] text-[13px] leading-5 text-ink-muted">{QUIZ_NOTICE}</Text>
             <Choices wide={false}>
               {TRAINING_STAGES.map((s, i) => (
                 <ChoiceRow

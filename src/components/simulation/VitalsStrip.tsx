@@ -14,7 +14,7 @@ import { EcgTrace } from '@/components/graphics/EcgTrace';
 import { Heartbeat } from '@/components/graphics/Heartbeat';
 import { Icon } from '@/components/ui/Icon';
 import { Text } from '@/components/ui/Text';
-import { REFERENCE_RANGES } from '@/data/referenceRanges';
+import { REFERENCE_RANGE_FALLBACK, REFERENCE_RANGES } from '@/data/referenceRanges';
 import { cue } from '@/lib/feedback';
 import { palette } from '@/theme';
 import type { Vital, VitalStatus } from '@/types/procedure';
@@ -87,8 +87,8 @@ export function VitalsStrip({ vitals }: { vitals: Vital[] }) {
         <Text className="font-data text-[11px] text-ink-faint">
           {focused ? (
             <>
-              <Text className="font-data-medium text-[11px] text-ink-muted">{focused.label}</Text> · typical adult{' '}
-              {REFERENCE_RANGES[focused.label] ?? 'range varies by laboratory'}
+              <Text className="font-data-medium text-[11px] text-ink-muted">{focused.label}</Text> ·{' '}
+              {REFERENCE_RANGES[focused.label] ? `typical adult ${REFERENCE_RANGES[focused.label]}` : REFERENCE_RANGE_FALLBACK}
             </>
           ) : (
             hint

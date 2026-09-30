@@ -5,6 +5,7 @@ import Animated, { FadeIn, FadeInDown, useAnimatedStyle, useSharedValue, withTim
 import { ActionButton } from '@/components/ActionButton';
 import { OutcomeMark } from '@/components/graphics/OutcomeMark';
 import { ReferenceList, SourceLine } from '@/components/ReferenceLink';
+import { CLINICAL_DISCLAIMER } from '@/data/disclaimers';
 import { Icon } from '@/components/ui/Icon';
 import { PressableScale } from '@/components/ui/PressableScale';
 import { Text } from '@/components/ui/Text';
@@ -107,6 +108,8 @@ export function TerminalStep({ node, procedure, choices, durationMs, onRestart }
             <ReferenceList references={procedure.references} />
           </View>
         )}
+
+        <Text className="text-xs leading-5 text-ink-muted">{CLINICAL_DISCLAIMER}</Text>
       </ScrollView>
 
       <ActionButton

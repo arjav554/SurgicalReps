@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedProps,
+  useReducedMotion,
   useSharedValue,
   withRepeat,
   withTiming,
@@ -60,11 +61,13 @@ export function EcgTrace({ width, height, beats = 3, color = palette.ink, period
 
   // SVG ids are document-global on web; keep each trace's gradient separate.
   const gradientId = `ecg${useId().replace(/[^a-zA-Z0-9]/g, '')}`;
+  const reduced = useReducedMotion();
   const offset = useSharedValue(length);
   useEffect(() => {
     offset.set(length);
+    if (reduced) return;
     offset.set(withRepeat(withTiming(0, { duration: period, easing: Easing.linear }), -1, false));
-  }, [length, period, offset]);
+  }, [length, period, offset, reduced]);
 
   const segment = length * 0.28;
   const pulseProps = useAnimatedProps(() => ({ strokeDashoffset: offset.value }));
