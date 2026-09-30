@@ -699,3 +699,16 @@ Hover text for monitor readings. Sources read 2026-09-29; all FT.
 3. **ASA 2020** was read from the ASA's final-draft PDF; confirm wording against the published version.
 4. **Brunt 2020** full text was not accessible; only its abstract (two strong recommendations) is used.
 5. Case vignettes, vital signs, and chance weights are authored teaching constructs, not epidemiological estimates.
+6. **Guidelines read at abstract level only** because the full text blocks automated access: ESVS 2020 acute limb
+   ischaemia, ESVS 2023 carotid and ESVS 2024 aneurysm guidelines (not used; ACC/AHA 2024 PAD and NICE NG128/NG156
+   were used instead), ESO 2021 carotid guideline, MASCC/ISOO/ASCO 2019 MRONJ guideline, and AAOMS 2022 MRONJ
+   position paper (not cited). Each case marks these rows AB; faculty with journal access should confirm them.
+7. **Older guidance still in force:** NICE TA1 (wisdom teeth, 2000) is paired with RCS England 2020, which notes a
+   growing debate about prophylactic removal. EBA burn guidelines version 4 (2017) is the EBA's current edition.
+   Faculty should confirm both still reflect local practice.
+8. **Anatomical plates** use Gray's 1918 captions and terminology (for example "trifacial nerve", "colic valve").
+   Plates were matched to captions from the 1918 text and the Wikimedia Commons file pages, and the plates with
+   no English Commons description were checked by eye. Each plate illustrates general anatomy for the case; none
+   is a claim about the pathology.
+9. **Monitor reference values** come from MedlinePlus (NIH) general ranges and the BTF 4th edition. Laboratory
+   ranges vary, and the AHI value is for adults only.
