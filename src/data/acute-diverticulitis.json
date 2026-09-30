@@ -206,9 +206,9 @@
       "type": "info",
       "text": "CT: free intraperitoneal air and fluid with generalized peritonitis. He is started on broad-spectrum IV antibiotics and resuscitated, and taken to theatre. At laparotomy: purulent peritonitis from a perforated sigmoid (Hinchey III), no fecal contamination.",
       "vitals": [
-        { "label": "Temp", "value": "38.9", "unit": "°C", "status": "critical" },
-        { "label": "HR", "value": "118", "unit": "bpm", "status": "critical" },
-        { "label": "WBC", "value": "19.4", "unit": "×10³/µL", "status": "critical" }
+        { "label": "Temp", "value": "38.9", "unit": "°C", "status": "warning" },
+        { "label": "HR", "value": "118", "unit": "bpm", "status": "warning" },
+        { "label": "WBC", "value": "19.4", "unit": "×10³/µL", "status": "warning" }
       ],
       "next": "physiology"
     },

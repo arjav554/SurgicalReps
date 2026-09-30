@@ -41,3 +41,82 @@ export const REFERENCE_RANGES: Record<string, string> = {
 
 /** Shown for a reading with no entry above. */
 export const REFERENCE_RANGE_FALLBACK = 'No reference range listed for this reading';
+
+/**
+ * Cases whose patient is a child or adolescent. Every range above is an adult value, and no sourced
+ * paediatric set has been read, so these cases show no ranges. A test keeps this list in step with the
+ * ages written in each case's opening text.
+ */
+export const PEDIATRIC_CASES = new Set([
+  'pyloric-stenosis',
+  'intussusception',
+  'pediatric-spleen-injury',
+  'tonsillectomy',
+  'testicular-torsion',
+  'adnexal-torsion',
+]);
+
+/** Pregnant or postpartum patients: pregnancy changes normal values, and no sourced obstetric set has been read. */
+export const OBSTETRIC_CASES = new Set(['postpartum-hemorrhage', 'ectopic-pregnancy']);
+
+/** The sourced reference text for a reading in a given case, or undefined when none applies. */
+export function referenceRangeFor(procedureId: string, label: string): string | undefined {
+  if (PEDIATRIC_CASES.has(procedureId) || OBSTETRIC_CASES.has(procedureId)) return undefined;
+  return REFERENCE_RANGES[label];
+}
+
+export type ReadingGroup = 'vital' | 'observation' | 'lab';
+
+/** Display order. Readings not listed sort after these, in their authored order. */
+export const READING_ORDER = [
+  // Vital signs
+  'HR',
+  'BP',
+  'MAP',
+  'RR',
+  'SpO2',
+  'Temp',
+  // Bedside observations and monitoring
+  'GCS',
+  'ICP',
+  'CPP',
+  'IOP',
+  'AHI',
+  'Since injury',
+  // Laboratory values
+  'Hb',
+  'Hct',
+  'WBC',
+  'Neut',
+  'Plt',
+  'INR',
+  'K',
+  'HCO3',
+  'Lactate',
+  'BUN',
+  'Cr',
+  'CRP',
+  'Bili',
+  'Lipase',
+] as const;
+
+const VITAL_LABELS = new Set(['HR', 'BP', 'MAP', 'RR', 'SpO2', 'Temp']);
+const OBSERVATION_LABELS = new Set(['GCS', 'ICP', 'CPP', 'IOP', 'AHI', 'Since injury']);
+
+export function readingGroup(label: string): ReadingGroup {
+  if (VITAL_LABELS.has(label)) return 'vital';
+  if (OBSERVATION_LABELS.has(label)) return 'observation';
+  return 'lab';
+}
+
+/** Sort readings into READING_ORDER, keeping the authored order for anything unlisted. */
+export function orderReadings<T extends { label: string }>(readings: readonly T[]): T[] {
+  const rank = (label: string) => {
+    const i = (READING_ORDER as readonly string[]).indexOf(label);
+    return i === -1 ? READING_ORDER.length : i;
+  };
+  return readings
+    .map((reading, i) => ({ reading, i }))
+    .sort((a, b) => rank(a.reading.label) - rank(b.reading.label) || a.i - b.i)
+    .map((x) => x.reading);
+}

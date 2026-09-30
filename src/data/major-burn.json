@@ -90,7 +90,7 @@
       "type": "decision",
       "text": "Six hours in, his urine output is 130 mL/h (about 1.6 mL/kg/h), and he is hemodynamically stable. What do you do with the fluids?",
       "vitals": [
-        { "label": "HR", "value": "102", "unit": "bpm" },
+        { "label": "HR", "value": "102", "unit": "bpm", "status": "warning" },
         { "label": "BP", "value": "126/74", "unit": "mmHg" }
       ],
       "options": [

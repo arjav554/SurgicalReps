@@ -50,7 +50,7 @@
         { "label": "Temp", "value": "37.9", "unit": "°C" },
         { "label": "SpO2", "value": "96", "unit": "%" },
         { "label": "WBC", "value": "15.1", "unit": "×10³/µL", "status": "warning" },
-        { "label": "Lactate", "value": "2.2", "unit": "mmol/L", "status": "warning" }
+        { "label": "Lactate", "value": "2.6", "unit": "mmol/L", "status": "warning" }
       ],
       "next": "imaging"
     },

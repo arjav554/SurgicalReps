@@ -13,6 +13,8 @@ export interface Vital {
   value: string;
   unit?: string;
   status?: VitalStatus;
+  /** Short text qualifier shown with the value, e.g. a rhythm ("Irregular") or where it was measured. */
+  note?: string;
 }
 
 /**

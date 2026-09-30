@@ -39,7 +39,7 @@
       "type": "info",
       "text": "A 74-year-old woman had sudden pain in her right leg 4 hours ago. The foot is cold, pale, and numb, and she can move her toes only weakly. There are no palpable pulses below the right femoral artery. Her pulse is irregular.",
       "vitals": [
-        { "label": "HR", "value": "116", "unit": "bpm", "status": "warning" },
+        { "label": "HR", "value": "116", "unit": "bpm", "status": "warning", "note": "Irregular" },
         { "label": "BP", "value": "148/86", "unit": "mmHg" }
       ],
       "next": "first"

@@ -70,7 +70,7 @@
         { "label": "Temp", "value": "38.0", "unit": "°C", "status": "warning" },
         { "label": "HR", "value": "96", "unit": "bpm" },
         { "label": "BP", "value": "124/76", "unit": "mmHg" },
-        { "label": "WBC", "value": "14.2", "unit": "×10⁹/L", "status": "warning" },
+        { "label": "WBC", "value": "14.2", "unit": "×10³/µL", "status": "warning" },
         { "label": "Neut", "value": "82", "unit": "%", "status": "warning" },
         { "label": "CRP", "value": "42", "unit": "mg/L", "status": "warning" }
       ],

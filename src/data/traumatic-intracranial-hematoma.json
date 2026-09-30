@@ -41,7 +41,7 @@
       "text": "A 76-year-old man who takes warfarin for atrial fibrillation fell down the stairs at home with a brief loss of consciousness. In the emergency department his GCS is 14, and he has vomited twice.",
       "vitals": [
         { "label": "GCS", "value": "14", "status": "warning" },
-        { "label": "HR", "value": "88", "unit": "bpm" },
+        { "label": "HR", "value": "88", "unit": "bpm", "note": "Known atrial fibrillation" },
         { "label": "BP", "value": "158/84", "unit": "mmHg" }
       ],
       "next": "ct"
@@ -77,7 +77,7 @@
       "type": "decision",
       "text": "CT shows an acute left subdural hematoma. His INR is 3.2. First step while neurosurgery reviews the scan?",
       "vitals": [
-        { "label": "INR", "value": "3.2", "status": "critical" }
+        { "label": "INR", "value": "3.2", "status": "critical", "note": "On warfarin" }
       ],
       "options": [
         {

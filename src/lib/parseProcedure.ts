@@ -263,6 +263,7 @@ function parseVital(raw: unknown, path: string): Vital {
     value: expectString(vital.value, `${path}.value`),
     unit: vital.unit === undefined ? undefined : expectString(vital.unit, `${path}.unit`),
     status: vital.status as Vital['status'],
+    ...(vital.note !== undefined && { note: expectString(vital.note, `${path}.note`) }),
   };
 }
 

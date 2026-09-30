@@ -54,8 +54,8 @@
       "type": "info",
       "text": "A 58-year-old man with poorly controlled hypertension has had sudden, severe, sharp chest pain radiating to his back for 40 minutes, worst at onset. Right-arm BP is 178/96; left-arm BP is 142/84. ECG shows sinus tachycardia without ST elevation.",
       "vitals": [
-        { "label": "HR", "value": "104", "unit": "bpm", "status": "warning" },
-        { "label": "BP", "value": "178/96", "unit": "mmHg", "status": "warning" },
+        { "label": "HR", "value": "104", "unit": "bpm", "status": "warning", "note": "Sinus tachycardia" },
+        { "label": "BP", "value": "178/96", "unit": "mmHg", "status": "warning", "note": "Right arm; left arm 142/84" },
         { "label": "RR", "value": "20", "unit": "/min" },
         { "label": "SpO2", "value": "97", "unit": "%" }
       ],

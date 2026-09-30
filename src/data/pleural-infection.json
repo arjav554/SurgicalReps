@@ -57,7 +57,7 @@
         { "label": "HR", "value": "108", "unit": "bpm", "status": "warning" },
         { "label": "BP", "value": "118/72", "unit": "mmHg" },
         { "label": "RR", "value": "22", "unit": "/min", "status": "warning" },
-        { "label": "SpO2", "value": "94", "unit": "%" }
+        { "label": "SpO2", "value": "94", "unit": "%", "status": "warning" }
       ],
       "next": "aspirate"
     },

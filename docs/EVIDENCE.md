@@ -690,6 +690,13 @@ Hover text for monitor readings. Sources read 2026-09-29; all FT.
 | GCS, ICP, CPP | severe TBI = GCS 3–8; treat ICP > 22 mmHg (IIB); CPP target 60–70 mmHg (IIB) | BTF 4th edition (2016) |
 | Lipase | laboratory-specific upper limit; the case states it | none needed (no value claimed) |
 | MAP, "Since injury" | removed; fallback text shown | unsourced values withdrawn |
+| All readings in paediatric and obstetric cases | none shown (`referenceRangeFor` returns undefined) | adult sources only; no paediatric or pregnancy set read |
+
+Vitals audit (2026-09-29): flags checked against these ranges and each scenario. Changes: perforated-ulcer
+lactate 2.2 → 2.6 (2.2 is the upper normal limit); pleural-infection SpO2 94 and major-burn HR 102 flagged;
+diverticulitis pre-operative peritonitis values downgraded from critical to warning; epistaxis INR 2.6 unflagged
+(within the 2.0–3.0 warfarin target, MedlinePlus 003652); appendicitis WBC unit aligned to ×10³/µL; rhythm and
+measurement notes added only where the case text already states them (dissection, limb ischemia, AF on warfarin).
 
 <a id="standalone-pearls"></a>
 ### Standalone pearls (`src/data/pearls.json`)

@@ -39,9 +39,9 @@
       "type": "info",
       "text": "A 74-year-old man on warfarin for atrial fibrillation has had a right-sided nosebleed for 40 minutes. He is spitting blood but is alert and stable.",
       "vitals": [
-        { "label": "HR", "value": "96", "unit": "bpm" },
+        { "label": "HR", "value": "96", "unit": "bpm", "note": "Known atrial fibrillation" },
         { "label": "BP", "value": "168/92", "unit": "mmHg", "status": "warning" },
-        { "label": "INR", "value": "2.6", "status": "warning" }
+        { "label": "INR", "value": "2.6", "note": "On warfarin" }
       ],
       "next": "compress"
     },
