@@ -1,5 +1,5 @@
 /**
- * Who runs Mental Reps and where its data lives. The legal pages read every business detail from here.
+ * Who runs Surgical Reps and where its data lives. The legal pages read every business detail from here.
  * `null` means not supplied yet: the pages show a bracketed gap, and `missingOperatorDetails()` lists what the
  * owner still has to fill in before launch. Never guess these values; they come from the owner.
  */

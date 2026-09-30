@@ -41,12 +41,12 @@ const privacy: LegalDocument = {
   id: 'privacy',
   title: 'Privacy Policy',
   summary:
-    'Mental Reps works without an account, and then nothing you do leaves your device. If you create an account, we keep your email address, progress and specialty profile so they sync between devices. We don’t use analytics, advertising or trackers, and we don’t sell your data.',
+    'Surgical Reps works without an account, and then nothing you do leaves your device. If you create an account, we keep your email address, progress and specialty profile so they sync between devices. We don’t use analytics, advertising or trackers, and we don’t sell your data.',
   sections: [
     {
       heading: 'Who we are',
       body: [
-        `Mental Reps is run by ${operator}, who is responsible for your personal data (the "data controller"). Contact: ${email}.${
+        `Surgical Reps is run by ${operator}, who is responsible for your personal data (the "data controller"). Contact: ${email}.${
           OPERATOR.postalAddress ? ` Post: ${OPERATOR.postalAddress}.` : ''
         }`,
       ],
@@ -130,13 +130,13 @@ const privacy: LegalDocument = {
     {
       heading: 'Tracking and Do Not Track',
       body: [
-        'Mental Reps doesn’t track you across other sites or apps, and it doesn’t let third parties collect information about your activity over time. Because there is no such tracking to turn off, the app works the same way whether or not your browser sends a Do Not Track signal.',
+        'Surgical Reps doesn’t track you across other sites or apps, and it doesn’t let third parties collect information about your activity over time. Because there is no such tracking to turn off, the app works the same way whether or not your browser sends a Do Not Track signal.',
       ],
     },
     {
       heading: 'Children',
       body: [
-        `Mental Reps is for medical students and clinicians and isn’t directed at children. You must be at least ${minimumAge} to create an account. If we learn we hold a child’s data, we delete it.`,
+        `Surgical Reps is for medical students and clinicians and isn’t directed at children. You must be at least ${minimumAge} to create an account. If we learn we hold a child’s data, we delete it.`,
       ],
     },
     {
@@ -151,12 +151,12 @@ const privacy: LegalDocument = {
 const terms: LegalDocument = {
   id: 'terms',
   title: 'Terms of Use',
-  summary: `These terms are an agreement between you and ${operator}, who runs Mental Reps. By using the app, you accept them.`,
+  summary: `These terms are an agreement between you and ${operator}, who runs Surgical Reps. By using the app, you accept them.`,
   sections: [
     {
       heading: 'Educational use only',
       body: [
-        'Mental Reps is a training tool for practicing surgical decision-making. It is not medical advice and not a clinical decision aid. Don’t use it to diagnose or treat patients, or in place of your own clinical judgment, supervision by qualified colleagues, or your institution’s protocols.',
+        'Surgical Reps is a training tool for practicing surgical decision-making. It is not medical advice and not a clinical decision aid. Don’t use it to diagnose or treat patients, or in place of your own clinical judgment, supervision by qualified colleagues, or your institution’s protocols.',
         'Cases are simplified teaching scenarios. We cite published sources, but medicine changes and content can contain errors or go out of date. Check current guidance before making any clinical decision.',
       ],
     },
@@ -188,7 +188,7 @@ const terms: LegalDocument = {
     {
       heading: 'Price and refunds',
       body: [
-        'Mental Reps is free. We don’t take payments, so there is nothing to refund. If we ever offer paid features, we’ll publish their price and refund terms before you can buy them. Purchases made through the App Store or Google Play would also be covered by those stores’ refund processes.',
+        'Surgical Reps is free. We don’t take payments, so there is nothing to refund. If we ever offer paid features, we’ll publish their price and refund terms before you can buy them. Purchases made through the App Store or Google Play would also be covered by those stores’ refund processes.',
       ],
     },
     {
@@ -223,7 +223,7 @@ const cookies: LegalDocument = {
   id: 'cookies',
   title: 'Cookie and Storage Notice',
   summary:
-    'Mental Reps doesn’t use cookies. It saves a few items in your device’s storage so the app works, and nothing for analytics or advertising. That’s why there’s no consent banner.',
+    'Surgical Reps doesn’t use cookies. It saves a few items in your device’s storage so the app works, and nothing for analytics or advertising. That’s why there’s no consent banner.',
   sections: [
     {
       heading: 'What we store on your device',

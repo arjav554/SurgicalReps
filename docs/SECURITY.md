@@ -64,7 +64,7 @@ Run by hand:
    clickjacking). Add a Content Security Policy once the host is chosen and the Supabase URL is known.
 5. Store listings: link the privacy policy URL; fill in Apple's privacy "nutrition label" and Google Play's
    Data safety form from the table above (email, user ID, app interactions; not used for tracking; not sold).
-6. Check the name "Mental Reps" / "SurgeryReps" isn't already a trademark in your market before spending on
+6. Check the name "Surgical Reps" isn't already a trademark in your market before spending on
    branding.
 7. Lawyer review of `src/legal/` (see the top of this file).
 

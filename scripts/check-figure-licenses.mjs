@@ -30,7 +30,7 @@ async function lookup(names) {
     iiextmetadatafilter: 'LicenseShortName|Artist|Credit',
     titles: names.map((n) => `File:${n}`).join('|'),
   }).toString();
-  const res = await fetch(url, { headers: { 'User-Agent': 'MentalReps-license-check/1.0' } });
+  const res = await fetch(url, { headers: { 'User-Agent': 'SurgicalReps-license-check/1.0' } });
   if (!res.ok) throw new Error(`Commons API returned ${res.status}`);
   const json = await res.json();
   const byTitle = new Map();
