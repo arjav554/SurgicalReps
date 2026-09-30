@@ -3,22 +3,28 @@ import type MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIco
 
 /**
  * Raw palette for places className cannot reach (SVG strokes, icon tints). Mirrors tailwind.config.js:
- * two anchors (ink-black, warm bone) and a single accent (arterial red).
+ * two anchors (blue-black, warm bone), gold for emphasis, and red kept for danger and alarms.
  */
 export const palette = {
-  canvas: '#0B0D0F',
-  surface: '#111417',
-  surfaceRaised: '#161A1E',
-  line: '#252A30',
-  lineStrong: '#3A4148',
+  canvas: '#080B10',
+  surface: '#0D1218',
+  surfaceRaised: '#121820',
+  line: '#1E2530',
+  lineStrong: '#2E3742',
+  /** Input and control boundaries: 3:1 or better on every surface (WCAG 1.4.11). */
+  field: '#6A7078',
   ink: '#ECE6DA',
-  inkMuted: '#A39C8F',
-  inkFaint: '#6B665D',
-  accent: '#D9483B',
+  inkMuted: '#A8A295',
+  /** Smallest text on dark: 4.5:1 or better on every surface. */
+  inkFaint: '#8B8780',
+  /** Gold: highlights, active tabs, key numbers and the spotlight. */
+  accent: '#C9A45C',
+  goldDim: '#1C1810',
   paper: '#F1EBDD',
-  // Legacy aliases, so status reads through the restrained palette.
-  signal: '#D9483B',
-  alarm: '#D9483B',
+  /** Red is reserved for danger, failure and alarms. 4.5:1 or better as text on every surface. */
+  alarm: '#E06356',
+  // Legacy aliases: `signal` is gold, `vital` and `caution` are bone.
+  signal: '#C9A45C',
   vital: '#ECE6DA',
   caution: '#ECE6DA',
 } as const;

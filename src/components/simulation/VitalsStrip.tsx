@@ -34,7 +34,7 @@ const valueByStatus: Record<VitalStatus, string> = {
 const colorByStatus: Record<VitalStatus, string> = {
   normal: palette.inkMuted,
   warning: palette.ink,
-  critical: palette.accent,
+  critical: palette.alarm,
 };
 
 /** Status is carried by marker and weight, not hue: hollow square = abnormal, filled red = critical. */
@@ -48,7 +48,7 @@ function StatusMarker({ status }: { status: VitalStatus }) {
         borderRadius: 1,
         borderWidth: 1,
         borderColor: colorByStatus[status],
-        backgroundColor: status === 'critical' ? palette.accent : 'transparent',
+        backgroundColor: status === 'critical' ? palette.alarm : 'transparent',
       }}
     />
   );

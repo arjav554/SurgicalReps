@@ -1,9 +1,10 @@
 import { router } from 'expo-router';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 import Animated, { interpolate, interpolateColor, useAnimatedStyle } from 'react-native-reanimated';
 
 import { StreakMeter } from '@/components/graphics/StreakMeter';
 import { Icon } from '@/components/ui/Icon';
+import { PlateImage } from '@/components/ui/PlateImage';
 import { PressableScale, useHover } from '@/components/ui/PressableScale';
 import { Text } from '@/components/ui/Text';
 import { figureFor } from '@/data/figures';
@@ -19,7 +20,18 @@ import type { Procedure } from '@/types/procedure';
  * One entry in the case library, set like a journal's contents page:
  * index number, atlas thumbnail, title and dek, specialty, meta, and mastery.
  */
-export function ProcedureRow({ procedure, index, wide }: { procedure: Procedure; index: number; wide: boolean }) {
+export function ProcedureRow({
+  procedure,
+  index,
+  wide,
+  onHover,
+}: {
+  procedure: Procedure;
+  index: number;
+  wide: boolean;
+  /** Desktop: called with this case's id when the pointer or keyboard focus arrives. */
+  onHover?: (id: string) => void;
+}) {
   const progress = useProcedureProgress(procedure.id);
   const forYou = useProfileStore((s) => isRecommended(procedure.id, s.profile));
   const filedUnder = primarySpecialtyLabel(procedure.id);
@@ -38,6 +50,8 @@ export function ProcedureRow({ procedure, index, wide }: { procedure: Procedure;
       accessibilityLabel={procedure.title}
       rule
       depth={0.995}
+      onHoverIn={onHover ? () => onHover(procedure.id) : undefined}
+      onFocus={onHover ? () => onHover(procedure.id) : undefined}
       onPress={() => router.push({ pathname: '/procedure/[id]', params: { id: procedure.id } })}
       className="border-b border-line"
     >
@@ -110,19 +124,19 @@ function IndexNumber({ n }: { n: number }) {
   );
 }
 
-/** Atlas thumbnail on paper, or the category glyph in a ruled square. */
+/** Atlas thumbnail as pale linework in a ruled square, or the category glyph. */
 function Thumb({ procedure }: { procedure: Procedure }) {
   const figure = figureFor(procedure.id);
   if (figure) {
     return (
-      <View className="h-14 w-14 overflow-hidden rounded-sm bg-paper">
-        <Image source={figure.plate} resizeMode="cover" style={{ width: 56, height: 56 }} accessibilityLabel={figure.caption} />
+      <View className="h-16 w-16 overflow-hidden rounded-sm border border-line bg-canvas">
+        <PlateImage figure={figure} width={64} height={64} spotlight={false} vignette={false} accessible={false} />
       </View>
     );
   }
   const { icon } = styleForCategory(procedure.category);
   return (
-    <View className="h-14 w-14 items-center justify-center rounded-sm border border-line-strong">
+    <View className="h-16 w-16 items-center justify-center rounded-sm border border-line-strong">
       <Icon name={icon} size={24} color={palette.inkMuted} />
     </View>
   );

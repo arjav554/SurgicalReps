@@ -1,22 +1,17 @@
 import '../../global.css';
 
-import {
-  IBMPlexMono_400Regular,
-  IBMPlexMono_500Medium,
-  IBMPlexMono_600SemiBold,
-} from '@expo-google-fonts/ibm-plex-mono';
-import {
-  IBMPlexSans_400Regular,
-  IBMPlexSans_500Medium,
-  IBMPlexSans_600SemiBold,
-  IBMPlexSans_700Bold,
-} from '@expo-google-fonts/ibm-plex-sans';
+// Per-weight entry points: the package index would bundle every weight of every family.
+import { IBMPlexMono_400Regular } from '@expo-google-fonts/ibm-plex-mono/400Regular';
+import { IBMPlexMono_500Medium } from '@expo-google-fonts/ibm-plex-mono/500Medium';
+import { IBMPlexMono_600SemiBold } from '@expo-google-fonts/ibm-plex-mono/600SemiBold';
+import { IBMPlexSans_400Regular } from '@expo-google-fonts/ibm-plex-sans/400Regular';
+import { IBMPlexSans_500Medium } from '@expo-google-fonts/ibm-plex-sans/500Medium';
+import { IBMPlexSans_600SemiBold } from '@expo-google-fonts/ibm-plex-sans/600SemiBold';
+import { IBMPlexSans_700Bold } from '@expo-google-fonts/ibm-plex-sans/700Bold';
 import { LibreCaslonDisplay_400Regular } from '@expo-google-fonts/libre-caslon-display';
-import {
-  LibreCaslonText_400Regular,
-  LibreCaslonText_400Regular_Italic,
-  LibreCaslonText_700Bold,
-} from '@expo-google-fonts/libre-caslon-text';
+import { LibreCaslonText_400Regular } from '@expo-google-fonts/libre-caslon-text/400Regular';
+import { LibreCaslonText_400Regular_Italic } from '@expo-google-fonts/libre-caslon-text/400Regular_Italic';
+import { LibreCaslonText_700Bold } from '@expo-google-fonts/libre-caslon-text/700Bold';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';

@@ -25,7 +25,7 @@ export function AccountButton() {
       {signedIn && (
         <View
           className="h-1.5 w-1.5"
-          style={{ backgroundColor: sync === 'error' ? palette.accent : sync === 'synced' ? palette.ink : palette.inkFaint }}
+          style={{ backgroundColor: sync === 'error' ? palette.alarm : sync === 'synced' ? palette.ink : palette.inkFaint }}
         />
       )}
     </PressableScale>

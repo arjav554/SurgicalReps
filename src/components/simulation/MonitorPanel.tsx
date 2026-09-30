@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import Animated, {
   Easing,
   FadeInLeft,
@@ -10,6 +10,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { Icon } from '@/components/ui/Icon';
+import { PlateImage } from '@/components/ui/PlateImage';
 import { Text } from '@/components/ui/Text';
 import { figureFor } from '@/data/figures';
 import { KEYBOARD } from '@/lib/keyboard';
@@ -190,11 +191,11 @@ function AnatomyCard({ procedureId }: { procedureId: string }) {
   const figure = figureFor(procedureId);
   if (!figure) return null;
   return (
-    <View className="overflow-hidden rounded border border-line bg-paper">
-      <Image source={figure.plate} resizeMode="contain" style={{ width: '100%', height: 170 }} accessibilityLabel={figure.caption} />
-      <View className="flex-row items-baseline gap-2 border-t border-paper-ink/10 px-3 py-2">
-        <Text className="font-data-semibold text-[10px] uppercase tracking-[1.5px] text-paper-muted">{figure.label}</Text>
-        <Text numberOfLines={1} className="flex-1 font-display-italic text-[12px] text-paper-ink">
+    <View className="overflow-hidden rounded border border-line bg-canvas">
+      <PlateImage figure={figure} height={170} accessible={false} />
+      <View className="flex-row items-baseline gap-2 border-t border-line px-3 py-2">
+        <Text className="font-data-semibold text-[10px] uppercase tracking-[1.5px] text-gold">{figure.label}</Text>
+        <Text numberOfLines={1} className="flex-1 font-display-italic text-[12px] text-ink-muted">
           {figure.caption}
         </Text>
       </View>

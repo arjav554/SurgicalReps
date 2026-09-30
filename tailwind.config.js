@@ -6,47 +6,53 @@ module.exports = {
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
-      // Clinical editorial palette: two anchors (ink-black and warm bone, the tone of the
-      // atlas plates) and one accent (arterial red). Legacy token names are kept so
-      // meaning maps cleanly: `signal` and `alarm` are the accent; `vital` and `caution`
-      // are bone, with status carried by typography and markers rather than hue.
+      // Marble and gold on blue-black: two anchors (near-black navy and warm bone, the tone of
+      // the atlas plates), gold for emphasis and red kept for danger. Legacy token names are kept:
+      // `signal` is gold, `alarm` is red, `vital` and `caution` are bone, with status carried by
+      // typography and markers rather than hue.
       colors: {
-        canvas: '#0B0D0F',
+        canvas: '#080B10',
         paper: {
           DEFAULT: '#F1EBDD',
           ink: '#231E18',
           muted: '#6E6456',
         },
         surface: {
-          DEFAULT: '#111417',
-          raised: '#161A1E',
-          pressed: '#1C2126',
+          DEFAULT: '#0D1218',
+          raised: '#121820',
+          pressed: '#18202A',
         },
         line: {
-          DEFAULT: '#252A30',
-          strong: '#3A4148',
+          DEFAULT: '#1E2530',
+          strong: '#2E3742',
         },
+        // Input and control boundaries: 3:1 on every surface.
+        field: '#6A7078',
         ink: {
           DEFAULT: '#ECE6DA',
-          muted: '#A39C8F',
-          faint: '#6B665D',
+          muted: '#A8A295',
+          faint: '#8B8780',
+        },
+        gold: {
+          DEFAULT: '#C9A45C',
+          dim: '#1C1810',
         },
         signal: {
-          DEFAULT: '#D9483B',
-          dim: '#2A1413',
+          DEFAULT: '#C9A45C',
+          dim: '#1C1810',
         },
         alarm: {
-          DEFAULT: '#D9483B',
+          DEFAULT: '#E06356',
           dim: '#2A1413',
           veil: '#120B0B',
         },
         vital: {
           DEFAULT: '#ECE6DA',
-          dim: '#1A1C1E',
+          dim: '#14181C',
         },
         caution: {
           DEFAULT: '#ECE6DA',
-          dim: '#16191C',
+          dim: '#12161B',
         },
       },
       // Editorial type: Libre Caslon for display and stems, IBM Plex Sans for the

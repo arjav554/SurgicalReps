@@ -17,9 +17,11 @@ import { scheduleOnRN } from 'react-native-worklets';
 
 import { AccountButton } from '@/components/AccountButton';
 import { ActionButton } from '@/components/ActionButton';
+import { LegalLinks } from '@/components/LegalLinks';
 import { EcgTrace } from '@/components/graphics/EcgTrace';
-import { IncisionRail } from '@/components/graphics/IncisionRail';
 import { Logo } from '@/components/graphics/Logo';
+import { ScrollRule } from '@/components/graphics/ScrollRule';
+import { ArcCarousel } from '@/components/home/ArcCarousel';
 import { PearlCarousel } from '@/components/home/PearlCarousel';
 import { ProcedureRow } from '@/components/home/ProcedureCard';
 import { ProcedureVisual } from '@/components/ProcedureVisual';
@@ -27,6 +29,7 @@ import { Icon } from '@/components/ui/Icon';
 import { PressableScale } from '@/components/ui/PressableScale';
 import { Reveal, ScrollProvider } from '@/components/ui/ScrollReveal';
 import { Text } from '@/components/ui/Text';
+import { CLINICAL_DISCLAIMER } from '@/data/disclaimers';
 import { FIGURE_CREDIT } from '@/data/figures';
 import { procedures } from '@/data/procedures';
 import {
@@ -49,7 +52,8 @@ import { palette } from '@/theme';
 import type { Procedure } from '@/types/procedure';
 
 const MAX_WIDTH = 1200;
-const RAIL_WIDTH = 116;
+const RULE_GUTTER = 28;
+const PREVIEW_WIDTH = 340;
 
 type LibraryFilter = 'for-you' | 'all' | SpecialtyId;
 
@@ -79,10 +83,11 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const { breakpoint, width, height } = useBreakpoint();
   const desktop = breakpoint === 'desktop';
-  const railWidth = desktop ? RAIL_WIDTH : 0;
-  const gutter = desktop ? 40 : 20;
-  const contentWidth = Math.min(width - railWidth, MAX_WIDTH) - gutter * 2;
+  const gutter = desktop ? 56 : 20;
+  const contentWidth = Math.min(width, MAX_WIDTH) - gutter * 2;
   const wide = contentWidth >= 880;
+  // Hovering a library row previews its plate beside the list, when there is room for both.
+  const preview = desktop && contentWidth >= 1000;
 
   const scrollY = useSharedValue(0);
   const maxScroll = useSharedValue(1);
@@ -111,15 +116,18 @@ export default function HomeScreen() {
   const filter: LibraryFilter =
     chosen === 'for-you' && !profile ? 'all' : (chosen ?? (profile ? 'for-you' : 'all'));
   const listed = useMemo(() => filterLibrary(filter, profile, query), [filter, profile, query]);
+  const byProcedure = useProgressStore((s) => s.byProcedure);
+  const nextRep = pickNextRep(procedures, byProcedure, profile);
+  const suggestions = useMemo(() => {
+    const recommended = profile ? recommendedFor(profile, procedures) : [];
+    return (recommended.length > 0 ? recommended : procedures).filter((p) => p.id !== nextRep.id).slice(0, 9);
+  }, [profile, nextRep.id]);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const previewed = listed.find((p) => p.id === hoveredId) ?? listed[0];
+  const rowWide = contentWidth - (preview ? PREVIEW_WIDTH + 40 : 0) >= 640;
 
   return (
     <View className="flex-1 flex-row bg-canvas">
-      {desktop && (
-        <View style={{ width: railWidth, paddingTop: insets.top + 12 }} className="border-r border-line">
-          <IncisionRail progress={progress} width={railWidth} height={height - insets.top - 12} onSeek={seek} />
-        </View>
-      )}
-
       <View className="flex-1">
         <ScrollProvider scrollY={scrollY}>
           <Animated.ScrollView
@@ -139,7 +147,26 @@ export default function HomeScreen() {
             <Masthead />
             <Hero contentWidth={contentWidth} wide={wide} />
 
-            <View className="mt-12">
+            {suggestions.length > 0 && (
+              <Reveal>
+                <View className="mt-16 gap-2">
+                  <View className="items-center gap-2">
+                    <Text className="font-data-medium text-[11px] uppercase tracking-[2px] text-signal">
+                      {profile ? 'More for you' : 'More reps'}
+                    </Text>
+                    <Text
+                      accessibilityRole="header"
+                      className="text-center font-headline text-[34px] leading-[40px] text-ink lg:text-[42px] lg:leading-[48px]"
+                    >
+                      Choose your next case
+                    </Text>
+                  </View>
+                  <ArcCarousel items={suggestions} width={contentWidth} />
+                </View>
+              </Reveal>
+            )}
+
+            <View className="mt-14">
               <PearlCarousel />
             </View>
 
@@ -158,22 +185,34 @@ export default function HomeScreen() {
               </View>
             </Reveal>
 
-            <View className="mt-1 border-t border-line-strong">
-              {listed.length === 0 ? (
-                <Animated.View entering={FadeIn}>
-                  <View className="items-center gap-2 py-12">
-                    <Icon name="text-search" size={26} color={palette.inkFaint} />
-                    <Text className="text-ink-muted">
-                      {query.trim() ? `No procedures match “${query}”.` : 'No cases here yet.'}
-                    </Text>
-                  </View>
-                </Animated.View>
-              ) : (
-                listed.map((procedure) => (
-                  <Animated.View key={procedure.id} entering={FadeIn.duration(220)} exiting={FadeOut.duration(120)}>
-                    <ProcedureRow procedure={procedure} index={procedures.indexOf(procedure)} wide={contentWidth >= 720} />
+            <View className={preview ? 'mt-1 flex-row items-start' : 'mt-1'} style={preview ? { gap: 40 } : undefined}>
+              <View className="flex-1 border-t border-line-strong">
+                {listed.length === 0 ? (
+                  <Animated.View entering={FadeIn}>
+                    <View className="items-center gap-2 py-12">
+                      <Icon name="text-search" size={26} color={palette.inkFaint} />
+                      <Text className="text-ink-muted">
+                        {query.trim() ? `No procedures match “${query}”.` : 'No cases here yet.'}
+                      </Text>
+                    </View>
                   </Animated.View>
-                ))
+                ) : (
+                  listed.map((procedure) => (
+                    <Animated.View key={procedure.id} entering={FadeIn.duration(220)} exiting={FadeOut.duration(120)}>
+                      <ProcedureRow
+                        procedure={procedure}
+                        index={procedures.indexOf(procedure)}
+                        wide={rowWide}
+                        onHover={preview ? setHoveredId : undefined}
+                      />
+                    </Animated.View>
+                  ))
+                )}
+              </View>
+              {preview && previewed && (
+                <View aria-hidden style={{ width: PREVIEW_WIDTH, marginTop: 24, position: 'sticky', top: 24 } as object}>
+                  <ProcedureVisual procedure={previewed} width={PREVIEW_WIDTH} height={380} />
+                </View>
               )}
             </View>
 
@@ -183,9 +222,28 @@ export default function HomeScreen() {
                 Scenarios are condensed from the cited guidelines and trials and do not replace clinical judgment, attending
                 supervision, or local protocols. {FIGURE_CREDIT}
               </Text>
+              <Text className="max-w-[760px] text-xs leading-5 text-ink-muted">{CLINICAL_DISCLAIMER}</Text>
+              <View className="mt-3">
+                <LegalLinks />
+              </View>
             </View>
           </Animated.ScrollView>
         </ScrollProvider>
+
+        {desktop && (
+          <View
+            pointerEvents="box-none"
+            style={{
+              position: 'absolute',
+              left: (width - Math.min(width, MAX_WIDTH)) / 2 + 12,
+              top: insets.top + 96,
+              bottom: 64,
+              width: RULE_GUTTER,
+            }}
+          >
+            <ScrollRule progress={progress} onSeek={seek} />
+          </View>
+        )}
 
         {condensed && <StickyHeader scrollY={scrollY} maxScroll={maxScroll} />}
       </View>
@@ -265,46 +323,65 @@ function Hero({ contentWidth, wide }: { contentWidth: number; wide: boolean }) {
   const profile = useProfileStore((s) => s.profile);
   const next = pickNextRep(procedures, byProcedure, profile);
 
-  // Asymmetric: a wide text column and a narrower featured case.
-  const leftWidth = wide ? Math.round(contentWidth * 0.58) : contentWidth;
-  const rightWidth = wide ? contentWidth - leftWidth - 56 : contentWidth;
+  // A wide, tracked wordmark; the featured plate rises over its right-hand end.
+  const size = wide ? Math.min(140, Math.floor(contentWidth / 8.2)) : Math.min(56, Math.floor(contentWidth / 7.2));
+  const leftWidth = wide ? Math.round(contentWidth * 0.5) : contentWidth;
+  const rightWidth = wide ? contentWidth - leftWidth - 48 : contentWidth;
 
   return (
-    <View className={wide ? 'mt-12 flex-row items-start' : 'mt-9 gap-12'} style={wide ? { gap: 56 } : undefined}>
-      <View style={{ width: leftWidth }} className="gap-8">
-        <Animated.View entering={FadeIn.duration(420)}>
-          <View className="gap-5">
-            <Text className="font-data-medium text-[11px] uppercase tracking-[2px] text-signal">
-              Deliberate practice · graded against the evidence
-            </Text>
-            <Text className="font-headline text-[46px] leading-[50px] text-ink lg:text-[72px] lg:leading-[74px]">
-              Rehearse the decisions that matter.
-            </Text>
-            <Text className="max-w-[540px] font-display text-[17px] leading-[27px] text-ink-muted lg:text-[19px] lg:leading-[30px]">
-              Guideline-based cases for surgical trainees. Every call is checked against published recommendations, and case
-              findings vary on every run.
-            </Text>
-            <TailorLine />
-          </View>
-        </Animated.View>
-
-        <EcgTrace width={leftWidth} height={56} beats={wide ? 6 : 4} />
-
-        <View className="gap-3">
-          <Ledger
-            items={[
-              { label: 'Mastered', value: mastered, suffix: `/${procedures.length}` },
-              { label: 'Reps', value: reps },
-              { label: 'Clean runs', value: reps ? Math.round((clean / reps) * 100) : 0, suffix: '%', empty: !reps },
-            ]}
-          />
-          <BackupLine reps={reps} />
-        </View>
+    <View className="mt-6">
+      <View aria-hidden pointerEvents="none">
+        <Text
+          numberOfLines={1}
+          className="font-headline text-ink-muted"
+          style={{ fontSize: size, lineHeight: Math.round(size * 1.05), letterSpacing: Math.round(size * 0.08) }}
+        >
+          MENTAL REPS
+        </Text>
       </View>
 
-      <Animated.View entering={FadeIn.delay(120).duration(420)} style={{ width: rightWidth }}>
-        <FeaturedCase procedure={next} width={rightWidth} tailored={!!profile} />
-      </Animated.View>
+      <View className={wide ? 'flex-row items-start' : 'mt-4 gap-12'} style={wide ? { gap: 48 } : undefined}>
+        <View style={{ width: leftWidth }} className="gap-8">
+          <Animated.View entering={FadeIn.duration(420)}>
+            <View className="gap-5">
+              <Text className="font-data-medium text-[11px] uppercase tracking-[2px] text-signal">
+                Deliberate practice · graded against the evidence
+              </Text>
+              <Text
+                accessibilityRole="header"
+                className="font-headline text-[40px] leading-[44px] text-ink lg:text-[54px] lg:leading-[58px]"
+              >
+                Rehearse the decisions that matter.
+              </Text>
+              <Text className="max-w-[540px] font-display text-[17px] leading-[27px] text-ink-muted lg:text-[19px] lg:leading-[30px]">
+                Guideline-based cases for surgical trainees. Every call is checked against published recommendations, and
+                case findings vary on every run.
+              </Text>
+              <TailorLine />
+            </View>
+          </Animated.View>
+
+          <EcgTrace width={leftWidth} height={56} beats={wide ? 6 : 4} />
+
+          <View className="gap-3">
+            <Ledger
+              items={[
+                { label: 'Mastered', value: mastered, suffix: `/${procedures.length}` },
+                { label: 'Reps', value: reps },
+                { label: 'Clean runs', value: reps ? Math.round((clean / reps) * 100) : 0, suffix: '%', empty: !reps },
+              ]}
+            />
+            <BackupLine reps={reps} />
+          </View>
+        </View>
+
+        <Animated.View
+          entering={FadeIn.delay(120).duration(420)}
+          style={{ width: rightWidth, marginTop: wide ? -Math.round(size * 0.42) : 0, zIndex: 2 }}
+        >
+          <FeaturedCase procedure={next} width={rightWidth} tailored={!!profile} wide={wide} />
+        </Animated.View>
+      </View>
     </View>
   );
 }
@@ -342,11 +419,24 @@ function LedgerItem({
   );
 }
 
-function FeaturedCase({ procedure, width, tailored }: { procedure: Procedure; width: number; tailored: boolean }) {
+function FeaturedCase({
+  procedure,
+  width,
+  tailored,
+  wide,
+}: {
+  procedure: Procedure;
+  width: number;
+  tailored: boolean;
+  wide: boolean;
+}) {
   const progress = useProcedureProgress(procedure.id);
   const open = () => router.push({ pathname: '/procedure/[id]', params: { id: procedure.id } });
   return (
     <View className="gap-4">
+      <PressableScale accessibilityRole="button" accessibilityLabel={procedure.title} tint={false} depth={0.995} onPress={open}>
+        <ProcedureVisual procedure={procedure} width={width} variant="bare" height={wide ? 440 : 300} />
+      </PressableScale>
       <View className="flex-row items-baseline justify-between gap-3 border-b border-line pb-2">
         <Text className="font-data-medium text-[11px] uppercase tracking-[2px] text-signal">
           {tailored ? 'Recommended for you' : progress.attempts === 0 ? 'Suggested next case' : 'Next rep'}
@@ -355,9 +445,6 @@ function FeaturedCase({ procedure, width, tailored }: { procedure: Procedure; wi
           {primarySpecialtyLabel(procedure.id)}
         </Text>
       </View>
-      <PressableScale accessibilityRole="button" accessibilityLabel={procedure.title} tint={false} depth={0.995} onPress={open}>
-        <ProcedureVisual procedure={procedure} width={width} />
-      </PressableScale>
       <View className="gap-2">
         <Text className="font-display-bold text-[24px] leading-[30px] text-ink">{procedure.title}</Text>
         <Text numberOfLines={3} className="text-[14px] leading-[22px] text-ink-muted">

@@ -23,7 +23,7 @@ export function OutcomeMark({ success, size = 52 }: { success: boolean; size?: n
     mark.set(withDelay(320, withTiming(0, { duration: 340, easing: Easing.out(Easing.cubic) })));
   }, [frame, mark]);
 
-  const color = success ? palette.ink : palette.accent;
+  const color = success ? palette.ink : palette.alarm;
   const markLen = success ? CHECK_LEN : CROSS_LEN;
   const frameProps = useAnimatedProps(() => ({ strokeDashoffset: frame.value }));
   const markProps = useAnimatedProps(() => ({ strokeDashoffset: mark.value * markLen }));
