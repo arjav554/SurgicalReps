@@ -34,6 +34,8 @@ export const STORAGE_KEYS = [
   { key: 'mental-reps/profile', purpose: 'Your specialty quiz answers, if you took the quiz.' },
   { key: 'mental-reps/settings', purpose: 'Whether sound and haptics are on.' },
   { key: 'mental-reps/sync', purpose: 'With an account: which results still need uploading.' },
+  { key: 'mental-reps/run', purpose: 'The case you have open, so a refresh doesn’t restart it. Cleared when you close the tab.' },
+  { key: 'mental-reps/browse', purpose: 'Your library filter, search text and scroll position. Cleared when you close the tab.' },
   { key: 'sb-…-auth-token', purpose: 'With an account: keeps you signed in on this device.' },
 ] as const;
 
@@ -228,14 +230,14 @@ const cookies: LegalDocument = {
     {
       heading: 'What we store on your device',
       body: [
-        'On the web this is your browser’s local storage; in the mobile apps, the app’s own storage. Items are kept until you clear them or uninstall the app.',
+        'On the web this is your browser’s local storage; in the mobile apps, the app’s own storage. Most items are kept until you clear them or uninstall the app. The two marked “Cleared when you close the tab” live in your browser’s session storage and are never uploaded.',
         STORAGE_KEYS.map(({ key, purpose }) => `${key}: ${purpose}`),
       ],
     },
     {
       heading: 'Why we don’t ask for consent',
       body: [
-        'Privacy laws such as the UK and EU rules on cookies and similar technologies let a service store items without asking first when they are strictly necessary for something you asked for: keeping you signed in, saving the progress you make, and remembering your settings. Everything above falls into that group.',
+        'Privacy laws such as the UK and EU rules on cookies and similar technologies let a service store items without asking first when they are strictly necessary for something you asked for: keeping you signed in, saving the progress you make, and remembering your settings and where you were. Everything above falls into that group.',
         'We don’t use analytics, advertising, social media plug-ins or other third-party trackers. If we ever add anything that isn’t strictly necessary, we’ll ask for your consent first and update this notice.',
       ],
     },
