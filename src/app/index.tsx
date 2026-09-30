@@ -10,8 +10,6 @@ import Animated, {
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
-  withSequence,
-  withTiming,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { scheduleOnRN } from 'react-native-worklets';
@@ -22,6 +20,7 @@ import { LegalLinks } from '@/components/LegalLinks';
 import { EcgTrace } from '@/components/graphics/EcgTrace';
 import { Logo } from '@/components/graphics/Logo';
 import { ArcCarousel } from '@/components/home/ArcCarousel';
+import { SectionNav } from '@/components/home/SectionNav';
 import { PearlCarousel } from '@/components/home/PearlCarousel';
 import { ProcedureRow } from '@/components/home/ProcedureCard';
 import { ProcedureVisual } from '@/components/ProcedureVisual';
@@ -183,6 +182,17 @@ export default function HomeScreen() {
     },
   );
 
+  // Buttons at the top jump straight to a part of the page (no scrolling animation).
+  const NAV_LABELS: Record<string, string> = { top: 'Start', next: 'Next case', pearl: 'Pearls', library: 'Library', notes: 'Legal' };
+  const navItems = chapters.map((c) => ({ key: c.key, label: NAV_LABELS[c.key] ?? c.label }));
+  const activeKey = chapters[Math.min(active, chapters.length - 1)]?.key ?? 'top';
+  const jump = (key: string) => {
+    const y = key === 'top' ? 0 : marks[key];
+    if (y === undefined) return;
+    scroller.current?.scrollTo({ y: key === 'top' ? 0 : Math.max(0, y - 72), animated: false });
+  };
+  const nav = (compact: boolean) => <SectionNav items={navItems} active={activeKey} onJump={jump} compact={compact} />;
+
   return (
     <View className="flex-1 flex-row bg-canvas">
       <View className="flex-1">
@@ -203,7 +213,7 @@ export default function HomeScreen() {
               alignSelf: 'center',
             }}
           >
-            <Masthead />
+            <Masthead nav={nav(false)} inline={desktop} />
             <Hero contentWidth={contentWidth} wide={wide} />
 
             {suggestions.length > 0 && (
@@ -298,26 +308,30 @@ export default function HomeScreen() {
           </Animated.ScrollView>
         </ScrollProvider>
 
-        <StickyHeader chapters={chapters} active={Math.min(active, chapters.length - 1)} shown={condensed} />
+        <StickyHeader nav={nav(true)} shown={condensed} />
       </View>
     </View>
   );
 }
 
-function Masthead() {
+function Masthead({ nav, inline }: { nav: ReactNode; inline: boolean }) {
   return (
-    <View className="flex-row items-center justify-between border-b border-line pb-4">
-      <View className="flex-row items-center gap-3">
-        <Logo size={34} />
-        <View>
-          <Text className="font-ui-bold text-[15px] tracking-[0.6px] text-ink">Surgical Reps</Text>
-          <Text className="font-data text-[10px] uppercase tracking-[2px] text-ink-faint">Surgical decision simulator</Text>
+    <View className="border-b border-line pb-4">
+      <View className="flex-row items-center justify-between gap-6">
+        <View className="flex-row items-center gap-3">
+          <Logo size={34} />
+          <View>
+            <Text className="font-ui-bold text-[15px] tracking-[0.6px] text-ink">Surgical Reps</Text>
+            <Text className="font-data text-[10px] uppercase tracking-[2px] text-ink-faint">Surgical decision simulator</Text>
+          </View>
+        </View>
+        {inline && <View className="flex-1 items-center">{nav}</View>}
+        <View className="flex-row items-center gap-2">
+          <AccountButton />
+          <SoundToggle />
         </View>
       </View>
-      <View className="flex-row items-center gap-2">
-        <AccountButton />
-        <SoundToggle />
-      </View>
+      {!inline && <View className="mt-4">{nav}</View>}
     </View>
   );
 }
@@ -519,15 +533,7 @@ function FeaturedCase({
 }
 
 /** Condensed header: slides in as the hero leaves, and says which chapter of the page you are in. */
-function StickyHeader({
-  chapters,
-  active,
-  shown,
-}: {
-  chapters: { key: string; label: string }[];
-  active: number;
-  shown: boolean;
-}) {
+function StickyHeader({ nav, shown }: { nav: ReactNode; shown: boolean }) {
   const insets = useSafeAreaInsets();
   const scrollY = useScrollY();
   const slide = useAnimatedStyle(() => {
@@ -537,7 +543,6 @@ function StickyHeader({
       transform: [{ translateY: interpolate(y, [180, 300], [-14, 0], 'clamp') }],
     };
   });
-  const current = chapters[active];
   return (
     <Animated.View
       pointerEvents={shown ? 'auto' : 'none'}
@@ -550,14 +555,7 @@ function StickyHeader({
             <Text className="hidden font-ui-bold text-[13px] tracking-[0.6px] text-ink sm:flex">Surgical Reps</Text>
           </View>
 
-          <View aria-live="polite" className="flex-1 items-center gap-1.5">
-            <ChapterLabel index={active} total={chapters.length} label={current?.label ?? ''} />
-            <View className="flex-row gap-1">
-              {chapters.map((c, i) => (
-                <ChapterTick key={c.key} state={i < active ? 'done' : i === active ? 'here' : 'ahead'} />
-              ))}
-            </View>
-          </View>
+          <View className="flex-1 items-center">{nav}</View>
 
           <View className="flex-row items-center gap-2">
             <AccountButton />
@@ -569,44 +567,9 @@ function StickyHeader({
   );
 }
 
-/** The chapter name fades out and back in with the new one, so it changes without any sliding. */
-function ChapterLabel({ index, total, label }: { index: number; total: number; label: string }) {
-  const [text, setText] = useState({ index, label });
-  const visible = useSharedValue(1);
-  useEffect(() => {
-    visible.set(withSequence(withTiming(0, { duration: 120 }), withTiming(1, { duration: 220 })));
-    const swap = setTimeout(() => setText({ index, label }), 120);
-    return () => clearTimeout(swap);
-  }, [index, label, visible]);
-  const style = useAnimatedStyle(() => ({ opacity: visible.value }));
-  return (
-    <Animated.View style={style}>
-      <Text numberOfLines={1} className="font-data-medium text-[11px] uppercase tracking-[2px] text-ink">
-        <Text className="text-gold">{String(text.index + 1).padStart(2, '0')}</Text>
-        <Text className="text-ink-faint"> / {String(total).padStart(2, '0')}  </Text>
-        {text.label}
-      </Text>
-    </Animated.View>
-  );
-}
-
 /** Measures where a page section begins, so the header knows which chapter you are in. */
 function Chapter({ id, onMark, children }: { id: string; onMark: (key: string) => (y: number) => void; children: ReactNode }) {
   return <View onLayout={(e) => onMark(id)(e.nativeEvent.layout.y)}>{children}</View>;
-}
-
-/** One short rule per chapter: gold once passed, a longer gold rule for where you are. */
-function ChapterTick({ state }: { state: 'done' | 'here' | 'ahead' }) {
-  const width = useSharedValue(state === 'here' ? 26 : 12);
-  useEffect(() => {
-    width.set(withTiming(state === 'here' ? 26 : 12, { duration: 320 }));
-  }, [state, width]);
-  const style = useAnimatedStyle(() => ({ width: width.value }));
-  return (
-    <Animated.View
-      style={[{ height: 2, backgroundColor: state === 'ahead' ? palette.lineStrong : palette.accent, opacity: state === 'done' ? 0.55 : 1 }, style]}
-    />
-  );
 }
 
 function SoundToggle() {
