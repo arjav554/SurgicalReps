@@ -691,6 +691,36 @@ Hover text for monitor readings. Sources read 2026-09-29; all FT.
 | Lipase | laboratory-specific upper limit; the case states it | none needed (no value claimed) |
 | MAP, "Since injury" | removed; fallback text shown | unsourced values withdrawn |
 
+<a id="standalone-pearls"></a>
+### Standalone pearls (`src/data/pearls.json`)
+Pearls shown in the home carousel alongside case rationales. Each cites a reference of the linked case.
+| Case | Teaching point | Source | Level |
+|---|---|---|---|
+| bladder-trauma | No urethroplasty <48 h in male PFUI; SP diversion + deferred (≥3 months) urethroplasty, 86% stricture-free | EAU Urological Trauma 2026 §4.4.3, §4.4.5 | FT |
+| bladder-trauma | Female PFUI: early repair ≤7 days (strong); stricture 59% realignment vs 3% early repair; incontinence 31% delayed; cystourethroscopy + vaginoscopy | EAU Urological Trauma 2026 §4.4.4 | FT |
+| bladder-trauma | RUG: 20–30 mL, meatal occlusion, 30° oblique (angle beam in PFUI); postpone if unstable; extravasation pathognomonic; partial vs complete unreliable | EAU Urological Trauma 2026 §4.4.3.b | FT |
+| testicular-torsion | Appendix testis torsion: conservative with anti-inflammatories; explore if equivocal/persistent (strong); blue dot 10–23% | EAU/ESPU Paediatric Urology 2026 §8 | FT |
+| testicular-torsion | Perinatal torsion mostly extravaginal/prenatal; bilateral 11–21%; early, not acute, bilateral exploration and fixation | EAU/ESPU Paediatric Urology 2026 §8 | FT |
+| testicular-torsion | Survival 90.4% ≤12 h, 54.0% 13–24 h, 18.1% >24 h | Mellick 2019 | AB |
+| acute-limb-ischemia | Category III: no revascularization (3: Harm); amputation as index procedure; reperfusion risks | ACC/AHA PAD 2024 §11.2.1 | FT |
+| acute-limb-ischemia | Thrombolysis effective <14 days; minimal benefit beyond | ACC/AHA PAD 2024 §11.2.1 | FT |
+| ruptured-aaa | Cardiac arrest/persistent LOC: negligible survival; no single factor or tool | NICE NG156 1.3.1–1.3.2 | FT |
+| ruptured-aaa | No complex EVAR if open repair suitable (except RCT); open if standard EVAR unsuitable | NICE NG156 1.6.2–1.6.3 | FT |
+| symptomatic-carotid-stenosis | <50% NASCET/<70% ECST: no surgery, BMT; reports state criteria | NICE NG128 1.2.5–1.2.6 | FT |
+| symptomatic-carotid-stenosis | NNT 9 men vs 36 women; 5 age ≥75 vs 18 <65; 5 within 2 weeks vs 125 after 12 | Rothwell 2004 | AB |
+| cutaneous-melanoma | No imaging/SLNB stage IA; SLNB criteria 0.8–1.0 mm with risk features, >1.0 mm | NICE NG14 1.4.1, 1.4.3–1.4.4 | FT |
+| cutaneous-melanoma | Stage 0: ≥0.5 cm margin; MDT if inadequate; imiquimod if disfiguring, repeat biopsy | NICE NG14 1.5.1–1.5.2, 1.5.4–1.5.5 | FT |
+| major-burn | Paediatric/senior referral thresholds; other referral criteria; maintenance fluid in young children | EBA 2017 §3.2, §4.1.3 | FT |
+| major-burn | No ice, toothpaste, egg, butter, or pre-transfer creams; cling film; keep warm | EBA 2017 wound management (pre-hospital) | FT |
+| necrotizing-soft-tissue-infection | Fournier: early extensive debridement (1C); faecal diversion (2C); FGSI >9 | WSES/SIS-E 2018 | FT |
+| necrotizing-soft-tissue-infection | HBO after debridement (2B); IVIG for GAS (2B); early surgery most important determinant | WSES/SIS-E 2018 | FT |
+| necrotizing-soft-tissue-infection | CT 88.5%/93.3%; plain X-ray 48.9% sensitive; fever 46.0%, hypotension 21.0% | Fernando 2019 | AB |
+| early-oral-cavity-cancer | Occult nodal metastasis 24.8% (END) and 33.6% (SLNB) in cT1–2 N0 | Hasegawa 2021 | AB |
+| mronj-risk | Denosumab: time non-urgent treatment to month before next dose; resume after healing; effect wanes within 9 months | SDCEP 2017 §3 | FT |
+| mronj-risk | Calcium/vitamin D alone not at risk; reclassify after 5-year bisphosphonate review; past bisphosphonates count | SDCEP 2017 §3 | FT |
+| mandibular-third-molar | Chlorhexidine prevents alveolar osteitis, gel > rinse; adverse effects | RCS England FDS 2020 | FT |
+| mandibular-third-molar | Mesial/horizontal 30–90° partially erupted M3M: distal caries risk in M2M | RCS England FDS 2020 | FT |
+
 ## Open items for faculty review
 
 1. **WHO checklist** full text (iris.who.int) blocks automated access. Allergy, airway, blood-loss, antibiotic-timing,

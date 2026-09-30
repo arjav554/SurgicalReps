@@ -1,3 +1,4 @@
+import extraPearls from '@/data/pearls.json';
 import { citedReferences, shortCite } from '@/lib/citations';
 import type { Citation, Procedure } from '@/types/procedure';
 
@@ -15,9 +16,20 @@ function sourcesOf(procedure: Procedure, cite: Citation | undefined): string[] {
   return citedReferences(procedure.references, cite).map(({ reference }) => shortCite(reference));
 }
 
+/** A standalone pearl in src/data/pearls.json, citing references of the case it belongs to. */
+export interface ExtraPearl {
+  procedureId: string;
+  prompt: string;
+  text: string;
+  cite: Citation;
+}
+
+export const EXTRA_PEARLS: ExtraPearl[] = extraPearls;
+
 /**
  * Teaching pearls are the evidence rationales already attached to correct answers
- * (and multi-select explanations), so every pearl is sourced content, not filler.
+ * (and multi-select explanations), plus standalone pearls from src/data/pearls.json that cite
+ * their case's references, so every pearl is sourced content, not filler.
  */
 export function collectPearls(procedures: Procedure[]): Pearl[] {
   const pearls: Pearl[] = [];
@@ -48,6 +60,18 @@ export function collectPearls(procedures: Procedure[]): Pearl[] {
         });
       }
     }
+  }
+  for (const extra of EXTRA_PEARLS) {
+    const procedure = procedures.find((p) => p.id === extra.procedureId);
+    if (!procedure) continue;
+    pearls.push({
+      procedureId: procedure.id,
+      procedureTitle: procedure.title,
+      category: procedure.category,
+      prompt: extra.prompt,
+      text: extra.text,
+      sources: sourcesOf(procedure, extra.cite),
+    });
   }
   // De-duplicate rationales shared across case variants.
   const seen = new Set<string>();

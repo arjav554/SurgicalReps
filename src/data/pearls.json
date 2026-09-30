@@ -1,0 +1,146 @@
+[
+  {
+    "procedureId": "bladder-trauma",
+    "prompt": "A man with a pelvic fracture has a complete posterior urethral disruption. When is the urethra repaired?",
+    "text": "EAU 2026: do not perform immediate urethroplasty within 48 hours in male pelvic fracture urethral injury (strong); it risks heavy bleeding, stricture, incontinence, and erectile dysfunction. Manage complete posterior disruption with suprapubic diversion and deferred urethroplasty at least 3 months later (strong), which is stricture-free in 86%.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "bladder-trauma",
+    "prompt": "How is a female pelvic fracture urethral injury repaired?",
+    "text": "EAU 2026: repair it early, within 7 days (strong), rather than by delayed repair or early realignment. In pooled series, stricture followed early realignment in 59% but early repair in 3%, and delayed repair carried a 31% incontinence rate. Use cystourethroscopy and vaginoscopy to diagnose it, since urethrography is nearly impossible in women.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "bladder-trauma",
+    "prompt": "How do you perform a retrograde urethrogram after trauma?",
+    "text": "EAU 2026: inject 20–30 mL of contrast while occluding the meatus, with films in a 30° oblique position; in pelvic fracture, angle the X-ray beam rather than moving the patient. Postpone it until an unstable patient is stabilized. Any extravasation is pathognomonic for urethral injury, but the study cannot reliably separate partial from complete rupture.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "testicular-torsion",
+    "prompt": "A boy has isolated tenderness at the upper pole of the testis. Does torsion of the appendix testis need surgery?",
+    "text": "EAU/ESPU 2026: manage torsion of the appendix testis conservatively, with anti-inflammatory analgesia, and explore only in equivocal cases or persistent pain (strong). The 'blue dot' sign was found in only 10–23% of these patients.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "testicular-torsion",
+    "prompt": "What is different about perinatal testicular torsion?",
+    "text": "EAU/ESPU 2026: perinatal torsion is mostly extravaginal and often occurs before birth, and 11–21% of cases are bilateral. Because metachronous contralateral torsion can occur, both testes should be explored and fixed early, though not as an emergency.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "testicular-torsion",
+    "prompt": "Is exploration still worthwhile after 24 hours of torsion?",
+    "text": "In a systematic review of 2,116 patients, testicular survival was 90.4% when treated within 12 hours, 54.0% at 13–24 hours, and still 18.1% beyond 24 hours. The authors conclude this should encourage aggressive management even after many hours of pain.",
+    "cite": [2]
+  },
+  {
+    "procedureId": "acute-limb-ischemia",
+    "prompt": "The ischemic leg is insensate and paralyzed after prolonged ischemia. Revascularize?",
+    "text": "ACC/AHA 2024: do not revascularize nonviable tissue in category III ischemia (class 3: harm). Amputation of nonviable tissue is the index procedure, because reperfusion and circulating ischemic metabolites can cause multiorgan failure and cardiovascular collapse.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "acute-limb-ischemia",
+    "prompt": "When does catheter-directed thrombolysis stop helping?",
+    "text": "ACC/AHA 2024: thrombolysis can be effective for bypass grafts and native arteries occluded for less than 14 days. Beyond 14 days its benefits are minimal, and other revascularization techniques are generally needed. Thrombolysis also unmasks culprit lesions, which should then be treated.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "ruptured-aaa",
+    "prompt": "Which ruptured AAA patients have a negligible chance of surviving repair?",
+    "text": "NICE NG156: people with a confirmed ruptured AAA who have had a cardiac arrest or have persistent loss of consciousness have a negligible chance of surviving repair. Otherwise, no single symptom, sign, or scoring tool should decide transfer or suitability for repair.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "ruptured-aaa",
+    "prompt": "Should complex (fenestrated) EVAR be used for a ruptured aneurysm?",
+    "text": "NICE NG156: do not offer complex EVAR for a ruptured AAA if open repair is suitable, except within a randomized trial. Consider open repair when standard EVAR is unsuitable.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "symptomatic-carotid-stenosis",
+    "prompt": "After a TIA, carotid imaging shows 40% NASCET stenosis. Operate?",
+    "text": "NICE NG128: people with symptomatic stenosis below 50% by NASCET (below 70% by ECST) should not have surgery and should receive best medical treatment. Carotid imaging reports must state whether NASCET or ECST criteria were used.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "symptomatic-carotid-stenosis",
+    "prompt": "Which patients gain most from carotid endarterectomy?",
+    "text": "In pooled ECST and NASCET data (5,893 patients) with 50% or greater stenosis, the number needed to treat to prevent one ipsilateral stroke in 5 years was 9 for men vs 36 for women, and 5 for patients aged 75 or over vs 18 for those under 65. Delay mattered most: 5 within 2 weeks vs 125 after 12 weeks.",
+    "cite": [3]
+  },
+  {
+    "procedureId": "cutaneous-melanoma",
+    "prompt": "Which melanomas need neither staging imaging nor sentinel node biopsy?",
+    "text": "NICE NG14: do not offer imaging or sentinel node biopsy for stage IA melanoma. Consider sentinel node biopsy for melanoma 0.8–1.0 mm thick with ulceration, lymphovascular invasion, or a mitotic index of 2 or more, and for any melanoma thicker than 1.0 mm.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "cutaneous-melanoma",
+    "prompt": "What margin is used for melanoma in situ (stage 0)?",
+    "text": "NICE NG14: consider a clinical margin of at least 0.5 cm for stage 0 melanoma, and discuss with the skin cancer MDT if the histological margin is inadequate. Topical imiquimod can be considered when a 0.5 cm excision would cause unacceptable disfigurement, with a repeat biopsy to check its effect.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "major-burn",
+    "prompt": "Which burned children need a burn center?",
+    "text": "EBA 2017: refer children with superficial dermal burns over 5% TBSA under 2 years, over 10% at 3–10 years, and over 15% at 10–15 years; over 20% in adults and over 10% in adults over 65. Any deep or full-thickness, circumferential, facial, hand, genital, electrical, chemical, or inhalation burn also qualifies. Give maintenance fluid alongside resuscitation in young children, whose glycogen stores are limited.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "major-burn",
+    "prompt": "What should never go on a fresh burn?",
+    "text": "EBA 2017: advise against ice and against substances such as toothpaste, egg, or butter, which can harm the wound. Avoid topical creams before transfer, as they hinder later assessment. Cling film is a good pre-hospital dressing, and the patient should be kept warm.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "necrotizing-soft-tissue-infection",
+    "prompt": "What is specific to Fournier's gangrene?",
+    "text": "WSES/SIS-E 2018: early and extensive debridement improves survival (1C). Consider fecal diversion when feces contaminate the wound (2C); a colostomy or a fecal tube system, with or without negative pressure therapy, are options. A Fournier's Gangrene Severity Index above 9 has predicted mortality.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "necrotizing-soft-tissue-infection",
+    "prompt": "Which adjuncts may help after debridement of a necrotizing infection?",
+    "text": "WSES/SIS-E 2018: consider hyperbaric oxygen after prompt debridement (2B), and intravenous immunoglobulin for group A streptococcal infection (2B). Neither replaces early surgery, which is the most important determinant of outcome.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "necrotizing-soft-tissue-infection",
+    "prompt": "How good is imaging at detecting necrotizing infection?",
+    "text": "In a meta-analysis of 23 studies, CT was 88.5% sensitive and 93.3% specific, while plain radiography was only 48.9% sensitive. Fever was 46.0% sensitive and hypotension 21.0%, so the absence of any one sign does not rule the infection out.",
+    "cite": [3]
+  },
+  {
+    "procedureId": "early-oral-cavity-cancer",
+    "prompt": "How often does a clinically node-negative early oral cancer have nodal metastasis?",
+    "text": "In a randomized trial of T1–2 N0 oral cavity cancer, pathologic nodal metastases were found in 24.8% of the elective neck dissection group and 33.6% of the sentinel node group.",
+    "cite": [3]
+  },
+  {
+    "procedureId": "mronj-risk",
+    "prompt": "An osteoporosis patient on 6-monthly denosumab needs a non-urgent extraction. When?",
+    "text": "SDCEP: consider delaying non-urgent invasive treatment of an asymptomatic tooth until the month before the next denosumab dose, and delay the next dose until the socket has healed, in liaison with the prescriber. Denosumab's effect on bone turnover wanes within 9 months of stopping.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "mronj-risk",
+    "prompt": "Who is not at risk of MRONJ, and when does a low-risk patient become higher risk?",
+    "text": "SDCEP: patients taking only calcium or vitamin D supplements are not at risk. A low-risk osteoporosis patient who continues bisphosphonates beyond the 5-year medication review should be reclassified as higher risk, and past bisphosphonate use counts as if still taking the drug.",
+    "cite": [1]
+  },
+  {
+    "procedureId": "mandibular-third-molar",
+    "prompt": "What reduces dry socket after third molar removal?",
+    "text": "RCS England 2020: chlorhexidine, in any formulation, prevents alveolar osteitis after third molar extraction, and the gel is moderately more effective than the rinse. Clinicians should know its side effects, which include staining, altered taste, and rare serious reactions.",
+    "cite": [2]
+  },
+  {
+    "procedureId": "mandibular-third-molar",
+    "prompt": "Which retained lower third molars threaten the second molar?",
+    "text": "RCS England 2020: partially erupted third molars angled mesially or horizontally between 30 and 90 degrees significantly increase the risk of distal caries in the adjacent second molar and may harm its periodontium, so intervention may be needed sooner rather than later.",
+    "cite": [2]
+  }
+]
