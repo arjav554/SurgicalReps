@@ -1,17 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Platform, Pressable, View } from 'react-native';
-import Animated, {
-  FadeIn,
-  interpolate,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withSequence,
-  withTiming,
-} from 'react-native-reanimated';
 
-import { EcgTrace } from '@/components/graphics/EcgTrace';
-import { Heartbeat } from '@/components/graphics/Heartbeat';
 import { Icon } from '@/components/ui/Icon';
 import { Text } from '@/components/ui/Text';
 import { REFERENCE_RANGE_FALLBACK, REFERENCE_RANGES } from '@/data/referenceRanges';
@@ -31,33 +20,16 @@ const valueByStatus: Record<VitalStatus, string> = {
   critical: 'text-alarm',
 };
 
-const colorByStatus: Record<VitalStatus, string> = {
-  normal: palette.inkMuted,
-  warning: palette.ink,
-  critical: palette.alarm,
+/** Words, not just colour or a marker: the flag a case gives a reading, spoken as well as seen. */
+const flagByStatus: Record<VitalStatus, string | null> = {
+  normal: null,
+  warning: 'Abnormal',
+  critical: 'Critical',
 };
 
-/** Status is carried by marker and weight, not hue: hollow square = abnormal, filled red = critical. */
-function StatusMarker({ status }: { status: VitalStatus }) {
-  if (status === 'normal') return null;
-  return (
-    <View
-      style={{
-        width: 6,
-        height: 6,
-        borderRadius: 1,
-        borderWidth: 1,
-        borderColor: colorByStatus[status],
-        backgroundColor: status === 'critical' ? palette.alarm : 'transparent',
-      }}
-    />
-  );
-}
-
 /**
- * Bedside-monitor readout. Tiles fade in in sequence; critical values breathe;
- * HR carries a live heartbeat and waveform; hovering (or tapping) a reading
- * shows its typical adult reference range.
+ * The readings at this point in the case, set as a plain flowsheet: label, value, unit, and a written flag for
+ * anything abnormal. Nothing here moves. Hovering (or tapping) a reading shows its reference range.
  */
 export function VitalsStrip({ vitals }: { vitals: Vital[] }) {
   const [focus, setFocus] = useState<string | null>(null);
@@ -67,19 +39,18 @@ export function VitalsStrip({ vitals }: { vitals: Vital[] }) {
   return (
     <View className="gap-2">
       <View className="flex-row flex-wrap gap-2" accessibilityRole="summary">
-        {vitals.map((vital, index) => (
-          <Animated.View key={vital.label} entering={FadeIn.delay(60 + index * 45).duration(260)}>
-            <VitalTile
-              vital={vital}
-              active={focus === vital.label}
-              onFocus={() => setFocus(vital.label)}
-              onBlur={() => setFocus((f) => (f === vital.label ? null : f))}
-              onToggle={() => {
-                cue('tick');
-                setFocus((f) => (f === vital.label ? null : vital.label));
-              }}
-            />
-          </Animated.View>
+        {vitals.map((vital) => (
+          <VitalTile
+            key={vital.label}
+            vital={vital}
+            active={focus === vital.label}
+            onFocus={() => setFocus(vital.label)}
+            onBlur={() => setFocus((f) => (f === vital.label ? null : f))}
+            onToggle={() => {
+              cue('tick');
+              setFocus((f) => (f === vital.label ? null : vital.label));
+            }}
+          />
         ))}
       </View>
       <View className="min-h-[18px] flex-row items-center gap-1.5">
@@ -113,72 +84,31 @@ function VitalTile({
   onToggle: () => void;
 }) {
   const status = vital.status ?? 'normal';
-  const isHeartRate = vital.label === 'HR';
-  const bpm = Number.parseInt(vital.value, 10);
-  const blink = useSharedValue(0);
-  const lift = useSharedValue(0);
-
-  useEffect(() => {
-    if (status !== 'critical') return;
-    blink.set(withRepeat(withSequence(withTiming(1, { duration: 700 }), withTiming(0, { duration: 700 })), -1));
-  }, [status, blink]);
-
-  useEffect(() => {
-    lift.set(withTiming(active ? 1 : 0, { duration: 160 }));
-  }, [active, lift]);
-
-  const blinkStyle = useAnimatedStyle(() => ({ opacity: blink.value * 0.55 }));
-  const liftStyle = useAnimatedStyle(() => ({ transform: [{ translateY: interpolate(lift.value, [0, 1], [0, -2]) }] }));
+  const flag = flagByStatus[status];
 
   return (
-    <Animated.View style={liftStyle}>
-      <Pressable
-        onHoverIn={onFocus}
-        onHoverOut={onBlur}
-        onPress={onToggle}
-        accessibilityRole="button"
-        accessibilityLabel={`${vital.label} ${vital.value}${vital.unit ? ` ${vital.unit}` : ''}${
-          status === 'normal' ? '' : `, ${status}`
-        }. Show reference range.`}
-        className={`min-w-[78px] rounded border px-2.5 pb-1.5 pt-1 ${tileByStatus[status]}`}
-        style={active ? { borderColor: palette.ink } : undefined}
-      >
-        {status === 'critical' && (
-          <Animated.View
-            style={[
-              {
-                position: 'absolute',
-                top: -1,
-                right: -1,
-                bottom: -1,
-                left: -1,
-                borderRadius: 3,
-                borderWidth: 1,
-                borderColor: palette.alarm,
-                pointerEvents: 'none',
-              },
-              blinkStyle,
-            ]}
-          />
-        )}
-        <View className="flex-row items-center justify-between gap-2">
-          {/* Clinical labels keep their casing (SpO2, Hct, pH). */}
-          <View className="flex-row items-center gap-1.5">
-            <StatusMarker status={status} />
-            <Text className="font-data text-[10px] tracking-[1px] text-ink-faint">{vital.label}</Text>
-          </View>
-          {isHeartRate && <Heartbeat bpm={bpm} color={colorByStatus[status]} size={10} />}
-        </View>
-        <Text className={`font-data-semibold text-[17px] leading-6 ${valueByStatus[status]}`}>
-          {vital.value}
-          {vital.unit && <Text className="font-data text-[10px] text-ink-faint"> {vital.unit}</Text>}
+    <Pressable
+      onHoverIn={onFocus}
+      onHoverOut={onBlur}
+      onPress={onToggle}
+      accessibilityRole="button"
+      accessibilityLabel={`${vital.label} ${vital.value}${vital.unit ? ` ${vital.unit}` : ''}${
+        flag ? `, ${flag.toLowerCase()}` : ''
+      }. Show reference range.`}
+      className={`min-w-[78px] rounded border px-2.5 pb-1.5 pt-1 ${tileByStatus[status]}`}
+      style={active ? { borderColor: palette.ink } : undefined}
+    >
+      {/* Clinical labels keep their casing (SpO2, Hct, pH). */}
+      <Text className="font-data text-[10px] tracking-[1px] text-ink-faint">{vital.label}</Text>
+      <Text className={`font-data-semibold text-[17px] leading-6 ${valueByStatus[status]}`}>
+        {vital.value}
+        {vital.unit && <Text className="font-data text-[10px] text-ink-faint"> {vital.unit}</Text>}
+      </Text>
+      {flag && (
+        <Text className={`font-data-medium text-[9px] uppercase tracking-[1.2px] ${status === 'critical' ? 'text-alarm' : 'text-ink-muted'}`}>
+          {flag}
         </Text>
-        {isHeartRate && Number.isFinite(bpm) && (
-          <View className="-mx-1 mt-0.5 opacity-80">
-            <EcgTrace width={82} height={16} beats={2} color={colorByStatus[status]} period={(2 * 60000) / Math.max(30, bpm)} />
-          </View>
-        )}
-      </Pressable>
-    </Animated.View>
+      )}
+    </Pressable>
   );
 }

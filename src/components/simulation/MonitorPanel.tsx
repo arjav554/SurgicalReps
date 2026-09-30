@@ -1,13 +1,5 @@
-import { useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
-import Animated, {
-  Easing,
-  FadeInLeft,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withTiming,
-} from 'react-native-reanimated';
+import Animated, { FadeInLeft } from 'react-native-reanimated';
 
 import { Icon } from '@/components/ui/Icon';
 import { PlateImage } from '@/components/ui/PlateImage';
@@ -20,12 +12,12 @@ import type { Procedure, Vital } from '@/types/procedure';
 
 import { VitalsStrip } from './VitalsStrip';
 
-/** Desktop workstation side panel: the live patient monitor and the case timeline. */
+/** Desktop workstation side panel: the readings at this step and the case timeline. */
 export function MonitorPanel({ procedure, vitals }: { procedure: Procedure; vitals: Vital[] | undefined }) {
   return (
     <ScrollView className="flex-1" contentContainerClassName="gap-4 pb-4">
       <View className="gap-3 rounded border border-line bg-surface p-4">
-        <PanelLabel icon="monitor-dashboard" label="Patient monitor" live />
+        <PanelLabel icon="clipboard-pulse-outline" label="Findings at this step" />
         {vitals ? (
           <VitalsStrip vitals={vitals} />
         ) : (
@@ -52,28 +44,11 @@ export function MonitorPanel({ procedure, vitals }: { procedure: Procedure; vita
   );
 }
 
-function PanelLabel({ icon, label, live = false }: { icon: IconName; label: string; live?: boolean }) {
+function PanelLabel({ icon, label }: { icon: IconName; label: string }) {
   return (
-    <View className="flex-row items-center justify-between">
-      <View className="flex-row items-center gap-2">
-        <Icon name={icon} size={15} color={palette.inkFaint} />
-        <Text className="font-data-medium text-[11px] uppercase tracking-[2px] text-ink-faint">{label}</Text>
-      </View>
-      {live && <LiveBadge />}
-    </View>
-  );
-}
-
-function LiveBadge() {
-  const blink = useSharedValue(1);
-  useEffect(() => {
-    blink.set(withRepeat(withTiming(0.25, { duration: 900, easing: Easing.inOut(Easing.quad) }), -1, true));
-  }, [blink]);
-  const style = useAnimatedStyle(() => ({ opacity: blink.value }));
-  return (
-    <View className="flex-row items-center gap-1.5">
-      <Animated.View style={[{ width: 6, height: 6, borderRadius: 1, backgroundColor: palette.vital }, style]} />
-      <Text className="font-data text-[10px] uppercase tracking-[1.5px] text-vital">Live</Text>
+    <View className="flex-row items-center gap-2">
+      <Icon name={icon} size={15} color={palette.inkFaint} />
+      <Text className="font-data-medium text-[11px] uppercase tracking-[2px] text-ink-faint">{label}</Text>
     </View>
   );
 }
@@ -140,13 +115,6 @@ function Timeline({ procedure }: { procedure: Procedure }) {
 type DotKind = 'current' | 'seen' | 'right' | 'wrong' | 'done' | 'failed';
 
 function TimelineDot({ kind }: { kind: DotKind }) {
-  const pulse = useSharedValue(0);
-  useEffect(() => {
-    if (kind !== 'current') return;
-    pulse.set(withRepeat(withTiming(1, { duration: 1400, easing: Easing.out(Easing.quad) }), -1));
-  }, [kind, pulse]);
-  const ring = useAnimatedStyle(() => ({ opacity: 1 - pulse.value, transform: [{ scale: 1 + pulse.value * 1.6 }] }));
-
   const color =
     kind === 'right' || kind === 'done'
       ? palette.vital
@@ -159,11 +127,6 @@ function TimelineDot({ kind }: { kind: DotKind }) {
 
   return (
     <View style={{ width: 18, height: 18 }} className="items-center justify-center">
-      {kind === 'current' && (
-        <Animated.View
-          style={[{ position: 'absolute', width: 10, height: 10, borderRadius: 1, backgroundColor: color }, ring]}
-        />
-      )}
       {icon ? (
         <View className="h-[18px] w-[18px] items-center justify-center rounded-sm border" style={{ borderColor: `${color}66` }}>
           <Icon name={icon} size={12} color={color} />
