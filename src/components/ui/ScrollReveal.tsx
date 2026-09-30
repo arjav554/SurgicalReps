@@ -1,12 +1,11 @@
 import { createContext, useContext, type ReactNode } from 'react';
-import { useWindowDimensions, type LayoutChangeEvent, type StyleProp, type ViewStyle } from 'react-native';
+import { useWindowDimensions, type StyleProp, type ViewStyle } from 'react-native';
 import Animated, {
   Easing,
   measure,
   useAnimatedReaction,
   useAnimatedRef,
   useAnimatedStyle,
-  useReducedMotion,
   useSharedValue,
   withDelay,
   withTiming,
@@ -68,47 +67,4 @@ export function Reveal({
 /** The enclosing screen's scroll offset, or null outside a ScrollProvider. */
 export function useScrollY(): SharedValue<number> | null {
   return useContext(ScrollContext);
-}
-
-/**
- * A section that responds to where it is on screen: full size and full strength at the middle of the
- * viewport, easing smaller and dimmer as it leaves. Direct children of a scroll view's content container only,
- * since it reads its own offset from the container. `onMeasure` reports that offset for chapter tracking.
- */
-export function ScrollFocus({
-  children,
-  strength = 0.12,
-  onMeasure,
-  style,
-}: {
-  children: ReactNode;
-  /** How much smaller the section becomes at the edge of the viewport (0.12 = 12 %). */
-  strength?: number;
-  onMeasure?: (y: number) => void;
-  style?: StyleProp<ViewStyle>;
-}) {
-  const scrollY = useContext(ScrollContext);
-  const { height } = useWindowDimensions();
-  const reduced = useReducedMotion();
-  const top = useSharedValue(0);
-  const size = useSharedValue(0);
-
-  const animated = useAnimatedStyle(() => {
-    if (!scrollY || reduced || size.value === 0) return {};
-    const centre = top.value + size.value / 2 - scrollY.value;
-    const away = Math.min(1, (Math.abs(centre - height / 2) / height) * 1.4);
-    return { opacity: 1 - 0.55 * away * away, transform: [{ scale: 1 - strength * away }] };
-  });
-
-  const onLayout = (e: LayoutChangeEvent) => {
-    top.set(e.nativeEvent.layout.y);
-    size.set(e.nativeEvent.layout.height);
-    onMeasure?.(e.nativeEvent.layout.y);
-  };
-
-  return (
-    <Animated.View onLayout={onLayout} style={[style, animated]}>
-      {children}
-    </Animated.View>
-  );
 }

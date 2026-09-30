@@ -7,7 +7,7 @@ import { palette } from '@/theme';
  * A faint, still pool of warm light behind an object, like a gallery wall wash. It sits low and wide so it
  * reads as lighting rather than a graphic; there is no animation.
  */
-export function Spotlight({ intensity = 0.09, originY = 0.5 }: { intensity?: number; originY?: number }) {
+export function Spotlight({ intensity = 0.06, originY = 0.5 }: { intensity?: number; originY?: number }) {
   return (
     <View pointerEvents="none" style={StyleSheet.absoluteFill}>
       <Svg width="100%" height="100%" preserveAspectRatio="none">

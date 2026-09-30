@@ -1,7 +1,7 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState, type ReactNode } from 'react';
 import { ScrollView, View } from 'react-native';
-import Animated, { FadeIn, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, { FadeIn } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ActionButton } from '@/components/ActionButton';
@@ -114,14 +114,14 @@ export default function OnboardingScreen() {
       <ScrollView
         contentContainerStyle={{
           width: '100%',
-          maxWidth: 880,
+          maxWidth: 1040,
           alignSelf: 'center',
-          paddingHorizontal: wide ? 40 : 20,
+          paddingHorizontal: wide ? 48 : 20,
           paddingTop: insets.top + 12,
-          paddingBottom: insets.bottom + 48,
+          paddingBottom: insets.bottom + 56,
         }}
       >
-        <View className="mb-8 gap-3">
+        <View className="mb-12 gap-4">
           <View className="flex-row items-center gap-4">
             <PressableScale
               accessibilityRole="button"
@@ -141,18 +141,19 @@ export default function OnboardingScreen() {
               </PressableScale>
             )}
           </View>
-          <StepRule progress={Math.min(step, QUESTIONS) / QUESTIONS} />
+          <StepRule step={step} />
         </View>
 
         {step === 0 && (
           <Question
             key="stage"
+            split={wide}
             kicker={from === 'signin' ? 'Signed in · one more thing' : 'Tailor your library'}
             title="Where are you in training?"
             hint="Early learners see the shared fundamentals first."
+            note={QUIZ_NOTICE}
           >
-            <Text className="mb-5 max-w-[620px] text-[13px] leading-5 text-ink-muted">{QUIZ_NOTICE}</Text>
-            <Choices wide={false}>
+            <Choices>
               {TRAINING_STAGES.map((s, i) => (
                 <ChoiceRow
                   key={s.id}
@@ -170,11 +171,12 @@ export default function OnboardingScreen() {
         {step === 1 && (
           <Question
             key="specialty"
+            split={wide}
             kicker="Tailor your library"
             title="Which specialty are you in, or aiming for?"
             hint="Matching cases are recommended and listed first. You can change this later."
           >
-            <Choices wide={wide}>
+            <Choices>
               {SPECIALTY_CHOICES.map((c, i) => (
                 <ChoiceRow
                   key={c.id}
@@ -193,11 +195,12 @@ export default function OnboardingScreen() {
         {step === 2 && (
           <Question
             key="interests"
+            split={wide}
             kicker="Optional"
             title="Anything else you want to practise?"
             hint="Pick any that apply, or none."
           >
-            <Choices wide={wide}>
+            <Choices>
               {interestChoices.map((c, i) => (
                 <ChoiceRow
                   key={c.id}
@@ -210,7 +213,7 @@ export default function OnboardingScreen() {
                 />
               ))}
             </Choices>
-            <View className="mt-6 gap-3">
+            <View className="mt-8 items-start gap-3">
               <ActionButton
                 label={interests.length === 0 ? 'None of these, continue' : `Continue with ${interests.length}`}
                 icon="arrow-right"
@@ -230,36 +233,57 @@ export default function OnboardingScreen() {
   );
 }
 
-function StepRule({ progress }: { progress: number }) {
-  const value = useSharedValue(progress);
-  useEffect(() => {
-    value.set(withTiming(progress, { duration: 320 }));
-  }, [progress, value]);
-  const fill = useAnimatedStyle(() => ({ width: `${value.value * 100}%` }));
+/** Three plain rules: gold up to the current question, a dim rule for what is still ahead. */
+function StepRule({ step }: { step: number }) {
   return (
-    <View className="h-[2px] bg-line">
-      <Animated.View style={[{ height: '100%', backgroundColor: palette.accent }, fill]} />
+    <View aria-hidden className="flex-row gap-1.5">
+      {Array.from({ length: QUESTIONS }, (_, i) => (
+        <View key={i} className="h-[2px] flex-1" style={{ backgroundColor: i <= step ? palette.accent : palette.lineStrong }} />
+      ))}
     </View>
   );
 }
 
-function Question({ kicker, title, hint, children }: { kicker: string; title: string; hint: string; children: ReactNode }) {
+/** The question on the left (with the privacy note), the answers on the right; one column on phones. */
+function Question({
+  kicker,
+  title,
+  hint,
+  note,
+  split,
+  children,
+}: {
+  kicker: string;
+  title: string;
+  hint: string;
+  note?: string;
+  split: boolean;
+  children: ReactNode;
+}) {
   return (
     <Animated.View entering={FadeIn.duration(260)}>
-      <View className="mb-6 gap-3">
-        <Text className="font-data-medium text-[11px] uppercase tracking-[2px] text-signal">{kicker}</Text>
-        <Text className="font-headline text-[34px] leading-[40px] text-ink lg:text-[46px] lg:leading-[52px]">{title}</Text>
-        <Text className="text-[15px] leading-[23px] text-ink-muted">{hint}</Text>
+      <View className={split ? 'flex-row items-start' : ''} style={split ? { gap: 72 } : undefined}>
+        <View className={split ? '' : 'mb-8'} style={split ? { width: 340 } : undefined}>
+          <View className="gap-3">
+            <Text className="font-data-medium text-[11px] uppercase tracking-[2px] text-signal">{kicker}</Text>
+            <Text accessibilityRole="header" className="font-headline text-[34px] leading-[40px] text-ink lg:text-[42px] lg:leading-[48px]">
+              {title}
+            </Text>
+            <Text className="text-[15px] leading-[23px] text-ink-muted">{hint}</Text>
+          </View>
+          {note && <Text className="mt-8 border-t border-line pt-4 text-[12px] leading-[18px] text-ink-faint">{note}</Text>}
+        </View>
+        <View className="flex-1 self-stretch">{children}</View>
       </View>
-      {children}
     </Animated.View>
   );
 }
 
-function Choices({ wide, children }: { wide: boolean; children: ReactNode }) {
-  return <View className={wide ? 'flex-row flex-wrap' : 'gap-2'} style={wide ? { gap: 8 } : undefined}>{children}</View>;
+function Choices({ children }: { children: ReactNode }) {
+  return <View className="flex-row flex-wrap border-t border-line">{children}</View>;
 }
 
+/** One answer as a ruled line: letter, label and detail, and a gold rule and tick when chosen. */
 function ChoiceRow({
   letter,
   label,
@@ -278,31 +302,31 @@ function ChoiceRow({
   onPress: () => void;
 }) {
   return (
-    <PressableScale
-      accessibilityRole={multi ? 'checkbox' : 'radio'}
-      aria-checked={selected}
-      cue={null}
-      rule={!selected}
-      onPress={onPress}
-      style={half ? { width: '49.4%' } : undefined}
-      className={`min-h-[56px] flex-row items-center gap-4 rounded border px-4 py-3 ${
-        selected ? 'border-ink bg-surface-raised' : 'border-line bg-surface'
-      }`}
-    >
-      <View
-        className={`h-8 w-8 items-center justify-center rounded-sm border ${selected ? 'border-ink bg-ink' : 'border-line-strong'}`}
+    <View style={{ width: half ? '50%' : '100%', paddingRight: half ? 20 : 0 }}>
+      <PressableScale
+        accessibilityRole={multi ? 'checkbox' : 'radio'}
+        aria-checked={selected}
+        cue={null}
+        rule={!selected}
+        onPress={onPress}
+        className="border-b border-line"
       >
-        {selected ? (
-          <Icon name="check" size={16} color={palette.canvas} />
-        ) : (
-          <Text className="font-data-medium text-[12px] text-ink-muted">{letter}</Text>
-        )}
-      </View>
-      <View className="flex-1 gap-0.5">
-        <Text className={`text-[15px] leading-[21px] ${selected ? 'font-ui-semibold text-ink' : 'text-ink'}`}>{label}</Text>
-        {detail && <Text className="text-[12px] leading-[17px] text-ink-faint">{detail}</Text>}
-      </View>
-    </PressableScale>
+        <View className="min-h-[60px] flex-row items-center gap-4 py-3 pl-4 pr-2">
+          {selected && (
+            <View
+              pointerEvents="none"
+              style={{ position: 'absolute', left: 0, top: 10, bottom: 10, width: 2, backgroundColor: palette.accent }}
+            />
+          )}
+          <Text className={`w-5 font-data-medium text-[12px] ${selected ? 'text-gold' : 'text-ink-faint'}`}>{letter}</Text>
+          <View className="flex-1 gap-0.5">
+            <Text className={`text-[15px] leading-[21px] ${selected ? 'font-ui-semibold text-ink' : 'font-ui text-ink'}`}>{label}</Text>
+            {detail && <Text className="text-[12px] leading-[17px] text-ink-muted">{detail}</Text>}
+          </View>
+          {selected && <Icon name="check" size={18} color={palette.accent} />}
+        </View>
+      </PressableScale>
+    </View>
   );
 }
 

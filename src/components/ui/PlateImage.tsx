@@ -6,13 +6,12 @@ import type { Figure } from '@/data/figures';
 import { palette } from '@/theme';
 
 /**
- * Turns the cream-paper plate into pale linework on the page: invert, then a contrast push that clips the
- * paper to pure black, and a `screen` blend so black is transparent and the soft wall wash shows through.
- * A touch of sepia keeps the linework warm rather than cold blue.
+ * Turns the cream-paper plate into pale linework: an invert that sends the paper to near-black, a little
+ * contrast, and a touch of sepia so the linework stays warm. There is deliberately no blend mode: blending
+ * inside a moving layer forces a repaint every frame, and the feathered edges already hide the plate's box.
  */
 const inverted: ViewStyle = {
   filter: 'invert(1) contrast(1.15) brightness(0.85) sepia(0.2)',
-  mixBlendMode: 'screen',
 } as ViewStyle;
 
 /**
@@ -42,7 +41,6 @@ export function PlateImage({
 }) {
   return (
     <View style={{ width, height, overflow: 'hidden' }}>
-      {spotlight && <Spotlight />}
       {/* The filter lives on a plain view: react-native-web applies an Image's own filter twice. */}
       <View style={[{ width: '100%', height: '100%', opacity }, inverted]}>
         <Image
@@ -54,6 +52,7 @@ export function PlateImage({
           style={[{ width: '100%', height: '100%' }, style]}
         />
       </View>
+      {spotlight && <Spotlight />}
       {vignette && <Vignette />}
     </View>
   );

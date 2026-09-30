@@ -1,17 +1,16 @@
 import { router } from 'expo-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { ScrollView, TextInput, View } from 'react-native';
 import Animated, {
   FadeIn,
-  FadeInDown,
   FadeOut,
-  FadeOutUp,
   interpolate,
   useAnimatedReaction,
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
+  withSequence,
   withTiming,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -28,7 +27,7 @@ import { ProcedureRow } from '@/components/home/ProcedureCard';
 import { ProcedureVisual } from '@/components/ProcedureVisual';
 import { Icon } from '@/components/ui/Icon';
 import { PressableScale } from '@/components/ui/PressableScale';
-import { Reveal, ScrollFocus, ScrollProvider, useScrollY } from '@/components/ui/ScrollReveal';
+import { Reveal, ScrollProvider, useScrollY } from '@/components/ui/ScrollReveal';
 import { Text } from '@/components/ui/Text';
 import { CLINICAL_DISCLAIMER } from '@/data/disclaimers';
 import { FIGURE_CREDIT } from '@/data/figures';
@@ -111,10 +110,11 @@ export default function HomeScreen() {
   const listed = useMemo(() => filterLibrary(filter, profile, query), [filter, profile, query]);
   const byProcedure = useProgressStore((s) => s.byProcedure);
   const nextRep = pickNextRep(procedures, byProcedure, profile);
-  const suggestions = useMemo(() => {
-    const recommended = profile ? recommendedFor(profile, procedures) : [];
-    return (recommended.length > 0 ? recommended : procedures).filter((p) => p.id !== nextRep.id).slice(0, 9);
-  }, [profile, nextRep.id]);
+  // Only offered once the quiz has been taken: these are the cases it recommends, not a generic list.
+  const suggestions = useMemo(
+    () => (profile ? recommendedFor(profile, procedures).filter((p) => p.id !== nextRep.id).slice(0, 9) : []),
+    [profile, nextRep.id],
+  );
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const previewed = listed.find((p) => p.id === hoveredId) ?? listed[0];
   const rowWide = contentWidth - (preview ? PREVIEW_WIDTH + 40 : 0) >= 640;
@@ -168,12 +168,12 @@ export default function HomeScreen() {
             <Hero contentWidth={contentWidth} wide={wide} />
 
             {suggestions.length > 0 && (
-              <ScrollFocus onMeasure={mark('next')}>
-                <Reveal>
+              <Chapter id="next" onMark={mark}>
+                <Reveal distance={16}>
                 <View className="mt-16 gap-2">
                   <View className="items-center gap-2">
                     <Text className="font-data-medium text-[11px] uppercase tracking-[2px] text-signal">
-                      {profile ? 'More for you' : 'More reps'}
+                      Matched to your quiz
                     </Text>
                     <Text
                       accessibilityRole="header"
@@ -185,17 +185,17 @@ export default function HomeScreen() {
                   <ArcCarousel items={suggestions} width={contentWidth} />
                 </View>
                 </Reveal>
-              </ScrollFocus>
+              </Chapter>
             )}
 
-            <ScrollFocus onMeasure={mark('pearl')} strength={0.08}>
+            <Chapter id="pearl" onMark={mark}>
               <View className="mt-14">
                 <PearlCarousel />
               </View>
-            </ScrollFocus>
+            </Chapter>
 
-            <ScrollFocus onMeasure={mark('library')} strength={0.06}>
-            <Reveal>
+            <Chapter id="library" onMark={mark}>
+            <Reveal distance={16}>
               <View className="mt-14 gap-5">
                 <View className={wide ? 'flex-row items-end justify-between gap-6' : 'gap-4'}>
                   <View className="gap-1.5">
@@ -209,7 +209,7 @@ export default function HomeScreen() {
                 <SpecialtyTabs selected={filter} hasProfile={!!profile} wrap={wide} onSelect={setChosen} />
               </View>
             </Reveal>
-            </ScrollFocus>
+            </Chapter>
 
             <View className={preview ? 'mt-1 flex-row items-start' : 'mt-1'} style={preview ? { gap: 40 } : undefined}>
               <View className="flex-1 border-t border-line-strong">
@@ -259,7 +259,7 @@ export default function HomeScreen() {
           </Animated.ScrollView>
         </ScrollProvider>
 
-        {condensed && <StickyHeader chapters={chapters} active={Math.min(active, chapters.length - 1)} />}
+        <StickyHeader chapters={chapters} active={Math.min(active, chapters.length - 1)} shown={condensed} />
       </View>
     </View>
   );
@@ -336,23 +336,13 @@ function Hero({ contentWidth, wide }: { contentWidth: number; wide: boolean }) {
   const scrollY = useScrollY();
   const reduced = useReducedMotion();
 
-  // As the page moves on, the title recedes into the header and the featured plate settles back.
+  // The title drifts up a little faster than the page and fades out before the header takes over.
   const titleMotion = useAnimatedStyle(() => {
     if (!scrollY || reduced) return {};
     const y = scrollY.value;
     return {
-      opacity: interpolate(y, [0, 300], [1, 0.15], 'clamp'),
-      transform: [{ translateY: interpolate(y, [0, 360], [0, -28], 'clamp') }, { scale: interpolate(y, [0, 360], [1, 0.5], 'clamp') }],
-      transformOrigin: 'left top',
-    };
-  });
-  const plateMotion = useAnimatedStyle(() => {
-    if (!scrollY || reduced) return {};
-    const y = scrollY.value;
-    return {
-      opacity: interpolate(y, [0, 640], [1, 0.25], 'clamp'),
-      transform: [{ translateY: interpolate(y, [0, 560], [0, 90], 'clamp') }, { scale: interpolate(y, [0, 560], [1, 0.8], 'clamp') }],
-      transformOrigin: 'center top',
+      opacity: interpolate(y, [0, 260], [1, 0], 'clamp'),
+      transform: [{ translateY: interpolate(y, [0, 400], [0, -70], 'clamp') }],
     };
   });
 
@@ -412,9 +402,7 @@ function Hero({ contentWidth, wide }: { contentWidth: number; wide: boolean }) {
           entering={FadeIn.delay(120).duration(420)}
           style={{ width: rightWidth, marginTop: wide ? 8 : 0 }}
         >
-          <Animated.View style={plateMotion}>
-            <FeaturedCase procedure={next} width={rightWidth} tailored={!!profile} wide={wide} />
-          </Animated.View>
+          <FeaturedCase procedure={next} width={rightWidth} tailored={!!profile} wide={wide} />
         </Animated.View>
       </View>
     </View>
@@ -491,17 +479,30 @@ function FeaturedCase({
   );
 }
 
-/** Condensed header once the hero has scrolled away, with a hairline page-progress rule. */
-/** Condensed header once the hero has scrolled away: says which chapter of the page you are in. */
-function StickyHeader({ chapters, active }: { chapters: { key: string; label: string }[]; active: number }) {
+/** Condensed header: slides in as the hero leaves, and says which chapter of the page you are in. */
+function StickyHeader({
+  chapters,
+  active,
+  shown,
+}: {
+  chapters: { key: string; label: string }[];
+  active: number;
+  shown: boolean;
+}) {
   const insets = useSafeAreaInsets();
-  const total = chapters.length;
+  const scrollY = useScrollY();
+  const slide = useAnimatedStyle(() => {
+    const y = scrollY ? scrollY.value : 0;
+    return {
+      opacity: interpolate(y, [180, 300], [0, 1], 'clamp'),
+      transform: [{ translateY: interpolate(y, [180, 300], [-14, 0], 'clamp') }],
+    };
+  });
   const current = chapters[active];
   return (
     <Animated.View
-      entering={FadeIn.duration(180)}
-      exiting={FadeOut.duration(140)}
-      style={{ position: 'absolute', top: 0, left: 0, right: 0 }}
+      pointerEvents={shown ? 'auto' : 'none'}
+      style={[{ position: 'absolute', top: 0, left: 0, right: 0 }, slide]}
     >
       <View className="border-b border-line bg-canvas" style={{ paddingTop: insets.top }}>
         <View className="flex-row items-center justify-between gap-4 px-5 py-2.5">
@@ -511,20 +512,7 @@ function StickyHeader({ chapters, active }: { chapters: { key: string; label: st
           </View>
 
           <View aria-live="polite" className="flex-1 items-center gap-1.5">
-            <View className="h-[18px] w-full items-center justify-center overflow-hidden">
-              <Animated.View
-                key={current?.key}
-                entering={FadeInDown.duration(260)}
-                exiting={FadeOutUp.duration(160)}
-                style={{ position: 'absolute' }}
-              >
-                <Text numberOfLines={1} className="font-data-medium text-[11px] uppercase tracking-[2px] text-ink">
-                  <Text className="text-gold">{String(active + 1).padStart(2, '0')}</Text>
-                  <Text className="text-ink-faint"> / {String(total).padStart(2, '0')}  </Text>
-                  {current?.label}
-                </Text>
-              </Animated.View>
-            </View>
+            <ChapterLabel index={active} total={chapters.length} label={current?.label ?? ''} />
             <View className="flex-row gap-1">
               {chapters.map((c, i) => (
                 <ChapterTick key={c.key} state={i < active ? 'done' : i === active ? 'here' : 'ahead'} />
@@ -540,6 +528,32 @@ function StickyHeader({ chapters, active }: { chapters: { key: string; label: st
       </View>
     </Animated.View>
   );
+}
+
+/** The chapter name fades out and back in with the new one, so it changes without any sliding. */
+function ChapterLabel({ index, total, label }: { index: number; total: number; label: string }) {
+  const [text, setText] = useState({ index, label });
+  const visible = useSharedValue(1);
+  useEffect(() => {
+    visible.set(withSequence(withTiming(0, { duration: 120 }), withTiming(1, { duration: 220 })));
+    const swap = setTimeout(() => setText({ index, label }), 120);
+    return () => clearTimeout(swap);
+  }, [index, label, visible]);
+  const style = useAnimatedStyle(() => ({ opacity: visible.value }));
+  return (
+    <Animated.View style={style}>
+      <Text numberOfLines={1} className="font-data-medium text-[11px] uppercase tracking-[2px] text-ink">
+        <Text className="text-gold">{String(text.index + 1).padStart(2, '0')}</Text>
+        <Text className="text-ink-faint"> / {String(total).padStart(2, '0')}  </Text>
+        {text.label}
+      </Text>
+    </Animated.View>
+  );
+}
+
+/** Measures where a page section begins, so the header knows which chapter you are in. */
+function Chapter({ id, onMark, children }: { id: string; onMark: (key: string) => (y: number) => void; children: ReactNode }) {
+  return <View onLayout={(e) => onMark(id)(e.nativeEvent.layout.y)}>{children}</View>;
 }
 
 /** One short rule per chapter: gold once passed, a longer gold rule for where you are. */
