@@ -1,6 +1,6 @@
 # Evidence register
 
-Every graded statement in Mental Reps cites a published source (see [CONTENT_POLICY.md](CONTENT_POLICY.md)).
+Every graded statement in Surgical Reps cites a published source (see [CONTENT_POLICY.md](CONTENT_POLICY.md)).
 This register records, for each case, **what it teaches, where that comes from, and how it was verified**, so
 faculty can audit content without reading the JSON. `npm run verify:sources` separately confirms every PMID
 and DOI against PubMed and doi.org (title, first author, volume, pages).

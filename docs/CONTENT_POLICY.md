@@ -1,6 +1,6 @@
 # Medical content policy
 
-Mental Reps teaches clinical decisions. A wrong "correct answer" teaches a wrong decision, so **no medical
+Surgical Reps teaches clinical decisions. A wrong "correct answer" teaches a wrong decision, so **no medical
 content may be invented, remembered, or paraphrased from an unverified source — by a person or by an AI.**
 Every rule below applies equally to human authors, reviewers, and AI coding agents.
 
