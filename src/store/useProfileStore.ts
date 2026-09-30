@@ -1,8 +1,8 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { normalizeProfile, type SpecialtyChoice, type TrainingStage } from '@/data/specialties';
+import { deviceStorage } from '@/lib/deviceStorage';
 
 /** What the onboarding quiz learns about the user; drives recommendations. */
 export interface LearnerProfile {
@@ -38,7 +38,7 @@ export const useProfileStore = create<ProfileState>()(
         const state = persisted as Pick<ProfileState, 'profile' | 'skippedFor'>;
         return version < 2 ? { ...state, profile: state.profile && normalizeProfile(state.profile) } : state;
       },
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: createJSONStorage(() => deviceStorage),
       partialize: ({ profile, skippedFor }) => ({ profile, skippedFor }),
     },
   ),

@@ -1,6 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
+
+import { deviceStorage } from '@/lib/deviceStorage';
 
 /** `unavailable`: this build has no Supabase project, so the app is device-only. */
 export type AuthStatus = 'unavailable' | 'loading' | 'signedOut' | 'signedIn';
@@ -53,7 +54,7 @@ export const useSyncStore = create<SyncState>()(
     {
       name: 'mental-reps/sync',
       version: 1,
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: createJSONStorage(() => deviceStorage),
       partialize: ({ ownerId, pending, lastSyncedAt }) => ({ ownerId, pending, lastSyncedAt }),
     },
   ),

@@ -20,6 +20,7 @@ import { supabase } from '@/lib/supabase';
 import { useAuthStore, useSyncStore } from '@/store/useAuthStore';
 import { useProfileStore, type LearnerProfile } from '@/store/useProfileStore';
 import { useProgressStore } from '@/store/useProgressStore';
+import { useSimulationStore } from '@/store/useSimulationStore';
 
 /**
  * Optional accounts. Signed out, progress and the learner profile live on the device as before.
@@ -319,6 +320,7 @@ export function dismissLinkError() {
 function clearDevice() {
   applyLocal({});
   applyProfile(null);
+  useSimulationStore.getState().exit();
   useSyncStore.setState({ ownerId: null, pending: [], lastSyncedAt: null });
 }
 

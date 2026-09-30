@@ -10,6 +10,7 @@ The session name is its `SendMessage` address, so copy it exactly as `ListAgents
 | UI: screens, components, layout, styling, motion, visual assets | "Design Specialisit" |
 | Content: procedures, references, evidence, and the code that loads them | "Medical Specialist" |
 | Security and maintenance: auth and data security, secrets, dependencies, web build and hosting, legal pages | "Security Specialist" |
+| Backend: Supabase schema and sync, persisted stores and device storage (what survives a refresh or restart) | "Backend specialist" |
 
 ## Medical information: content session only
 
@@ -59,6 +60,17 @@ educational-use disclaimer, is checked with the content session before it ships.
 - Its own check scripts under `scripts/`, in separate files: `check-figure-licenses.mjs` (`verify-references.mjs`
   and `prepare-figures.py` stay with content)
 - Tests: `legal`, `security`
+
+**Backend owns**
+
+- `supabase/` migrations (Security reviews changes for RLS)
+- `src/lib/deviceStorage.ts`: which storage each persisted store uses (`deviceStorage` survives closing the
+  app, `visitStorage` survives a web refresh only)
+- `src/store/useBrowseStore.ts`: library filter, search text and home scroll offset, kept across a refresh
+- Its own tests: `refresh`
+
+A new persisted store needs a `name:` in `src/store/` and a matching entry in `STORAGE_KEYS`
+(`src/legal/documents.ts`, Security's), or `legal.test.ts` fails.
 
 **Shared: message the other sessions before changing**
 

@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { ScrollView, TextInput, View } from 'react-native';
 import Animated, {
   FadeIn,
@@ -45,6 +45,7 @@ import { cue } from '@/lib/feedback';
 import { useBreakpoint, useCountUp } from '@/lib/layout';
 import { pickNextRep, recommendedFor } from '@/lib/recommend';
 import { useAuthStore } from '@/store/useAuthStore';
+import { useBrowseStore } from '@/store/useBrowseStore';
 import { useProfileStore, type LearnerProfile } from '@/store/useProfileStore';
 import { EMPTY_PROGRESS, isMastered, useProcedureProgress, useProgressStore } from '@/store/useProgressStore';
 import { useSettingsStore } from '@/store/useSettingsStore';
@@ -52,9 +53,17 @@ import { palette } from '@/theme';
 import type { Procedure } from '@/types/procedure';
 
 const MAX_WIDTH = 1200;
+const RESTORE_SCROLL_MS = 400;
 const PREVIEW_WIDTH = 340;
 
 type LibraryFilter = 'for-you' | 'all' | SpecialtyId;
+
+/** A tab id read back from session storage, or null if it no longer names a tab. */
+function asLibraryFilter(value: string | null): LibraryFilter | null {
+  return value === 'for-you' || value === 'all' || SPECIALTIES.some((s) => s.id === value)
+    ? (value as LibraryFilter)
+    : null;
+}
 
 /** Library sections that have at least one case. */
 const sectionCount = SPECIALTIES.filter((s) => procedures.some((p) => specialtiesOf(p.id).includes(s.id))).length;
@@ -93,6 +102,29 @@ export default function HomeScreen() {
     scrollY.set(event.contentOffset.y);
   });
 
+  // After a refresh, return to where the learner was once the page has had a moment to lay out
+  // (the filtered list and carousels settle just after first paint). `onContentSizeChange` isn't
+  // reported by the web ScrollView, so this waits a beat rather than for the height.
+  const scroller = useRef<Animated.ScrollView>(null);
+  const [restoreTo] = useState(() => useBrowseStore.getState().scrollY);
+  const restored = useRef(restoreTo <= 0);
+  useEffect(() => {
+    if (restored.current) return;
+    const timer = setTimeout(() => {
+      if (!restored.current) scroller.current?.scrollTo({ y: restoreTo, animated: false });
+      restored.current = true;
+    }, RESTORE_SCROLL_MS);
+    return () => clearTimeout(timer);
+  }, [restoreTo]);
+  // The scroll handler above stays the only writer of scrollY; this just reads it.
+  const rememberScroll = (y: number) => {
+    if (restored.current) useBrowseStore.getState().setScrollY(y);
+  };
+  useAnimatedReaction(
+    () => Math.round(scrollY.value / 24) * 24,
+    (y) => scheduleOnRN(rememberScroll, y),
+  );
+
   const [condensed, setCondensed] = useState(false);
   useAnimatedReaction(
     () => scrollY.value > 280,
@@ -102,9 +134,12 @@ export default function HomeScreen() {
   );
 
   const profile = useProfileStore((s) => s.profile);
-  const [query, setQuery] = useState('');
+  // Search text and tab survive a page refresh (session storage), as does the scroll position.
+  const query = useBrowseStore((s) => s.query);
+  const setQuery = useBrowseStore((s) => s.setQuery);
   // Until the learner picks a tab, show their recommendations if they have a profile.
-  const [chosen, setChosen] = useState<LibraryFilter | null>(null);
+  const chosen = asLibraryFilter(useBrowseStore((s) => s.filter));
+  const setChosen = useBrowseStore((s) => s.setFilter);
   const filter: LibraryFilter =
     chosen === 'for-you' && !profile ? 'all' : (chosen ?? (profile ? 'for-you' : 'all'));
   const listed = useMemo(() => filterLibrary(filter, profile, query), [filter, profile, query]);
@@ -153,7 +188,11 @@ export default function HomeScreen() {
       <View className="flex-1">
         <ScrollProvider scrollY={scrollY}>
           <Animated.ScrollView
+            ref={scroller}
             onScroll={onScroll}
+            onScrollBeginDrag={() => {
+              restored.current = true;
+            }}
             scrollEventThrottle={16}
             contentContainerStyle={{
               paddingTop: insets.top + 18,

@@ -44,7 +44,8 @@ export default function SimulationScreen() {
 
   useEffect(() => {
     if (!procedure) return;
-    start(procedure);
+    // A page refresh rehydrates the run in progress; resume it only if it is this very case.
+    if (useSimulationStore.getState().procedure?.id !== procedure.id) start(procedure);
     return exit;
   }, [procedure, start, exit]);
 

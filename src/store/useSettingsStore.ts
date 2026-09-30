@@ -1,6 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
+
+import { deviceStorage } from '@/lib/deviceStorage';
 
 interface SettingsState {
   soundOn: boolean;
@@ -20,7 +21,7 @@ export const useSettingsStore = create<SettingsState>()(
     {
       name: 'mental-reps/settings',
       version: 1,
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: createJSONStorage(() => deviceStorage),
       partialize: ({ soundOn, hapticsOn }) => ({ soundOn, hapticsOn }),
     },
   ),

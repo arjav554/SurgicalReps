@@ -1,7 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
+import { deviceStorage } from '@/lib/deviceStorage';
 import type { TerminalStatus } from '@/types/procedure';
 
 /** Consecutive clean runs needed to call a procedure mastered. Options shuffle and cases vary per run. */
@@ -67,7 +67,7 @@ export const useProgressStore = create<ProgressState>()(
     {
       name: 'mental-reps/progress',
       version: 1,
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: createJSONStorage(() => deviceStorage),
       partialize: (state) => ({ byProcedure: state.byProcedure }),
     },
   ),

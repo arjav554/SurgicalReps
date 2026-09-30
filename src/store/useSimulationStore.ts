@@ -1,5 +1,9 @@
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
+import type { StateCreator } from 'zustand/vanilla';
 
+import { getProcedure } from '@/data/procedures';
+import { visitStorage } from '@/lib/deviceStorage';
 import {
   START_NODE_ID,
   type ChanceOutcome,
@@ -112,7 +116,57 @@ function pickOutcome(outcomes: ChanceOutcome[], random: () => number): NodeId {
   return outcomes[outcomes.length - 1]!.next;
 }
 
-export const useSimulationStore = create<SimulationState>()((set, get) => {
+/** The run as kept across a page refresh: the procedure by id, since the graph itself is bundled. */
+type PersistedRun = Omit<SimulationData, 'procedure'> & { procedureId: string };
+
+/** A run left this long without an answer is treated as abandoned rather than resumed. */
+const RESUME_WINDOW_MS = 30 * 60 * 1000;
+
+/**
+ * Rebuild a run saved before a refresh, or null if it can't be trusted: unknown or since-changed
+ * procedure, a path that no longer fits its graph, or too old. The caller then starts fresh.
+ */
+function restoreRun(saved: unknown, at: number): (Pick<SimulationData, 'procedure'> & Omit<PersistedRun, 'procedureId'>) | null {
+  const run = saved as Partial<PersistedRun> | null | undefined;
+  if (!run || typeof run.procedureId !== 'string') return null;
+  const procedure = getProcedure(run.procedureId);
+  if (!procedure) return null;
+  const { nodes } = procedure;
+
+  const { path, currentNodeId, choices, optionOrder, status, complication } = run;
+  if (!Array.isArray(path) || path.length === 0 || !path.every((id) => typeof id === 'string' && nodes[id])) return null;
+  if (typeof currentNodeId !== 'string' || path[path.length - 1] !== currentNodeId) return null;
+  const current = nodes[currentNodeId];
+  if (!current || current.type === 'chance') return null;
+  if (!Array.isArray(choices) || !optionOrder || typeof optionOrder !== 'object') return null;
+  if (status !== 'running' && status !== 'success' && status !== 'failure') return null;
+  if (status !== 'running' && current.type !== 'terminal' && !complication) return null;
+  if (complication && !nodes[complication.outcomeNodeId]) return null;
+  for (const [id, order] of Object.entries(optionOrder)) {
+    const node = nodes[id];
+    if (!node || (node.type !== 'decision' && node.type !== 'multi')) return null;
+    if (!Array.isArray(order) || order.length !== node.options.length) return null;
+  }
+  const { startedAt, nodeEnteredAt, finishedAt, attempt } = run;
+  if (typeof startedAt !== 'number' || typeof nodeEnteredAt !== 'number' || typeof attempt !== 'number') return null;
+  if (at - (finishedAt ?? nodeEnteredAt) > RESUME_WINDOW_MS) return null;
+
+  return {
+    procedure,
+    path,
+    currentNodeId,
+    choices,
+    optionOrder,
+    status,
+    complication: complication ?? null,
+    startedAt,
+    nodeEnteredAt,
+    finishedAt: finishedAt ?? null,
+    attempt,
+  };
+}
+
+const simulation: StateCreator<SimulationState, [['zustand/persist', unknown]]> = (set, get) => {
   /**
    * State patch for moving into `nodeId`. Chance nodes are resolved on the spot
    * (graphs are acyclic, so this terminates), decision options get their
@@ -263,7 +317,30 @@ export const useSimulationStore = create<SimulationState>()((set, get) => {
 
     exit: () => set(idle),
   };
-});
+};
+
+export const useSimulationStore = create<SimulationState>()(
+  persist(simulation, {
+    name: 'mental-reps/run',
+    version: 1,
+    storage: createJSONStorage(() => visitStorage),
+    partialize: ({ procedure, currentNodeId, path, choices, status, complication, optionOrder, startedAt, nodeEnteredAt, finishedAt, attempt }) => ({
+      procedureId: procedure?.id ?? null,
+      currentNodeId,
+      path,
+      choices,
+      status,
+      complication,
+      optionOrder,
+      startedAt,
+      nodeEnteredAt,
+      finishedAt,
+      attempt,
+    }),
+    // A refresh mid-case resumes it; anything that doesn't check out is dropped and the case starts fresh.
+    merge: (saved, current) => ({ ...current, ...restoreRun(saved, Date.now()) }),
+  }),
+);
 
 export function useCurrentNode(): VisibleNode | undefined {
   return useSimulationStore((state) => {
