@@ -670,6 +670,27 @@ The graph is kept verbatim from the product spec; only citations and metadata ar
 | Plain-film signs of IAN proximity: canal diversion, root darkening, white-line interruption; CBCT not routine, selected cases only, no reduction in neurosensory disturbance; coronectomy minimises IAN injury with strict selection; risks infection, pain, later root removal | RCS England FDS 2020 | FT |
 | Ibuprofen plus paracetamol optimal; preoperative parenteral steroid reduces pain, trismus, swelling; limited evidence for antibiotics (treat 12 to prevent 1 infection) | RCS England FDS 2020 | FT |
 
+<a id="monitor-reference-values"></a>
+### Monitor reference values (`src/data/referenceRanges.ts`)
+Hover text for monitor readings. Sources read 2026-09-29; all FT.
+| Reading | Value shown | Source |
+|---|---|---|
+| HR, BP, RR, Temp | 60–100 bpm; 90/60–120/80 mmHg; 12–18 /min; 36.5–37.3 °C (resting adult) | MedlinePlus Encyclopedia 002341 "Vital signs" |
+| SpO2 | 95–100 % | MedlinePlus Lab Tests "Pulse oximetry" |
+| WBC; Neut | 4.5–11.0 ×10³/µL; 40–60 % | MedlinePlus 003643; 003657 |
+| CRP | most healthy adults < 0.3 mg/dL (3 mg/L) | MedlinePlus 003356 |
+| Lactate; K | 0.5–2.2 mmol/L; 3.7–5.2 mmol/L | MedlinePlus 003507; 003484 |
+| Cr | men 0.7–1.3, women 0.5–0.95 mg/dL | MedlinePlus 003475 |
+| INR | 0.8–1.1 off warfarin | MedlinePlus 003652 |
+| Plt; BUN | 150–400 ×10³/µL; 6–20 mg/dL | MedlinePlus 003647; 003474 |
+| Hct; Hb | men 37–48 %, women 34–43 %; men 13.8–17.2, women 12.1–15.1 g/dL | MedlinePlus 003646; 003645 |
+| Bili; HCO3 | total 0.1–1.2 mg/dL; 23–29 mmol/L | MedlinePlus 003479; 003469 |
+| IOP | 10–21 mmHg | MedlinePlus 003447 "Tonometry" |
+| AHI | adults < 5 /h normal | MedlinePlus 003932 "Polysomnography" |
+| GCS, ICP, CPP | severe TBI = GCS 3–8; treat ICP > 22 mmHg (IIB); CPP target 60–70 mmHg (IIB) | BTF 4th edition (2016) |
+| Lipase | laboratory-specific upper limit; the case states it | none needed (no value claimed) |
+| MAP, "Since injury" | removed; fallback text shown | unsourced values withdrawn |
+
 ## Open items for faculty review
 
 1. **WHO checklist** full text (iris.who.int) blocks automated access. Allergy, airway, blood-loss, antibiotic-timing,
